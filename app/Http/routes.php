@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', function () {
+  return Redirect::route('specification');
+});
+
+Route::get('/specification', ['uses' => 'SpecificationController@index', 'as' => 'specification']);
+Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
