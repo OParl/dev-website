@@ -6,7 +6,7 @@
           <span>Inhaltsverzeichnis.</span>
         </div>
         <div class="col-xs-12 col-md-9">
-            Text.
+            {!! $livecopy !!}
         </div>
     </div>
 @stop

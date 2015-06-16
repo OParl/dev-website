@@ -12,6 +12,7 @@ class ServiceProvider extends IlluminateServiceProvider
   public function register()
   {
     $this->app->bind('VersionRepository', 'OParl\Spec\VersionRepository', true);
+    $this->app->bind('LiveCopyRepository', 'OParl\Spec\LiveCopyRepository', true);
   }
 
 }

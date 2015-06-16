@@ -8,6 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use OParl\Spec\LiveCopyRepository;
 
 class UpdateLiveCopy extends Job implements SelfHandling, ShouldQueue
 {
@@ -27,7 +28,7 @@ class UpdateLiveCopy extends Job implements SelfHandling, ShouldQueue
       if (ends_with($file['name'], '.md'))
       {
         $data = $gh->repo()->contents()->download('OParl', 'specs', $file['path']);
-        $fs->put('livecopy/'.$file['name'], $data);
+        $fs->put(LiveCopyRepository::CHAPTER_PATH.$file['name'], $data);
       }
     }
   }
