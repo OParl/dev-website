@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-  return Redirect::route('specification');
+  return Redirect::route('specification.index');
 });
 
 Route::get('/specification', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
