@@ -16,3 +16,13 @@ $btn-primary-bg : #01aae7;
   top: 25px;
   position: relative;
 }
+
+.panel-toc {
+  position: static;
+
+  .panel-body {
+    min-height: 150px;
+    max-height: 450px;
+    overflow-y: scroll;
+  }
+}
