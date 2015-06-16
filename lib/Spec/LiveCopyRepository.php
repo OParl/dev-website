@@ -23,7 +23,7 @@ class LiveCopyRepository
   public function __toString()
   {
     return $this->chapters->reduce(function ($carry, $current) {
-      return $carry . $current;
+      return $carry . view('specification.chapter', ['chapter' => $current])->render();
     }, '');
   }
 

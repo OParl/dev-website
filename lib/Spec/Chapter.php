@@ -34,7 +34,7 @@ class Chapter
    */
   public function getFilename()
   {
-    return $this->filename;
+    return basename($this->filename);
   }
 
   /**
