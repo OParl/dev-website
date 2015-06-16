@@ -14,4 +14,11 @@ $(document).ready(function () {
         $('#endnotes').append(remarks);
         $('.footnotes').remove();
     });
+
+    $('#download-selector select').on('change', function(event) {
+        if (event.target.selectedOptions[0].attributes[0].value == "0")
+        {
+            $('#download-selector .form-group:nth-of-type(2)').slideDown(1200);
+        }
+    });
 });

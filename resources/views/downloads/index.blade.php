@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-xs-12">
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="download-selector">
                 <div class="form-group">
                     <label for="version" class="control-label col-sm-4">
                         Gewünschte Version:
@@ -46,16 +46,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label for="email" class="control-label col-sm-4">
                         Ihre E-Mail-Adresse:
                     </label>
                     <div class="col-sm-8">
                         <input type="email" class="form-control" name="email" placeholder="email@example.com" aria-describedby="email-help" />
                         <div id="email-help" class="help-block">
-                            Die Angabe ihrer E-Mail-Adresse ist erforderlich, da wir Sie via E-Mail informieren,
-                            sobald der Download der von Ihnen angeforderten Spezifikationsversion zur Verfügung
-                            steht.
+                            Die von Ihnen angeforderte Spezifikationsversion liegt zur Zeit nicht aufbereitet vor.
+                            Die Erstellung benötigt unter Umständne einen kleinen Moment. Wir bitten Sie daher
+                            um Ihre E-Mail-Adresse, um Ihnen den Downloadlink direkt zusenden zu können, sobald
+                            der Erstellungsprozess abgeschlossen ist.
                         </div>
                     </div>
                 </div>
