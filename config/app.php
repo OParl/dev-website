@@ -145,7 +145,8 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
-    'GrahamCampbell\GitHub\GitHubServiceProvider'
+    'OParl\Spec\ServiceProvider',
+    'GrahamCampbell\GitHub\GitHubServiceProvider',
 	],
 
 	/*

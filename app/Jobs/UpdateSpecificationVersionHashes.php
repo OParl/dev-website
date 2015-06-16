@@ -1,13 +1,12 @@
-<?php
+<?php namespace App\Jobs;
 
-namespace App\Jobs;
-
-use App\Jobs\Job;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
+use OParl\Spec\VersionRepository;
 
 class UpdateSpecificationVersionHashes extends Job implements SelfHandling, ShouldQueue
 {
@@ -22,6 +21,6 @@ class UpdateSpecificationVersionHashes extends Job implements SelfHandling, Shou
     {
       $gh = app('github');
       $commits = $gh->repo()->commits()->all('OParl', 'specs', []);
-      $fs->put('specs_versions.json', json_encode($commits));
+      $fs->put(VersionRepository::REPOSITORY_FILE, json_encode($commits));
     }
 }

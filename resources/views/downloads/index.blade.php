@@ -8,7 +8,11 @@
             </div>
         </div>
         <div class="col-xs-12">
-            Versionsinformationen
+            <br />
+            <ul class="list-unstyled text-center">
+                <li><em>{{ $versions[0]->getCommitMessage()  }}</em></li>
+                <li><small>(Erstellt {{ $versions[0]->getDate()->diffForHumans() }}.)</small></li>
+            </ul>
         </div>
 
         <div class="col-xs-12">
@@ -29,7 +33,11 @@
                     </label>
                     <div class="col-sm-8">
                         <select class="form-control" name="version" aria-describedby="version-help">
-                            <option>Hashes von GitHub</option>
+                            @include ('downloads.version', ['version' => $versions[0]])
+
+                            @for ($i = 1; isset($versions[$i]); $i++)
+                                @include('downloads.version', ['version' => $versions[$i]])
+                            @endfor
                         </select>
                         <div id="version-help" class="help-block">
                             Falls die von Ihnen gewünschte Version nicht mehr in der obigen Auswahl sein sollte,

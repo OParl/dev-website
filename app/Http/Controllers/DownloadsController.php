@@ -4,6 +4,8 @@ class DownloadsController extends Controller
 {
   public function index()
   {
-    return view('downloads.index');
+    $versions = app('VersionRepository');
+
+    return view('downloads.index', compact('versions'));
   }
 }
