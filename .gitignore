@@ -1,3 +1,8 @@
 /vendor
 /node_modules
 .env
+/public/js
+/public/css
+/public/fonts
+
+storage/github
