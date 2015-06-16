@@ -16,7 +16,7 @@ class LiveCopyRepository implements ArrayAccess
   {
     $files = collect($fs->allFiles(static::CHAPTER_PATH));
     $this->chapters = $files->map(function ($chapterFile) use ($fs) {
-      return \Parsedown::instance()->parse($fs->get($chapterFile));
+      return new Chapter($fs, $chapterFile);
     });
   }
 
