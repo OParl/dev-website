@@ -4,9 +4,9 @@ use OParl\Spec\LiveCopyRepository;
 
 class SpecificationController extends Controller {
 	/**
-	 * Show the application dashboard to the user.
+	 * Show the specification's live copy
 	 *
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function index(LiveCopyRepository $livecopy)
 	{
