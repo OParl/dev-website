@@ -8,7 +8,7 @@
 		"laravel/framework": "5.1.*",
 		"graham-campbell/github": "^3.2",
         "predis/predis": "^1.0",
-		"erusev/parsedown": "^1.5"
+		"ryakad/pandoc-php": "^1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
@@ -19,7 +19,7 @@
 			"database"
 		],
 		"psr-4": {
-			"App\\": "app/",
+            "App\\": "app/",
             "OParl\\Spec\\": "lib/Spec/"
 		}
 	},
