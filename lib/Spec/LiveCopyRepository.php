@@ -2,6 +2,7 @@
 
 use ArrayAccess;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 
 class LiveCopyRepository implements ArrayAccess
 {
@@ -29,11 +30,11 @@ class LiveCopyRepository implements ArrayAccess
 
   public function getHeadlines()
   {
-    return $this->chapters->map(function ($chapter) {
+    return $this->chapters->map(function (Chapter $chapter) {
       return $chapter->getHeadlines();
-    })->reduce(function ($carry, $headlines) {
-      return array_merge($carry, $headlines);
-    }, []);
+    })->reduce(function (Collection $carry, Collection $headlines) {
+      return $carry->merge($headlines);
+    }, collect());
   }
 
   /**

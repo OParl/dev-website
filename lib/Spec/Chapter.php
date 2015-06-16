@@ -24,10 +24,21 @@ class Chapter
 
   protected function parse()
   {
-    $parser = new ChapterParser();
+    $this->html = \Parsedown::instance()->parse($this->raw);
 
-    $this->html = $parser->parse($this->raw);
-    $this->headlines = $parser->getHeadlines();
+    // get headlines
+    $text = str_replace(array("\r\n", "\r"), "\n", $this->raw);
+    $text = preg_replace('/(.+)\n(=){2,}/', '# $1', $text);
+    $text = preg_replace('/(.+)\n(-){2,}/', '## $1', $text);
+
+    $this->headlines = collect(explode("\n", $text))->filter(function ($line) {
+      return starts_with(trim($line), '#');
+    })->map(function ($headline) {
+      return [
+        'level' => 0, // FIXME: get level
+        'text'  => trim($headline, '# ')
+      ];
+    });
   }
 
   /**
