@@ -88,11 +88,15 @@ class Chapter
 
   protected function parseMarkdown()
   {
+    // transform with pandoc
     $pandoc = new Pandoc();
 
     $this->html = $pandoc->runWith($this->raw, [
       'from' => 'markdown',
       'to' => 'html5',
     ]);
+
+    // fix image urls
+    $this->html = preg_replace('/"(.?)(images\/.+\.png)"/', '""$1/specification/$2"', $this->html);
   }
 }
