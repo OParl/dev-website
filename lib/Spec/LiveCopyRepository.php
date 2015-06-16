@@ -27,6 +27,15 @@ class LiveCopyRepository implements ArrayAccess
     }, '');
   }
 
+  public function getHeadlines()
+  {
+    return $this->chapters->map(function ($chapter) {
+      return $chapter->getHeadlines();
+    })->reduce(function ($carry, $headlines) {
+      return array_merge($carry, $headlines);
+    }, []);
+  }
+
   /**
    * (PHP 5 &gt;= 5.0.0)<br/>
    * Whether a offset exists
