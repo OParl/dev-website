@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use OParl\Spec\VersionRepository;
 
-class UpdateSpecificationVersionHashes extends Job implements SelfHandling, ShouldQueue
+class UpdateVersionHashes extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 

@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\UpdateSpecificationVersionHashes;
+use App\Jobs\UpdateVersionHashes;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class UpdateSpecificationVersionHashesCommand extends Command
+class UpdateVersionHashesCommand extends Command
 {
   use DispatchesJobs;
 
@@ -42,6 +42,6 @@ class UpdateSpecificationVersionHashesCommand extends Command
   public function handle()
   {
     $this->info("Scheduling update job.");
-    $this->dispatch(new UpdateSpecificationVersionHashes());
+    $this->dispatch(new UpdateVersionHashes());
   }
 }
