@@ -41,7 +41,7 @@ class UpdateVersionHashesCommand extends Command
    */
   public function handle()
   {
-    $this->info("Scheduling update job.");
+    $this->info('Scheduling version hashes update.');
     $this->dispatch(new UpdateVersionHashes());
   }
 }

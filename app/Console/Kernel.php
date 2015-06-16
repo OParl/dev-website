@@ -11,5 +11,6 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
     'App\Console\Commands\UpdateVersionHashesCommand',
+    'App\Console\Commands\UpdateLiveCopyCommand',
 	];
 }
