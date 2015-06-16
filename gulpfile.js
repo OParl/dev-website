@@ -22,6 +22,12 @@ elixir(function(mix) {
 
     mix.scripts(
         [
+            'app.js'
+        ], 'public/js/app.js', 'resources/js'
+    );
+
+    mix.scripts(
+        [
             'jquery/dist/jquery.js',
 
             'prism/prism.js',
