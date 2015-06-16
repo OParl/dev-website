@@ -1,7 +1,7 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "oparl/spec-website",
+	"description": "Die OParl-Spezifikation online ansehen oder herunterladen.",
+	"keywords": ["spec", "oparl", "download", "view"],
 	"license": "MIT",
 	"type": "project",
 	"require": {
