@@ -5,7 +5,11 @@
         </div>
         <div class="col-md-2">
             <div class="text-page-header text-right">
-                <a href="{{ route('downloads.index') }}" class="btn btn-primary">Downloads</a>
+                @if (starts_with(Route::currentRouteName(), 'specification.'))
+                    <a href="{{ route('downloads.index') }}" class="btn btn-primary">Downloads</a>
+                @else
+                    <a href="{{ route('specification.index') }}" class="btn btn-primary">Online lesen</a>
+                @endif
             </div>
         </div>
     </div>
