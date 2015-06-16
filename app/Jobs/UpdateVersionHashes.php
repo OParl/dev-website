@@ -1,5 +1,6 @@
 <?php namespace App\Jobs;
 
+use GrahamCampbell\GitHub\GitHubManager;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -17,9 +18,8 @@ class UpdateVersionHashes extends Job implements SelfHandling, ShouldQueue
      *
      * @return void
      */
-    public function handle(Filesystem $fs)
+    public function handle(Filesystem $fs, GitHubManager $gh)
     {
-      $gh = app('github');
       $commits = $gh->repo()->commits()->all('OParl', 'specs', []);
       $fs->put(VersionRepository::REPOSITORY_FILE, json_encode($commits));
     }
