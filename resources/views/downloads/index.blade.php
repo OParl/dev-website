@@ -43,7 +43,7 @@
                         Ihre E-Mail-Adresse:
                     </label>
                     <div class="col-sm-8">
-                        <input type="email" class="form-control" name="email" aria-describedby="email-help" />
+                        <input type="email" class="form-control" name="email" placeholder="email@example.com" aria-describedby="email-help" />
                         <div id="email-help" class="help-block">
                             Die Angabe ihrer E-Mail-Adresse ist erforderlich, da wir Sie via E-Mail informieren,
                             sobald der Download der von Ihnen angeforderten Spezifikationsversion zur Verfügung
