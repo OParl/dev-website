@@ -15,8 +15,8 @@ Route::get('/', function () {
   return Redirect::route('specification');
 });
 
-Route::get('/specification', ['uses' => 'SpecificationController@index', 'as' => 'specification']);
-Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads']);
+Route::get('/specification', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
+Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-2">
             <div class="text-page-header text-right">
-                <a href="#" class="btn btn-primary">Downloads</a>
+                <a href="{{ route('downloads.index') }}" class="btn btn-primary">Downloads</a>
             </div>
         </div>
     </div>

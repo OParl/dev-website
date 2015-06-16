@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-class DownloadsController 
+class DownloadsController extends Controller
 {
   public function index()
   {
-    return view('home');
+    return view('downloads.index');
   }
 }
