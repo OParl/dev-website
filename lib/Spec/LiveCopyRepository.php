@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 class LiveCopyRepository
 {
   const CHAPTER_PATH = 'livecopy/';
+  const IMAGE_PATH = 'livecopy/images/';
 
   /**
    * @var \Illuminate\Support\Collection
@@ -18,7 +19,9 @@ class LiveCopyRepository
     $this->chapters = $cache->rememberForever('livecopy:chapters',
       function () use ($fs) {
         $files = collect($fs->allFiles(static::CHAPTER_PATH));
-        return $files->map(function ($chapterFile) use ($fs) {
+        return $files->filter(function ($file) {
+          return ends_with($file, '.md');
+        })->map(function ($chapterFile) use ($fs) {
           return new Chapter($fs, $chapterFile);
         });
       }

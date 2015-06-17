@@ -18,14 +18,19 @@ Route::get('/', function () {
 
 // Specification
 Route::get('/specification', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
+Route::get('/specification/images/{image}', [
+  'uses' => 'SpecificationController@image',
+  'as' => 'specification.image'
+])->where('image', '[[:print:]]+\.png');
 
 // Downloads
-Route::pattern('downloadVersion', '[a-z0-9]{30}');
-
 Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
 Route::get('/downloads/latest', ['uses' => 'DownloadsController@latest', 'as' => 'downloads.latest']);
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
-Route::get('/downloads/{downloadVersion}', ['uses' => 'DownloadsController@provideVersion', 'as' => 'downloads.provide']);
+Route::get('/downloads/{version}', [
+  'uses' => 'DownloadsController@provideVersion',
+  'as' => 'downloads.provide'
+])->where('version', '[a-z0-9]{30}');
 
 // Auth
 Route::controllers([

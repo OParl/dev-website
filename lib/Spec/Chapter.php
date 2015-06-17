@@ -97,6 +97,9 @@ class Chapter
     ]);
 
     // fix image urls
-    $this->html = preg_replace('/"(.?)(images\/.+\.png)"/', '""$1/specification/$2"', $this->html);
+    $this->html = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/specification/$2"', $this->html);
+
+    // fix image tags
+    $this->html = str_replace('<img ', '<img class="img-responsive"', $this->html);
   }
 }
