@@ -6,6 +6,6 @@ class Client
 
   public function __construct()
   {
-    $this->token = config('services.buildkite.token');
+    $this->token = config('services.buildkite.access_token');
   }
 }
