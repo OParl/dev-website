@@ -38,7 +38,7 @@
         		"php artisan clear-compiled"
         	],
 		"post-update-cmd": [
-			"php artisan deploy"
+			"php artisan optimize"
 		],
 		"post-create-project-cmd": [
 			"php -r \"copy('.env.example', '.env');\"",
