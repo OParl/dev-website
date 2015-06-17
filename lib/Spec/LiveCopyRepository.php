@@ -18,7 +18,8 @@ class LiveCopyRepository
   {
     $this->chapters = $cache->rememberForever('livecopy:chapters',
       function () use ($fs) {
-        $files = collect($fs->allFiles(static::CHAPTER_PATH));
+        $files = collect($fs->allFiles(static::CHAPTER_PATH))->sort();
+
         return $files->filter(function ($file) {
           return ends_with($file, '.md');
         })->map(function ($chapterFile) use ($fs) {
