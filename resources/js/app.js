@@ -18,6 +18,8 @@ $(document).ready(function () {
         $('.footnotes').remove();
     });
 
+    $('#endnotes').show();
+
     // conditionally show email field on downloads page
     $('#download-selector select').on('change', function(event) {
         if (event.target.selectedOptions[0].attributes[0].value == "0")

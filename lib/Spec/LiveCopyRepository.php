@@ -41,6 +41,8 @@ class LiveCopyRepository
       return $chapter->getHeadlines();
     })->reduce(function (Collection $carry, Collection $headlines) {
       return $carry->merge($headlines);
-    }, collect());
+    }, collect())->map(function ($headline) {
+      return new Headline($headline['level'], $headline['text']);
+    });
   }
 }
