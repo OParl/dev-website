@@ -35,4 +35,8 @@ return [
 		'secret' => '',
 	],
 
+  // buildkite service config for efrane/buildkite
+  'buildkite' => [
+    'access_token' => env('BUILDKITE_ACCESS_TOKEN', '')
+  ],
 ];

@@ -10,6 +10,8 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
+    'App\Console\Commands\DeployCommand',
+
     'App\Console\Commands\UpdateVersionHashesCommand',
     'App\Console\Commands\UpdateLiveCopyCommand',
 	];

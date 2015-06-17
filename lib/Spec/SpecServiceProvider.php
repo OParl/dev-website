@@ -2,7 +2,7 @@
 
 use \Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
-class ServiceProvider extends IlluminateServiceProvider
+class SpecServiceProvider extends IlluminateServiceProvider
 {
   /**
    * Register the service provider.
