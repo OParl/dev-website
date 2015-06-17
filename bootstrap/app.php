@@ -11,9 +11,6 @@
 |
 */
 
-setlocale(LC_TIME, 'de');
-Carbon\Carbon::setLocale('de');
-
 $app = new Illuminate\Foundation\Application(
 	realpath(__DIR__.'/../')
 );
@@ -43,6 +40,10 @@ $app->singleton(
 	'Illuminate\Contracts\Debug\ExceptionHandler',
 	'App\Exceptions\Handler'
 );
+
+setlocale(LC_TIME, 'de');
+Carbon\Carbon::setLocale('de');
+
 
 /*
 |--------------------------------------------------------------------------
