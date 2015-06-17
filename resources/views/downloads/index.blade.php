@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group" style="display: none;">
+                <div class="form-group">
                     <label for="email" class="control-label col-sm-4">
                         Ihre E-Mail-Adresse:
                     </label>
