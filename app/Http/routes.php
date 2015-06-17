@@ -11,13 +11,23 @@
 |
 */
 
+// Home
 Route::get('/', function () {
   return Redirect::route('specification.index');
 });
 
+// Specification
 Route::get('/specification', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
-Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
 
+// Downloads
+Route::pattern('downloadVersion', '[a-z0-9]{30}');
+
+Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
+Route::get('/downloads/latest', ['uses' => 'DownloadsController@latest', 'as' => 'downloads.latest']);
+Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
+Route::get('/downloads/{downloadVersion}', ['uses' => 'DownloadsController@provideVersion', 'as' => 'downloads.provide']);
+
+// Auth
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

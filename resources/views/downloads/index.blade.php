@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
             <div class="text-center">
-                <a href="#" class="btn btn-lg btn-success">Aktuelle Version herunterladen!</a>
+                <a href="{{ route('downloads.latest') }}" class="btn btn-lg btn-success">Aktuelle Version herunterladen!</a>
             </div>
         </div>
         <div class="col-xs-12">
@@ -26,14 +26,14 @@
         </div>
 
         <div class="col-xs-12">
-            <form class="form-horizontal" id="download-selector">
+            <form class="form-horizontal" id="download-selector" method="post" action="{{ route('downloads.select') }}">
                 <div class="form-group">
                     <label for="version" class="control-label col-sm-4">
                         Gewünschte Version:
                     </label>
                     <div class="col-sm-8">
                         <select class="form-control" name="version" aria-describedby="version-help">
-                            @include ('downloads.version', ['version' => $versions[0]])
+                            @include ('downloads.version', ['version' => $versions[0], 'selected' => true])
 
                             @for ($i = 1; isset($versions[$i]); $i++)
                                 @include('downloads.version', ['version' => $versions[$i]])
@@ -54,7 +54,7 @@
                         <input type="email" class="form-control" name="email" placeholder="email@example.com" aria-describedby="email-help" />
                         <div id="email-help" class="help-block">
                             Die von Ihnen angeforderte Spezifikationsversion liegt zur Zeit nicht aufbereitet vor.
-                            Die Erstellung benötigt unter Umständne einen kleinen Moment. Wir bitten Sie daher
+                            Die Erstellung benötigt unter Umständen einen kleinen Moment. Wir bitten Sie daher
                             um Ihre E-Mail-Adresse, um Ihnen den Downloadlink direkt zusenden zu können, sobald
                             der Erstellungsprozess abgeschlossen ist.
                         </div>
