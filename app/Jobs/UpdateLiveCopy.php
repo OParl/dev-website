@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
 use GrahamCampbell\GitHub\GitHubManager;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -20,8 +20,11 @@ class UpdateLiveCopy extends Job implements SelfHandling, ShouldQueue
    *
    * @return void
    */
-  public function handle(Filesystem $fs, GitHubManager $gh)
+  public function handle(Filesystem $fs, GitHubManager $gh, CacheRepository $cache)
   {
+    // remove cached livecopy chapters
+    $cache->forget('livecopy:chapters');
+
     // TODO: Also load images!
     $files = $gh->repo()->contents()->show('OParl', 'specs', '/dokument/master');
     foreach ($files as $file)

@@ -1,5 +1,6 @@
 <?php namespace OParl\Spec;
 
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 
@@ -12,17 +13,21 @@ class LiveCopyRepository
    **/
   protected $chapters = null;
 
-  public function __construct(Filesystem $fs)
+  public function __construct(Filesystem $fs, CacheRepository $cache)
   {
-    $files = collect($fs->allFiles(static::CHAPTER_PATH));
-    $this->chapters = $files->map(function ($chapterFile) use ($fs) {
-      return new Chapter($fs, $chapterFile);
-    });
+    $this->chapters = $cache->rememberForever('livecopy:chapters',
+      function () use ($fs) {
+        $files = collect($fs->allFiles(static::CHAPTER_PATH));
+        return $files->map(function ($chapterFile) use ($fs) {
+          return new Chapter($fs, $chapterFile);
+        });
+      }
+    );
   }
 
   public function __toString()
   {
-    return $this->chapters->reduce(function ($carry, $current) {
+    return (String)$this->chapters->reduce(function ($carry, $current) {
       return $carry . view('specification.chapter', ['chapter' => $current])->render();
     }, '');
   }
