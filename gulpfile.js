@@ -32,14 +32,7 @@ elixir(function(mix) {
 
             'prism/prism.js',
             'prism/components/prism-javascript.js',
-            'prism/plugins/line-numbers/prism-line-numbers.js',
-
-            'angular/angular.js',
-            'angular-loading-bar/build/loading-bar.js',
-
-            //'angular-route/angular-route.js',
-            'angular-resource/angular-resource.js',
-            'angular-ui/build/angular-ui.js'
+            'prism/plugins/line-numbers/prism-line-numbers.js'
 
             //'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
             //'bootstrap-sass-official/assets/javascripts/bootstrap/tab.js'
@@ -47,5 +40,4 @@ elixir(function(mix) {
     );
 
     mix.copy('vendor/_bower_components/bootstrap-sass-official/assets/fonts', 'public/fonts');
-    mix.copy('vendor/_bower_components/font-awesome/fonts', 'public/fonts');
 });
