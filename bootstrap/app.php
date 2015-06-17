@@ -11,6 +11,7 @@
 |
 */
 
+setlocale(LC_TIME, 'de');
 Carbon\Carbon::setLocale('de');
 
 $app = new Illuminate\Foundation\Application(
