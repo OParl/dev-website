@@ -20,7 +20,7 @@ use Symfony\Component\Console\Input\InputArgument;
  *
  * @package App\Console\Commands
  **/
-class Deploy extends Command {
+class DeployCommand extends Command {
 
 	/**
 	 * The console command name.
