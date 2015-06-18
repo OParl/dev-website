@@ -17,8 +17,8 @@ Route::get('/', function () {
 });
 
 // Specification
-Route::get('/specification', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
-Route::get('/specification/images/{image}', [
+Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
+Route::get('/spezifikation/images/{image}', [
   'uses' => 'SpecificationController@image',
   'as' => 'specification.image'
 ])->where('image', '[[:print:]]+\.png');
