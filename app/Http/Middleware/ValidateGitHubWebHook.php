@@ -24,8 +24,10 @@ class ValidateGitHubWebHook
       if (!starts_with($request->header('user-agent'), 'GitHub-Hookshot/')) return $errorResponse;
       if (!$request->header('x-github-event')) return $errorResponse;
 
-      // TODO: check digest (https://developer.github.com/webhooks/securing/)
+      // check digest (https://developer.github.com/webhooks/securing/)
       // NOTE: the secret is stored in env('GITHUB_WEBHOOK_SECRET')
+      $hmac = hash_hmac('sha1', $request->getContent(), env('GITHUB_WEBHOOK_SECRET'));
+      if (!hash_equals(sprintf('sha1=%s', $hmac), $request->header('x-hub-signature'))) return $errorResponse;
 
       return $next($request);
     }
