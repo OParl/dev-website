@@ -12,12 +12,19 @@ class HooksController extends Controller
 
   public function specChange(Request $request)
   {
-    // GitHub update hook, load new version hashes
-    $json = json_decode($request->input('payload'), true);
-
     switch ($request->header('x-github-event'))
     {
-      case 'pull_request': break;
+      case 'pull_request':
+        // update jobs are only necessary on PR merges
+        $json = json_decode($request->input('payload'), true);
+
+        if ($json['action'] == 'closed' && $json['merged'])
+        {
+          $this->dispatch(new UpdateLiveCopy());
+          $this->dispatch(new UpdateVersionHashes());
+        }
+        break;
+
       case 'push':
         // just initiate spec and version updates
         $this->dispatch(new UpdateLiveCopy());
