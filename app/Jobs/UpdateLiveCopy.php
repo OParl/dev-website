@@ -28,7 +28,7 @@ class UpdateLiveCopy extends Job implements SelfHandling, ShouldQueue
     // remove livecopy assets
     $fs->deleteDirectory(LiveCopyRepository::CHAPTER_PATH);
 
-    $files = $gh->repo()->contents()->show('OParl', 'specs', '/dokument/master');
+    $files = $gh->repo()->contents()->show('OParl', 'specs', '/dokument/master', 'HEAD');
     foreach ($files as $file)
     {
       if (ends_with($file['name'], '.md'))
@@ -40,7 +40,7 @@ class UpdateLiveCopy extends Job implements SelfHandling, ShouldQueue
     }
 
     // load images
-    $images = $gh->repo()->contents()->show('OParl', 'specs', '/dokument/master/images');
+    $images = $gh->repo()->contents()->show('OParl', 'specs', '/dokument/master/images', 'HEAD');
     foreach ($images as $image)
     {
       // only load pngs
