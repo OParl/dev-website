@@ -5,6 +5,10 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
 class VerifyCsrfToken extends BaseVerifier {
 
+  protected $except = [
+    '_hooks/*'
+  ];
+
 	/**
 	 * Handle an incoming request.
 	 *

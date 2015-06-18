@@ -37,3 +37,11 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+// Hooks
+Route::post('/_hooks/spec_change', [
+  'uses' => 'HooksController@specChange',
+  'as' => 'hooks.spec',
+  'middleware' => ['hooks.github']
+]);
+Route::get('/_hooks/add_version', ['uses' => 'HooksController@addVersion', 'as' => 'hooks.add']);
