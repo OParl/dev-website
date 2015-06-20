@@ -10,6 +10,9 @@ class Chapter
   protected $html = '';
   protected $headlines = [];
 
+  protected static $chapterCount = -1;
+  protected static $sectionCount = -1;
+
   public function __construct(Filesystem $fs, $filename)
   {
     $this->filename = $filename;
@@ -79,6 +82,14 @@ class Chapter
       while (strlen($headline) >= $level && $headline[$level] === '#')
         $level++;
 
+      if ($level == 1)
+      {
+        static::$chapterCount++;
+        static::$sectionCount = 0;
+      }
+
+      //if ($level == 2)
+
       return [
         'level' => $level,
         'text' => trim($headline, '# ')
@@ -92,8 +103,12 @@ class Chapter
     $pandoc = new Pandoc();
 
     $this->html = $pandoc->runWith($this->raw, [
-      'from' => 'markdown',
       'to' => 'html5',
+      'number-sections' => null,
+      'section-divs' => null,
+      'from' => 'markdown',
+      'smart' => null,
+      'number-offset' => static::$chapterCount
     ]);
 
     // fix image urls
