@@ -1,6 +1,4 @@
 <nav class="toc hidden-sm" id="toc">
-    <h3>Inhaltsverzeichnis</h3>
-
     <form class="form-inline" action="#" method="get">
         <div class="input-group">
             <div class="input-group-addon">
