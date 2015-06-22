@@ -101,7 +101,7 @@ class LiveCopyRepository
   protected function fixImages()
   {
     // fix image urls
-    $this->content = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/specification/$2"', $this->content);
+    $this->content = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/spezifikation/$2"', $this->content);
 
     // fix image tags
     $this->content = str_replace('<img ', '<img class="img-responsive"', $this->content);

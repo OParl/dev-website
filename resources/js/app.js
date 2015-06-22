@@ -23,5 +23,7 @@ $(document).ready(function () {
         $('#toc ul').addClass('nav');
 
         //$('body').scrollspy({ target: '#toc > div' });
+
+        $('#toc').parent().fadeIn();
     }
 });
