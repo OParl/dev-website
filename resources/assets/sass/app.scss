@@ -65,3 +65,5 @@ $btn-primary-bg : #01aae7;
     list-style: none;
   }
 }
+
+h1, h2, h3 { & > a { color: inherit; }}
