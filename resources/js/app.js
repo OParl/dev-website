@@ -1,3 +1,7 @@
+jQuery.expr[':'].like = function(a,i,m){
+    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+};
+
 $(document).ready(function () {
     // hide email field on downloads page
     $('#download-selector .form-group:nth-of-type(2)').hide();
@@ -21,6 +25,29 @@ $(document).ready(function () {
         }).width($('#toc').parent().width());
 
         $('#toc ul').addClass('nav');
+
+        $('#toc input').change(function (event) {
+            // kudos: http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
+
+            var filter = $(this).val();
+
+            if (!filter)
+            {
+                $('#toc li').slideDown();
+                return;
+            }
+
+            $('#toc div > ul').find("a:not(:like(" + filter + "))").parent().each(function () {
+                if ($('ul', this).length == 0) {
+                    $(this).slideUp();
+                } else if ($('ul', this).find('li:visible').length == 0) {
+                    $(this).slideUp();
+                }
+            });
+
+            $('#toc div > ul').find("a:like(" + filter + ")").parent().slideDown();
+
+        }).keyup(function () { $(this).change(); });
 
         //$('body').scrollspy({ target: '#toc > div' });
 

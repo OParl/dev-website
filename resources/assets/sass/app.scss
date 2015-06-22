@@ -24,38 +24,45 @@ body { position: relative; }
 }
 
 .toc {
+  $color : #999;
+
+  h3 {
+    //margin-top: 0;
+    color: $color;
+  }
+
   margin-bottom: 20px;
   padding-bottom: 1.4em;
-  max-height: 480px;
 
-  border-right: 1px solid #999;
+  min-height: 240px;
+  max-height: 480px;
 
   overflow-y: scroll;
 
   .nav > li > a { padding: 0; }
 
+  a {
+    color: $color;
+    text-decoration: none;
+    font-weight: 400;
+
+    font-size: 1em;
+  }
+
   nav li {
     display: inline-block;
-
-    & > a {
-      color: #999;
-      text-decoration: none;
-      font-weight: 400;
-
-      font-size: .9em;
-    }
 
     &.active > ul { display: block; }
   }
 
   nav .active > a {  color: #563d7c; font-weight: 800; }
 
-  //li > ul { display: none; }
+  .form-inline { padding-bottom: .6em; }
 
   li > ul > li > a {
     padding-top: 1px;
     padding-bottom: 1px;
-    //margin-left: -30px;
+    margin-left: 1.2em;
 
     font-size: .8em;
   }
