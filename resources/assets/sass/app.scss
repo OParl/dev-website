@@ -17,12 +17,51 @@ $btn-primary-bg : #01aae7;
   position: relative;
 }
 
-.panel-toc {
-  position: static;
+.fixed {
+  position: fixed;
+}
 
-  .panel-body {
-    min-height: 150px;
-    max-height: 450px;
-    overflow-y: scroll;
+.toc {
+  margin-bottom: 20px;
+  padding-bottom: 1.4em;
+  max-height: 480px;
+
+  border-right: 1px solid #999;
+
+  overflow-y: scroll;
+
+  & > div {
+    margin-left: -2.8em;
+  }
+
+  nav li {
+    display: inline-block;
+
+    & > a {
+      color: #999;
+      text-decoration: none;
+      padding: 4px 20px;
+      font-weight: 400;
+
+      font-size: .9em;
+    }
+
+    &.active > ul { display: block; }
+  }
+
+  nav .active > a {  color: #563d7c; }
+
+  li > ul { display: none; }
+
+  li > ul > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-left: -30px;
+
+    font-size: .8em;
+  }
+
+  ul, li {
+    list-style: none;
   }
 }

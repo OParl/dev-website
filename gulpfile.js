@@ -32,9 +32,10 @@ elixir(function(mix) {
 
             'prism/prism.js',
             'prism/components/prism-javascript.js',
-            'prism/plugins/line-numbers/prism-line-numbers.js'
+            'prism/plugins/line-numbers/prism-line-numbers.js',
 
-            //'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js'
             //'bootstrap-sass-official/assets/javascripts/bootstrap/tab.js'
         ], 'public/js/lib.js', 'vendor/_bower_components/'
     );
