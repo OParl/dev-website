@@ -1,7 +1,7 @@
 @extends ('base')
 
 @section ('content')
-    <div class="row">
+    <div class="row" data-spy="scroll" data-target="#nav > div">
         <div class="col-md-3">
             @include ('specification.toc')
         </div>

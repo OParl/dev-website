@@ -5,6 +5,8 @@ $btn-primary-bg : #01aae7;
 
 @import url(http://fonts.googleapis.com/css?family=Dosis);
 
+body { position: relative; }
+
 .text-oparl {
   font-family: 'Dosis', 'Helvetica Neue', sans-serif;
   font-weight: 300;
@@ -17,8 +19,8 @@ $btn-primary-bg : #01aae7;
   position: relative;
 }
 
-.fixed {
-  position: fixed;
+.toc.affix {
+  top: 1.2em;
 }
 
 .toc {
@@ -30,9 +32,7 @@ $btn-primary-bg : #01aae7;
 
   overflow-y: scroll;
 
-  & > div {
-    margin-left: -2.8em;
-  }
+  .nav > li > a { padding: 0; }
 
   nav li {
     display: inline-block;
@@ -40,7 +40,6 @@ $btn-primary-bg : #01aae7;
     & > a {
       color: #999;
       text-decoration: none;
-      padding: 4px 20px;
       font-weight: 400;
 
       font-size: .9em;
@@ -49,14 +48,14 @@ $btn-primary-bg : #01aae7;
     &.active > ul { display: block; }
   }
 
-  nav .active > a {  color: #563d7c; }
+  nav .active > a {  color: #563d7c; font-weight: 800; }
 
-  li > ul { display: none; }
+  //li > ul { display: none; }
 
   li > ul > li > a {
     padding-top: 1px;
     padding-bottom: 1px;
-    margin-left: -30px;
+    //margin-left: -30px;
 
     font-size: .8em;
   }

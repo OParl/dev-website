@@ -1,6 +1,6 @@
-<nav class="fixed toc" id="toc">
+<nav class="toc hidden-sm" id="toc">
     <h3>Inhaltsverzeichnis</h3>
-    <div class="nav">
+    <div>
         {!! $livecopy->getNav() !!}
     </div>
 </nav>

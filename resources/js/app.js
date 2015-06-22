@@ -13,7 +13,15 @@ $(document).ready(function () {
     // enable scroll spy
     if ($('#toc'))
     {
-        $('#toc').width($('#toc').parent().width());
-        $('body').scrollspy({ 'target': '#toc' });
+        $('#toc').affix({
+            offset: {
+                top: $('#toc').offset().top - 16,
+                bottom: $('#toc').offset().bottom
+            }
+        }).width($('#toc').parent().width());
+
+        $('#toc ul').addClass('nav');
+
+        //$('body').scrollspy({ target: '#toc > div' });
     }
 });
