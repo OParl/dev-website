@@ -1,3 +1,5 @@
-<div class="chapter" data-filename="{{ $chapter->getFilename() }}">
-    {!! $chapter !!}
+<div class="chapter" data-filename="{{ $filename }}">
+
+{!! $chapter !!}
+
 </div>

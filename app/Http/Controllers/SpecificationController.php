@@ -18,4 +18,9 @@ class SpecificationController extends Controller {
   {
     return $fs->get(LiveCopyRepository::IMAGE_PATH.$image);
   }
+
+  public function raw(LiveCopyRepository $livecopy)
+  {
+    return response($livecopy->getRaw(), 200, ['Content-type' => 'text/plain']);
+  }
 }

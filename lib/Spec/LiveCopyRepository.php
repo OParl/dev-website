@@ -2,7 +2,8 @@
 
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Support\Collection;
+use Pandoc\Pandoc;
+use Symfony\Component\DomCrawler\Crawler;
 
 class LiveCopyRepository
 {
@@ -13,6 +14,9 @@ class LiveCopyRepository
    * @var \Illuminate\Support\Collection
    **/
   protected $chapters = null;
+
+  protected $content = '';
+  protected $nav = '';
 
   public function __construct(Filesystem $fs, CacheRepository $cache)
   {
@@ -27,23 +31,79 @@ class LiveCopyRepository
         });
       }
     );
+
+    $this->parse();
   }
 
-  public function __toString()
+  public function getRaw()
   {
-    return (String)$this->chapters->reduce(function ($carry, $current) {
-      return $carry . view('specification.chapter', ['chapter' => $current])->render();
+    return $this->chapters->reduce(function ($carry, Chapter $chapter) {
+      return $carry . $chapter->getRaw();
     }, '');
   }
 
-  public function getHeadlines()
+  /**
+   * @return string
+   */
+  public function getContent()
   {
-    return $this->chapters->map(function (Chapter $chapter) {
-      return $chapter->getHeadlines();
-    })->reduce(function (Collection $carry, Collection $headlines) {
-      return $carry->merge($headlines);
-    }, collect())->map(function ($headline) {
-      return new Headline($headline['level'], $headline['text']);
-    });
+    return $this->content;
+  }
+
+  /**
+   * @return string
+   */
+  public function getNav()
+  {
+    return $this->nav;
+  }
+
+  protected function parseMarkdown($markdown)
+  {
+    // transform with pandoc
+    $pandoc = new Pandoc();
+
+    $html = $pandoc->runWith($markdown, [
+      'number-sections' => null,
+      'section-divs' => null,
+      'table-of-contents' => null,
+      'standalone' => null,
+      'from' => 'markdown+header_attributes',
+      'to' => 'html5',
+      'toc-depth' => 2,
+    ]);
+
+    return $html;
+  }
+
+  /**
+   * @return string
+   **/
+  protected function parse()
+  {
+    $markdown = (String)$this->chapters->reduce(function ($carry, Chapter $current) {
+      return $carry . "\n" . $current->getRaw();
+    }, '');
+
+    $html = $this->parseMarkdown($markdown);
+
+    $crawler = new Crawler($html);
+    $this->nav = $crawler->filter('body > nav')->html();
+
+    $content = $crawler->filterXPath("//body/*[not(self::nav)]");
+    foreach ($content as $domElement)
+      $this->content .= $domElement->ownerDocument->saveHTML($domElement);
+
+    $this->fixImages();
+  }
+
+
+  protected function fixImages()
+  {
+    // fix image urls
+    $this->content = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/specification/$2"', $this->content);
+
+    // fix image tags
+    $this->content = str_replace('<img ', '<img class="img-responsive"', $this->content);
   }
 }

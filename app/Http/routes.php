@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
+Route::get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
 Route::get('/spezifikation/images/{image}', [
   'uses' => 'SpecificationController@image',
   'as' => 'specification.image'
