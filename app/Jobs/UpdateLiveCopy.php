@@ -24,6 +24,7 @@ class UpdateLiveCopy extends Job implements SelfHandling, ShouldQueue
   {
     // remove cached livecopy chapters
     $cache->forget('livecopy:chapters');
+    $cache->forget('livecopy:html');
 
     // remove livecopy assets
     $fs->deleteDirectory(LiveCopyRepository::CHAPTER_PATH);

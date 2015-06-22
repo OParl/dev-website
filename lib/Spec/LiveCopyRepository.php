@@ -32,13 +32,13 @@ class LiveCopyRepository
       }
     );
 
-    $this->parse();
+    $this->parse($cache);
   }
 
   public function getRaw()
   {
     return $this->chapters->reduce(function ($carry, Chapter $chapter) {
-      return $carry . $chapter->getRaw();
+      return $carry . "\n" . $chapter->getRaw();
     }, '');
   }
 
@@ -79,13 +79,13 @@ class LiveCopyRepository
   /**
    * @return string
    **/
-  protected function parse()
+  protected function parse(CacheRepository $cache)
   {
-    $markdown = (String)$this->chapters->reduce(function ($carry, Chapter $current) {
-      return $carry . "\n" . $current->getRaw();
-    }, '');
+    $markdown = $this->getRaw();
 
-    $html = $this->parseMarkdown($markdown);
+    $html = $cache->rememberForever('livecopy:html', function () use ($markdown) {
+      return $this->parseMarkdown($markdown);
+    });
 
     $crawler = new Crawler($html);
     $this->nav = $crawler->filter('body > nav')->html();
