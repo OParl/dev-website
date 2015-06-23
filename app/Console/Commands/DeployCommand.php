@@ -62,6 +62,9 @@ class DeployCommand extends Command {
       {
         exec('npm install');
         exec('bower update --allow-root');
+
+        $this->call('maintenance:livecopy');
+        $this->call('maintenance:versions');
       }
 
       exec('gulp --production');
