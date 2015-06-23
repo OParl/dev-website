@@ -20,18 +20,32 @@ body { position: relative; }
 
 .toc.affix {
   top: 1.2em;
+  margin-top: 0;
+  max-height: none;
 }
 
 .toc {
   $color : #999;
 
+  margin-top: 2em;
   margin-bottom: 20px;
   padding-bottom: 1.4em;
 
-  min-height: 240px;
-  max-height: 480px;
+  > div {
+    min-height: 240px;
+    max-height: 480px;
+    overflow-y: scroll;
+  }
 
-  overflow-y: scroll;
+  .overlay {
+    position: absolute;
+    bottom: 0.5em;
+    left: 0;
+    height: 3em;
+    width: 100%;
+    z-index: 200;
+    background: linear-gradient(to bottom, rgba(1, 1, 1, 0), opacify(#fff, 1) 60%);
+  }
 
   .nav > li > a { padding: 0; }
 

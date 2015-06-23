@@ -19,7 +19,7 @@ $(document).ready(function () {
     {
         $('#toc').affix({
             offset: {
-                top: $('#toc').offset().top - 16,
+                top: $('#toc').offset().top - 58,
                 bottom: $('#toc').offset().bottom
             }
         }).width($('#toc').parent().width());
