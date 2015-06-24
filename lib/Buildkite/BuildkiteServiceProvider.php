@@ -8,6 +8,6 @@ class BuildkiteServiceProvider extends ServiceProvider
   {
     $this->provides('efrane/buildkite');
 
-    $this->app->bind('buildkite', 'EFrane\Buildkite\Client');
+    $this->app->bind('buildkite', 'EFrane\Buildkite\Buildkite');
   }
 }
