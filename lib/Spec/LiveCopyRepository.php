@@ -23,7 +23,7 @@ class LiveCopyRepository
     $this->chapters = $cache->rememberForever('livecopy:chapters',
       function () use ($fs) {
         $files = collect($fs->allFiles(static::CHAPTER_PATH))->sort();
-        $files->forget(0);
+        $files->shift();
 
         return $files->filter(function ($file) {
           return ends_with($file, '.md');

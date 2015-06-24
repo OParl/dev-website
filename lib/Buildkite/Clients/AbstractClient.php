@@ -11,14 +11,18 @@ abstract class AbstractClient
 
   protected $guzzleClient = null;
 
-  protected $id = null;
+  protected $organization = null;
+  protected $project = null;
 
   protected $token = null;
 
-  public function __construct($token, $organization = null)
+  public function __construct($token, $organizationAndProject = null)
   {
     $this->token = $token;
-    $this->id = $this->validateInput($organization);
+
+    $organizationAndProject = $this->validateInput($organizationAndProject);
+    if (strpos($organizationAndProject, '/') > 0)
+      list($this->organization, $this->project) = explode('/', $organizationAndProject);
 
     $this->guzzleClient = new Client($this->getBaseURL(), []);
   }
@@ -39,10 +43,9 @@ abstract class AbstractClient
     $request = $this->guzzleClient->createRequest($method, $uri, $headers, $body, $options);
     $request->getQuery()->add('access_token', $this->token);
 
-    if ($method === 'GET')
-    {
-      return $request->send()->json();
-    }
+    print($request);
+
+    return $request->send()->json();
   }
 
   protected function validateInput($id, $type = 'string')

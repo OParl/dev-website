@@ -18,7 +18,7 @@ class ProjectClient extends AbstractClient
   {
     if (is_null($organization))
     {
-      $organization = $this->id;
+      $organization = $this->organization;
     } else {
       $organization = $this->validateInput($organization);
     }
