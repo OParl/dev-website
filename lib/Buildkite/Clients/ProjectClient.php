@@ -11,7 +11,8 @@ class ProjectClient extends AbstractClient
     if (is_null($organization)) throw new BuildkiteException("\$organization must be valid.");
     parent::__construct($token, $organization);
 
-    if (is_string($organization)) return $this->index($organization);
+    if (is_string($this->organization) && is_string($this->project)) return $this->get($this->project);
+    if (is_string($this->organization)) return $this->index($organization);
   }
 
   protected function setOrganization($organization)
