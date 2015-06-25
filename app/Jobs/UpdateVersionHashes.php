@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use OParl\Spec\VersionRepository;
 
-class UpdateVersionHashes extends Job implements SelfHandling, ShouldQueue
+class UpdateVersionHashes extends SpecificationUpdateJob implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
@@ -20,7 +20,7 @@ class UpdateVersionHashes extends Job implements SelfHandling, ShouldQueue
      */
     public function handle(Filesystem $fs, GitHubManager $gh)
     {
-      $commits = $gh->repo()->commits()->all('OParl', 'specs', []);
+      $commits = $gh->repo()->commits()->all($this->user, $this->repo, []);
       $fs->put(VersionRepository::REPOSITORY_FILE, json_encode($commits));
     }
 }

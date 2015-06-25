@@ -7,8 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class LiveCopyRepository
 {
-  const CHAPTER_PATH = 'livecopy/';
-  const IMAGE_PATH = 'livecopy/images/';
+  const PATH = 'livecopy';
 
   /**
    * @var \Illuminate\Support\Collection
@@ -106,5 +105,25 @@ class LiveCopyRepository
 
     // fix image tags
     $this->content = str_replace('<img ', '<img class="img-responsive"', $this->content);
+  }
+
+  public static function getChapterPath()
+  {
+    return LiveCopyRepository::PATH . '/src/';
+  }
+
+  public static function getImagesPath()
+  {
+    return LiveCopyRepository::PATH . '/src/images/';
+  }
+
+  public static function getSchemaPath()
+  {
+    return LiveCopyRepository::PATH . '/schema/';
+  }
+
+  public static function getExamplesPath()
+  {
+    return LiveCopyRepository::PATH . '/examples/';
   }
 }
