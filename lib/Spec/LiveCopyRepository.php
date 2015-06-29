@@ -21,7 +21,7 @@ class LiveCopyRepository
   {
     $this->chapters = $cache->rememberForever('livecopy:chapters',
       function () use ($fs) {
-        $files = collect($fs->allFiles(static::CHAPTER_PATH))->sort();
+        $files = collect($fs->allFiles($this->getChapterPath()))->sort();
         $files->shift();
 
         return $files->filter(function ($file) {
