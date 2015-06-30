@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class LiveCopyRepository
 {
-  const PATH = 'livecopy';
+  const PATH = 'oparl-json-schema-master';
 
   /**
    * @var \Illuminate\Support\Collection
@@ -94,17 +94,20 @@ class LiveCopyRepository
     foreach ($content as $domElement)
       $this->content .= $domElement->ownerDocument->saveHTML($domElement);
 
-    $this->fixImages();
+    $this->fixHTML();
   }
 
 
-  protected function fixImages()
+  protected function fixHTML()
   {
     // fix image urls
     $this->content = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/spezifikation/$2"', $this->content);
 
     // fix image tags
     $this->content = str_replace('<img ', '<img class="img-responsive"', $this->content);
+
+    // fix table tags
+    $this->content = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $this->content);
   }
 
   public static function getChapterPath()

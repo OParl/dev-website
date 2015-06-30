@@ -42,7 +42,7 @@
                         <div id="version-help" class="help-block">
                             Falls die von Ihnen gewünschte Version nicht mehr in der obigen Auswahl sein sollte,
                             kontaktieren Sie uns bitte per E-Mail unter
-                            <a href="mailto:kontakt@oparl.org">kontakt@oparl.org</a>.
+                            <a href="mailto:info@oparl.org">info@oparl.org</a>.
                         </div>
                     </div>
                 </div>

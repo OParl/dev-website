@@ -53,9 +53,4 @@ $(document).ready(function () {
 
         $('#toc').parent().fadeIn();
     }
-
-    $('table').addClass('table')
-        .addClass('table-condensed')
-        .addClass('table-responsive')
-        .addClass('table-striped');
 });
