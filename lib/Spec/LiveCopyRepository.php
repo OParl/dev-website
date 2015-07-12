@@ -71,6 +71,7 @@ class LiveCopyRepository
       'from' => 'markdown',
       'to' => 'html5',
       'toc-depth' => 2,
+      'no-highlight' => null,
     ]);
 
     return $html;
