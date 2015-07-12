@@ -108,6 +108,9 @@ class LiveCopyRepository
 
     // fix table tags
     $this->content = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $this->content);
+
+    // fix code tags
+    $this->content = str_replace('<code>', '<code class="language-javascript">', $this->content);
   }
 
   public static function getChapterPath()
