@@ -2,6 +2,10 @@
 
 use App\Jobs\UpdateLiveCopy;
 use App\Jobs\UpdateVersionHashes;
+
+use App\Http\Requests\VersionUpdateRequest;
+
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
@@ -39,8 +43,15 @@ class HooksController extends Controller
     return response()->json();
   }
 
-  public function addVersion()
+  public function addVersion(VersionUpdateRequest $request, Filesystem $fs, $key, $hash)
   {
-    // Buildkite build finish hook, receive a packed fully built version
+    $path = 'versions/'.$hash.'/';
+    $fs->makeDirectory($path, '0755', true, true);
+    $fs->cleanDirectory($path);
+
+    foreach ($request->file() as $file)
+      $file->move(storage_path('app/'. $path), $file->getClientOriginalName());
+
+    return response()->json(['hash' => $hash]);
   }
 }
