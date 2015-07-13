@@ -2,7 +2,6 @@
 
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Pandoc\Pandoc;
 use Symfony\Component\DomCrawler\Crawler;
 
 class LiveCopyRepository
@@ -60,7 +59,8 @@ class LiveCopyRepository
 
   protected function buildLiveCopy(Filesystem $fs)
   {
-    return $fs->get(static::getLiveCopyPath());
+    $html = $fs->get(static::getLiveCopyPath());
+    return $html;
   }
 
   /**
