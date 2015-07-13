@@ -21,6 +21,6 @@ class UpdateVersionHashes extends SpecificationUpdateJob implements SelfHandling
     public function handle(Filesystem $fs, GitHubManager $gh)
     {
       $commits = $gh->repo()->commits()->all($this->user, $this->repo, []);
-      $fs->put(VersionRepository::REPOSITORY_FILE, json_encode($commits));
+      VersionRepository::update($fs, $commits);
     }
 }

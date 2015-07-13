@@ -6,7 +6,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 
 class VersionRepository implements ArrayAccess, Iterator
 {
-  const REPOSITORY_FILE = 'specs_versions.json';
+  const REPOSITORY_FILE = 'versions.json';
   protected $versions = [];
   private $current = 0;
 
@@ -14,8 +14,21 @@ class VersionRepository implements ArrayAccess, Iterator
   {
     $versions = collect(json_decode($fs->get(static::REPOSITORY_FILE), true));
     $this->versions = $versions->map(function ($version) {
-      return new Version($version['sha'], $version['commit']['message'], $version['commit']['committer']['date']);
+      return new Version($version['sha'], $version['message'], $version['date']);
     })->all();
+  }
+
+  public static function update(Filesystem $fs, array $ghVersions)
+  {
+    $versions = collect($ghVersions)->map(function ($version) {
+      return [
+        'sha'     => $version['sha'],
+        'message' => $version['commit']['message'],
+        'date'    => $version['commit']['committer']['date']
+      ];
+    });
+
+    $fs->put(static::REPOSITORY_FILE, json_encode($versions, JSON_PRETTY_PRINT));
   }
 
   /**
