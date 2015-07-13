@@ -44,7 +44,7 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
 
       chdir(storage_path('app'));
       exec("git clone --depth=1 {$gitURL} ".LiveCopyRepository::PATH);
-      chdir(LiveCopyRepository::PATH);
+      chdir(storage_path('app/' . LiveCopyRepository::PATH));
     } else
     {
       chdir(storage_path(LiveCopyRepository::PATH));
