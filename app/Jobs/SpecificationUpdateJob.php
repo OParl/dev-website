@@ -2,6 +2,6 @@
 
 class SpecificationUpdateJob extends Job
 {
-  protected $user = 'lu-j';
-  protected $repo = 'oparl-json-schema';
+  protected $user = 'OParl';
+  protected $repo = 'spec';
 }
