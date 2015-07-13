@@ -103,6 +103,8 @@ class LiveCopyRepository
 
     // fix code tags
     $this->content = str_replace('<code>', '<code class="language-javascript">', $this->content);
+
+    $this->nav = str_replace('<ul>', '<ul class="list-unstyled">', $this->nav);
   }
 
   public static function getChapterPath()
