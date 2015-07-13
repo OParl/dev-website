@@ -47,7 +47,7 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
       chdir(storage_path('app/' . LiveCopyRepository::PATH));
     } else
     {
-      chdir(storage_path(LiveCopyRepository::PATH));
+      chdir(storage_path('app/'.LiveCopyRepository::PATH));
       exec('git pull --rebase');
     }
 

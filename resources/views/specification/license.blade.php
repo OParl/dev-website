@@ -5,7 +5,7 @@
     <br/>
 <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title"
       rel="dct:type">OParl Schnittstellenspezifikation</span> by <a xmlns:cc="http://creativecommons.org/ns#"
-                                                                    href="http://spec.oparl.org"
+                                                                    href="http://spec.oparl.org/spezifikation#autoren"
                                                                     property="cc:attributionName"
                                                                     rel="cc:attributionURL">OParl
         Contributors</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
