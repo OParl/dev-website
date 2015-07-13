@@ -4,7 +4,9 @@
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
             <div class="text-center">
-                <a href="{{ route('downloads.latest') }}" class="btn btn-lg btn-success">Aktuelle Version herunterladen!</a>
+                <a data-toggle="modal" class="btn btn-lg btn-success" data-target="#downloadFormatSelectModal">
+                    Aktuelle Version herunterladen!
+                </a>
             </div>
         </div>
         <div class="col-xs-12">
@@ -26,7 +28,7 @@
         </div>
 
         <div class="col-xs-12">
-            <form class="form-horizontal" id="download-selector" method="post" action="{{ route('downloads.select') }}">
+            <form class="form-horizontal" id="download-selector" method="get" action="#">
                 <div class="form-group">
                     <label for="version" class="control-label col-sm-4">
                         Gewünschte Version:
@@ -46,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label for="email" class="control-label col-sm-4">
                         Ihre E-Mail-Adresse:
                     </label>
@@ -62,10 +64,12 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-2 col-sm-offset-10 text-right">
-                        <input type="submit" value="Anfordern" class="btn btn-primary" />
+                        <input type="submit" value="Laden" class="btn btn-primary" />
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    @include ('downloads.formatselectform')
 @stop

@@ -52,6 +52,9 @@ class HooksController extends Controller
     foreach ($request->file() as $file)
       $file->move(storage_path('app/'. $path), $file->getClientOriginalName());
 
+    chdir(storage_path('app/'.$path));
+    exec('tar -xzf *.tar.gz');
+
     return response()->json(['hash' => $hash]);
   }
 }

@@ -15,7 +15,7 @@ class Version
     $this->commitMessage = $commitMessage;
     $this->date = Carbon::createFromFormat(Carbon::ISO8601, $date);
 
-    // TODO: build status
+    $this->isAvailable = is_dir(storage_path('app/versions/'.$this->getHash(7)));
   }
 
   /**

@@ -17,13 +17,27 @@ class DownloadsController extends Controller
     return view('downloads.index', ['versions' => $this->versions]);
   }
 
-  public function latest()
+  public function getFile($version, $extension)
   {
-    return "";
-  }
+    $file = null;
 
-  public function selectVersion(VersionSelectRequest $request)
-  {
-    //
+    switch ($extension)
+    {
+      case 'docx':
+      case 'pdf':
+      case 'epub':
+      case 'odt':
+      case 'html':
+      case 'txt':
+        $file = storage_path('app/versions/'.$version.'/out/OParl-1.0-draft.'.$extension);
+        break;
+
+      case 'zip':
+      case 'tar.gz':
+      case 'tar.bz2':
+        $file = storage_path('app/versions/'.$version.'/OParl-1.0-draft.'.$extension);
+    }
+
+    return response()->download(new \SplFileInfo($file), basename($file));
   }
 }

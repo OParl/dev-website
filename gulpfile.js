@@ -36,7 +36,8 @@ elixir(function(mix) {
 
             'bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
-            'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js'
+            'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js'
         ], 'public/js/lib.js', 'vendor/_bower_components/'
     );
 

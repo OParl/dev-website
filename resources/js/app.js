@@ -3,19 +3,21 @@ jQuery.expr[':'].like = function(a,i,m){
 };
 
 $(document).ready(function () {
-    // hide email field on downloads page
-    $('#download-selector .form-group:nth-of-type(2)').hide();
-
     // conditionally show email field on downloads page
     $('#download-selector select').on('change', function(event) {
         if (event.target.selectedOptions[0].attributes[0].value == "0")
         {
             $('#download-selector .form-group:nth-of-type(2)').slideDown(1200);
+            $('#download-selector .form-group:nth-of-type(3) input').val("Anfordern");
+        } else
+        {
+            $('#download-selector .form-group:nth-of-type(2)').slideUp(1200);
+            $('#download-selector .form-group:nth-of-type(3) input').val("Laden");
         }
     });
 
     // enable scroll spy
-    if ($('#toc'))
+    if ($('#toc') > 0)
     {
         $('#toc').affix({
             offset: {

@@ -27,11 +27,10 @@ Route::get('/spezifikation/images/{image}', [
 // Downloads
 Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
 Route::get('/downloads/latest', ['uses' => 'DownloadsController@latest', 'as' => 'downloads.latest']);
-Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
-Route::get('/downloads/{version}', [
-  'uses' => 'DownloadsController@provideVersion',
+Route::get('/downloads/{version}.{extension}', [
+  'uses' => 'DownloadsController@getFile',
   'as' => 'downloads.provide'
-])->where('version', '[a-z0-9]{30}');
+])->where('version', '[a-z0-9]{7}')->where('extension', '(docx|txt|pdf|odt|html|epub|zip|tar.gz|tar.bz2)');
 
 // Auth
 Route::controllers([
