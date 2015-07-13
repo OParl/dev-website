@@ -40,14 +40,19 @@ Route::controllers([
 ]);
 
 // Hooks
-Route::get('/_hooks', function () { redirect()->route('specification.index'); });
+Route::get('/_hooks', function () { return redirect()->route('specification.index'); });
 
-Route::get('/_hooks/spec_change', function () { redirect()->route('specification.index'); });
+Route::get('/_hooks/spec_change', function () { return redirect()->route('specification.index'); });
 Route::post('/_hooks/spec_change', [
   'uses' => 'HooksController@specChange',
   'as' => 'hooks.spec',
   'middleware' => ['hooks.github']
 ]);
 
-Route::get('/_hooks/add_version', ['uses' => 'HooksController@addVersion', 'as' => 'hooks.add']);
+Route::get('/_hooks/add_version', function() { return redirect()->route('specification.index'); });
+Route::post('/_hooks/add_version/{key}/{version}', [
+  'uses' => 'HooksController@addVersion',
+  'as' => 'hooks.add'
+])->where('key', '[a-zA-Z0-9]{32}')
+  ->where('version', '[a-z0-9]{4,10}');
 
