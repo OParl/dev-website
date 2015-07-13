@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class LiveCopyRepository
 {
-  const PATH = 'oparl-json-schema-master';
+  const PATH = 'livecopy';
 
   /**
    * @var \Illuminate\Support\Collection
@@ -32,7 +32,7 @@ class LiveCopyRepository
       }
     );
 
-    $this->parse($cache);
+    $this->parse($cache, $fs);
   }
 
   public function getRaw()
@@ -58,38 +58,29 @@ class LiveCopyRepository
     return $this->nav;
   }
 
-  protected function parseMarkdown($markdown)
+  protected function buildLiveCopy(Filesystem $fs)
   {
-    // transform with pandoc
-    $pandoc = new Pandoc();
-
-    $html = $pandoc->runWith($markdown, [
-      'number-sections' => null,
-      'section-divs' => null,
-      'table-of-contents' => null,
-      'standalone' => null,
-      'from' => 'markdown',
-      'to' => 'html5',
-      'toc-depth' => 2,
-      'no-highlight' => null,
-    ]);
-
-    return $html;
+    return $fs->get(static::getLiveCopyPath());
   }
 
   /**
    * @return string
    **/
-  protected function parse(CacheRepository $cache)
+  protected function parse(CacheRepository $cache, Filesystem $fs)
   {
-    $markdown = $this->getRaw();
-
-    $html = $cache->rememberForever('livecopy:html', function () use ($markdown) {
-      return $this->parseMarkdown($markdown);
+    $html = $cache->rememberForever('livecopy:html', function () use ($fs) {
+      return $this->buildLiveCopy($fs);
     });
 
     $crawler = new Crawler($html);
-    $this->nav = $crawler->filter('body > nav')->html();
+    try
+    {
+      $navElements = $crawler->filter('body > nav');
+      $this->nav = $navElements->html();
+    } catch (\InvalidArgumentException $e)
+    {
+      $this->nav = '';
+    }
 
     $content = $crawler->filterXPath("//body/*[not(self::nav)]");
     foreach ($content as $domElement)
@@ -132,5 +123,10 @@ class LiveCopyRepository
   public static function getExamplesPath()
   {
     return LiveCopyRepository::PATH . '/examples/';
+  }
+
+  public static function getLiveCopyPath()
+  {
+    return LiveCopyRepository::PATH . '/out/live.html';
   }
 }

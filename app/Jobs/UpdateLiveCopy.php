@@ -19,6 +19,13 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
 {
   use InteractsWithQueue, SerializesModels;
 
+  protected $forceRefresh = false;
+
+  public function __construct($forceRefresh = false)
+  {
+    $this->forceRefresh = $forceRefresh;
+  }
+
   /**
    * Execute the job.
    *
@@ -30,16 +37,21 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
     $cache->forget('livecopy:chapters');
     $cache->forget('livecopy:html');
 
-    $fs->deleteDirectory(LiveCopyRepository::PATH);
+    if ($this->forceRefresh)
+    {
+      $fs->deleteDirectory(LiveCopyRepository::PATH);
+      $gitURL = sprintf("https://github.com/%s/%s", $this->user, $this->repo);
 
-    // get tarball
-    $tarballUrl = sprintf('https://github.com/%s/%s/archive/master.tar.gz', $this->user, $this->repo);
+      chdir(storage_path('app'));
+      exec("git clone --depth=1 {$gitURL} ".LiveCopyRepository::PATH);
+      chdir(LiveCopyRepository::PATH);
+    } else
+    {
+      chdir(storage_path(LiveCopyRepository::PATH));
+      exec('git pull --rebase');
+    }
 
-    chdir(storage_path().'/app');
-    exec('wget '.$tarballUrl);
-    exec('tar -xvzf master.tar.gz', $output, $ret);
-
-    unlink('master.tar.gz');
+    exec('make live');
   }
 
   protected function saveFiles(array $files, $extension, $path, GitHubManager $gh, Filesystem $fs)

@@ -15,7 +15,7 @@ class UpdateLiveCopyCommand extends Command
    *
    * @var string
    */
-  protected $signature = 'maintenance:livecopy';
+  protected $signature = 'maintenance:livecopy {--force}';
 
   /**
    * The console command description.
@@ -32,6 +32,6 @@ class UpdateLiveCopyCommand extends Command
   public function handle()
   {
     $this->info('Scheduling live copy update.');
-    $this->dispatch(new UpdateLiveCopy());
+    $this->dispatch(new UpdateLiveCopy($this->option('force')));
   }
 }
