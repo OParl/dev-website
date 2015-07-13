@@ -35,6 +35,8 @@ class HooksController extends Controller
       default:
         return response()->json(['result' => Inspiring::quote()]);
     }
+
+    return response()->json();
   }
 
   public function addVersion()
