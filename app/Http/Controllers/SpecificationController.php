@@ -16,7 +16,7 @@ class SpecificationController extends Controller {
 
   public function image(Filesystem $fs, $image)
   {
-    return $fs->get(LiveCopyRepository::IMAGE_PATH.$image);
+    return $fs->get(LiveCopyRepository::getImagesPath().$image);
   }
 
   public function raw(LiveCopyRepository $livecopy)
