@@ -8,11 +8,13 @@ $(document).ready(function () {
         if (event.target.selectedOptions[0].attributes[0].value == "0")
         {
             $('#download-selector .form-group:nth-of-type(2)').slideDown(1200);
-            $('#download-selector .form-group:nth-of-type(3) input').val("Anfordern");
+            $('#download-selector .form-group:nth-of-type(3)').slideUp(1200);
+            $('#download-selector .form-group:nth-of-type(4) input').val("Anfordern");
         } else
         {
             $('#download-selector .form-group:nth-of-type(2)').slideUp(1200);
-            $('#download-selector .form-group:nth-of-type(3) input').val("Laden");
+            $('#download-selector .form-group:nth-of-type(3)').slideDown(1200);
+            $('#download-selector .form-group:nth-of-type(4) input').val("Laden");
         }
     });
 

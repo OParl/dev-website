@@ -40,4 +40,9 @@ class DownloadsController extends Controller
 
     return response()->download(new \SplFileInfo($file), basename($file));
   }
+
+  public function selectVersion(VersionSelectRequest $request)
+  {
+    //
+  }
 }

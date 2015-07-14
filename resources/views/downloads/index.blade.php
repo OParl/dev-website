@@ -28,7 +28,9 @@
         </div>
 
         <div class="col-xs-12">
-            <form class="form-horizontal" id="download-selector" method="get" action="#">
+            <form class="form-horizontal" id="download-selector" method="post" action="{{ route('downloads.select') }}">
+                {{ csrf_field() }}
+
                 <div class="form-group">
                     <label for="version" class="control-label col-sm-4">
                         Gewünschte Version:
@@ -62,6 +64,33 @@
                         </div>
                     </div>
                 </div>
+                <div class=form-group">
+                    <label for="formats" class="control-label col-sm-4">
+                        Gewünschte Formate:
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="radio"><label for="docx"><input type="radio" name="singleFormat" value="docx" />Microsoft&reg; Word&reg;</label></div>
+                                <div class="radio"><label for="epub"><input type="radio" name="singleFormat" value="epub" />ePub</label></div>
+                                <div class="radio"><label for="odt"><input type="radio" name="singleFormat" value="odt" />OpenOffice.org Text</label></div>
+                                <div class="radio"><label for="pdf"><input type="radio" name="singleFormat" value="pdf" />PDF&reg;</label></div>
+                                <div class="radio"><label for="html"><input type="radio" name="singleFormat" value="html" />HTML (Standalone)</label></div>
+                                <div class="radio"><label for="txt"><input type="radio" name="singleFormat" value="txt" />Plain Text</label></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Archive</h4>
+                                <p class="text-muted">
+                                    Die Archive enthalten alle Ausgabeformate.
+                                </p>
+
+                                <div class="radio"><label for="zip"><input type="radio" name="archiveFormat" value="zip" checked="checked" />Zip</label></div>
+                                <div class="radio"><label for="gz"><input type="radio" name="archiveFormat" value="gz" />Gzip</label></div>
+                                <div class="radio"><label for="bz2"><input type="radio" name="archiveFormat" value="bz2" />Bzip2</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-sm-2 col-sm-offset-10 text-right">
                         <input type="submit" value="Laden" class="btn btn-primary" />
@@ -71,5 +100,19 @@
         </div>
     </div>
 
-    @include ('downloads.formatselectform')
+    <div class="modal fade" id="downloadFormatSelectModal" tabindex="1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Bitte ein Downloadformat auswählen</h3>
+                </div>
+                <div class="modal-body">
+                    @include ('downloads.formatselectform', ['version' => $versions[0]])
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
