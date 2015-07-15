@@ -45,16 +45,22 @@ class HooksController extends Controller
 
   public function addVersion(VersionUpdateRequest $request, Filesystem $fs, $key, $hash)
   {
-    $path = 'versions/'.$hash.'/';
-    $fs->makeDirectory($path, '0755', true, true);
-    $fs->cleanDirectory($path);
+    try
+    {
+      $path = 'versions/'.$hash.'/';
+      $fs->makeDirectory($path, '0755', true, true);
+      $fs->cleanDirectory($path);
 
-    foreach ($request->file() as $file)
-      $file->move(storage_path('app/'. $path), $file->getClientOriginalName());
+      foreach ($request->file() as $file)
+        $file->move(storage_path('app/'. $path), $file->getClientOriginalName());
 
-    chdir(storage_path('app/'.$path));
-    exec('tar -xzf *.tar.gz');
+      chdir(storage_path('app/'.$path));
+      exec('tar -xzf *.tar.gz');
 
-    return response()->json(['hash' => $hash]);
+      return response()->json(['hash' => $hash, 'success' => true]);
+    } catch (\Exception $e)
+    {
+      return response()->json(['hash' => $hash, 'success' => false]);
+    }
   }
 }
