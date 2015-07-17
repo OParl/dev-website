@@ -19,11 +19,11 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
 {
   use InteractsWithQueue, SerializesModels;
 
-  protected $forceRefresh = false;
+  protected $cloneRefresh = false;
 
   public function __construct($forceRefresh = false)
   {
-    $this->forceRefresh = $forceRefresh;
+    $this->cloneRefresh = $forceRefresh;
   }
 
   /**
@@ -37,19 +37,9 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
     $cache->forget('livecopy:chapters');
     $cache->forget('livecopy:html');
 
-    if ($this->forceRefresh)
-    {
-      $fs->deleteDirectory(LiveCopyRepository::PATH);
-      $gitURL = sprintf("https://github.com/%s/%s", $this->user, $this->repo);
-
-      chdir(storage_path('app'));
-      exec("git clone --depth=1 {$gitURL} ".LiveCopyRepository::PATH);
-      chdir(storage_path('app/' . LiveCopyRepository::PATH));
-    } else
-    {
-      chdir(storage_path('app/'.LiveCopyRepository::PATH));
-      exec('git pull --rebase');
-    }
+    ($this->cloneRefresh)
+      ? $this->performCloneRefresh($fs)
+      : $this->performPullRefresh();
 
     exec('make live');
   }
@@ -64,5 +54,24 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
         $fs->put($path . $file['name'], $data);
       }
     }
+  }
+
+  /**
+   * @param Filesystem $fs
+   **/
+  protected function performCloneRefresh(Filesystem $fs)
+  {
+    $fs->deleteDirectory(LiveCopyRepository::PATH);
+    $gitURL = sprintf("https://github.com/%s/%s", $this->user, $this->repo);
+
+    chdir(storage_path('app'));
+    exec("git clone --depth=1 {$gitURL} " . LiveCopyRepository::PATH);
+    chdir(storage_path('app/' . LiveCopyRepository::PATH));
+  }
+
+  protected function performPullRefresh()
+  {
+    chdir(storage_path('app/' . LiveCopyRepository::PATH));
+    exec('git pull --rebase');
   }
 }
