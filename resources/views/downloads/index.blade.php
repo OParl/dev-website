@@ -65,18 +65,18 @@
                     </div>
                 </div>
                 <div class=form-group">
-                    <label for="formats" class="control-label col-sm-4">
-                        Gewünschte Formate:
+                    <label for="format" class="control-label col-sm-4">
+                        Gewünschtes Format:
                     </label>
                     <div class="col-sm-8">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="radio"><label for="docx"><input type="radio" name="singleFormat" value="docx" />Microsoft&reg; Word&reg;</label></div>
-                                <div class="radio"><label for="epub"><input type="radio" name="singleFormat" value="epub" />ePub</label></div>
-                                <div class="radio"><label for="odt"><input type="radio" name="singleFormat" value="odt" />OpenOffice.org Text</label></div>
-                                <div class="radio"><label for="pdf"><input type="radio" name="singleFormat" value="pdf" />PDF&reg;</label></div>
-                                <div class="radio"><label for="html"><input type="radio" name="singleFormat" value="html" />HTML (Standalone)</label></div>
-                                <div class="radio"><label for="txt"><input type="radio" name="singleFormat" value="txt" />Plain Text</label></div>
+                                <div class="radio"><label for="docx"><input type="radio" name="format" value="docx" />Microsoft&reg; Word&reg;</label></div>
+                                <div class="radio"><label for="epub"><input type="radio" name="format" value="epub" />ePub</label></div>
+                                <div class="radio"><label for="odt"><input type="radio" name="format" value="odt" />OpenOffice.org Text</label></div>
+                                <div class="radio"><label for="pdf"><input type="radio" name="format" value="pdf" />PDF&reg;</label></div>
+                                <div class="radio"><label for="html"><input type="radio" name="format" value="html" />HTML (Standalone)</label></div>
+                                <div class="radio"><label for="txt"><input type="radio" name="format" value="txt" />Plain Text</label></div>
                             </div>
                             <div class="col-sm-6">
                                 <h4>Archive</h4>
@@ -84,9 +84,9 @@
                                     Die Archive enthalten alle Ausgabeformate.
                                 </p>
 
-                                <div class="radio"><label for="zip"><input type="radio" name="archiveFormat" value="zip" checked="checked" />Zip</label></div>
-                                <div class="radio"><label for="gz"><input type="radio" name="archiveFormat" value="gz" />Gzip</label></div>
-                                <div class="radio"><label for="bz2"><input type="radio" name="archiveFormat" value="bz2" />Bzip2</label></div>
+                                <div class="radio"><label for="zip"><input type="radio" name="format" value="zip" checked="checked" />Zip</label></div>
+                                <div class="radio"><label for="gz"><input type="radio" name="format" value="gz" />Gzip</label></div>
+                                <div class="radio"><label for="bz2"><input type="radio" name="format" value="bz2" />Bzip2</label></div>
                             </div>
                         </div>
                     </div>
