@@ -34,10 +34,10 @@ Route::get('/downloads/{version}.{extension}', [
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 
 // Auth
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+//Route::controllers([
+//	'auth' => 'Auth\AuthController',
+//	'password' => 'Auth\PasswordController',
+//]);
 
 // Hooks
 Route::get('/_hooks', function () { return redirect()->route('specification.index'); });
