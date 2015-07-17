@@ -44,18 +44,6 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
     exec('make live');
   }
 
-  protected function saveFiles(array $files, $extension, $path, GitHubManager $gh, Filesystem $fs)
-  {
-    foreach ($files as $file)
-    {
-      if (ends_with($file['name'], $extension))
-      {
-        $data = $gh->repo()->contents()->download($this->user, $this->repo, $file['path']);
-        $fs->put($path . $file['name'], $data);
-      }
-    }
-  }
-
   /**
    * @param Filesystem $fs
    **/
