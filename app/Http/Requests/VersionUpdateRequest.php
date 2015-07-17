@@ -10,9 +10,9 @@ class VersionUpdateRequest extends Request
   public function rules()
   {
     return [
-      'zip' => 'required',
-      'gz'  => 'required',
-      'bz'  => 'required',
+      'zip' => 'required|mimetypes:application/zip,application/octet-stream',
+      'gz'  => 'required|mimetypes:application/gzip,application/octet-stream',
+      'bz'  => 'required|mimetypes:application/bzip,application/octet-stream',
     ];
   }
 }
