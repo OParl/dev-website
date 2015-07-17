@@ -27,20 +27,22 @@ class HooksController extends Controller
           $this->dispatch(new UpdateLiveCopy());
           $this->dispatch(new UpdateVersionHashes());
         }
-        break;
+
+        return response()->json(['result' => 'Scheduled updates.']);
 
       case 'push':
         // just initiate spec and version updates
         $this->dispatch(new UpdateLiveCopy());
         $this->dispatch(new UpdateVersionHashes());
-        break;
+
+        return response()->json(['result' => 'Scheduled updates.']);
 
       case 'ping':
       default:
         return response()->json(['result' => Inspiring::quote()]);
     }
 
-    return response()->json();
+    return response()->json(['result' => 'Bummer, this call was pointless.']);
   }
 
   public function addVersion(VersionUpdateRequest $request, Filesystem $fs, $key, $hash)
