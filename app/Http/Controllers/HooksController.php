@@ -41,8 +41,6 @@ class HooksController extends Controller
       default:
         return response()->json(['result' => Inspiring::quote()]);
     }
-
-    return response()->json(['result' => 'Bummer, this call was pointless.']);
   }
 
   public function addVersion(VersionUpdateRequest $request, Filesystem $fs, $key, $hash)
