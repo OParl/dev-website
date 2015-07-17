@@ -23,7 +23,7 @@ class VersionRepository implements ArrayAccess, Iterator
     $versions = collect($ghVersions)->map(function ($version) {
       return [
         'sha'     => $version['sha'],
-        'message' => $version['commit']['message'],
+        'message' => implode('', explode("\n", $version['commit']['message'])[0]),
         'date'    => $version['commit']['committer']['date']
       ];
     });
