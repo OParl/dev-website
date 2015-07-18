@@ -15,4 +15,11 @@ class Kernel extends ConsoleKernel {
     'App\Console\Commands\UpdateVersionHashesCommand',
     'App\Console\Commands\UpdateLiveCopyCommand',
 	];
+
+  protected function schedule(Schedule $schedule)
+  {
+    $schedule->call(function () {
+      // TODO: delete versions that are not in versions.json
+    })->daily();
+  }
 }
