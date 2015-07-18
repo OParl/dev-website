@@ -26,7 +26,10 @@ Route::get('/spezifikation/images/{image}', [
 
 // Downloads
 Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
-Route::get('/downloads/latest', ['uses' => 'DownloadsController@latest', 'as' => 'downloads.latest']);
+Route::get('/downloads/latest.{extension}', [
+  'uses' => 'DownloadsController@latest',
+  'as' => 'downloads.latest'
+])->where('extension', '(docx|txt|pdf|odt|html|epub|zip|tar.gz|tar.bz2)');;
 Route::get('/downloads/{version}.{extension}', [
   'uses' => 'DownloadsController@getFile',
   'as' => 'downloads.provide'

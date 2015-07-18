@@ -17,6 +17,11 @@ class DownloadsController extends Controller
     return view('downloads.index', ['versions' => $this->versions]);
   }
 
+  public function latest($extension)
+  {
+    return redirect(null, 302)->route('downloads.provide', [$this->versions->latest()->getHash(7) , $extension]);
+  }
+
   public function getFile($version, $extension)
   {
     $file = null;

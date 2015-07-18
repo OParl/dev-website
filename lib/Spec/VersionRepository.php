@@ -31,6 +31,11 @@ class VersionRepository implements ArrayAccess, Iterator
     $fs->put(static::REPOSITORY_FILE, json_encode($versions, JSON_PRETTY_PRINT));
   }
 
+  public function latest()
+  {
+    return $this->versions[0];
+  }
+
   /**
    * (PHP 5 &gt;= 5.0.0)<br/>
    * Return the current element
