@@ -57,19 +57,20 @@ class DeployCommand extends Command {
     {
       $this->call('clear-compiled');
       $this->call('optimize');
+      $this->call('route:cache');
 
       if ($this->option('init'))
       {
         exec('npm install');
         exec('bower update --allow-root');
 
-        $this->call('maintenance:livecopy --force');
+        $this->call('maintenance:livecopy', ['--force']);
         $this->call('maintenance:versions');
       }
 
       exec('gulp --production');
 
-      $this->call('migrate');
+      $this->call('migrate', ['--force']);
     } else
     {
       $this->info('Use --force to run deploy commands in local mode.');
