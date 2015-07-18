@@ -43,11 +43,11 @@ class HooksController extends Controller
     }
   }
 
-  public function addVersion(VersionUpdateRequest $request, Filesystem $fs, $key, $hash)
+  public function addVersion(VersionUpdateRequest $request, Filesystem $fs)
   {
     try
     {
-      $path = 'versions/'.$hash.'/';
+      $path = 'versions/'.$request->input('version').'/';
       $fs->makeDirectory($path, '0755', true, true);
       $fs->cleanDirectory($path);
 
@@ -57,10 +57,10 @@ class HooksController extends Controller
       chdir(storage_path('app/'.$path));
       exec('tar -xzf *.tar.gz');
 
-      return response()->json(['hash' => $hash, 'success' => true]);
+      return response()->json(['version' => $request->input('version'), 'success' => true]);
     } catch (\Exception $e)
     {
-      return response()->json(['hash' => $hash, 'success' => false]);
+      return response()->json(['version' => $request->input('version'), 'success' => false]);
     }
   }
 }

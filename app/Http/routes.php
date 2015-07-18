@@ -50,7 +50,7 @@ Route::post('/_hooks/spec_change', [
 ]);
 
 Route::get('/_hooks/add_version', function() { return redirect()->route('specification.index'); });
-Route::post('/_hooks/add_version/{key}/{version}', [
+Route::post('/_hooks/add_version', [
   'uses' => 'HooksController@addVersion',
   'as' => 'hooks.add'
 ])->where('key', '[a-zA-Z0-9]{32}')
