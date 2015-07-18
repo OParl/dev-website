@@ -47,7 +47,9 @@ class HooksController extends Controller
   {
     try
     {
-      $path = 'versions/'.$request->input('version').'/';
+      $version = substr($request->input('version'), 0, 7);
+
+      $path = 'versions/'.$version.'/';
       $fs->makeDirectory($path, '0755', true, true);
       $fs->cleanDirectory($path);
 
