@@ -57,7 +57,6 @@ class DeployCommand extends Command {
     {
       $this->call('clear-compiled');
       $this->call('optimize');
-      $this->call('route:cache');
 
       if ($this->option('init'))
       {
