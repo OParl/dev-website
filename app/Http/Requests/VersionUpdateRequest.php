@@ -12,9 +12,9 @@ class VersionUpdateRequest extends Request
     return [
       'version' => 'required|string|min:4|max:32',
 
-      'zip' => 'optional|mimetypes:application/zip,application/octet-stream',
-      'gz'  => 'optional|mimetypes:application/gzip,application/octet-stream',
-      'bz'  => 'optional|mimetypes:application/bzip,application/octet-stream',
+      'zip' => 'mimetypes:application/zip,application/octet-stream',
+      'gz'  => 'mimetypes:application/gzip,application/octet-stream',
+      'bz'  => 'mimetypes:application/bzip,application/octet-stream',
     ];
   }
 }

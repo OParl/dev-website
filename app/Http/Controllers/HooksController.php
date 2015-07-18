@@ -60,7 +60,11 @@ class HooksController extends Controller
       return response()->json(['version' => $request->input('version'), 'success' => true]);
     } catch (\Exception $e)
     {
-      return response()->json(['version' => $request->input('version'), 'success' => false]);
+      return response()->json([
+        'version' => $request->input('version'),
+        'success' => false,
+        'exception' => $e->getMessage()
+      ]);
     }
   }
 }
