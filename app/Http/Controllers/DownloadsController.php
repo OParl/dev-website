@@ -12,7 +12,7 @@ class DownloadsController extends Controller
     $this->versions = $versions;
   }
 
-  public function index()
+  public function index(\Illuminate\Http\Request $request)
   {
     return view('downloads.index', ['versions' => $this->versions]);
   }
@@ -48,6 +48,20 @@ class DownloadsController extends Controller
 
   public function selectVersion(VersionSelectRequest $request)
   {
-    //
+    if (!$this->versions->isAvailable($request->input('version')))
+    {
+      if (strlen($request->input('email')) === 0)
+      {
+
+      } else
+      {
+        // fire fetch job
+        // send email
+        // redirect to success page
+      }
+    }
+
+    // redirect to download link
+    return redirect(null, 302)->route('downloads.provide', [$request->input('version'), $request->input('format')]);
   }
 }

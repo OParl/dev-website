@@ -2,14 +2,9 @@
 
 class VersionSelectRequest extends Request
 {
-  /**
-   * Determine if the user is authorized to make this request.
-   *
-   * @return bool
-   */
   public function authorize()
   {
-    return false;
+    return true;
   }
 
   /**
@@ -20,8 +15,9 @@ class VersionSelectRequest extends Request
   public function rules()
   {
     return [
-      'version' => 'required|integer|min:0|max:29',
-      'email'   => 'sometimes|required|email'
+      'version' => 'required|string|size:7',
+      'email'   => 'required_if:available,0|email',
+      'format'  => 'required|in:docx,epub,txt,pdf,odt,html,zip,tar.gz,tar.bz2'
     ];
   }
 }

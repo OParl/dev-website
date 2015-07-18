@@ -36,6 +36,12 @@ class VersionRepository implements ArrayAccess, Iterator
     return $this->versions[0];
   }
 
+  public function isAvailable($hash)
+  {
+    foreach ($this->versions as $version)
+      if ($version->getHash(7) === $hash) return $version->isAvailable();
+  }
+
   /**
    * (PHP 5 &gt;= 5.0.0)<br/>
    * Return the current element
