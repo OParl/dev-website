@@ -5,6 +5,7 @@ use App\Jobs\UpdateVersionHashes;
 
 use App\Http\Requests\VersionUpdateRequest;
 
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Inspiring;
@@ -43,7 +44,7 @@ class HooksController extends Controller
     }
   }
 
-  public function addVersion(VersionUpdateRequest $request, Filesystem $fs)
+  public function addVersion(VersionUpdateRequest $request, Filesystem $fs, Mailer $mailer)
   {
     try
     {
@@ -58,6 +59,26 @@ class HooksController extends Controller
 
       chdir(storage_path('app/'.$path));
       exec('tar -xzf *.tar.gz');
+
+      // check if this was a scheduled build
+      $scheduled = collect(json_decode($fs->get('scheduled_builds.json'), true));
+
+      if ($scheduled->has($request->input('version')))
+      {
+        // send email(s)
+        $emails = $scheduled[$request->input('version')];
+        foreach ($emails as $email)
+        {
+          // TODO: download format
+          $mailer->send('emails.build_finished', $request->input());
+
+        }
+
+        // remove from scheduled
+        $scheduled->forget($request->input('version'));
+      }
+
+      $fs->put('scheduled_builds.json', json_encode($scheduled, JSON_PRETTY_PRINT));
 
       return response()->json(['version' => $request->input('version'), 'success' => true]);
     } catch (\Exception $e)

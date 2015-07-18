@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests\VersionSelectRequest;
+use App\Jobs\CreateBuild;
 use OParl\Spec\VersionRepository;
 
 class DownloadsController extends Controller
@@ -50,15 +51,17 @@ class DownloadsController extends Controller
   {
     if (!$this->versions->isAvailable($request->input('version')))
     {
-      if (strlen($request->input('email')) === 0)
-      {
+      // fire fetch job
+      $this->dispatch(new CreateBuild(
+        $request->input('version'),
+        $request->input('email'),
+        $request->input('format')
+      ));
 
-      } else
-      {
-        // fire fetch job
-        // send email
-        // redirect to success page
-      }
+      // send email
+
+      // redirect to success page
+      return redirect()->route('downloads.success')->with('email', $request->input('email'));
     }
 
     // redirect to download link

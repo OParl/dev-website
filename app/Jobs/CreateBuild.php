@@ -4,19 +4,26 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 class CreateBuild extends Job implements SelfHandling
 {
-  protected $hash = '';
+  protected $hash   = '';
+  protected $email  = '';
+  protected $format = '';
 
   /**
-   * Create a new job instance.
+   * Create a new Build Job instance
    *
-   * @return void
+   * @param string $hash
+   * @param string $email
+   * @param string $format
    */
-  public function __construct($hash)
+  public function __construct($hash, $email, $format)
   {
     $this->hash = $hash;
+    $this->email = $email;
+    $this->format = $format;
   }
 
   /**
@@ -24,11 +31,25 @@ class CreateBuild extends Job implements SelfHandling
    *
    * @return void
    */
-  public function handle()
+  public function handle(Filesystem $fs)
   {
+    // create the build
     $build = new \EFrane\Buildkite\RequestData\CreateBuild("Building requested version {$this->hash}");
     app('buildkite')
       ->builds(config('services.buildkite.user'))
       ->create(config('services.buildkite.project'), $build);
+
+    // store the information for the add_version hoo<k
+    $scheduled = collect(json_decode($fs->get('scheduled_builds.json'), true));
+
+    if ($scheduled->has($this->version))
+    {
+      $scheduled[$this->version][] = $this->email;
+    } else
+    {
+      $scheduled->put($this->version, [$this->email]);
+    }
+
+    $fs->put('scheduled_builds.json', json_encode($scheduled, JSON_PRETTY_PRINT));
   }
 }
