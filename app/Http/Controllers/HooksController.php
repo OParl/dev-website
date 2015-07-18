@@ -5,6 +5,7 @@ use App\Jobs\UpdateVersionHashes;
 
 use App\Http\Requests\VersionUpdateRequest;
 
+use App\ScheduledBuild;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -60,25 +61,17 @@ class HooksController extends Controller
       chdir(storage_path('app/'.$path));
       exec('tar -xzf *.tar.gz');
 
-      // check if this was a scheduled build
-      $scheduled = collect(json_decode($fs->get('scheduled_builds.json'), true));
-
-      if ($scheduled->has($request->input('version')))
+      // check if this was a scheduled build, send email, remove from scheduled builds
+      $scheduledBuilds = ScheduledBuild::whereVersion($request->input('version'))->get();
+      foreach ($scheduledBuilds as $build)
       {
-        // send email(s)
-        $emails = $scheduled[$request->input('version')];
-        foreach ($emails as $email)
-        {
-          // TODO: download format
-          $mailer->send('emails.build_finished', $request->input());
+        $mailer->send('emails.success', ['build' => $build], function ($m) use ($build) {
+          $m->to($build->email);
+          $m->subject('[OParl.org] Ihre angeforderte Spezifikationsversion ist fertig!');
+        });
 
-        }
-
-        // remove from scheduled
-        $scheduled->forget($request->input('version'));
+        $build->delete();
       }
-
-      $fs->put('scheduled_builds.json', json_encode($scheduled, JSON_PRETTY_PRINT));
 
       return response()->json(['version' => $request->input('version'), 'success' => true]);
     } catch (\Exception $e)

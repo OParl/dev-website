@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+use App\ScheduledBuild;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
@@ -40,16 +41,10 @@ class CreateBuild extends Job implements SelfHandling
       ->create(config('services.buildkite.project'), $build);
 
     // store the information for the add_version hoo<k
-    $scheduled = collect(json_decode($fs->get('scheduled_builds.json'), true));
-
-    if ($scheduled->has($this->version))
-    {
-      $scheduled[$this->version][] = $this->email;
-    } else
-    {
-      $scheduled->put($this->version, [$this->email]);
-    }
-
-    $fs->put('scheduled_builds.json', json_encode($scheduled, JSON_PRETTY_PRINT));
+    ScheduledBuild::create([
+      'version' => $this->version,
+      'email'   => $this->email,
+      'format'  => $this->format
+    ]);
   }
 }
