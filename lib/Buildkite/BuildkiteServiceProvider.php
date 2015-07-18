@@ -4,10 +4,17 @@ use Illuminate\Support\ServiceProvider;
 
 class BuildkiteServiceProvider extends ServiceProvider
 {
+  protected $defer = true;
+
+  public function provides()
+  {
+    return ['buildkite'];
+  }
+
   public function register()
   {
-    $this->provides('efrane/buildkite');
-
-    $this->app->bind('buildkite', 'EFrane\Buildkite\Buildkite');
+    $this->app->bind('buildkite', function () {
+      return new Buildkite(config('services.buildkite.access_token'));
+    });
   }
 }
