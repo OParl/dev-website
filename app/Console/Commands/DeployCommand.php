@@ -69,7 +69,7 @@ class DeployCommand extends Command {
 
       exec('gulp --production');
 
-      $this->call('migrate', ['--force' => true]);
+      //$this->call('migrate', ['--force' => true]);
     } else
     {
       $this->info('Use --force to run deploy commands in local mode.');
