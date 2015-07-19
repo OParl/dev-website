@@ -13,7 +13,12 @@ function switchDownloadInputs(available) {
         $('#download-selector .form-group:nth-of-type(4) input').val("Laden");
     }
 }
-$(document).ready(function () {
+
+function setupDownloads()
+{
+    // enable select2
+    $('#download-selector select').select2();
+
     // check if email field needs to be shown based on .available
     switchDownloadInputs($('#download-selector .available').val());
 
@@ -22,44 +27,47 @@ $(document).ready(function () {
         switchDownloadInputs(event.target.selectedOptions[0].attributes[0].value);
         $('#download-selector .available').val(event.target.selectedOptions[0].attributes[0].value);
     });
+}
 
-    // enable scroll spy
-    if ($('#toc') > 0)
-    {
-        $('#toc').affix({
-            offset: {
-                top: $('#toc').offset().top - 58,
-                bottom: $('#toc').offset().bottom
+function setupLiveCopy() {
+    $('#toc').affix({
+        offset: {
+            top: $('#toc').offset().top - 58,
+            bottom: $('#toc').offset().bottom
+        }
+    }).width($('#toc').parent().width());
+
+    $('#toc ul').addClass('nav');
+
+    $('#toc input').change(function (event) {
+        // kudos: http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
+
+        var filter = $(this).val();
+
+        if (!filter) {
+            $('#toc li').slideDown();
+            return;
+        }
+
+        $('#toc div > ul').find("a:not(:like(" + filter + "))").parent().each(function () {
+            if ($('ul', this).length == 0) {
+                $(this).slideUp();
+            } else if ($('ul', this).find('li:visible').length == 0) {
+                $(this).slideUp();
             }
-        }).width($('#toc').parent().width());
+        });
 
-        $('#toc ul').addClass('nav');
+        $('#toc div > ul').find("a:like(" + filter + ")").parent().slideDown();
 
-        $('#toc input').change(function (event) {
-            // kudos: http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
+    }).keyup(function () {
+        $(this).change();
+    });
 
-            var filter = $(this).val();
+    //$('body').scrollspy({ target: '#toc > div' });
 
-            if (!filter)
-            {
-                $('#toc li').slideDown();
-                return;
-            }
-
-            $('#toc div > ul').find("a:not(:like(" + filter + "))").parent().each(function () {
-                if ($('ul', this).length == 0) {
-                    $(this).slideUp();
-                } else if ($('ul', this).find('li:visible').length == 0) {
-                    $(this).slideUp();
-                }
-            });
-
-            $('#toc div > ul').find("a:like(" + filter + ")").parent().slideDown();
-
-        }).keyup(function () { $(this).change(); });
-
-        //$('body').scrollspy({ target: '#toc > div' });
-
-        $('#toc').parent().fadeIn();
-    }
+    $('#toc').parent().fadeIn();
+}
+$(document).ready(function () {
+    if ($('#download-selector') > 0) setupDownloads();
+    if ($('#toc') > 0) setupLiveCopy();
 });

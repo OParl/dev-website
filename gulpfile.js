@@ -16,7 +16,9 @@ elixir(function(mix) {
 
     mix.styles(
         [
-            'prism/plugins/line-numbers/prism-line-numbers.css'
+            'prism/plugins/line-numbers/prism-line-numbers.css',
+
+            'select2/dist/css/select2.css'
         ], 'public/css/lib.css', 'vendor/_bower_components'
     );
 
@@ -37,7 +39,9 @@ elixir(function(mix) {
             'bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js',
-            'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js'
+            'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
+
+            'select2/dist/js/select2.js'
         ], 'public/js/lib.js', 'vendor/_bower_components/'
     );
 
