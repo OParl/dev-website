@@ -1,9 +1,9 @@
 <div class="page-header">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <h1><span class="text-oparl">OParl</span> - Spezifikation</h1>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="text-page-header text-right">
                 <ul class="list-unstyled list-inline">
                     <li>

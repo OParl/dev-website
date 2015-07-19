@@ -4,7 +4,7 @@
             <div class="input-group-addon">
                 <span aria-hidden="true" class="glyphicon glyphicon-search"></span>
             </div>
-            <input type="search" class="form-control" placeholder="Im Inhaltsverzeichnis suchen&hellip;" name="search" />
+            <input type="search" class="form-control" placeholder="Im Inhalt suchen&hellip;" name="search" />
         </div>
     </form>
 
