@@ -22,7 +22,12 @@ abstract class AbstractClient
 
     $organizationAndProject = $this->validateInput($organizationAndProject);
     if (strpos($organizationAndProject, '/') > 0)
+    {
       list($this->organization, $this->project) = explode('/', $organizationAndProject);
+    } else
+    {
+      $this->organization = $organizationAndProject;
+    }
 
     $this->guzzleClient = new Client($this->getBaseURL(), []);
   }

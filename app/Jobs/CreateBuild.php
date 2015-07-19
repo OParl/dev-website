@@ -35,14 +35,18 @@ class CreateBuild extends Job implements SelfHandling
   public function handle(Filesystem $fs)
   {
     // create the build
-    $build = new \EFrane\Buildkite\RequestData\CreateBuild("Building requested version {$this->hash}");
+    $build = new \EFrane\Buildkite\RequestData\CreateBuild(
+      "Building requested version {$this->hash}",
+      $this->hash
+    );
+
     app('buildkite')
-      ->builds(config('services.buildkite.user'))
-      ->create(config('services.buildkite.project'), $build);
+      ->builds(config('services.buildkite.project'))
+      ->create($build);
 
     // store the information for the add_version hoo<k
     ScheduledBuild::create([
-      'version' => $this->version,
+      'version' => $this->hash,
       'email'   => $this->email,
       'format'  => $this->format
     ]);

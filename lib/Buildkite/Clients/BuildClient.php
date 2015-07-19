@@ -5,16 +5,10 @@ use EFrane\Buildkite\RequestData\CreateBuild;
 
 class BuildClient extends AbstractClient
 {
-  protected $organization = '';
-
-  public function __construct($token, $organization)
+  public function __construct($token, $organization, $project = null)
   {
     if (is_null($organization)) throw new BuildkiteException("\$organization must be valid.");
     parent::__construct($token, $organization);
-
-
-
-    return $this->index();
   }
 
   public function index()
