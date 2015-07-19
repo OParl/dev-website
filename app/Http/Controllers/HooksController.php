@@ -1,21 +1,39 @@
 <?php namespace App\Http\Controllers;
 
-use App\Jobs\UpdateLiveCopy;
-use App\Jobs\UpdateVersionHashes;
-
-use App\Http\Requests\VersionUpdateRequest;
-
-use App\ScheduledBuild;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\VersionUpdateRequest;
+use App\Jobs\UpdateLiveCopy;
+use App\Jobs\UpdateVersionHashes;
+use App\ScheduledBuild;
+
+
+/**
+ * Hooks Controller
+ *
+ * This website is kept up-to-date with the help of webhooks.
+ * One of them (specChange) is responsible for updating the live copy if an eligible
+ * update occurs in th GH spec repo. The other one (addVersion) is called whenever
+ * a new spec version was built by Buildkite. The latter one makes downloads work.
+ *
+ * @package App\Http\Controllers
+ **/
 class HooksController extends Controller
 {
   use DispatchesJobs;
 
+  /**
+   * GitHub Spec Change Webhook
+   *
+   * TODO: ********DOCUMENTATION********
+   *
+   * @param Request $request
+   * @return \Illuminate\Http\JsonResponse
+   **/
   public function specChange(Request $request)
   {
     switch ($request->header('x-github-event'))
@@ -28,9 +46,11 @@ class HooksController extends Controller
         {
           $this->dispatch(new UpdateLiveCopy());
           $this->dispatch(new UpdateVersionHashes());
+
+          return response()->json(['result' => 'Scheduled updates.']);
         }
 
-        return response()->json(['result' => 'Scheduled updates.']);
+        return response()->json(['result' => 'No merge happened. Nothing to do.']);
 
       case 'push':
         // just initiate spec and version updates
@@ -45,42 +65,76 @@ class HooksController extends Controller
     }
   }
 
+  /**
+   * Buildkite Deploy Hook
+   *
+   *  TODO: ********DOCUMENTATION********
+   *
+   * @param VersionUpdateRequest $request
+   * @param Filesystem $fs
+   * @param Mailer $mailer
+   * @return \Illuminate\Http\JsonResponse
+   **/
   public function addVersion(VersionUpdateRequest $request, Filesystem $fs, Mailer $mailer)
   {
     try
     {
-      $version = substr($request->input('version'), 0, 7);
+      $this->saveFiles($request, $fs);
+      $this->handleScheduledBuilds($request, $mailer);
 
-      $path = 'versions/'.$version.'/';
-      $fs->makeDirectory($path, '0755', true, true);
-      $fs->cleanDirectory($path);
-
-      foreach ($request->file() as $file)
-        $file->move(storage_path('app/'. $path), $file->getClientOriginalName());
-
-      chdir(storage_path('app/'.$path));
-      exec('tar -xzf *.tar.gz');
-
-      // check if this was a scheduled build, send email, remove from scheduled builds
-      $scheduledBuilds = ScheduledBuild::whereVersion($request->input('version'))->get();
-      foreach ($scheduledBuilds as $build)
-      {
-        $mailer->send('emails.success', ['build' => $build], function ($m) use ($build) {
-          $m->to($build->email);
-          $m->subject('[OParl.org] Ihre angeforderte Spezifikationsversion ist fertig!');
-        });
-
-        $build->delete();
-      }
-
-      return response()->json(['version' => $request->input('version'), 'success' => true]);
+      return response()->json([
+        'version' => $request->input('version'),
+        'success' => true
+      ]);
     } catch (\Exception $e)
     {
       return response()->json([
-        'version' => $request->input('version'),
-        'success' => false,
+        'version'   => $request->input('version'),
+        'success'   => false,
         'exception' => $e->getMessage()
       ]);
     }
+  }
+
+  /**
+   * Check if this was a scheduled build, send email, remove from scheduled builds
+   *
+   * @param VersionUpdateRequest $request
+   * @param Mailer $mailer
+   **/
+  protected function handleScheduledBuilds(VersionUpdateRequest $request, Mailer $mailer)
+  {
+    $scheduledBuilds = ScheduledBuild::whereVersion($request->input('version'))->get();
+    foreach ($scheduledBuilds as $build) {
+      $mailer->send('emails.success', ['build' => $build], function ($m) use ($build) {
+        $m->from('info@oparl.org');
+        $m->to($build->email);
+        $m->subject('[OParl.org] Ihre angeforderte Spezifikationsversion ist fertig!');
+      });
+
+      $build->delete();
+    }
+  }
+
+  /**
+   * Save the archives from the request and extract one to enable
+   * quick access to the different output formats.
+   *
+   * @param VersionUpdateRequest $request
+   * @param Filesystem $fs
+   **/
+  protected function saveFiles(VersionUpdateRequest $request, Filesystem $fs)
+  {
+    $version = substr($request->input('version'), 0, 7);
+
+    $path = 'versions/' . $version . '/';
+    $fs->makeDirectory($path, '0755', true, true);
+    $fs->cleanDirectory($path);
+
+    foreach ($request->file() as $file)
+      $file->move(storage_path('app/' . $path), $file->getClientOriginalName());
+
+    chdir(storage_path('app/' . $path));
+    exec('tar -xzf *.tar.gz');
   }
 }
