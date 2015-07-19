@@ -9,7 +9,7 @@ use Carbon\Carbon;
  *
  * @package OParl\Spec
  **/
-class Version
+class Version implements \JsonSerializable
 {
   /**
    * @var string
@@ -76,5 +76,17 @@ class Version
   public function isAvailable()
   {
     return $this->isAvailable;
+  }
+
+  /**
+   * @return array JSON representation
+   */
+  public function jsonSerialize()
+  {
+    return [
+      'sha' => $this->hash,
+      'message' => $this->commitMessage,
+      'date' => $this->date->format(Carbon::ISO8601)
+    ];
   }
 }
