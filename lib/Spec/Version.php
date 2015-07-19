@@ -35,7 +35,7 @@ class Version
   }
 
   /**
-   * @return null|static
+   * @return null|Carbon\Carbon
    */
   public function getDate()
   {

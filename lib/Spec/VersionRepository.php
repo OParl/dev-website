@@ -3,6 +3,7 @@
 use \ArrayAccess;
 use \Iterator;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Carbon\Carbon;
 
 class VersionRepository implements ArrayAccess, Iterator
 {
@@ -15,6 +16,8 @@ class VersionRepository implements ArrayAccess, Iterator
     $versions = collect(json_decode($fs->get(static::REPOSITORY_FILE), true));
     $this->versions = $versions->map(function ($version) {
       return new Version($version['sha'], $version['message'], $version['date']);
+    })->filter(function(Version $version) {
+      return $version->getDate() >= Carbon::createFromDate(2015, 7, 13);
     })->all();
   }
 
