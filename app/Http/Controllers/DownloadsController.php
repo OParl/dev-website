@@ -67,4 +67,9 @@ class DownloadsController extends Controller
     // redirect to download link
     return redirect(null, 302)->route('downloads.provide', [$request->input('version'), $request->input('format')]);
   }
+
+  public function success()
+  {
+    return view('downloads.success');
+  }
 }

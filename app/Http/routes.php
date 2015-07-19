@@ -35,6 +35,7 @@ Route::get('/downloads/{version}.{extension}', [
   'as' => 'downloads.provide'
 ])->where('version', '[a-z0-9]{7}')->where('extension', '(docx|txt|pdf|odt|html|epub|zip|tar.gz|tar.bz2)');
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
+Route::get('/downloads/success', ['uses' => 'DownloadsController@success', 'as' => 'downloads.success']);
 
 // Auth
 //Route::controllers([
