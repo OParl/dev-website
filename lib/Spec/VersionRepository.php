@@ -54,11 +54,11 @@ class VersionRepository implements ArrayAccess, Iterator
     $commits = $gh->repo()->commits()->all($user, $repo, []);
 
     $versions = collect($commits)->map(function ($version) {
-      return [
-        'sha'     => $version['sha'],
-        'message' => explode("\n", $version['commit']['message'])[0],
-        'date'    => $version['commit']['committer']['date']
-      ];
+      return new Version(
+        $version['sha'],
+        explode("\n", $version['commit']['message'])[0],
+        $version['commit']['committer']['date']
+      );
     })->filter(function(Version $version) {
       return $version->getDate() >= Carbon::createFromDate(2015, 7, 13);
     });
