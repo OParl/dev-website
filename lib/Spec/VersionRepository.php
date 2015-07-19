@@ -4,41 +4,80 @@ use \ArrayAccess;
 use \Iterator;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Carbon\Carbon;
+use GrahamCampbell\GitHub\GitHubManager;
 
+/**
+ * Version Repository
+ *
+ * This repository manages all accessible Spec versions.
+ *
+ * @package OParl\Spec
+ **/
 class VersionRepository implements ArrayAccess, Iterator
 {
+  /**
+   * The static json storing the available versions
+   */
   const REPOSITORY_FILE = 'versions.json';
+
+  /**
+   * @var array Version objects
+   **/
   protected $versions = [];
+
+  /**
+   * @var int Currently selected version (\Iterator)
+   **/
   private $current = 0;
 
+  /**
+   * Loads the available versions from the repository file.
+   *
+   * @param Filesystem $fs
+   */
   public function __construct(Filesystem $fs)
   {
     $versions = collect(json_decode($fs->get(static::REPOSITORY_FILE), true));
     $this->versions = $versions->map(function ($version) {
       return new Version($version['sha'], $version['message'], $version['date']);
-    })->filter(function(Version $version) {
-      return $version->getDate() >= Carbon::createFromDate(2015, 7, 13);
     })->all();
   }
 
-  public static function update(Filesystem $fs, array $ghVersions)
+  /**
+   * Creates or updates the repository file.
+   *
+   * @param Filesystem $fs
+   * @param array $ghVersions
+   **/
+  public static function update(Filesystem $fs, GitHubManager $gh, $user, $repo)
   {
-    $versions = collect($ghVersions)->map(function ($version) {
+    $commits = $gh->repo()->commits()->all($user, $repo, []);
+
+    $versions = collect($commits)->map(function ($version) {
       return [
         'sha'     => $version['sha'],
         'message' => explode("\n", $version['commit']['message'])[0],
         'date'    => $version['commit']['committer']['date']
       ];
+    })->filter(function(Version $version) {
+      return $version->getDate() >= Carbon::createFromDate(2015, 7, 13);
     });
 
     $fs->put(static::REPOSITORY_FILE, json_encode($versions, JSON_PRETTY_PRINT));
   }
 
+  /**
+   * @return Version latest version object
+   **/
   public function latest()
   {
     return $this->versions[0];
   }
 
+  /**
+   * @param $hash
+   * @return boolean Is the version already available?
+   **/
   public function isAvailable($hash)
   {
     foreach ($this->versions as $version)

@@ -2,13 +2,40 @@
 
 use Carbon\Carbon;
 
-class Version 
+/**
+ * Version
+ *
+ * Information on a Spec Version
+ *
+ * @package OParl\Spec
+ **/
+class Version
 {
+  /**
+   * @var string
+   **/
   protected $hash = '';
+
+  /**
+   * @var string
+   **/
   protected $commitMessage = '';
+
+  /**
+   * @var Carbon
+   **/
   protected $date = null;
+
+  /**
+   * @var bool
+   **/
   protected $isAvailable = false;
 
+  /**
+   * @param $hash string
+   * @param $commitMessage string
+   * @param $date string
+   */
   public function __construct($hash, $commitMessage, $date)
   {
     $this->hash = $hash;
@@ -19,15 +46,16 @@ class Version
   }
 
   /**
-   * @return string
+   * @param $length int Hash substring length. Max: 30, Default: 7
+   * @return string The version hash, with the requested length
    */
-  public function getHash($length = 30)
+  public function getHash($length = 7)
   {
     return substr($this->hash, 0, $length);
   }
 
   /**
-   * @return string
+   * @return string Commit message
    */
   public function getCommitMessage()
   {
@@ -35,7 +63,7 @@ class Version
   }
 
   /**
-   * @return null|Carbon\Carbon
+   * @return null|Carbon Creation date
    */
   public function getDate()
   {
@@ -43,7 +71,7 @@ class Version
   }
 
   /**
-   * @return boolean
+   * @return boolean Are the version's files available?
    */
   public function isAvailable()
   {
