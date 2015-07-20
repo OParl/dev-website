@@ -5,6 +5,8 @@ namespace App\Jobs;
 use App\ScheduledBuild;
 use Illuminate\Contracts\Bus\SelfHandling;
 
+use EFrane\Buildkite\RequestData\CreateBuild as CreateBuildRequest;
+
 /**
  * Create Build Job
  *
@@ -59,7 +61,7 @@ class CreateBuild extends Job implements SelfHandling
   public function handle()
   {
     // create the build
-    $build = new \EFrane\Buildkite\RequestData\CreateBuild(
+    $build = new CreateBuildRequest(
       "Building requested version {$this->hash}",
       $this->hash
     );
