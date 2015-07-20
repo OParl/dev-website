@@ -23,8 +23,6 @@ function switchDownloadInputs(available) {
 
 function setupDownloads()
 {
-    console.log("Hello?");
-
     // enable select2
     $('#download-selector select').select2();
 
