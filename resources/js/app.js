@@ -2,12 +2,19 @@ jQuery.expr[':'].like = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 };
 
+$(document).ready(function () {
+    if (document.location.pathname.match('downloads'))     setupDownloads();
+    if (document.location.pathname.match('spezifikation')) setupLiveCopy();
+});
+
 function switchDownloadInputs(available) {
-    if (available == "0") {
+    if (available == "0")
+    {
         $('#download-selector .form-group:nth-of-type(2)').slideDown(1200);
         $('#download-selector .form-group:nth-of-type(3)').slideUp(1200);
         $('#download-selector .form-group:nth-of-type(4) input').val("Anfordern");
-    } else {
+    } else
+    {
         $('#download-selector .form-group:nth-of-type(2)').slideUp(1200);
         $('#download-selector .form-group:nth-of-type(3)').slideDown(1200);
         $('#download-selector .form-group:nth-of-type(4) input').val("Laden");
@@ -16,6 +23,8 @@ function switchDownloadInputs(available) {
 
 function setupDownloads()
 {
+    console.log("Hello?");
+
     // enable select2
     $('#download-selector select').select2();
 
@@ -67,7 +76,3 @@ function setupLiveCopy() {
 
     $('#toc').parent().fadeIn();
 }
-$(document).ready(function () {
-    if ($('#download-selector') > 0) setupDownloads();
-    if ($('#toc') > 0) setupLiveCopy();
-});
