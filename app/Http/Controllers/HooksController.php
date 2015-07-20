@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VersionUpdateRequest;
 use App\Jobs\UpdateLiveCopy;
 use App\Jobs\UpdateVersionHashes;
-use App\ScheduledBuild;
+use App\Model\ScheduledBuild;
 
 
 /**

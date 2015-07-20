@@ -1,8 +1,6 @@
-<?php
+<?php namespace App\Jobs;
 
-namespace App\Jobs;
-
-use App\ScheduledBuild;
+use App\Model\ScheduledBuild;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use EFrane\Buildkite\RequestData\CreateBuild as CreateBuildRequest;
