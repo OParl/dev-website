@@ -67,7 +67,7 @@ class DeployCommand extends Command {
         $this->call('maintenance:versions');
       }
 
-      exec('gulp --production');
+      exec('gulp');
 
       //$this->call('migrate', ['--force' => true]);
     } else
