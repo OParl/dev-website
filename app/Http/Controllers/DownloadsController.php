@@ -58,8 +58,6 @@ class DownloadsController extends Controller
         $request->input('format')
       ));
 
-      // send email
-
       // redirect to success page
       return redirect()->route('downloads.success')->with('email', $request->input('email'));
     }

@@ -38,16 +38,6 @@ body { position: relative; }
     overflow-y: scroll;
   }
 
-  .overlay {
-    position: absolute;
-    bottom: 0.5em;
-    left: 0;
-    height: 3em;
-    width: 100%;
-    z-index: 200;
-    background: linear-gradient(to bottom, rgba(1, 1, 1, 0), opacify(#fff, 1) 60%);
-  }
-
   .nav > li > a { padding: 0; }
 
   a {

@@ -10,6 +10,5 @@
 
     <div>
         {!! $livecopy->getNav() !!}
-        <div class="overlay" aria-hidden="true"></div>
     </div>
 </nav>
