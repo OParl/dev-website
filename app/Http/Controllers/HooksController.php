@@ -2,8 +2,10 @@
 
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
+
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Inspiring;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests\VersionUpdateRequest;
@@ -29,9 +31,24 @@ class HooksController extends Controller
   /**
    * GitHub Spec Change Webhook
    *
-   * TODO: ********DOCUMENTATION********
+   * This hook is called by GitHub on certain Spec repository updates.
+   * The webhook setup on GH should be the following:
+   *
+   * - Content-type: application/x-www-form-urlencoded
+   * - Secret: should match env('GITHUB_WEBHOOK_SECRET')
+   * - Events: push, pull_request
+   *
+   * (Other events may be enabled but will be ignored.)
+   *
+   * Validation of the WebHook is done via the
+   * `ValidateGitHubWebHook` middleware.
+   *
+   * On being called, the hook checks if a push or
+   * a merged pull request was signalled and updates
+   * the live copy and the version repository accordingly.
    *
    * @param Request $request
+   * @see \App\Http\Middleware\ValidateGitHubWebHook
    * @return \Illuminate\Http\JsonResponse
    **/
   public function specChange(Request $request)
@@ -68,7 +85,14 @@ class HooksController extends Controller
   /**
    * Buildkite Deploy Hook
    *
-   *  TODO: ********DOCUMENTATION********
+   * This hook is hit by the Buildkite deploy process of the specification
+   * project. It is called in two different situations:
+   *
+   * 1) Whenever an update happens to the spec, it is automatically built by
+   *    Buildkite and sent to this hook
+   *
+   * 2) As a continuation of the scheduled builds, when BK finished building,
+   *    this hook needs to check if the build was scheduled and act accordingly.
    *
    * @param VersionUpdateRequest $request
    * @param Filesystem $fs
@@ -97,7 +121,8 @@ class HooksController extends Controller
   }
 
   /**
-   * Check if this was a scheduled build, send email, remove from scheduled builds
+   * Checks if this was a scheduled build, sends email,
+   * remove from scheduled builds
    *
    * @param VersionUpdateRequest $request
    * @param Mailer $mailer
@@ -109,7 +134,7 @@ class HooksController extends Controller
       $mailer->send('emails.success', ['build' => $build], function ($m) use ($build) {
         $m->from('info@oparl.org');
         $m->to($build->email);
-        $m->subject('[OParl.org] Ihre angeforderte Spezifikationsversion ist fertig!');
+        $m->subject('[OParl.org] Ihre angeforderte Spezifikationsversion ist bereit zum Download!');
       });
 
       $build->delete();
