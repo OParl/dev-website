@@ -39,6 +39,9 @@
                 Die Erstellung benötigt unter Umständen einen kleinen Moment. Wir bitten Sie daher
                 um Ihre E-Mail-Adresse, um Ihnen den Downloadlink direkt zusenden zu können, sobald
                 der Erstellungsprozess abgeschlossen ist.
+
+                Sobald wir ihnen die Informationsmail gesendet haben, löschen wir Ihre E-Mail-Adresse
+                wieder aus unserer Datenbank.
             </div>
         </div>
     </div>
