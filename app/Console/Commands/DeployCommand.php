@@ -61,12 +61,12 @@ class DeployCommand extends Command {
       if ($this->option('init'))
       {
         exec('npm install');
-        exec('bower update --allow-root');
 
         $this->call('maintenance:livecopy', ['--force' => true]);
         $this->call('maintenance:versions');
       }
 
+      exec('bower update --allow-root');
       exec('gulp');
 
       //$this->call('migrate', ['--force' => true]);
