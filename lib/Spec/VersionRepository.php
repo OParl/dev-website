@@ -74,6 +74,11 @@ class VersionRepository implements ArrayAccess, Iterator
     return $this->versions[0];
   }
 
+  public function isLatest($hash)
+  {
+    return $hash === $this->latest()->getHash();
+  }
+
   /**
    * @param $hash
    * @return boolean Is the version already available?
@@ -81,7 +86,7 @@ class VersionRepository implements ArrayAccess, Iterator
   public function isAvailable($hash)
   {
     foreach ($this->versions as $version)
-      if ($version->getHash(7) === $hash) return $version->isAvailable();
+      if ($version->getHash() === $hash) return $version->isAvailable();
   }
 
   /**

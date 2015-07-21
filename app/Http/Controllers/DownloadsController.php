@@ -20,7 +20,10 @@ class DownloadsController extends Controller
 
   public function latest($extension)
   {
-    return redirect(null, 302)->route('downloads.provide', [$this->versions->latest()->getHash(7) , $extension]);
+    return redirect(null, 302)->route('downloads.provide', [
+      $this->versions->latest()->getHash() ,
+      $extension
+    ]);
   }
 
   public function getFile($version, $extension)
@@ -44,7 +47,16 @@ class DownloadsController extends Controller
         $file = storage_path('app/versions/'.$version.'/OParl-1.0-draft.'.$extension);
     }
 
-    return response()->download(new \SplFileInfo($file), basename($file));
+    if ($this->versions->isLatest($version))
+    {
+      $filename = basename($file);
+    } else
+    {
+      $basename = basename($file, ".{$extension}");
+      $filename = sprintf('%s-%s.%s', $basename, $version, $extension);
+    }
+
+    return response()->download(new \SplFileInfo($file), $filename);
   }
 
   public function selectVersion(VersionSelectRequest $request)
@@ -63,7 +75,10 @@ class DownloadsController extends Controller
     }
 
     // redirect to download link
-    return redirect(null, 302)->route('downloads.provide', [$request->input('version'), $request->input('format')]);
+    return redirect(null, 302)->route('downloads.provide', [
+      $request->input('version'),
+      $request->input('format')
+    ]);
   }
 
   public function success()
