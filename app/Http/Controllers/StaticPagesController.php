@@ -6,4 +6,9 @@ class StaticPagesController extends Controller
   {
     return view('pages.imprint');
   }
+
+  public function status()
+  {
+    return view('pages.status');
+  }
 }
