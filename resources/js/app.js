@@ -46,8 +46,6 @@ function setupLiveCopy() {
          }
     }).width($('#toc').parent().width());
 
-    $('#toc ul').addClass('nav');
-
     $('#toc input').change(function (event) {
         // kudos: http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
 
