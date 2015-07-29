@@ -1,8 +1,6 @@
 @extends ('base')
 
 @section ('content')
-    <h1>Impressum</h1>
-
     <p>
         <strong>Anbieter im Sinne des § 5 Telemediengesetzes</strong><br/>
         Open Knowledge Foundation Deutschland e.V.<br/>
