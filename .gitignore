@@ -4,6 +4,7 @@
 /public/js
 /public/css
 /public/fonts
+/public/img
 
 storage/github
 storage/database.sqlite

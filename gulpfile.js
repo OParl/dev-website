@@ -46,4 +46,6 @@ elixir(function(mix) {
     );
 
     mix.copy('vendor/_bower_components/bootstrap-sass-official/assets/fonts', 'public/fonts');
+
+    mix.copy('resources/assets/brand/icon/oparl-icon.png', 'public/img/favicon.png');
 });
