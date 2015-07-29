@@ -25,6 +25,12 @@ body { position: relative; }
   max-height: none;
 }
 
+@media (max-width: 768px) {
+  .toc.affix {
+    position: static;
+  }
+}
+
 .toc {
   $color : #999;
 
