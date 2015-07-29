@@ -27,7 +27,9 @@ function setupDownloads()
     $('#download-selector select').select2();
 
     // check if email field needs to be shown based on .available
-    switchDownloadInputs($('#download-selector .available').val());
+    switchDownloadInputs(
+        $('#download-selector .form-group:nth-of-type(1) select option').first().data('is-available')
+    );
 
     // conditionally show email field on downloads page
     $('#download-selector select').on('change', function(event) {
