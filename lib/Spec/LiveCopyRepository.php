@@ -16,9 +16,17 @@ class LiveCopyRepository
   protected $content = '';
   protected $nav = '';
 
+  protected $cache = null;
+  protected $fs = null;
+
   public function __construct(Filesystem $fs, CacheRepository $cache)
   {
-    $this->chapters = $cache->rememberForever('livecopy:chapters',
+    $this->fs = $fs;
+    $this->cache = $cache;
+
+    $this->chapters = $cache->remember(
+      'livecopy:chapters',
+      240,
       function () use ($fs) {
         $files = collect($fs->allFiles($this->getChapterPath()))->sort();
         $files->shift();
@@ -68,7 +76,7 @@ class LiveCopyRepository
    **/
   protected function parse(CacheRepository $cache, Filesystem $fs)
   {
-    $html = $cache->rememberForever('livecopy:html', function () use ($fs) {
+    $html = $cache->remember('livecopy:raw_html', 60, function () use ($fs) {
       return $this->buildLiveCopy($fs);
     });
 
@@ -86,25 +94,25 @@ class LiveCopyRepository
     foreach ($content as $domElement)
       $this->content .= $domElement->ownerDocument->saveHTML($domElement);
 
-    $this->fixHTML();
+    $this->fixHTML($this->content, $this->nav);
   }
 
 
-  protected function fixHTML()
+  protected function fixHTML(&$content, &$nav)
   {
     // fix image urls
-    $this->content = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/spezifikation/$2"', $this->content);
+    $content = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/spezifikation/$2"', $content);
 
     // fix image tags
-    $this->content = str_replace('<img ', '<img class="img-responsive"', $this->content);
+    $content = str_replace('<img ', '<img class="img-responsive"', $content);
 
     // fix table tags
-    $this->content = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $this->content);
+    $content = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $content);
 
     // fix code tags
-    $this->content = str_replace('<code>', '<code class="language-javascript">', $this->content);
+    $content = str_replace('<code>', '<code class="language-javascript">', $content);
 
-    $this->nav = str_replace('<ul>', '<ul class="list-unstyled">', $this->nav);
+    $nav = str_replace('<ul>', '<ul class="list-unstyled">', $nav);
   }
 
   public static function getChapterPath()
@@ -130,5 +138,38 @@ class LiveCopyRepository
   public static function getLiveCopyPath()
   {
     return LiveCopyRepository::PATH . '/out/live.html';
+  }
+
+  public function refresh($user, $repository, $forceClone = false)
+  {
+    // remove cached livecopy chapters
+    $this->cache->forget('livecopy:chapters');
+    $this->cache->forget('livecopy:raw_html');
+
+    ($forceClone)
+      ? $this->performCloneRefresh($user, $repository)
+      : $this->performPullRefresh();
+
+    exec('make live');
+  }
+
+  /**
+   * @param Filesystem $fs
+   **/
+  protected function performCloneRefresh($user, $repository)
+  {
+    $this->fs->deleteDirectory(self::PATH);
+
+    $gitURL = sprintf("https://github.com/%s/%s", $user, $repository);
+
+    chdir(storage_path('app'));
+    exec("git clone --depth=1 {$gitURL} " . self::PATH);
+    chdir(storage_path('app/' . self::PATH));
+  }
+
+  protected function performPullRefresh()
+  {
+    chdir(storage_path('app/' . self::PATH));
+    exec('git pull --rebase');
   }
 }

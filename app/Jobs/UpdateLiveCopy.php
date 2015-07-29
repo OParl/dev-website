@@ -19,11 +19,11 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
 {
   use InteractsWithQueue, SerializesModels;
 
-  protected $cloneRefresh = false;
+  protected $forceRefresh = false;
 
   public function __construct($forceRefresh = false)
   {
-    $this->cloneRefresh = $forceRefresh;
+    $this->forceRefresh = $forceRefresh;
   }
 
   /**
@@ -31,35 +31,8 @@ class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, Sho
    *
    * @return void
    */
-  public function handle(Filesystem $fs, CacheRepository $cache)
+  public function handle(LiveCopyRepository $repository)
   {
-    // remove cached livecopy chapters
-    $cache->forget('livecopy:chapters');
-    $cache->forget('livecopy:html');
-
-    ($this->cloneRefresh)
-      ? $this->performCloneRefresh($fs)
-      : $this->performPullRefresh();
-
-    exec('make live');
-  }
-
-  /**
-   * @param Filesystem $fs
-   **/
-  protected function performCloneRefresh(Filesystem $fs)
-  {
-    $fs->deleteDirectory(LiveCopyRepository::PATH);
-    $gitURL = sprintf("https://github.com/%s/%s", $this->user, $this->repo);
-
-    chdir(storage_path('app'));
-    exec("git clone --depth=1 {$gitURL} " . LiveCopyRepository::PATH);
-    chdir(storage_path('app/' . LiveCopyRepository::PATH));
-  }
-
-  protected function performPullRefresh()
-  {
-    chdir(storage_path('app/' . LiveCopyRepository::PATH));
-    exec('git pull --rebase');
+    $repository->refresh($this->user, $this->repo, $this->forceRefresh);
   }
 }
