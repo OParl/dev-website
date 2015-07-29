@@ -1,24 +1,28 @@
 <div class="page-header">
-    <div class="row">
-        <div class="col-md-8">
-            <h1><span class="text-oparl">OParl</span> - Spezifikation</h1>
-        </div>
-        <div class="col-md-4">
-            <div class="text-page-header text-right">
-                <ul class="list-unstyled list-inline">
-                    <li>
-                        <a href="http://demoserver.oparl.org/" class="btn btn-default">Demoserver</a>
-                    </li>
+    <h1>
+        <span class="text-oparl">OParl</span>
+        <small>Initiative für Offenheit parlamentarischer Informationssysteme</small>
+    </h1>
 
-                    <li>
-                        @if (starts_with(Route::currentRouteName(), 'specification.'))
-                            <a href="{{ route('downloads.index') }}" class="btn btn-primary">Downloads</a>
-                        @else
-                            <a href="{{ route('specification.index') }}" class="btn btn-primary">Online lesen</a>
+    <nav class="text-center">
+        <ul class="nav nav-pills">
+            @foreach ($sections as $section)
+                @if (isset($section['current']) && $section['current'])
+                    <li role="presentation" class="active">
+                @else
+                    <li role="presentation">
                         @endif
+
+                        @if (isset($section['routeKey']))
+                            <a href="{{ route($section['routeKey'] . '.index') }}">
+                                @else
+                                    <a href="{{ $section['url'] }}" target="_blank">
+                                        @endif
+
+                                        {{ $section['title'] }}</a>
+
                     </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+                    @endforeach
+        </ul>
+    </nav>
 </div>
