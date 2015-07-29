@@ -11,4 +11,9 @@ class StaticPagesController extends Controller
   {
     return view('pages.status');
   }
+
+  public function about()
+  {
+    return view('pages.about');
+  }
 }

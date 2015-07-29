@@ -11,6 +11,11 @@ class Header
 //      ],
 
       [
+        'routeKey' => 'about',
+        'title' => 'Über OParl'
+      ],
+
+      [
         'routeKey' => 'specification',
         'title' => 'Spezifikation'
       ],

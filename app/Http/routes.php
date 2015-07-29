@@ -16,6 +16,9 @@ Route::get('/', function () {
   return Redirect::route('specification.index');
 });
 
+// About
+Route::get('/ueber-oparl', ['uses' => 'StaticPagesController@about', 'as' => 'about.index']);
+
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
 Route::get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
