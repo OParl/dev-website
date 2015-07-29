@@ -5,10 +5,10 @@ use Illuminate\Contracts\View\View;
 class Header
 {
   protected $sections = [
-//      [
-//        'routeKey' => 'news',
-//        'title' => 'Aktuelles'
-//      ],
+      [
+        'routeKey' => 'news',
+        'title' => 'Aktuelles'
+      ],
 
       [
         'routeKey' => 'about',

@@ -12,9 +12,7 @@
 */
 
 // Home
-Route::get('/', function () {
-  return Redirect::route('specification.index');
-});
+Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
 
 // About
 Route::get('/ueber-oparl', ['uses' => 'StaticPagesController@about', 'as' => 'about.index']);
