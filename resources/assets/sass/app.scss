@@ -20,23 +20,25 @@ body { position: relative; }
 }
 
 .toc.affix {
-  top: 1.2em;
+  top: 16px;
   margin-top: 0;
-  max-height: none;
 }
 
 @media (max-width: 768px) {
   .toc.affix {
     position: static;
+
+    > div { max-height: none; }
   }
 }
 
 .toc {
   $color : #999;
 
-  margin-top: 2em;
+  margin-top: 30px;
   margin-bottom: 20px;
-  padding-bottom: 1.4em;
+
+  max-height: 100%;
 
   > div {
     min-height: 240px;

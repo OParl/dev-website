@@ -39,9 +39,9 @@ function setupDownloads()
 function setupLiveCopy() {
     $('#toc').affix({
         offset: {
-            top: $('#toc').offset().top - 58,
+            top: $('#toc').offset().top - 16,
             bottom: $('#toc').offset().bottom
-        }
+         }
     }).width($('#toc').parent().width());
 
     $('#toc ul').addClass('nav');
