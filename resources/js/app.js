@@ -3,8 +3,8 @@ jQuery.expr[':'].like = function(a,i,m){
 };
 
 $(document).ready(function () {
-    if (document.location.pathname.match('downloads'))     setupDownloads();
-    if (document.location.pathname.match('spezifikation')) setupLiveCopy();
+    if (document.location.pathname.match(/downloads/))     setupDownloads();
+    if (document.location.pathname.match(/spezifikation/)) setupLiveCopy();
 });
 
 function switchDownloadInputs(available) {
