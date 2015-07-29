@@ -35,10 +35,10 @@ class Header
 //        'title' => 'Newsletter'
 //      ],
 //
-//      [
-//        'routeKey' => 'imprint',
-//        'title' => 'Impressum'
-//      ],
+      [
+        'routeKey' => 'imprint',
+        'title' => 'Impressum'
+      ],
     ];
 
   protected function getSections()

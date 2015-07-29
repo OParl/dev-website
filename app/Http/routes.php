@@ -37,6 +37,9 @@ Route::get('/downloads/{version}.{extension}', [
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 Route::get('/downloads/success', ['uses' => 'DownloadsController@success', 'as' => 'downloads.success']);
 
+// Imprint
+Route::get('/impressum', ['uses' => 'StaticPagesController@imprint', 'as' => 'imprint.index']);
+
 // Auth
 //Route::controllers([
 //	'auth' => 'Auth\AuthController',
