@@ -25,6 +25,8 @@ class CreateCommentsTable extends Migration
 
       $table->text('content');
 
+      $table->enum('status', ['ham', 'spam', 'unvalidated'])->default('unvalidated');
+
       $table->integer('post_id')->nullable();
       $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
     });
