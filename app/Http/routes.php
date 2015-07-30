@@ -45,10 +45,10 @@ Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status
 Route::get('/impressum', ['uses' => 'StaticPagesController@imprint', 'as' => 'imprint.index']);
 
 // Auth
-//Route::controllers([
-//	'auth' => 'Auth\AuthController',
-//	'password' => 'Auth\PasswordController',
-//]);
+Route::controllers([
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController',
+]);
 
 // Hooks
 Route::get('/_hooks', function () { return redirect()->route('specification.index'); });
