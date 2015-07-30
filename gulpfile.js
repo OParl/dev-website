@@ -37,6 +37,8 @@ elixir(function(mix) {
             'prism/plugins/line-numbers/prism-line-numbers.js',
 
             'bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
