@@ -1,14 +1,12 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use Validator;
-use App\User;
-
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller {
 
   protected $redirectTo = '/admin/';
+  protected $loginPath  = '/admin/login';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -21,7 +19,7 @@ class AuthController extends Controller {
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers;
+	use AuthenticatesUsers;
 
 	/**
 	 * Create a new authentication controller instance.
@@ -47,20 +45,20 @@ class AuthController extends Controller {
       'password' => 'required|confirmed|min:6',
     ]);
   }
-
-  /**
-   * Create a new user instance after a valid registration.
-   *
-   * @param  array  $data
-   * @return User
-   */
-  public function create(array $data)
-  {
-    return User::create([
-      'name' => $data['name'],
-      'email' => $data['email'],
-      'password' => bcrypt($data['password']),
-    ]);
-  }
+//
+//  /**
+//   * Create a new user instance after a valid registration.
+//   *
+//   * @param  array  $data
+//   * @return User
+//   */
+//  public function create(array $data)
+//  {
+//    return User::create([
+//      'name' => $data['name'],
+//      'email' => $data['email'],
+//      'password' => bcrypt($data['password']),
+//    ]);
+//  }
 
 }

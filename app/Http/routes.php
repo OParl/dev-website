@@ -44,11 +44,16 @@ Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status
 // Imprint
 Route::get('/impressum', ['uses' => 'StaticPagesController@imprint', 'as' => 'imprint.index']);
 
-// Auth
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+// Admin Login
+Route::get('/admin/login', ['uses' => 'Auth\AuthController@getLogin', 'as' => 'admin.login']);
+Route::post('/admin/login', ['uses' => 'Auth\AuthController@postLogin', 'as' => 'admin.perform_login']);
+
+Route::get('/admin/logout', ['uses' => 'Auth\AuthController@getLogout', 'as' => 'admin.logout']);
+
+// Admin
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+  Route::get('/', ['uses' => 'Admin\DashboardController@index', 'as' => 'admin.dashboard']);
+});
 
 // Hooks
 Route::get('/_hooks', function () { return redirect()->route('specification.index'); });
