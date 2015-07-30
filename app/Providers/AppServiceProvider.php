@@ -12,6 +12,7 @@ class AppServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		view()->composer('header', 'App\Http\ViewComposers\Header');
+		view()->composer('admin.header', 'App\Http\ViewComposers\AdminHeader');
 	}
 
 	/**

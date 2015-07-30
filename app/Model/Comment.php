@@ -39,4 +39,19 @@ class Comment extends Model
       return $this->attributes['author_name'];
     }
   }
+
+  public function scopeHam($query)
+  {
+    return $query->whereStatus('ham');
+  }
+
+  public function scopeSpam($query)
+  {
+    return $query->whereStatus('spam');
+  }
+
+  public function scopeUnvalidated($query)
+  {
+    return $query->whereStatus('unvalidated');
+  }
 }
