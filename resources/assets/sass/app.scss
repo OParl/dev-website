@@ -13,6 +13,10 @@ body { position: relative; }
   color: #01aae7;
 }
 
+.text-tiny {
+  font-size: $font-size-base * 0.75;
+}
+
 .toc.affix {
   top: 16px;
   margin-top: 0;

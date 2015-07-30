@@ -4,21 +4,7 @@
     <div class="col-md-10 col-md-offset-1">
         <h2>Einstellungen</h2>
 
-        @if (session('info'))
-            <div class="alert alert-success">
-                {{ session('info') }}
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div class="alert alert-warning">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include ('admin.errors')
 
         <form method="POST" action="{{ route('admin.settings.save') }}">
             {{ csrf_field() }}

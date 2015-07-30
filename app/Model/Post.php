@@ -24,6 +24,23 @@ class Post extends Model
     return $this->hasMany(Comment::class);
   }
 
+  public function getIsPublishedAttribute()
+  {
+    return !is_null($this->published_at);
+  }
+
+  public function getUrlAttribute()
+  {
+    return route(
+      'news.post', [
+        $this->published_at->year,
+        sprintf('%02d', $this->published_at->month),
+        sprintf('%02d', $this->published_at->day),
+        $this->slug
+      ]
+    );
+  }
+
   public function scopePublished($query)
   {
     return $query->whereNotNull('published_at')->where('published_at', '<=', Carbon::now())->orderBy('published_at');

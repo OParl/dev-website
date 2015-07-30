@@ -42,9 +42,16 @@ elixir(function(mix) {
             'bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/alert.js',
 
             'select2/dist/js/select2.js'
         ], 'public/js/lib.js', 'vendor/_bower_components/'
+    );
+
+    mix.scripts(
+        [
+            'admin.js'
+        ], 'public/js/admin.js', 'resources/js'
     );
 
     mix.copy('vendor/_bower_components/bootstrap-sass-official/assets/fonts', 'public/fonts');
