@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
   Route::get('/comments', ['uses' => 'Admin\CommentsController@index', 'as' => 'admin.comments.index']);
 
   Route::get('/settings', ['uses' => 'Admin\SettingsController@index', 'as' => 'admin.settings']);
+  Route::post('/settings', ['uses' => 'Admin\SettingsController@save', 'as' => 'admin.settings.save']);
 });
 
 // Hooks
