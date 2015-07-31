@@ -61,7 +61,7 @@ Route::get('/admin/logout', ['uses' => 'Auth\AuthController@getLogout', 'as' => 
 
 // Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-  Route::get('/', ['uses' => 'Admin\DashboardController@index', 'as' => 'admin.dashboard']);
+  Route::get('/', ['uses' => 'Admin\DashboardController@index', 'as' => 'admin.dashboard.index']);
 
   Route::get('/posts', ['uses' => 'Admin\NewsController@index', 'as' => 'admin.news.index']);
   Route::get('/posts/new', ['uses' => 'Admin\NewsController@create', 'as' => 'admin.news.create']);

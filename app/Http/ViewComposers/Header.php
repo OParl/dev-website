@@ -60,6 +60,14 @@ class Header
       }
     }
 
+    if (\Auth::check())
+    {
+      $sections[] = [
+        'routeKey' => 'admin.dashboard',
+        'title' => 'Zur Admin-Oberfläche'
+      ];
+    }
+
     return $sections;
   }
 

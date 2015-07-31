@@ -15,7 +15,7 @@ class AdminHeader
     $sections = [
       [
         'current' => starts_with($currentRoute, 'admin.dashboard'),
-        'route' => 'admin.dashboard',
+        'route' => 'admin.dashboard.index',
         'title' => 'Übersicht'
       ],
       [
