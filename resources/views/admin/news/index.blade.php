@@ -7,11 +7,12 @@
         <table class="table table-striped table-hover table-responsive">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Titel</th>
-                    <th>Erstellt</th>
-                    <th>Veröffentlicht</th>
-                    <th>Autor</th>
+                    {{-- TODO: Display order caret in headers --}}
+                    <th><a href="?order_by=id">#</a></th>
+                    <th><a href="?order_by=title">Titel</a></th>
+                    <th><a href="?order_by=created_at">Erstellt</a></th>
+                    <th><a href="?order_by=published_at">Veröffentlicht</a></th>
+                    <th><a href="?order_by=author_id">Autor</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="text-center">
+            {!! $posts->render() !!}
+        </div>
     </div>
 
     @include ('admin.news.delete')

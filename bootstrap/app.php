@@ -41,7 +41,7 @@ $app->singleton(
 	'App\Exceptions\Handler'
 );
 
-setlocale(LC_TIME, 'de');
+setlocale(LC_ALL, 'de_DE.UTF-8');
 Carbon\Carbon::setLocale('de');
 
 

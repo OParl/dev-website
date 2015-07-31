@@ -18,6 +18,9 @@ Route::pattern('day', '\d{2}');
 Route::pattern('slug', '[[:print:]]+');
 
 Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
+Route::get('/{year}', ['uses' => 'NewsController@yearly', 'as' => 'news.yearly']);
+Route::get('/{year}/{month}', ['uses' => 'NewsController@monthly', 'as' => 'news.monthly']);
+Route::get('/{year}/{month}/{day}', ['uses' => 'NewsController@daily', 'as' => 'news.daily']);
 Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as' => 'news.post']);
 
 // About

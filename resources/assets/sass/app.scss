@@ -78,4 +78,9 @@ body { position: relative; }
   }
 }
 
-h1, h2, h3 { & > a { color: inherit; }}
+h1, h2, h3, h4 { & > a { color: inherit; }}
+
+a.link-modest {
+  color: inherit;
+  text-decoration: underline;
+}

@@ -8,4 +8,6 @@
     </div>
 @endforelse
 
-{!! $posts->render() !!}
+<div class="text-center">
+    {!! $posts->render() !!}
+</div>

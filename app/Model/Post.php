@@ -9,6 +9,13 @@ class Post extends Model
   protected $dates = ['published_at'];
   protected $fillable = ['title', 'slug', 'tags', 'author', 'content', 'published_at'];
 
+  public static function boot()
+  {
+    static::saved(function ($user) {
+      app('cache')->forget('news.archive');
+    });
+  }
+
   public function author()
   {
     return $this->belongsTo(User::class, 'author_id', 'id');
@@ -46,9 +53,16 @@ class Post extends Model
     );
   }
 
+  public function getMarkdownContentAttribute()
+  {
+    $pd = \Parsedown::instance();
+
+    return $pd->parse($this->content);
+  }
+
   public function scopePublished($query)
   {
-    return $query->whereNotNull('published_at')->where('published_at', '<=', Carbon::now())->orderBy('published_at');
+    return $query->whereNotNull('published_at')->where('published_at', '<=', Carbon::now())->orderBy('published_at', 'desc');
   }
 
   public function scopeDraft($query)

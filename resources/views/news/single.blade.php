@@ -2,7 +2,7 @@
     <div class="meta">
         <h2><a href="{{ $post->url }}">{{ $post->title }}</a></h2>
 
-        <ul class="list-unstyled list-inline">
+        <ul class="list-unstyled list-inline text-tiny">
             <li>Veröffentlicht am: {{ $post->published_at->format('d.m.Y') }}</li>
             <li>von {{ $post->author->name }}</li>
 
@@ -22,9 +22,15 @@
                     </ul>
                 </li>
             @endif
+
+            @if (\Auth::check())
+                <li>
+                    <a href="{{ route('admin.news.edit', $post->id) }}">Eintrag bearbeiten</a>
+                </li>
+            @endif
         </ul>
     </div>
     <div class="content">
-        {!! $post->content !!}
+        {!! $post->markdown_content !!}
     </div>
 </div>

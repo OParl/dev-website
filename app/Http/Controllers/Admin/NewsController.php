@@ -12,9 +12,16 @@ use App\Model\Post;
 
 class NewsController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    return view('admin.news.index')->with('posts', Post::all());
+    $order = $request->input('order_by', 'created_at');
+
+    $posts = Post::with('author')->orderBy($order)->paginate(15);
+
+    return view('admin.news.index', [
+      'posts' => $posts,
+      'order' => $order
+    ]);
   }
 
   public function create()
