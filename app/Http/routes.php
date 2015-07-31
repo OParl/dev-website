@@ -15,7 +15,7 @@
 Route::pattern('year', '\d{4}');
 Route::pattern('month', '\d{2}');
 Route::pattern('day', '\d{2}');
-Route::pattern('slug', '\w+');
+Route::pattern('slug', '[[:print:]]+');
 
 Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
 Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as' => 'news.post']);
@@ -65,6 +65,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
   Route::get('/posts/{id}', ['uses' => 'Admin\NewsController@edit', 'as' => 'admin.news.edit'])->where('id', '\d+');
   Route::post('/posts', ['uses' => 'Admin\NewsController@save', 'as' => 'admin.news.save']);
   Route::get('/posts/{id}/delete', ['uses' => 'Admin\NewsController@delete', 'as' => 'admin.news.delete'])->where('id', '\d+');
+  Route::post('/posts/slug/', ['uses' => 'Admin\NewsController@slug', 'as' => 'admin.news.slug']);
 
   Route::get('/comments', ['uses' => 'Admin\CommentsController@index', 'as' => 'admin.comments.index']);
 

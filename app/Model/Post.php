@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
   protected $dates = ['published_at'];
-  protected $fillable = ['title', 'slug', 'tags', 'author', 'content'];
+  protected $fillable = ['title', 'slug', 'tags', 'author', 'content', 'published_at'];
 
   public function author()
   {
@@ -27,6 +27,11 @@ class Post extends Model
   public function getIsPublishedAttribute()
   {
     return !is_null($this->published_at);
+  }
+
+  public function getIsScheduledAttribute()
+  {
+    return !is_null($this->published_at) && $this->published_at > Carbon::now();
   }
 
   public function getUrlAttribute()

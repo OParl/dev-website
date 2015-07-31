@@ -1,5 +1,12 @@
 <?php namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\SavePostRequest;
+use Carbon\Carbon;
+use Illuminate\Auth\Guard;
+use Illuminate\Http\Request;
+
+use Cocur\Slugify\Slugify;
+
 use App\Http\Controllers\Controller;
 use App\Model\Post;
 
@@ -20,9 +27,38 @@ class NewsController extends Controller
     return view('admin.news.edit', ['post' => Post::findOrFail($id)]);
   }
 
-  public function save()
+  public function slug(Slugify $slugify, Request $request)
   {
-    return redirect()->back()->withInput();
+    return response()->json(['slug' => $slugify->slugify($request->input('title'))]);
+  }
+
+  public function save(SavePostRequest $request, Guard $guard)
+  {
+    $postData = $request->except(['_token', 'id']);
+
+    if ($postData['published_at'] === '')
+    {
+      $postData['published_at'] = null;
+    } else
+    {
+      $postData['published_at'] = Carbon::createFromFormat(Carbon::ISO8601, $postData['published_at']);
+    }
+
+    if ($request->has('id'))
+    {
+      $post = Post::find($request->input('id'));
+      $post->update($postData);
+      $post->save();
+    } else
+    {
+      $post = Post::create($postData);
+
+      /* @var \App\Model\User $user */
+      $user = $guard->user();
+      $user->posts()->save($post);
+    }
+
+    return redirect()->route('admin.news.index')->with('info', 'Der Eintrag “' . $post->title . '” wurde erfolgreich gespeichert!');
   }
 
   public function delete($id)
@@ -31,7 +67,7 @@ class NewsController extends Controller
 
     $title = $post->title;
 
-    // TODO: delete
+    $post->delete();
 
     return redirect()->back()->with('info', 'Succesfully deleted '.$title);
   }

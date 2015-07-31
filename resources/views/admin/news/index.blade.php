@@ -19,7 +19,12 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td>
-                            <a href="{{ $post->url }}">{{ $post->title }}</a>
+                            @if ($post->is_published && !$post->is_scheduled)
+                                <a href="{{ $post->url }}">{{ $post->title }}</a>
+                            @else
+                                {{ $post->title }}
+                            @endif
+
                             <ul class="list-unstyled list-inline text-tiny">
                                 <li><a href="{{ route('admin.news.edit', $post->id) }}" class="text-info">Bearbeiten</a></li>
                                 <li>
@@ -29,7 +34,13 @@
                             </ul>
                         </td>
                         <td>{{ $post->created_at->format('d.m.Y H:i:s') }}</td>
-                        <td>{{ $post->is_published ? $post->published_at->format('d.m.Y H:i:s') : 'Entwurf' }}</td>
+                        <td>
+                            {{ $post->is_published ? $post->published_at->format('d.m.Y H:i:s') : 'Entwurf' }}
+
+                            @if ($post->is_scheduled)
+                                <span class="text-muted">(Vorgeplant)</span>
+                            @endif
+                        </td>
                         <td>{{ $post->author->name }}</td>
                     </tr>
                 @endforeach
