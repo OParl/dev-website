@@ -37,12 +37,8 @@ elixir(function(mix) {
             'prism/plugins/line-numbers/prism-line-numbers.js',
 
             'bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
-            'bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
-            'bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js',
-            'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
-            'bootstrap-sass-official/assets/javascripts/bootstrap/alert.js',
 
             'select2/dist/js/select2.js'
         ], 'public/js/lib.js', 'vendor/_bower_components/'
@@ -52,6 +48,20 @@ elixir(function(mix) {
         [
             'admin.js'
         ], 'public/js/admin.js', 'resources/js'
+    );
+
+    mix.scripts(
+        [
+            'bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/alert.js',
+
+            'moment/moment.js',
+            'moment/locale/de.js',
+
+            'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js'
+        ], 'public/js/admin-lib.js', 'vendor/_bower_components/'
     );
 
     mix.copy('vendor/_bower_components/bootstrap-sass-official/assets/fonts', 'public/fonts');
