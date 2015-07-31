@@ -1,15 +1,32 @@
-<div>
-    <div class="meta">
-        <h2><a href="{{ $post->url }}">{{ $post->title }}</a></h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><a href="{{ $post->url }}">{{ $post->title }}</a></h2>
 
-        <ul class="list-unstyled list-inline text-tiny">
-            <li>Veröffentlicht am: {{ $post->published_at->format('d.m.Y') }}</li>
-            <li>von {{ $post->author->name }}</li>
+        <span class="text-tiny">
+            Veröffentlicht am: {{ $post->published_at->format('d.m.Y') }}
+            von {{ $post->author->name }}
+        </span>
 
-            @if ( $post->updated_at > $post->published_at)
-                <li>{{ $post->updated_at->diffForHumans() }} zuletzt aktualisiert</li>
+        <span class="text-tiny">
+            @if (\Auth::check())
+                <a href="{{ route('admin.news.edit', $post->id) }}">Eintrag bearbeiten</a>
+            @endif
+        </span>
+
+        <div class="text-muted text-tiny">
+            @if ($post->comments()->count() > 0)
+                {{ $post->comments()->count() }} Reaktionen.
             @endif
 
+            <a href="{{ $post->url }}#comments">Reagieren.</a>
+        </div>
+    </div>
+    <div class="content panel-body">
+        {!! $post->markdown_content !!}
+    </div>
+
+    <div class="bottom-meta panel-footer">
+        <ul class="list-unstyled list-inline text-tiny">
             @if ($post->tags()->count() > 0)
                 <li>
                     Tags:
@@ -23,14 +40,9 @@
                 </li>
             @endif
 
-            @if (\Auth::check())
-                <li>
-                    <a href="{{ route('admin.news.edit', $post->id) }}">Eintrag bearbeiten</a>
-                </li>
+            @if ( $post->updated_at > $post->published_at)
+                <li>{{ $post->updated_at->diffForHumans() }} zuletzt aktualisiert</li>
             @endif
         </ul>
-    </div>
-    <div class="content">
-        {!! $post->markdown_content !!}
     </div>
 </div>

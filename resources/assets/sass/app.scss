@@ -82,5 +82,9 @@ h1, h2, h3, h4 { & > a { color: inherit; }}
 
 a.link-modest {
   color: inherit;
-  text-decoration: underline;
+  text-decoration: none;
+  
+  &:hover, &:active {
+    text-decoration: underline;
+  }
 }
