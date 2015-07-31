@@ -55,6 +55,15 @@
 
             <div class="form-group">
                 <div class="col-md-3">
+                    <label for="tags">Tags</label>
+                </div>
+                <div class="col-md-9">
+                    <select class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
                     <label for="published_at">Veröffentlichungsstatus</label>
                 </div>
 
