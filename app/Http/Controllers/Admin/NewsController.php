@@ -16,7 +16,10 @@ class NewsController extends Controller
   {
     $order = $request->input('order_by', 'created_at');
 
-    $posts = Post::with('author')->orderBy($order)->paginate(15);
+    // TODO: introduce sorting option
+    $sort  = ($order === 'created_at') ? 'desc' : 'asc';
+
+    $posts = Post::with('author')->orderBy($order, $sort)->paginate(15);
 
     return view('admin.news.index', [
       'posts' => $posts,
