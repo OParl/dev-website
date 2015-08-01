@@ -4,6 +4,7 @@ use Carbon\Carbon;
 
 use App\Http\Requests;
 use App\Model\Post;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class NewsController extends Controller
 {
@@ -49,5 +50,20 @@ class NewsController extends Controller
     $post = Post::whereBetween('published_at', [$date->startOfDay(), (new Carbon($date))->endOfDay()])->whereSlug($slug)->first();
 
     return view('news.post')->with('post', $post);
+  }
+
+  public function guess($slug)
+  {
+    try
+    {
+      $post = Post::published()->whereSlug($slug)->first();
+
+      return redirect($post->url, 301);
+    } catch (ModelNotFoundException $e)
+    {
+      // TODO: flash error message?
+
+      return redirect()->route('news.index');
+    }
   }
 }
