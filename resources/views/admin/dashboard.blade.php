@@ -1,6 +1,8 @@
 @extends ('admin.base')
 
 @section ('content')
+    @include ('admin.errors')
+
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -37,6 +39,32 @@
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </a>
             </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Spezifikation</h3>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-9">Livekopie</div>
+                        <div class="col-sm-3">
+                            <a href="{{ route('admin.dashboard.update', 'livecopy') }}" class="btn btn-sm btn-default">aktualisieren</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-9">Versionsliste</div>
+                        <div class="col-sm-3">
+                            <a href="{{ route('admin.dashboard.update', 'versions') }}" class="btn btn-sm btn-default">aktualisieren</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="panel-footer">&nbsp;</div>
         </div>
     </div>
 @stop
