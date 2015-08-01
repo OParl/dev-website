@@ -35,15 +35,16 @@ Route::get('/spezifikation/images/{image}', [
 ])->where('image', '[[:print:]]+\.png');
 
 // Downloads
+Route::pattern('downloads.extension', '(docx|txt|pdf|odt|html|epub|zip|tar.gz|tar.bz2)');
 Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
-Route::get('/downloads/latest.{extension}', [
+Route::get('/downloads/latest.{downloads.extension}', [
   'uses' => 'DownloadsController@latest',
   'as' => 'downloads.latest'
-])->where('extension', '(docx|txt|pdf|odt|html|epub|zip|tar.gz|tar.bz2)');;
-Route::get('/downloads/{version}.{extension}', [
+]);
+Route::get('/downloads/{version}.{downloads.extension}', [
   'uses' => 'DownloadsController@getFile',
   'as' => 'downloads.provide'
-])->where('version', '[a-z0-9]{7}')->where('extension', '(docx|txt|pdf|odt|html|epub|zip|tar.gz|tar.bz2)');
+])->where('version', '[a-z0-9]{7}');
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 Route::get('/downloads/success', ['uses' => 'DownloadsController@success', 'as' => 'downloads.success']);
 
