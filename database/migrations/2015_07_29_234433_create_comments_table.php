@@ -20,8 +20,8 @@ class CreateCommentsTable extends Migration
       $table->integer('author_id')->nullable();
       $table->foreign('author_id')->references('id')->on('users');
 
-      $table->string('author_email');
-      $table->string('author_name');
+      $table->string('author_email')->nullable();
+      $table->string('author_name')->nullable();
 
       $table->text('content');
 

@@ -1,10 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\Model\Comment;
 use Carbon\Carbon;
-
-use App\Http\Requests;
-use App\Model\Post;
+use Illuminate\Auth\Guard;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+use App\Model\Post;
+use App\Http\Requests\NewCommentRequest;
 
 class NewsController extends Controller
 {
@@ -65,5 +67,23 @@ class NewsController extends Controller
 
       return redirect()->route('news.index');
     }
+  }
+
+  public function comment(NewCommentRequest $request, Guard $guard)
+  {
+    $post = Post::find($request->input('id'));
+
+    $comment = Comment::create($request->except(['_token', 'id']));
+
+    if ($guard->check())
+    {
+      /* @var \App\Model\User $user */
+      $user = $guard->user();
+      $user->comments()->save($comment);
+    }
+
+    $post->comments()->save($comment);
+
+    return redirect()->back()->with('info', 'Der Kommentar wurde erfolgreich gespeichert.');
   }
 }

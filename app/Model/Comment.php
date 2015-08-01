@@ -8,6 +8,19 @@ class Comment extends Model
 
   protected $touches = ['post'];
 
+  public static function boot()
+  {
+    static::creating(function (Comment $comment) {
+      if (\Auth::check())
+      {
+        $comment->status = 'ham';
+      } else
+      {
+        $comment->status = 'unvalidated';
+      }
+    });
+  }
+
   public function post()
   {
     return $this->belongsTo(Post::class);
@@ -38,6 +51,30 @@ class Comment extends Model
     {
       return $this->attributes['author_name'];
     }
+  }
+
+  public function getGravatarAttribute()
+  {
+    /**
+     * - only return avatars rated g or pg
+     * - use retro themed default otherwise
+     **/
+    $baseURL = "//gravatar.com/avatar/%s&r=pg&d=retro&s=32";
+
+    /**
+     * - trim whitespace
+     * - make lower case
+     * - compute md5 hash
+     **/
+    $hash = md5(strtolower(trim($this->author_email)));
+
+    return sprintf($baseURL, $hash);
+  }
+
+  public function getMarkdownContentAttribute()
+  {
+    $pd = \Parsedown::instance();
+    return $pd->parse($this->content);
   }
 
   public function scopeHam($query)
