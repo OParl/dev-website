@@ -60,6 +60,12 @@ class Post extends Model
     return $pd->parse($this->content);
   }
 
+  public function getTagListAttribute()
+  {
+    $list = $this->tags->lists('id');
+    return $list->all();
+  }
+
   public function scopePublished($query)
   {
     return $query->whereNotNull('published_at')->where('published_at', '<=', Carbon::now())->orderBy('published_at', 'desc');

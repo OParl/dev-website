@@ -1,14 +1,16 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SavePostRequest;
 use Carbon\Carbon;
 use Illuminate\Auth\Guard;
 use Illuminate\Http\Request;
 
 use Cocur\Slugify\Slugify;
 
+use App\Http\Requests\SavePostRequest;
 use App\Http\Controllers\Controller;
+
 use App\Model\Post;
+use App\Model\Tag;
 
 class NewsController extends Controller
 {
@@ -29,12 +31,12 @@ class NewsController extends Controller
 
   public function create()
   {
-    return view('admin.news.edit', ['post' => (new Post)->newInstance()]);
+    return $this->getEditView();
   }
 
   public function edit($id)
   {
-    return view('admin.news.edit', ['post' => Post::findOrFail($id)]);
+    return $this->getEditView(Post::findOrFail($id));
   }
 
   public function slug(Slugify $slugify, Request $request)
@@ -44,7 +46,7 @@ class NewsController extends Controller
 
   public function save(SavePostRequest $request, Guard $guard)
   {
-    $postData = $request->except(['_token', 'id']);
+    $postData = $request->except(['_token', 'id', 'tags']);
 
     if ($postData['published_at'] === '')
     {
@@ -58,7 +60,6 @@ class NewsController extends Controller
     {
       $post = Post::find($request->input('id'));
       $post->update($postData);
-      $post->save();
     } else
     {
       $post = Post::create($postData);
@@ -67,6 +68,21 @@ class NewsController extends Controller
       $user = $guard->user();
       $user->posts()->save($post);
     }
+
+    $tags = collect($request->input('tags'))->map(function ($tag) {
+      if (is_numeric($tag))
+      {
+        return $tag;
+      } else
+      {
+        $newTag = Tag::create(['name' => $tag]);
+        return $newTag->id;
+      }
+    });
+
+    $post->tags()->sync($tags->all());
+
+    $post->save();
 
     return redirect()->route('admin.news.index')->with('info', 'Der Eintrag “' . $post->title . '” wurde erfolgreich gespeichert!');
   }
@@ -80,5 +96,17 @@ class NewsController extends Controller
     $post->delete();
 
     return redirect()->back()->with('info', 'Succesfully deleted '.$title);
+  }
+
+  /**
+   * @return \Illuminate\View\View
+   **/
+  protected function getEditView($post = null)
+  {
+    if (is_null($post)) $post = (new Post)->newInstance();
+
+    $tags = Tag::all()->lists('name', 'id');
+
+    return view('admin.news.edit', compact('post', 'tags'));
   }
 }

@@ -14,22 +14,25 @@
         </span>
 
         <div class="text-muted text-tiny">
-            @if ($post->comments()->count() > 0)
+            @unless ($post->comments->isEmpty())
                 {{ $post->comments()->count() }} Reaktionen.
-            @endif
+            @endunless
 
             <a href="{{ $post->url }}#comments">Reagieren.</a>
         </div>
     </div>
     <div class="content panel-body">
-        {!! $post->markdown_content !!}
+        <article>
+            {!! $post->markdown_content !!}
+        </article>
     </div>
 
     <div class="bottom-meta panel-footer">
         <ul class="list-unstyled list-inline text-tiny">
-            @if ($post->tags()->count() > 0)
+            @unless ($post->tags->isEmpty())
                 <li>
                     Tags:
+
                     <ul class="list-inline">
                         @foreach ($post->tags as $tag)
                             <li>
@@ -38,7 +41,7 @@
                         @endforeach
                     </ul>
                 </li>
-            @endif
+            @endunless
 
             @if ( $post->updated_at > $post->published_at)
                 <li>{{ $post->updated_at->diffForHumans() }} zuletzt aktualisiert</li>

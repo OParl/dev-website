@@ -58,7 +58,17 @@
                     <label for="tags">Tags</label>
                 </div>
                 <div class="col-md-9">
-                    <select class="form-control"></select>
+                    <select class="form-control" name="tags[]" id="tags" multiple="multiple">
+                        @foreach ($tags as $id => $name)
+                            @if (in_array($id, $post->tag_list))
+                                <option value="{{ $id }}" selected="selected">
+                            @else
+                                <option value="{{ $id }}">
+                            @endif
+                                {{ $name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -89,7 +99,7 @@
 
                     <div class="collapse" id="published_at_well">
                         <div class="well">
-                            <div id="published_at_user_input" data-date="{{ ($post->is_published) ? $post->published_at->format(Carbon\Carbon::ISO8601) : '' }}"></div>
+                            <div id="published_at_user_input"></div>
                         </div>
                     </div>
                 </div>

@@ -31,6 +31,10 @@ $('#title').on('change', function (event) {
     updateSlug();
 });
 
+$('#tags').select2({
+    tags: true
+});
+
 $('#published_at_user_input').datetimepicker({
     inline: true,
     sideBySide: true,
