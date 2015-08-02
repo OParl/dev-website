@@ -8,6 +8,12 @@ $brand-primary : #01aae7;
 
 body { position: relative; }
 
+header .form-inline {
+//@viewport(min-width: $screen-md-min ) {
+    margin-top: 1.5em;
+//  }
+}
+
 .text-oparl {
   font-family: 'Dosis', 'Helvetica Neue', sans-serif;
   font-weight: 300;

@@ -64,7 +64,7 @@ class Header
     {
       $sections[] = [
         'routeKey' => 'admin.dashboard',
-        'title' => 'Zur Admin-Oberfläche'
+        'title' => '<span class="glyphicon glyphicon-user"></span>'
       ];
     }
 

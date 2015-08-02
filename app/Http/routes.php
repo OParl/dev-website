@@ -104,5 +104,7 @@ Route::post('/_hooks/add_version', [
 ])->where('key', '[a-zA-Z0-9]{32}')
   ->where('version', '[a-z0-9]{4,10}');
 
+Route::post('/search', ['uses' => 'SearchController@search', 'as' => 'search.lookup']);
+
 // as a last resort, try guessing the input as post slug
 Route::get('/{slug}', ['uses' => 'NewsController@guess', 'as' => 'news.guess']);
