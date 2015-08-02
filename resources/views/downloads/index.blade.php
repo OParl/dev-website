@@ -4,7 +4,9 @@
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
             <div class="text-center">
-                <a data-toggle="modal" class="btn btn-lg btn-success" data-target="#downloadFormatSelectModal">
+                <a data-toggle="modal" class="btn btn-lg btn-success" aria-haspopup="true"
+                   data-target="#downloadFormatSelectModal" hreflang="de"
+                   aria-label="Formatauswahl für die aktuelle Spezifikationsversion öffnen">
                     Aktuelle Version herunterladen!
                 </a>
             </div>

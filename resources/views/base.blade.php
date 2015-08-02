@@ -29,6 +29,12 @@
         <link rel="shortcut icon" href="{{ asset('/img/favicon.png') }}" />
     </head>
     <body>
+        <div class="sr-only">
+            <ul>
+                <li><a href="#navigation" class="sr-only-focusable">Direkt zur Navigation</a></li>
+                <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
+            </ul>
+        </div>
 
         <div class="container-fluid">
             <div class="row">
@@ -38,6 +44,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
+                                <a name="content">&nbsp;</a>
                                 @yield('content')
                             </div>
                         </div>
