@@ -30,7 +30,7 @@
                                 <li><a href="{{ route('admin.news.edit', $post->id) }}" class="text-info">Bearbeiten</a></li>
                                 <li>
                                     <a data-title="{{ $post->title }}" data-href="{{ route('admin.news.delete', $post->id) }}"
-                                       class="text-danger" data-toggle="modal" data-target="#textDeleteConfirmModal">Löschen</a>
+                                       class="link-danger" data-toggle="modal" data-target="#textDeleteConfirmModal">Löschen</a>
                                 </li>
                             </ul>
                         </td>

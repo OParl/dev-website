@@ -88,3 +88,8 @@ a.link-modest {
     text-decoration: underline;
   }
 }
+
+a.link-danger {
+  color: $brand-danger;
+  cursor: pointer;
+}
