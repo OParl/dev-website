@@ -1,6 +1,6 @@
-@extends ('base')
+@extends ('pages.page')
 
-@section ('content')
+@section ('page')
     <p>
         <strong>Anbieter im Sinne des § 5 Telemediengesetzes</strong><br/>
         Open Knowledge Foundation Deutschland e.V.<br/>

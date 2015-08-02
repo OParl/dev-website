@@ -1,6 +1,6 @@
-@extends ('base')
+@extends ('pages.page')
 
-@section ('content')
+@section ('page')
     <p>
         <strong>OParl ist eine Initiative zur Förderung der Offenheit von parlamentarischen Informationssystemen auf
             kommunaler Ebene in Deutschland.</strong></p><h2>Parlamentarische Informationssysteme in Kommunen</h2><p>
