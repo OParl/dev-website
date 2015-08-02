@@ -11,7 +11,9 @@ class SpecificationController extends Controller {
 	 */
 	public function index(LiveCopyRepository $livecopy)
 	{
-		return view('specification.index', compact('livecopy'));
+    $title = 'Spezifikation';
+
+		return view('specification.index', compact('livecopy', 'title'));
 	}
 
   public function image(Filesystem $fs, $image)

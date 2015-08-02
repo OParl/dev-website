@@ -7,6 +7,8 @@ use Illuminate\Auth\Guard;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Model\Post;
+use App\Model\Tag;
+
 use App\Http\Requests\NewCommentRequest;
 
 class NewsController extends Controller
@@ -14,8 +16,9 @@ class NewsController extends Controller
   public function index()
   {
     $posts = Post::published()->paginate(15);
+    $title = 'Aktuelles';
 
-    return view('news.index', compact('posts'));
+    return view('news.index', compact('posts', 'title'));
   }
 
   public function tag($tag)
@@ -25,7 +28,11 @@ class NewsController extends Controller
       return $query->whereSlug($tag);
     })->paginate(15);
 
-    return view('news.index', compact('posts'));
+    $tag = Tag::whereSlug($tag);
+
+    $title = $tag->name.' - Aktuelles';
+
+    return view('news.index', compact('posts', 'title'));
   }
 
   public function yearly($year)
@@ -35,7 +42,9 @@ class NewsController extends Controller
 
     $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
-    return view('news.index', compact('posts'));
+    $title = $year . ' - Aktuelles';
+
+    return view('news.index', compact('posts', 'title'));
   }
 
   public function monthly($year, $month)
@@ -45,7 +54,9 @@ class NewsController extends Controller
 
     $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
-    return view('news.index', compact('posts'));
+    $title = $start->format('M Y') . ' - Aktuelles';
+
+    return view('news.index', compact('posts', 'title'));
   }
 
   public function daily($year, $month, $day)
@@ -55,7 +66,9 @@ class NewsController extends Controller
 
     $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
-    return view('news.index', compact('posts'));
+    $title = $start->format('d. M Y') . ' - Aktuelles';
+
+    return view('news.index', compact('posts', 'title'));
   }
 
   public function post($year, $month, $day, $slug)
@@ -65,7 +78,9 @@ class NewsController extends Controller
 
     $post = Post::whereBetween('published_at', [$start, $end])->whereSlug($slug)->first();
 
-    return view('news.post', compact('post'));
+    $title = $post->title . ' - Aktuelles';
+
+    return view('news.post', compact('post', 'title'));
   }
 
   public function guess($slug)

@@ -15,7 +15,7 @@ class DownloadsController extends Controller
 
   public function index(\Illuminate\Http\Request $request)
   {
-    return view('downloads.index', ['versions' => $this->versions]);
+    return view('downloads.index', ['versions' => $this->versions, 'title' => 'Downloads']);
   }
 
   public function latest($extension)
@@ -83,6 +83,6 @@ class DownloadsController extends Controller
 
   public function success()
   {
-    return view('downloads.success');
+    return view('downloads.success', ['title' => 'Anfrage bestätigt - Downloads']);
   }
 }
