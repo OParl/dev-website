@@ -27,25 +27,17 @@
         </article>
     </div>
 
-    <div class="bottom-meta panel-footer">
-        <ul class="list-unstyled list-inline text-tiny">
-            @unless ($post->tags->isEmpty())
-                <li>
-                    Tags:
+    @unless ($post->tags->isEmpty())
+        <div class="bottom-meta panel-footer text-tiny">
+            <ul class="list-inline list-unstyled">
+                <li>Tags:</li>
 
-                    <ul class="list-inline">
-                        @foreach ($post->tags as $tag)
-                            <li>
-                                <a href="TAGURL-{{ $tag->slug }}">{{ $tag->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-            @endunless
-
-            @if ( $post->updated_at > $post->published_at)
-                <li>{{ $post->updated_at->diffForHumans() }} zuletzt aktualisiert</li>
-            @endif
-        </ul>
-    </div>
+                @foreach ($post->tags as $tag)
+                    <li>
+                        <a href="{{ route('news.tag', $tag->slug) }}">{{ $tag->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endunless
 </div>
