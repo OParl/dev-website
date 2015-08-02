@@ -58,22 +58,7 @@ $('#published_at_user_input').datetimepicker({
     locale: 'de',
     toolbarPlacement: 'top',
     defaultDate: $('#published_at_input').val(),
-    tooltips: {
-        today: 'Heute',
-        clear: 'Auswahl löschen (Nachricht wird damit wieder zu einem Entwurf.)',
-        selectMonth: 'Monat auswählen',
-        prevMonth: 'Vorheriger Monat',
-        nextMonth: 'Nächster Monat',
-        selectYear: 'Jahr auswählen',
-        prevYear: 'Vorheriges Jahr',
-        nextYear: 'Nächstes Jahr',
-        selectDecade: 'Jahrzehnt auswählen',
-        prevDecade: 'Vorheriges Jahrzehnt',
-        nextDecade: 'Nächstes Jahrzehnt',
-        selectCentury: 'Jahrhundert auswählen',
-        prevCentury: 'Vorheriges Jahrhundert',
-        nextCentury: 'Nächstes Jahrhundert'
-    }
+    tooltips: datetimepicker_tooltips_de
 }).on('dp.change', function (event) {
     var text = 'Entwurf';
 

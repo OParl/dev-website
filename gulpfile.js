@@ -47,6 +47,7 @@ elixir(function(mix) {
 
     mix.scripts(
         [
+            'datetimepicker_tooltips_de.js',
             'admin.js'
         ], 'public/js/admin.js', 'resources/js'
     );
