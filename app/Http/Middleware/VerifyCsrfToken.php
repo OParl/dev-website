@@ -6,7 +6,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 class VerifyCsrfToken extends BaseVerifier {
 	protected $except = [
     '_hooks/*',
-		'admin/posts/slug'
+		'admin/posts/slug',
+    'admin/comments/status'
   ];
 
   /**

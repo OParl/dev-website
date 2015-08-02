@@ -20,10 +20,11 @@ class NewCommentRequest extends Request
   public function rules()
   {
     return [
-      'id'      => 'required_without_all:name,email|integer',
-      'name'    => 'required_without:id|string|min:2',
-      'email'   => 'required_without:id|email',
-      'content' => 'required|string|min:3'
+      'id'         => 'required|integer|exists:comments',
+      'has_author' => 'required_without_all:name,email|matches:true',
+      'name'       => 'required_without:has_author|string|min:2',
+      'email'      => 'required_without:has_author|email',
+      'content'    => 'required|string|min:3'
     ];
   }
 }

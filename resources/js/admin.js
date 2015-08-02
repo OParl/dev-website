@@ -1,10 +1,24 @@
 $('#textDeleteConfirmModal').on('show.bs.modal', function (event) {
     var provider = $(event.relatedTarget);
 
-    var href = provider.data('href');
     var title = provider.data('title');
+    var href = provider.data('href');
 
     $(this).find('.text-title').text(title);
+
+    $(this).find('.btn-danger').attr('href', href);
+});
+
+$('#commentDeleteConfirmModal').on('show.bs.modal', function (event) {
+    var provider = $(event.relatedTarget);
+
+    var author = provider.data('author');
+    var title = provider.data('title');
+    var href = provider.data('href');
+
+    $(this).find('.comment-author').text(author);
+    $(this).find('.text-title').text(title);
+
     $(this).find('.btn-danger').attr('href', href);
 });
 
@@ -83,3 +97,11 @@ $('#published_at_user_input').datetimepicker({
 
     $('#published_at_control span:first').text(text);
 });
+
+function updateCommentStatus(id, to)
+{
+    $.post('/admin/comments/status', {'status': to, 'id': id}, function (res) {
+        $('.comment-'+res.id+'-status a').removeClass('active').removeAttr('aria-pressed');
+        $('.comment-'+res.id+'-status a.'+res.status).addClass('active').attr('aria-pressed', 'true');
+    });
+}

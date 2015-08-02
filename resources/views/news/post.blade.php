@@ -3,9 +3,9 @@
 @section ('content')
     @include ('news.single')
 
-    @if (isset($info))
+    @if (session()->has('info'))
         <div class="alert alert-success">
-            {{ $info }}
+            {{ session('info') }}
         </div>
     @endif
 
@@ -24,9 +24,11 @@
                     </div>
                     <div class="col-md-9">
                         @if (\Auth::check())
+                            <input type="hidden" name="has_author" value="true" />
                             <p class="form-control-static">{{ \Auth::user()->name }}</p>
                         @else
-                            <input type="text" name="name" id="name" maxlength="255" class="form-control" />
+                            <input type="text" name="name" id="name" maxlength="255"
+                                   class="form-control" value="{{ old('name') }}" />
                         @endif
                     </div>
                 </div>
@@ -38,7 +40,8 @@
                         @if (\Auth::check())
                             <p class="form-control-static">{{ \Auth::user()->email }}</p>
                         @else
-                            <input type="email" name="email" id="email" maxlength="255" class="form-control" />
+                            <input type="email" name="email" id="email" maxlength="255"
+                                   class="form-control" value="{{ old('email') }}" />
                         @endif
                     </div>
                 </div>
@@ -47,7 +50,8 @@
                         <label for="content">Kommentar:</label>
                     </div>
                     <div class="col-md-9">
-                        <textarea class="form-control" rows="10" name="content" id="content"></textarea>
+                        <textarea class="form-control" rows="10" name="content"
+                                  id="content">{{ old('content') }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -62,7 +66,7 @@
                     <div class="media-left">
                         <img class="media-object img-circle" src="{{ $comment->gravatar }}" />
                         <br />
-                        <span class="text-muted">{{ $comment->author_name }}</span>
+                        <span class="text-muted text-center">{{ $comment->author_name }}</span>
                     </div>
                     <div class="media-body">
                         {{ $comment->content }}
