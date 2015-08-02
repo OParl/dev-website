@@ -10,7 +10,7 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-    'App\Console\Commands\DeployCommand',
+    Commands\AddUserCommand::class,
 
     Commands\DeployCommand::class,
 
