@@ -12,46 +12,59 @@ class NewsController extends Controller
 {
   public function index()
   {
-    return view('news.index')->with('posts', Post::published()->paginate(15));
+    $posts = Post::published()->paginate(15);
+
+    return view('news.index', compact('posts'));
+  }
+
+  public function tag($tag)
+  {
+    $posts = Post::published()->whereHas('tags', function ($query) use ($tag)
+    {
+      return $query->whereSlug($tag);
+    })->paginate(15);
+
+    return view('news.index', compact('posts'));
   }
 
   public function yearly($year)
   {
     $start = Carbon::createFromDate($year)->startOfYear();
-    $end   = (new Carbon($start))->endOfYear();
+    $end   = $start->copy()->endOfYear();
 
     $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
-    return view('news.index')->with('posts', $posts);
+    return view('news.index', compact('posts'));
   }
 
   public function monthly($year, $month)
   {
     $start = Carbon::createFromDate($year, $month)->startOfMonth();
-    $end   = (new Carbon($start))->endOfMonth();
+    $end   = $start->copy()->endOfMonth();
 
     $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
-    return view('news.index')->with('posts', $posts);
+    return view('news.index', compact('posts'));
   }
 
   public function daily($year, $month, $day)
   {
     $start = Carbon::createFromDate($year, $month, $day)->startOfDay();
-    $end   = (new Carbon($start))->endOfDay();
+    $end   = $start->copy()->endOfDay();
 
     $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
-    return view('news.index')->with('posts', $posts);
+    return view('news.index', compact('posts'));
   }
 
   public function post($year, $month, $day, $slug)
   {
-    $date = Carbon::createFromDate($year, $month, $day);
+    $start = Carbon::createFromDate($year, $month, $day)->startOfDay();
+    $end   = $start->copy()->endOfDay();
 
-    $post = Post::whereBetween('published_at', [$date->startOfDay(), (new Carbon($date))->endOfDay()])->whereSlug($slug)->first();
+    $post = Post::whereBetween('published_at', [$start, $end])->whereSlug($slug)->first();
 
-    return view('news.post')->with('post', $post);
+    return view('news.index', compact('post'));
   }
 
   public function guess($slug)
