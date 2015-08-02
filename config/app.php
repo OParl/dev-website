@@ -148,6 +148,7 @@ return [
     'OParl\Spec\SpecServiceProvider',
     'GrahamCampbell\GitHub\GitHubServiceProvider',
     'EFrane\Buildkite\BuildkiteServiceProvider',
+		'EFrane\Akismet\Providers\AkismetServiceProvider',
 	],
 
 	/*

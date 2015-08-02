@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Jobs\ValidateComment;
 use App\Model\Comment;
 use Carbon\Carbon;
 use Illuminate\Auth\Guard;
@@ -64,7 +65,7 @@ class NewsController extends Controller
 
     $post = Post::whereBetween('published_at', [$start, $end])->whereSlug($slug)->first();
 
-    return view('news.index', compact('post'));
+    return view('news.post', compact('post'));
   }
 
   public function guess($slug)
@@ -96,6 +97,9 @@ class NewsController extends Controller
     }
 
     $post->comments()->save($comment);
+
+    // FIXME: akismet complains about an invalid key
+    // $this->dispatch(new ValidateComment($comment));
 
     return redirect()->back()->with('info', 'Der Kommentar wurde erfolgreich gespeichert.');
   }

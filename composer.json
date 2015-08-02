@@ -22,7 +22,8 @@
 		"psr-4": {
             "App\\": "app/",
             "OParl\\Spec\\": "lib/Spec/",
-            "EFrane\\Buildkite\\": "lib/Buildkite/"
+		  	"EFrane\\Akismet\\": "lib/Akismet/",
+		  	"EFrane\\Buildkite\\": "lib/Buildkite/"
 		}
 	},
 	"autoload-dev": {

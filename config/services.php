@@ -40,4 +40,9 @@ return [
     'project' => env('BUILDKITE_PROJECT'),
     'access_token' => env('BUILDKITE_ACCESS_TOKEN', ''),
   ],
+
+  // akismet service config for efrane/akismet
+	'akismet' => [
+    'key' => env('AKISMET_KEY'),
+  ],
 ];
