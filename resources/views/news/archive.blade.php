@@ -7,7 +7,7 @@
                 <ul class="list-unstyled">
                     @foreach ($months as $month)
                         <li>
-                            <a class="link-modest" href="{{ route('news.monthly', $month['numeric']) }}">{{ $month['name'] }}</a>
+                            <a class="link-modest" href="{{ route('news.monthly', [$year, $month['numeric']]) }}">{{ $month['name'] }}</a>
                             ({{ $month['count'] }})
                         </li>
                     @endforeach
