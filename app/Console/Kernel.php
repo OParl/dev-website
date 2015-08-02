@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
     Commands\AddUserCommand::class,
+    Commands\RemoveUserCommand::class,
 
     Commands\DeployCommand::class,
 
