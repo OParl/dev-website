@@ -52,10 +52,10 @@
         <div class="col-sm-8">
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="radio"><label for="docx"><input type="radio" name="format" value="docx" />Microsoft&reg; Word&reg;</label></div>
+                    <div class="radio"><label for="docx"><input type="radio" name="format" value="docx" />Microsoft Word</label></div>
                     <div class="radio"><label for="epub"><input type="radio" name="format" value="epub" />ePub</label></div>
                     <div class="radio"><label for="odt"><input type="radio" name="format" value="odt" />OpenOffice.org Text</label></div>
-                    <div class="radio"><label for="pdf"><input type="radio" name="format" value="pdf" />PDF&reg;</label></div>
+                    <div class="radio"><label for="pdf"><input type="radio" name="format" value="pdf" />PDF</label></div>
                     <div class="radio"><label for="html"><input type="radio" name="format" value="html" />HTML (Standalone)</label></div>
                     <div class="radio"><label for="txt"><input type="radio" name="format" value="txt" />Plain Text</label></div>
                 </div>
