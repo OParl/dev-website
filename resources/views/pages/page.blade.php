@@ -6,7 +6,7 @@
             @yield ('page')
         </div>
         <div class="col-md-3">
-
+            @include ('common.contributors')
         </div>
     </div>
 @stop
