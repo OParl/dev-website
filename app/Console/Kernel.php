@@ -12,8 +12,10 @@ class Kernel extends ConsoleKernel {
 	protected $commands = [
     'App\Console\Commands\DeployCommand',
 
-    'App\Console\Commands\UpdateVersionHashesCommand',
-    'App\Console\Commands\UpdateLiveCopyCommand',
+    Commands\DeployCommand::class,
+
+    Commands\UpdateVersionHashesCommand::class,
+    Commands\UpdateLiveCopyCommand::class,
 	];
 
   protected function schedule(Schedule $schedule)
