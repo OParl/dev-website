@@ -14,7 +14,7 @@
         <meta property="og:site_name" content="OParl">
         <meta property="og:url" content="http://oparl.org">
 
-        <title>{{ $title }} - OParl.org</title>
+        <title>{{ !isset($title) ?: $title.' - ' }}OParl.org</title>
 
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
         <link href="{{ asset('/css/lib.css') }}" rel="stylesheet" />

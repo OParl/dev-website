@@ -114,7 +114,7 @@ class NewsController extends Controller
     $post->comments()->save($comment);
 
     // FIXME: akismet complains about an invalid key
-    // $this->dispatch(new ValidateComment($comment));
+    //$this->dispatch(new ValidateComment($comment));
 
     return redirect()->back()->with('info', 'Der Kommentar wurde erfolgreich gespeichert.');
   }

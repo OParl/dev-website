@@ -13,6 +13,11 @@
         <div class="panel-heading">
             <h3 class="panel-title"><a name="comments">Kommentare</a></h3>
         </div>
+
+        @if ($errors->any())
+            {{ var_export($errors->all()) }}
+        @endif
+
         <div class="panel-body">
             <form class="form-horizontal" method="POST" action="{{ $post->url }}">
                 {{ csrf_field() }}
@@ -24,7 +29,7 @@
                     </div>
                     <div class="col-md-9">
                         @if (\Auth::check())
-                            <input type="hidden" name="has_author" value="true" />
+                            <input type="hidden" name="author_id" value="{{ \Auth::user()->id }}" />
                             <p class="form-control-static">{{ \Auth::user()->name }}</p>
                         @else
                             <input type="text" name="name" id="name" maxlength="255"
