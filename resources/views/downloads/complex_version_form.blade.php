@@ -7,7 +7,7 @@
 <form class="form-horizontal" id="download-selector" method="post" action="{{ route('downloads.select') }}">
     {{ csrf_field() }}
 
-    <input type="hidden" name="available" class="available" value="0" />
+    <input type="hidden" name="available" class="available" value="{{ $versions[1]->isAvailable() }}" />
 
     <div class="form-group">
         <label for="version" class="control-label col-sm-4">
