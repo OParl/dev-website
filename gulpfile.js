@@ -42,7 +42,14 @@ elixir(function(mix) {
             'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
 
             'select2/dist/js/select2.js'
-        ], 'public/js/lib.js', 'vendor/_bower_components/'
+        ], 'public/js/lib.js', 'vendor/_bower_components/pusher/dist/pusher.js'
+    );
+
+    mix.scripts(
+        [
+            'pusher.js',
+            '../../vendor/_bower_components/pusher/dist/pusher.js'
+        ], 'public/js/pusher.js', 'resources/js'
     );
 
     mix.scripts(

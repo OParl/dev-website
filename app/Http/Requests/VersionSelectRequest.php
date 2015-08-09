@@ -16,7 +16,6 @@ class VersionSelectRequest extends Request
   {
     return [
       'version' => 'required|string|size:7',
-      'email'   => 'required_if:available,0|email',
       'format'  => 'required|in:docx,epub,txt,pdf,odt,html,zip,tar.gz,tar.bz2'
     ];
   }

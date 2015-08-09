@@ -41,12 +41,10 @@
                 <div class="col-md-12">
                     @include ('header')
 
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <a name="content">&nbsp;</a>
-                                @yield('content')
-                            </div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <a name="content">&nbsp;</a>
+                            @yield('content')
                         </div>
                     </div>
                 </div>
@@ -56,5 +54,7 @@
         <!-- Scripts -->
         <script src="{{ asset('/js/lib.js') }}"></script>
         <script src="{{ asset('/js/app.js') }}"></script>
+
+        @yield ('scripts')
     </body>
 </html>

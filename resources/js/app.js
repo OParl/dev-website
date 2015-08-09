@@ -7,35 +7,10 @@ $(document).ready(function () {
     if (document.location.pathname.match(/spezifikation/)) setupLiveCopy();
 });
 
-function switchDownloadInputs(available) {
-    if (available == "0")
-    {
-        $('#download-selector .form-group:nth-of-type(2)').slideDown(1200);
-        $('#download-selector .form-group:nth-of-type(3)').slideUp(1200);
-        $('#download-selector .form-group:nth-of-type(4) input').val("Anfordern");
-    } else
-    {
-        $('#download-selector .form-group:nth-of-type(2)').slideUp(1200);
-        $('#download-selector .form-group:nth-of-type(3)').slideDown(1200);
-        $('#download-selector .form-group:nth-of-type(4) input').val("Laden");
-    }
-}
-
 function setupDownloads()
 {
     // enable select2
     $('#download-selector select').select2();
-
-    // check if email field needs to be shown based on .available
-    switchDownloadInputs(
-        $('#download-selector .form-group:nth-of-type(1) select option').first().data('is-available')
-    );
-
-    // conditionally show email field on downloads page
-    $('#download-selector select').on('change', function(event) {
-        switchDownloadInputs(event.target.selectedOptions[0].attributes[0].value);
-        $('#download-selector .available').val(event.target.selectedOptions[0].attributes[0].value);
-    });
 }
 
 function setupLiveCopy() {

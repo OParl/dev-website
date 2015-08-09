@@ -66,12 +66,11 @@ class DownloadsController extends Controller
       // fire fetch job
       $this->dispatch(new CreateBuild(
         $request->input('version'),
-        $request->input('email'),
         $request->input('format')
       ));
 
       // redirect to success page
-      return redirect()->route('downloads.success')->with('email', $request->input('email'));
+      return redirect()->route('downloads.wait')->with('email', $request->input('email'));
     }
 
     // redirect to download link
@@ -81,8 +80,10 @@ class DownloadsController extends Controller
     ]);
   }
 
-  public function success()
+  public function wait($hash)
   {
-    return view('downloads.success', ['title' => 'Anfrage bestätigt - Downloads']);
+    $version = $this->versions[$hash];
+
+    return view('downloads.wait_for_build', compact('version'));
   }
 }

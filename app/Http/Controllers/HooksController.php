@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Events\RequestedBuildFinished;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
 
@@ -105,6 +106,8 @@ class HooksController extends Controller
     {
       $this->saveFiles($request, $fs);
       $this->handleScheduledBuilds($request, $mailer);
+
+      event(new RequestedBuildFinished());
 
       return response()->json([
         'version' => $request->input('version'),
