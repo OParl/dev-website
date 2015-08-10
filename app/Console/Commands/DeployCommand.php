@@ -66,8 +66,11 @@ class DeployCommand extends Command {
         $this->call('maintenance:versions');
       }
 
-      exec('bower update --allow-root');
-      exec('gulp');
+      exec('bower update --allow-root', $output);
+      $this->line(implode("\n", $output));
+
+      exec('gulp --production', $output);
+      $this->line(implode("\n", $output));
 
       //$this->call('migrate', ['--force' => true]);
     } else
