@@ -25,10 +25,10 @@ class Header
         'title' => 'Downloads'
       ],
 
-      [
-        'title' => 'Demoserver',
-        'url' => 'http://demoserver.oparl.org/'
-      ],
+//      [
+//        'title' => 'Demoserver',
+//        'url' => 'http://demoserver.oparl.org/'
+//      ],
 
       [
         'routeKey' => 'status',
