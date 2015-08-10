@@ -69,6 +69,9 @@ class DeployCommand extends Command {
       exec('bower update --allow-root', $output);
       $this->line(implode("\n", $output));
 
+      exec('bower install --allow-root', $output);
+      $this->line(implode("\n", $output));
+
       exec('gulp --production', $output);
       $this->line(implode("\n", $output));
 
