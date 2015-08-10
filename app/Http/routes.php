@@ -48,7 +48,7 @@ Route::get('/downloads/{version}.{downloads.extension}', [
   'as' => 'downloads.provide'
 ])->where('version', '[a-z0-9]{7}');
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
-Route::get('/downloads/wait', ['uses' => 'DownloadsController@wait', 'as' => 'downloads.wait']);
+Route::get('/downloads/wait/{version}', ['uses' => 'DownloadsController@wait', 'as' => 'downloads.wait'])->version('version', '[a-z0-9]{7}');
 
 // Status
 Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status.index']);
