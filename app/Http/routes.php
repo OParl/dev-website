@@ -38,17 +38,21 @@ Route::get('/spezifikation/images/{image}', [
 
 // Downloads
 Route::pattern('downloads.extension', '(docx|txt|pdf|odt|html|epub|zip|tar.gz|tar.bz2)');
+Route::pattern('downloads.version', '[a-z0-9]{7}');
+
 Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
 Route::get('/downloads/latest.{downloads.extension}', [
   'uses' => 'DownloadsController@latest',
   'as' => 'downloads.latest'
+
 ]);
-Route::get('/downloads/{version}.{downloads.extension}', [
+Route::get('/downloads/{downloads.version}.{downloads.extension}', [
   'uses' => 'DownloadsController@getFile',
   'as' => 'downloads.provide'
-])->where('version', '[a-z0-9]{7}');
+]);
+
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
-Route::get('/downloads/wait/{version}', ['uses' => 'DownloadsController@wait', 'as' => 'downloads.wait'])->version('version', '[a-z0-9]{7}');
+Route::get('/downloads/wait/{downloads.version}', ['uses' => 'DownloadsController@wait', 'as' => 'downloads.wait']);
 
 // Status
 Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status.index']);
