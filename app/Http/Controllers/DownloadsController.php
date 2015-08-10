@@ -70,7 +70,9 @@ class DownloadsController extends Controller
       ));
 
       // redirect to success page
-      return redirect()->route('downloads.wait')->with('email', $request->input('email'));
+      return redirect()->route('downloads.wait')
+        ->with('email', $request->input('email'))
+        ->with('requested_format', $request->input('format'));
     }
 
     // redirect to download link

@@ -62,7 +62,5 @@ class CreateBuild extends Job implements SelfHandling
         ->builds(config('services.buildkite.project'))
         ->create($build);
     }
-
-    flash('requested_format', $this->format);
   }
 }
