@@ -70,7 +70,7 @@ class DownloadsController extends Controller
       ));
 
       // redirect to success page
-      return redirect()->route('downloads.wait', $this->input('version'))
+      return redirect()->route('downloads.wait', $request->input('version'))
         ->with('requested_format', $request->input('format'));
     }
 
