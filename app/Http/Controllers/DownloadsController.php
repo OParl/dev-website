@@ -56,6 +56,8 @@ class DownloadsController extends Controller
       $filename = sprintf('%s-%s.%s', $basename, $version, $extension);
     }
 
+    \Log::alert("Downloading file {$filename}");
+
     return response()->download(new \SplFileInfo($file), $filename);
   }
 
