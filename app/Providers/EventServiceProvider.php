@@ -11,8 +11,8 @@ class EventServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $listen = [
-		'App\Events\RequestedBuildFinished' => [
-			'PushRequestBuildFinished',
+		\App\Events\RequestedBuildFinished::class => [
+			\App\Listeners\PushRequestBuildFinished::class,
 		],
 	];
 
