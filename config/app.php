@@ -1,5 +1,10 @@
 <?php
 
+use Illuminate\Auth\AuthServiceProvider;
+use Illuminate\Broadcasting\BroadcastServiceProvider;
+use Illuminate\Bus\BusServiceProvider;
+use Illuminate\Foundation\Providers\ArtisanServiceProvider;
+
 return [
 
 	/*
@@ -113,9 +118,10 @@ return [
 		/*
 		 * Laravel Framework Service Providers...
 		 */
-		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-		'Illuminate\Auth\AuthServiceProvider',
-		'Illuminate\Bus\BusServiceProvider',
+		ArtisanServiceProvider::class,
+		AuthServiceProvider::class,
+		BusServiceProvider::class,
+		BroadcastServiceProvider::class,
 		'Illuminate\Cache\CacheServiceProvider',
 		'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
 		'Illuminate\Routing\ControllerServiceProvider',

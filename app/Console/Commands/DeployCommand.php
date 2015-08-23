@@ -62,8 +62,8 @@ class DeployCommand extends Command {
       {
         exec('npm install');
 
-        $this->call('maintenance:livecopy', ['--force' => true]);
-        $this->call('maintenance:versions');
+        $this->call('livecopy:update', ['--force' => true]);
+        $this->call('versions:update');
       }
 
       exec('bower update --allow-root', $output);

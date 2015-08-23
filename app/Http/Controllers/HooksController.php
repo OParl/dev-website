@@ -105,7 +105,7 @@ class HooksController extends Controller
     try
     {
       $this->saveFiles($request, $fs);
-      $this->handleScheduledBuilds($request, $mailer);
+      //$this->handleScheduledBuilds($request, $mailer);
 
       event(new RequestedBuildFinished());
 
@@ -113,6 +113,7 @@ class HooksController extends Controller
         'version' => $request->input('version'),
         'success' => true
       ]);
+
     } catch (\Exception $e)
     {
       return response()->json([
