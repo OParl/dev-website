@@ -6,7 +6,7 @@ use App\Jobs\UpdateVersionHashes;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class UpdateVersionHashesCommand extends Command
+class UpdateVersionsCommand extends Command
 {
   use DispatchesJobs;
 
@@ -15,7 +15,7 @@ class UpdateVersionHashesCommand extends Command
    *
    * @var string
    */
-  protected $signature = 'maintenance:versions';
+  protected $signature = 'versions:update';
 
   /**
    * The console command description.

@@ -118,7 +118,7 @@ class HooksController extends Controller
       return response()->json([
         'version'   => $request->input('version'),
         'success'   => false,
-        'exception' => $e->getMessage()
+        'exception' => sprintf('%s in %s (%d)', $e->getMessage(), $e->getFile(), $e->getLine())
       ]);
     }
   }

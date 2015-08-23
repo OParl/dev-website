@@ -30,6 +30,8 @@ class VersionRepository implements ArrayAccess, Iterator
    **/
   private $current = 0;
 
+  protected $fs = null;
+
   /**
    * Loads the available versions from the repository file.
    *
@@ -37,6 +39,8 @@ class VersionRepository implements ArrayAccess, Iterator
    */
   public function __construct(Filesystem $fs)
   {
+    $this->fs = $fs;
+
     $versions = collect(json_decode($fs->get(static::REPOSITORY_FILE), true));
     $this->versions = $versions->map(function ($version) {
       return new Version($version['sha'], $version['message'], $version['date']);
@@ -74,6 +78,12 @@ class VersionRepository implements ArrayAccess, Iterator
     return $this->versions[0];
   }
 
+  /**
+   * Check if a given hash is the latest version
+   *
+   * @param $hash
+   * @return bool
+   **/
   public function isLatest($hash)
   {
     return $hash === $this->latest()->getHash();
@@ -88,6 +98,22 @@ class VersionRepository implements ArrayAccess, Iterator
     foreach ($this->versions as $version)
       if ($version->getHash() === $hash) return $version->isAvailable();
   }
+
+  /**
+   * Gets extraneous versions
+   *
+   * This returns the hashes of all stored compiled versions that
+   * are no longer in the current versions.json, which means that
+   * these are versions that can not be requested from the web-interface.
+   *
+   * @return array list of extraneous version hashes
+   */
+  public function getExtraneous()
+  {
+    // TODO: implement
+  }
+
+  /*-----------------------------------------------------------------------*/
 
   /**
    * (PHP 5 &gt;= 5.0.0)<br/>

@@ -15,7 +15,7 @@ class UpdateLiveCopyCommand extends Command
    *
    * @var string
    */
-  protected $signature = 'maintenance:livecopy {--force}';
+  protected $signature = 'livecopy:update {--force}';
 
   /**
    * The console command description.
