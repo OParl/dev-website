@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Events\RequestedBuildFinished;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
 
@@ -9,6 +8,7 @@ use Illuminate\Foundation\Inspiring;
 
 use Illuminate\Http\Request;
 
+use App\Events\RequestedBuildFinished;
 use App\Http\Requests\VersionUpdateRequest;
 use App\Jobs\UpdateLiveCopy;
 use App\Jobs\UpdateVersionHashes;
