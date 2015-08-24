@@ -17,7 +17,7 @@ Route::pattern('month', '\d{2}');
 Route::pattern('day', '\d{2}');
 Route::pattern('slug', '[[:print:]]+');
 
-Route::get('/', function () { return redirect('/spezifikation'); });
+Route::get('/', ['uses' => function () { return redirect('/spezifikation'); }, 'as' => 'news.index']);
 
 // FIXME: reactivate if news are being used
 //Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
