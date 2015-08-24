@@ -165,11 +165,18 @@ class LiveCopyRepository
     chdir(storage_path('app'));
     exec("git clone --depth=1 {$gitURL} " . self::PATH);
     chdir(storage_path('app/' . self::PATH));
+    $this->make();
   }
 
   protected function performPullRefresh()
   {
     chdir(storage_path('app/' . self::PATH));
     exec('git pull --rebase');
+    $this->make();
+  }
+
+  protected function make()
+  {
+    exec('make live');
   }
 }
