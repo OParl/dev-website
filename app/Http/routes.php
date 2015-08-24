@@ -21,12 +21,6 @@ Route::get('/', function () { return redirect('/spezifikation'); });
 
 // FIXME: reactivate if news are being used
 //Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
-Route::get('/{year}', ['uses' => 'NewsController@yearly', 'as' => 'news.yearly']);
-Route::get('/{year}/{month}', ['uses' => 'NewsController@monthly', 'as' => 'news.monthly']);
-Route::get('/{year}/{month}/{day}', ['uses' => 'NewsController@daily', 'as' => 'news.daily']);
-Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as' => 'news.post']);
-Route::post('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@comment', 'as' => 'news.comment']);
-Route::get('/tags/{tag}', ['uses' => 'NewsController@tag', 'as' => 'news.tag'])->where('tag', '[[:print:]]+');
 
 // About
 Route::get('/ueber-oparl', ['uses' => 'StaticPagesController@about', 'as' => 'about.index']);
@@ -112,6 +106,13 @@ Route::post('/_hooks/add_version', [
   ->where('version', '[a-z0-9]{4,10}');
 
 Route::post('/search', ['uses' => 'SearchController@search', 'as' => 'search.lookup']);
+
+Route::get('/{year}', ['uses' => 'NewsController@yearly', 'as' => 'news.yearly']);
+Route::get('/{year}/{month}', ['uses' => 'NewsController@monthly', 'as' => 'news.monthly']);
+Route::get('/{year}/{month}/{day}', ['uses' => 'NewsController@daily', 'as' => 'news.daily']);
+Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as' => 'news.post']);
+Route::post('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@comment', 'as' => 'news.comment']);
+Route::get('/tags/{tag}', ['uses' => 'NewsController@tag', 'as' => 'news.tag'])->where('tag', '[[:print:]]+');
 
 // as a last resort, try guessing the input as post slug
 Route::get('/{slug}', ['uses' => 'NewsController@guess', 'as' => 'news.guess']);
