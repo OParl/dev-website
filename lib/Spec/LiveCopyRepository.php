@@ -24,22 +24,11 @@ class LiveCopyRepository
     $this->fs = $fs;
     $this->cache = $cache;
 
-    $this->chapters = $cache->remember(
-      'livecopy:chapters',
-      240,
-      function () use ($fs) {
-        $files = collect($fs->allFiles($this->getChapterPath()))->sort();
-        $files->shift();
-
-        return $files->filter(function ($file) {
-          return ends_with($file, '.md');
-        })->map(function ($chapterFile) use ($fs) {
-          return new Chapter($fs, $chapterFile);
-        });
-      }
-    );
-
-    $this->parse($cache, $fs);
+    if ($fs->exists($this->getLiveCopyPath()) && $fs->exists($this->getChapterPath()))
+    {
+      $this->loadChapters($fs, $cache);
+      $this->parse($cache, $fs);
+    }
   }
 
   public function getRaw()
@@ -178,5 +167,27 @@ class LiveCopyRepository
   protected function make()
   {
     exec('make live');
+  }
+
+  /**
+   * @param Filesystem $fs
+   * @param CacheRepository $cache
+   **/
+  protected function loadChapters(Filesystem $fs, CacheRepository $cache)
+  {
+    $this->chapters = $cache->remember(
+      'livecopy:chapters',
+      240,
+      function () use ($fs) {
+        $files = collect($fs->allFiles($this->getChapterPath()))->sort();
+        $files->shift();
+
+        return $files->filter(function ($file) {
+          return ends_with($file, '.md');
+        })->map(function ($chapterFile) use ($fs) {
+          return new Chapter($fs, $chapterFile);
+        });
+      }
+    );
   }
 }
