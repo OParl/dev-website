@@ -1,5 +1,6 @@
 <?php namespace OParl\Spec;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\DomCrawler\Crawler;
@@ -52,6 +53,12 @@ class LiveCopyRepository
   public function getNav()
   {
     return $this->nav;
+  }
+
+  public function getLastModified()
+  {
+    $unixTime = $this->fs->lastModified($this->getLiveCopyPath());
+    return Carbon::createFromTimestamp($unixTime);
   }
 
   protected function buildLiveCopy(Filesystem $fs)
