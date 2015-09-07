@@ -35,7 +35,12 @@ class DashboardController extends Controller
     {
       case 'livecopy':
         $this->dispatch(new UpdateLiveCopy);
-        $message = sprintf($message, 'Livekopie');
+        $message = sprintf($message, 'Livekopie-Pull');
+        break;
+
+      case 'livecopy-force':
+        $this->dispatch(new UpdateLiveCopy(true));
+        $message = sprintf($message, 'Livekopie-Clone');
         break;
 
       case 'versions':
@@ -44,7 +49,8 @@ class DashboardController extends Controller
         break;
 
       default:
-        throw new \InvalidArgumentException("Unknown.");
+        $message = "Es existiert keine Updatemethode für {$what}.";
+        break;
     }
 
     return redirect()->route('admin.dashboard.index')->with('info', $message);

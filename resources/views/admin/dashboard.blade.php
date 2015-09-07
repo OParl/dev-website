@@ -49,9 +49,12 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-sm-9">Livekopie</div>
+                        <div class="col-sm-9">Livekopie aktualisieren</div>
                         <div class="col-sm-3">
-                            <a href="{{ route('admin.dashboard.update', 'livecopy') }}" class="btn btn-sm btn-default">aktualisieren</a>
+                            <div class="btn-group">
+                                <a href="{{ route('admin.dashboard.update', 'livecopy') }}" class="btn btn-sm btn-default">Pull</a>
+                                <a href="{{ route('admin.dashboard.update', 'livecopy-force') }}" class="btn btn-sm btn-danger">Clone</a>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -59,7 +62,7 @@
                     <div class="row">
                         <div class="col-sm-9">Versionsliste</div>
                         <div class="col-sm-3">
-                            <a href="{{ route('admin.dashboard.update', 'versions') }}" class="btn btn-sm btn-default">aktualisieren</a>
+                            <a href="{{ route('admin.dashboard.update', 'versions') }}" class="btn btn-sm btn-default">Aktualisieren</a>
                         </div>
                     </div>
                 </li>
