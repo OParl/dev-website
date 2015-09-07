@@ -106,7 +106,7 @@ class LiveCopyRepository
     $content = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $content);
 
     // fix code tags
-    $content = str_replace('<code>', '<code class="language-javascript">', $content);
+    $content = preg_replace('/<pre class="json">.*<code.*>/', '<pre><code class="language-javascript">', $content);
 
     $nav = str_replace('<ul>', '<ul class="nav">', $nav);
   }

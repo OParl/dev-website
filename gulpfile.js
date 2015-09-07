@@ -16,6 +16,7 @@ elixir(function(mix) {
 
     mix.styles(
         [
+            'prism/themes/prism.css',
             'prism/plugins/line-numbers/prism-line-numbers.css',
 
             'select2/dist/css/select2.css'
