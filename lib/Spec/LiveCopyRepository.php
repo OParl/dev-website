@@ -16,6 +16,7 @@ class LiveCopyRepository
 
   protected $content = '';
   protected $nav = '';
+  protected $hash = '';
 
   protected $cache = null;
   protected $fs = null;
@@ -91,6 +92,10 @@ class LiveCopyRepository
       $this->content .= $domElement->ownerDocument->saveHTML($domElement);
 
     $this->fixHTML($this->content, $this->nav);
+
+    $this->hash = $cache->rememberForever('livecopy:hash', function () {
+      return trim(exec('git show HEAD --format="%H" | head -n1'));
+    });
   }
 
 
@@ -174,6 +179,11 @@ class LiveCopyRepository
   protected function make()
   {
     exec('make live');
+  }
+
+  public function getHash()
+  {
+    return $this->hash;
   }
 
   /**

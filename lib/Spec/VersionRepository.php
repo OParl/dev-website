@@ -19,6 +19,7 @@ class VersionRepository implements ArrayAccess, Iterator
    * The static json storing the available versions
    */
   const REPOSITORY_FILE = 'versions.json';
+  const ARCHIVE_DIRECTORY = 'archives/';
 
   /**
    * @var array Version objects
@@ -113,10 +114,62 @@ class VersionRepository implements ArrayAccess, Iterator
     // TODO: implement
   }
 
+  public function clean($mode = 'extra')
+  {
+    if (!in_array($mode, ['extra', 'all']))
+      throw new \LogicException("Unknown clean mode: '{$mode}'");
+
+    $cleanMethod = sprintf('clean%s', ucfirst($mode));
+    return $this->{$cleanMethod}();
+  }
+
+  protected function cleanExtra()
+  {
+    $this->getExtraneous()->each(function ($hash) {
+      $this->fs->deleteDirectory(app_path(static::ARCHIVE_DIRECTORY . $hash));
+    });
+
+    return true;
+  }
+
+  protected function cleanAll()
+  {
+    $this->fs->directories(static::ARCHIVE_DIRECTORY . '*')->each(function ($dir) {
+      if (!$this->isPreserved($dir, 'hash'))
+      {
+        $this->fs->deleteDirectory($dir);
+      }
+    });
+  }
+
+  /**
+   * Return all preserved versions (like, latest, tagged, stuff..)
+   */
+  public function getPreserved()
+  {
+    return collect($this->latest());
+  }
+
   public function getLastModified()
   {
     $unixTime = $this->fs->lastModified(static::REPOSITORY_FILE);
     return Carbon::createFromTimestamp($unixTime);
+  }
+
+  public function isPreserved($check, $mode = Version::class)
+  {
+    $preserved = $this->getPreserved();
+
+    switch ($mode)
+    {
+      case Version::class:
+        return $preserved->contains($check);
+
+      case 'hash':
+        return $this->versions->filter(function ($version) {
+          return $version === $this->latest();
+        });
+    }
   }
 
   /*-----------------------------------------------------------------------*/

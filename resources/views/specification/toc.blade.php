@@ -4,7 +4,8 @@
             <div class="input-group-addon">
                 <span aria-hidden="true" class="glyphicon glyphicon-search"></span>
             </div>
-            <input type="search" class="form-control" placeholder="Im Inhalt suchen&hellip;" name="search" />
+            <input type="search" class="form-control" placeholder="Inhaltsverzeichnis filtern&hellip;" name="search"
+                   aria-label="Mit diesem Formular lässt sich das Inhaltsverzeichnis nach Begriffen filtern" />
         </div>
     </form>
 
@@ -14,7 +15,9 @@
 
     <footer class="text-muted">
         <small>
-            Zuletzt aktualisiert {{ $livecopy->getLastModified()->diffForHumans() }}
+            Zuletzt aktualisiert <a href="//github.com/OParl/spec/commit/{{ $livecopy->getHash() }}">
+            {{ $livecopy->getLastModified()->diffForHumans() }}
+            </a>
         </small>
     </footer>
 </nav>
