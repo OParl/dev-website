@@ -113,6 +113,12 @@ class VersionRepository implements ArrayAccess, Iterator
     // TODO: implement
   }
 
+  public function getLastModified()
+  {
+    $unixTime = $this->fs->lastModified(static::REPOSITORY_FILE);
+    return Carbon::createFromTimestamp($unixTime);
+  }
+
   /*-----------------------------------------------------------------------*/
 
   /**

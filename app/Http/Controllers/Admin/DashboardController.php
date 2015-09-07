@@ -23,6 +23,10 @@ class DashboardController extends Controller
         'ham' => Comment::ham()->count(),
         'spam' => Comment::spam()->count(),
         'unvalidated' => Comment::unvalidated()->count()
+      ],
+      'lastModified' => [
+        'livecopy' => app('LiveCopyRepository')->getLastModified(),
+        'versions' => app('VersionRepository')->getLastModified(),
       ]
     ]);
   }

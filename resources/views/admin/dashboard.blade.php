@@ -49,7 +49,10 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-sm-9">Livekopie aktualisieren</div>
+                        <div class="col-sm-9">
+                            Livekopie
+                            <small class="text-muted">({{ $lastModified['livecopy']->format('d.m.Y h:i:s') }})</small>
+                        </div>
                         <div class="col-sm-3">
                             <div class="btn-group">
                                 <a href="{{ route('admin.dashboard.update', 'livecopy') }}" class="btn btn-sm btn-default">Pull</a>
@@ -60,9 +63,12 @@
                 </li>
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-sm-9">Versionsliste</div>
+                        <div class="col-sm-9">
+                            Versionsliste
+                            <small class="text-muted">({{ $lastModified['versions']->format('d.m.Y h:i:s') }})</small>
+                        </div>
                         <div class="col-sm-3">
-                            <a href="{{ route('admin.dashboard.update', 'versions') }}" class="btn btn-sm btn-default">Aktualisieren</a>
+                            <a href="{{ route('admin.dashboard.update', 'versions') }}" class="btn btn-sm btn-default">Neu laden</a>
                         </div>
                     </div>
                 </li>
