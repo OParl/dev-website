@@ -101,3 +101,15 @@ a.link-danger {
   color: $brand-danger;
   cursor: pointer;
 }
+
+figure {
+  margin: .15em;
+  padding: .15em;
+  border: 1px solid $pre-border-color;
+  border-radius: $border-radius-small;
+}
+
+figcaption {
+  text-align: center;
+  font-variant: small-caps;
+}
