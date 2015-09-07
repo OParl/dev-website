@@ -11,4 +11,10 @@
     <div>
         {!! $livecopy->getNav() !!}
     </div>
+
+    <footer class="text-muted">
+        <small>
+            Zuletzt aktualisiert {{ $livecopy->getLastModified()->diffForHumans() }}
+        </small>
+    </footer>
 </nav>
