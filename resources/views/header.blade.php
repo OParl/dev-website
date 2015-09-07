@@ -28,6 +28,7 @@
             </nav>
         </div>
         <div class="col-md-2">
+            {{--
             <form class="form-inline " method="POST" action="{{ route('search.lookup') }}">
                 {{ csrf_field() }}
 
@@ -40,6 +41,7 @@
                     </div>
                 </div>
             </form>
+            --}}
         </div>
     </div>
 
