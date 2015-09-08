@@ -111,7 +111,15 @@ class VersionRepository implements ArrayAccess, Iterator
    */
   public function getExtraneous()
   {
-    // TODO: implement
+    $hashes = collect($this->versions)->map(function (Version $version) {
+      return $version->getHash();
+    });
+
+    return collect($this->fs->directories(app_path(static::ARCHIVE_DIRECTORY)))
+      ->filter(function ($dir) use ($hashes) {
+      $hash = explode('/', $dir)[1];
+      return !in_array($hash, $hashes);
+    });
   }
 
   public function clean($mode = 'extra')
@@ -126,7 +134,7 @@ class VersionRepository implements ArrayAccess, Iterator
   protected function cleanExtra()
   {
     $this->getExtraneous()->each(function ($hash) {
-      $this->fs->deleteDirectory(app_path(static::ARCHIVE_DIRECTORY . $hash));
+      $this->fs->deleteDirectory(storage_path(static::ARCHIVE_DIRECTORY . $hash));
     });
 
     return true;
@@ -135,7 +143,7 @@ class VersionRepository implements ArrayAccess, Iterator
   protected function cleanAll()
   {
     $this->fs->directories(static::ARCHIVE_DIRECTORY . '*')->each(function ($dir) {
-      if (!$this->isPreserved($dir, 'hash'))
+      if (!$this->isPreserved($dir, 'dir'))
       {
         $this->fs->deleteDirectory($dir);
       }
@@ -165,10 +173,13 @@ class VersionRepository implements ArrayAccess, Iterator
       case Version::class:
         return $preserved->contains($check);
 
-      case 'hash':
-        return $this->versions->filter(function ($version) {
-          return $version === $this->latest();
-        });
+      case 'dir':
+        $hash = explode('/', $check)[1];
+        return collect($this->versions)->filter(function (Version $v) use ($hash) {
+          return $v->getHash() === $hash;
+        })->reduce(function ($carry, $current) {
+          return $carry || $current;
+        }, true);
     }
   }
 

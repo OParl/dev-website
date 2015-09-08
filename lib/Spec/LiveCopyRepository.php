@@ -94,15 +94,12 @@ class LiveCopyRepository
     $this->fixHTML($this->content, $this->nav);
 
     $this->hash = $cache->rememberForever('livecopy:hash', function () {
-      $cwd = getcwd();
-      chdir(storage_path('app/'.static::PATH));
-      $hash = trim(exec('git show HEAD --format="%H" | head -n1'));
-      chdir($cwd);
+      $hash = $this->runInDir('app/'.static::PATH, 'git show HEAD --format="%H" | head -n1');
+      $hash = trim($hash);
 
       return $hash;
     });
   }
-
 
   protected function fixHTML(&$content, &$nav)
   {
@@ -148,13 +145,13 @@ class LiveCopyRepository
 
   public function refresh($user, $repository, $forceClone = false)
   {
-    // remove cached livecopy chapters
-    $this->cache->forget('livecopy:chapters');
-    $this->cache->forget('livecopy:raw_html');
+    $this->clearCache();
 
-    ($forceClone)
+    $path = storage_path('app/' . self::PATH);
+
+    ($forceClone || !$this->fs->exists($path))
       ? $this->performCloneRefresh($user, $repository)
-      : $this->performPullRefresh();
+      : $this->performPullRefresh($path);
 
     exec('make live');
   }
@@ -168,17 +165,14 @@ class LiveCopyRepository
 
     $gitURL = sprintf("https://github.com/%s/%s", $user, $repository);
 
-    chdir(storage_path('app'));
-    exec("git clone --depth=1 {$gitURL} " . self::PATH);
-    chdir(storage_path('app/' . self::PATH));
-    $this->make();
+    $this->runInDir(storage_path('app'), "git clone --depth=1 {$gitURL} " . self::PATH);
+    $this->runInDir(storage_path('app/' . self::PATH), [&$this, 'make']);
   }
 
-  protected function performPullRefresh()
+  protected function performPullRefresh($path)
   {
-    chdir(storage_path('app/' . self::PATH));
-    exec('git pull --rebase');
-    $this->make();
+    $this->runInDir($path, 'git pull --rebase');
+    $this->runInDir(storage_path('app/' . self::PATH), [&$this, 'make']);
   }
 
   protected function make()
@@ -211,5 +205,52 @@ class LiveCopyRepository
         });
       }
     );
+  }
+
+  /**
+   * Clear the cached data
+   */
+  protected function clearCache()
+  {
+    $this->cache->forget('livecopy:chapters');
+    $this->cache->forget('livecopy:raw_html');
+    $this->cache->forget('livecopy:hash');
+  }
+
+  /**
+   * Run a command (or function) in a given working dir
+   *
+   * Changes to the given dir, runs `$cmd`
+   * and returns to the previous working
+   * directory thus ensuring that commands always exit
+   * into a clean environment.
+   *
+   * NOTE: If `$cmd` is a string, it will be passed on to `exec()` AS IS.
+   *
+   * @param string $dir
+   * @param \Closure|callable|string $cmd
+   * @return string
+   **/
+  protected function runInDir($dir, $cmd)
+  {
+    $cwd = getcwd();
+
+    chdir($dir);
+
+    $res = null;
+    if (is_array($cmd))
+    {
+      $res = call_user_func($cmd);
+    } else if (is_callable($cmd))
+    {
+      $res = $cmd();
+    } else
+    {
+      $res = exec($cmd);
+    }
+
+    chdir($cwd);
+
+    return $res;
   }
 }
