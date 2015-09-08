@@ -94,7 +94,11 @@ class LiveCopyRepository
     $this->fixHTML($this->content, $this->nav);
 
     $this->hash = $cache->rememberForever('livecopy:hash', function () {
-      $hash = $this->runInDir('app/'.static::PATH, 'git show HEAD --format="%H" | head -n1');
+      $hash = $this->runInDir(
+        storage_path('app/'.static::PATH),
+        'git show HEAD --format="%H" | head -n1'
+      );
+
       $hash = trim($hash);
 
       return $hash;
