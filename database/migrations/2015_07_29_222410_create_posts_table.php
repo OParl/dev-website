@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
 
       $table->string('content');
 
-      $table->integer('author_id')->nullable();
+      $table->integer('author_id', false, true)->nullable();
       $table->foreign('author_id')->references('id')->on('users');
     });
   }
