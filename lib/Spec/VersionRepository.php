@@ -115,8 +115,6 @@ class VersionRepository implements ArrayAccess, Iterator
       return $version->getHash();
     });
 
-    dd($hashes);
-
     $versions = collect($this->fs->directories(static::ARCHIVE_DIRECTORY))
       ->map(function ($dir) {
         return explode('/', $dir)[1];
