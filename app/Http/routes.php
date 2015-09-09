@@ -49,7 +49,6 @@ Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
 ]);
 
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
-Route::get('/downloads/wait/{downloadsVersion}', ['uses' => 'DownloadsController@wait', 'as' => 'downloads.wait']);
 
 // Status
 Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status.index']);
