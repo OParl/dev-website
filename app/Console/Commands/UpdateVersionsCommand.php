@@ -25,16 +25,6 @@ class UpdateVersionsCommand extends Command
   protected $description = 'Update specification version information from GitHub.';
 
   /**
-   * Create a new command instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-     parent::__construct();
-  }
-
-  /**
    * Execute the console command.
    *
    * @return mixed

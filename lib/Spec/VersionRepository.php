@@ -100,6 +100,13 @@ class VersionRepository implements ArrayAccess, Iterator
       if ($version->getHash() === $hash) return $version->isAvailable();
   }
 
+  public function getAvailable()
+  {
+    return collect($this->versions)->map(function (Version $version) {
+      return $version->getHash();
+    });
+  }
+
   /**
    * Gets extraneous versions
    *
@@ -111,9 +118,7 @@ class VersionRepository implements ArrayAccess, Iterator
    */
   public function getExtraneous()
   {
-    $hashes = collect($this->versions)->map(function (Version $version) {
-      return $version->getHash();
-    });
+    $hashes = $this->getAvailable();
 
     $versions = collect($this->fs->directories(static::ARCHIVE_DIRECTORY))
       ->map(function ($dir) {

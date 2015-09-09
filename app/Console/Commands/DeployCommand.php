@@ -37,16 +37,6 @@ class DeployCommand extends Command {
 	protected $description = 'Run commands necessary to put the application in a usable state.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
