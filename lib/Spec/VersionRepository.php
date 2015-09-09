@@ -115,11 +115,11 @@ class VersionRepository implements ArrayAccess, Iterator
       return $version->getHash();
     });
 
-    return collect($this->fs->directories(app_path(static::ARCHIVE_DIRECTORY)))
-      ->filter(function ($dir) use ($hashes) {
-      $hash = explode('/', $dir)[1];
-      return !in_array($hash, $hashes);
-    });
+    return collect($this->fs->directories(static::ARCHIVE_DIRECTORY))
+      ->map(function ($dir) { return explode('/', $dir)[0]; })
+      ->filter(function ($hash) use ($hashes) {
+        return !$hashes->contains($hash);
+      });
   }
 
   public function clean($mode = 'extra')
@@ -134,7 +134,7 @@ class VersionRepository implements ArrayAccess, Iterator
   protected function cleanExtra()
   {
     $this->getExtraneous()->each(function ($hash) {
-      $this->fs->deleteDirectory(storage_path(static::ARCHIVE_DIRECTORY . $hash));
+      $this->fs->deleteDirectory(static::ARCHIVE_DIRECTORY . $hash);
     });
 
     return true;
