@@ -151,7 +151,7 @@ class VersionRepository implements ArrayAccess, Iterator
 
   protected function cleanAll()
   {
-    $this->fs->directories(static::ARCHIVE_DIRECTORY . '*')->each(function ($dir) {
+    collect($this->fs->directories(static::ARCHIVE_DIRECTORY . '*'))->each(function ($dir) {
       if (!$this->isPreserved($dir, 'dir'))
       {
         $this->fs->deleteDirectory($dir);

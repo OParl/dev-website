@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel {
     Commands\ListVersionsCommand::class,
     Commands\UpdateVersionsCommand::class,
     Commands\GetVersionCommand::class,
-    Commands\RemoveVersionCommand::class
+    Commands\RemoveVersionsCommand::class
   ];
 
   protected function schedule(Schedule $schedule)

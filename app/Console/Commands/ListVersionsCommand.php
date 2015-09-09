@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use OParl\Spec\Version;
 use OParl\Spec\VersionRepository;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -34,10 +35,8 @@ class ListVersionsCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(VersionRepository $versionRepository)
     {
-      $versionRepository = app('VersionRepository');
-
       $versions = collect();
       $counts = [
         'extra' => 0,
