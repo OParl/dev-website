@@ -9,13 +9,7 @@ use EFrane\Buildkite\RequestData\CreateBuild as CreateBuildRequest;
  * Create Build Job
  *
  * This job is used to create spec builds on Buildkite
- * on-demand. The code flow for on-demand builds as far as
- * this job is concerned is:
- *
- * 1) User requests unavailable version
- * 2) This job is being scheduled
- * 3) This job calls the Buildkite API to execute the build
- * 4) This job is done -> Processing continues at HooksController@addVersion
+ * on-demand.
  *
  * @package App\Jobs
  **/
@@ -27,20 +21,19 @@ class CreateBuild extends Job implements SelfHandling
   protected $hash   = '';
 
   /**
-   * @var string The requested format (required for info mail)
+   * @var string Meta information to be added to the build request message
    **/
-  protected $format = '';
+  protected $buildMeta = '';
 
   /**
    * Create a new Build Job instance
    *
    * @param string $hash The requested version
-   * @param string $format The requested format (required for info mail)
    */
-  public function __construct($hash, $format)
+  public function __construct($hash, $meta = '')
   {
     $this->hash = $hash;
-    $this->format = $format;
+    $this->buildMeta = ' '.$meta;
   }
 
   /**
@@ -54,7 +47,7 @@ class CreateBuild extends Job implements SelfHandling
     {
       // create the build
       $build = new CreateBuildRequest(
-        "Building requested version {$this->hash}",
+        "Building requested version {$this->hash}{$this->buildMeta}",
         $this->hash
       );
 
