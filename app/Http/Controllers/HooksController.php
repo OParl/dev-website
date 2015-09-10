@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Model\Environment;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
 
@@ -8,11 +9,9 @@ use Illuminate\Foundation\Inspiring;
 
 use Illuminate\Http\Request;
 
-use App\Events\RequestedBuildFinished;
 use App\Http\Requests\VersionUpdateRequest;
 use App\Jobs\UpdateLiveCopy;
 use App\Jobs\UpdateVersionHashes;
-use App\Model\ScheduledBuild;
 
 
 /**
@@ -97,17 +96,15 @@ class HooksController extends Controller
    *
    * @param VersionUpdateRequest $request
    * @param Filesystem $fs
-   * @param Mailer $mailer
    * @return \Illuminate\Http\JsonResponse
    **/
-  public function addVersion(VersionUpdateRequest $request, Filesystem $fs, Mailer $mailer)
+  public function addVersion(VersionUpdateRequest $request, Filesystem $fs)
   {
     try
     {
       $this->saveFiles($request, $fs);
-      //$this->handleScheduledBuilds($request, $mailer);
 
-      event(new RequestedBuildFinished());
+      Environment::set('versions', ['updateInProgress' => false]);
 
       return response()->json([
         'version' => $request->input('version'),
@@ -124,25 +121,12 @@ class HooksController extends Controller
     }
   }
 
-  /**
-   * Checks if this was a scheduled build, sends email,
-   * remove from scheduled builds
-   *
-   * @param VersionUpdateRequest $request
-   * @param Mailer $mailer
-   **/
-  protected function handleScheduledBuilds(VersionUpdateRequest $request, Mailer $mailer)
+  public function lockVersionUpdates(VersionUpdateRequest $request)
   {
-    $scheduledBuilds = ScheduledBuild::whereVersion($request->input('version'))->get();
-    foreach ($scheduledBuilds as $build) {
-      $mailer->send('emails.success', ['build' => $build], function ($m) use ($build) {
-        $m->from('info@oparl.org');
-        $m->to($build->email);
-        $m->subject('[OParl.org] Ihre angeforderte Spezifikationsversion ist bereit zum Download!');
-      });
-
-      $build->delete();
-    }
+    Environment::set('versions', [
+      'updateInProgress' => true,
+      'hash' => $request->input('version')
+    ]);
   }
 
   /**

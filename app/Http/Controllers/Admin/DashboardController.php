@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\Controller;
 
-use App\Jobs\UpdateLiveCopy;
-use App\Jobs\UpdateVersionHashes;
 use App\Model\Post;
 use App\Model\Comment;
 
@@ -24,39 +22,6 @@ class DashboardController extends Controller
         'spam' => Comment::spam()->count(),
         'unvalidated' => Comment::unvalidated()->count()
       ],
-      'lastModified' => [
-        'livecopy' => app('LiveCopyRepository')->getLastModified(),
-        'versions' => app('VersionRepository')->getLastModified(),
-      ]
     ]);
-  }
-
-  public function update($what)
-  {
-    $message = 'Das %supdate wurde erfolgreich gestartet.';
-
-    switch ($what)
-    {
-      case 'livecopy':
-        $this->dispatch(new UpdateLiveCopy);
-        $message = sprintf($message, 'Livekopie-Pull');
-        break;
-
-      case 'livecopy-force':
-        $this->dispatch(new UpdateLiveCopy(true));
-        $message = sprintf($message, 'Livekopie-Clone');
-        break;
-
-      case 'versions':
-        $this->dispatch(new UpdateVersionHashes);
-        $message = sprintf($message, 'Versionslisten');
-        break;
-
-      default:
-        $message = "Es existiert keine Updatemethode für {$what}.";
-        break;
-    }
-
-    return redirect()->route('admin.dashboard.index')->with('info', $message);
   }
 }

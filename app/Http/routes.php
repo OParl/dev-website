@@ -19,7 +19,7 @@ Route::pattern('slug', '[[:print:]]+');
 
 Route::get('/', ['uses' => function () { return redirect('/spezifikation'); }, 'as' => 'news.index']);
 
-// FIXME: reactivate if news are being used
+// FIXME: reactivate when news are being used
 //Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
 
 // About
@@ -67,8 +67,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
   Route::pattern('id', '\d+');
 
   Route::get('/', ['uses' => 'Admin\DashboardController@index', 'as' => 'admin.dashboard.index']);
-  Route::get('/update/{what}', ['uses' => 'Admin\DashboardController@index', 'as' => 'admin.dashboard.update'])
-    ->where('what', '(livecopy|versions)');
 
   Route::get('/posts', ['uses' => 'Admin\NewsController@index', 'as' => 'admin.news.index']);
   Route::get('/posts/new', ['uses' => 'Admin\NewsController@create', 'as' => 'admin.news.create']);
@@ -82,6 +80,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
   Route::post('/comments/status', ['uses' => 'Admin\CommentsController@index', 'as' => 'admin.comments.status']);
   Route::get('/comments/{id}', ['uses' => 'Admin\CommentsController@edit', 'as' => 'admin.comments.edit']);
   Route::get('/comments/{id}/delete', ['uses' => 'Admin\CommentsController@delete', 'as' => 'admin.comments.delete']);
+
+  Route::get('/spec', ['uses' => 'Admin\SpecificationController@index', 'as' => 'admin.specification.index']);
+  Route::get('/spec/update/{what}', ['uses' => 'Admin\SpecificationController@index', 'as' => 'admin.specification.update'])
+    ->where('what', '(livecopy|livecopy-force|versions)');
+  Route::get('/spec/clean/{what}', ['uses' => 'Admin\SpecificationController@clean', 'as' => 'admin.specification.clean'])
+    ->where('what', '(all|extraneous)');
 
   Route::get('/settings', ['uses' => 'Admin\SettingsController@index', 'as' => 'admin.settings']);
   Route::post('/settings', ['uses' => 'Admin\SettingsController@save', 'as' => 'admin.settings.save']);
@@ -101,8 +105,14 @@ Route::get('/_hooks/add_version', function() { return redirect()->route('specifi
 Route::post('/_hooks/add_version', [
   'uses' => 'HooksController@addVersion',
   'as' => 'hooks.add'
-])->where('key', '[a-zA-Z0-9]{32}')
-  ->where('version', '[a-z0-9]{4,10}');
+]);
+
+Route::get('/_hooks/lock_version_updates', [
+  'uses' => 'HooksController@lockVersionUpdates',
+  'as' => 'hooks.lock_vu'
+]);
+
+// News and Search
 
 Route::post('/search', ['uses' => 'SearchController@search', 'as' => 'search.lookup']);
 

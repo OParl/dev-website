@@ -29,6 +29,11 @@ class AdminHeader
         'title' => ($spamCount > 0) ? 'Kommentare <span class="badge">'.Comment::spam()->count().'</span>'
                                     : 'Kommentare'
       ],
+      [
+        'current' => starts_with($currentRoute, 'admin.specification'),
+        'route' => 'admin.specification.index',
+        'title' => 'Spezifikation'
+      ],
     ];
 
     return $view->with('sections', $sections);

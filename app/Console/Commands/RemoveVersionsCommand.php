@@ -3,10 +3,13 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\VersionRepository;
 
 class RemoveVersionsCommand extends Command
 {
+  use DispatchesJobs;
+
   /**
    * The name and signature of the console command.
    *
@@ -45,7 +48,7 @@ class RemoveVersionsCommand extends Command
       case 'all':
       case 'extraneous':
         $this->line("Removing {$mode} stored versions.");
-        $versionRepository->clean($mode);
+        $this->dispatch(CleanVersions($mode));
         return true;
 
       default:

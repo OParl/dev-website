@@ -1,5 +1,6 @@
 <?php namespace App\Jobs;
 
+use App\Model\Environment;
 use App\Model\ScheduledBuild;
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -43,13 +44,18 @@ class CreateBuild extends Job implements SelfHandling
    */
   public function handle()
   {
-    if (!env('debug'))
+    if (!env('debug') && !Environment::get('versions')['updateInProgress'])
     {
       // create the build
       $build = new CreateBuildRequest(
         "Building requested version {$this->hash}{$this->buildMeta}",
         $this->hash
       );
+
+      Environment::set('versions', [
+        'updateInProgress' => false,
+        'hash' => $this->hash
+      ]);
 
       app('buildkite')
         ->builds(config('services.buildkite.project'))
