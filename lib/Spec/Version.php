@@ -82,7 +82,6 @@ class Version implements \JsonSerializable
   {
     $commitMessage = $this->commitMessage;
 
-    // TODO: find #issue-notes and annotate them with appropriate links
     if (preg_match('/#(\d+)/', $commitMessage, $matches) > 0)
     {
       $link = sprintf('<a href="//github.com/OParl/spec/issues/%d">%s</a>', $matches[1], $matches[0]);

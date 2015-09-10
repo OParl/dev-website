@@ -25,8 +25,6 @@ class Kernel extends ConsoleKernel {
 
   protected function schedule(Schedule $schedule)
   {
-    $schedule->call(function () {
-      // TODO: delete versions that are not in versions.json
-    })->daily();
+    $schedule->command(Commands\RemoveVersionsCommand::class, ['extraneous'])->daily();
   }
 }
