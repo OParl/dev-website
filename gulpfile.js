@@ -48,13 +48,6 @@ elixir(function(mix) {
 
     mix.scripts(
         [
-            'pusher.js',
-            '../../vendor/_bower_components/pusher/dist/pusher.js'
-        ], 'public/js/pusher.js', 'resources/js'
-    );
-
-    mix.scripts(
-        [
             'datetimepicker_tooltips_de.js',
             'admin.js'
         ], 'public/js/admin.js', 'resources/js'

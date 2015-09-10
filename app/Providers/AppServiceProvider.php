@@ -3,6 +3,7 @@
 use App\Http\ViewComposers\AdminHeader;
 use App\Http\ViewComposers\Header;
 use App\Http\ViewComposers\NewsArchive;
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
@@ -14,10 +15,13 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		view()->composer('header',       Header::class);
-    view()->composer('news.archive', NewsArchive::class);
+		/* @var \Illuminate\View\View v */
+		$v = view();
 
-		view()->composer('admin.header', AdminHeader::class);
+		$v->composer('header',       Header::class);
+    $v->composer('news.archive', NewsArchive::class);
+
+		$v->composer('admin.header', AdminHeader::class);
 	}
 
 	/**

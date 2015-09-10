@@ -12,7 +12,7 @@ class RemoveVersionsCommand extends Command
    *
    * @var string
    */
-  protected $signature = 'versions:remove {--all?} {--extraneous?}';
+  protected $signature = 'versions:remove {mode}';
 
   /**
    * The console command description.
