@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\CleanVersions;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\VersionRepository;
@@ -48,7 +49,7 @@ class RemoveVersionsCommand extends Command
       case 'all':
       case 'extraneous':
         $this->line("Removing {$mode} stored versions.");
-        $this->dispatch(CleanVersions($mode));
+        $this->dispatch(new CleanVersions($mode));
         return true;
 
       default:

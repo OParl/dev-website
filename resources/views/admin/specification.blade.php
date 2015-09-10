@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-sm-9">Fehlende Downloads bereitstellen</div>
                         <div class="col-sm-3">
-                            <a href="#" class="btn btn-sm btn-default">Bereitstellen</a>
+                            <a href="{{ route('admin.specification.fetch', '_missing_') }}" class="btn btn-sm btn-default">Bereitstellen</a>
                         </div>
                     </div>
                 </li>
@@ -64,7 +64,7 @@
                             </span>
                         </div>
                         <div class="col-sm-3">
-                            <a href="#" class="btn btn-sm btn-danger">Löschen</a>
+                            <a href="{{ route('admin.specification.clean', 'all') }}" class="btn btn-sm btn-danger">Löschen</a>
                         </div>
                     </div>
                 </li>
@@ -72,7 +72,7 @@
                     <div class="row">
                         <div class="col-sm-9">Überschüssige Downloads löschen</div>
                         <div class="col-sm-3">
-                            <a href="#" class="btn btn-sm btn-danger">Löschen</a>
+                            <a href="{{ route('admin.specification.clean', 'extraneous') }}" class="btn btn-sm btn-danger">Löschen</a>
                         </div>
                     </div>
                 </li>
@@ -113,9 +113,9 @@
                         </td>
                         <td>
                             @if ($versions[$i]->isAvailable())
-                                <a href="#" class="btn btn-sm btn-danger">Löschen</a>
+                                <a href="{{ route('admin.specification.delete', $versions[$i]->getHash()) }}" class="btn btn-sm btn-danger">Löschen</a>
                             @else
-                                <a href="#" class="btn btn-sm btn-default">Laden</a>
+                                <a href="{{ route('admin.specification.fetch', $versions[$i]->getHash()) }}" class="btn btn-sm btn-default">Laden</a>
                             @endif
                         </td>
                     </tr>

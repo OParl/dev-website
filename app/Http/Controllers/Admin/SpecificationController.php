@@ -67,4 +67,27 @@ class SpecificationController extends Controller
 
     return redirect()->route('admin.specification.index')->with('info', $message);
   }
+
+  public function delete($hash)
+  {
+    // TODO: implement deleting a single version
+    $message = 'Die Löschung wurde erfolgreich durchgeführt.';
+
+    return redirect()->route('admin.specification.index')->with('info', $message);
+  }
+
+  public function fetch($what)
+  {
+    $message = 'Der Ladevorgang wurde erfolgreich gestartet.';
+
+    if ($what === '_missing_')
+    {
+      // TODO: fetch all missing versions
+    } else
+    {
+      // TODO: only fetch the one in question
+    }
+
+    return redirect()->route('admin.specification.index')->with('info', $message);
+  }
 }

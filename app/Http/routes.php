@@ -86,6 +86,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     ->where('what', '(livecopy|livecopy-force|versions)');
   Route::get('/spec/clean/{what}', ['uses' => 'Admin\SpecificationController@clean', 'as' => 'admin.specification.clean'])
     ->where('what', '(all|extraneous)');
+  Route::get('/spec/fetch/{what}', ['uses' => 'Admin\SpecificationController@fetch', 'as' => 'admin.specification.fetch'])
+    ->where('what', '(_missing_|[a-z0-9]{5,})');
+  Route::get('/spec/delete/{hash}', ['uses' => 'Admin\SpecificationController@delete', 'as' => 'admin.specification.delete'])
+    ->where('hash', '[a-z0-9]{5,}');
 
   Route::get('/settings', ['uses' => 'Admin\SettingsController@index', 'as' => 'admin.settings']);
   Route::post('/settings', ['uses' => 'Admin\SettingsController@save', 'as' => 'admin.settings.save']);
