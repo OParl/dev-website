@@ -22,6 +22,11 @@ class AppServiceProvider extends ServiceProvider {
     $v->composer('news.archive', NewsArchive::class);
 
 		$v->composer('admin.header', AdminHeader::class);
+
+    // add a @markdown(...) directive which formats value to markdown
+		\Blade::directive('markdown', function ($expr) {
+      return "<?php echo \\Parsedown::instance()->parse({$expr}) ?>";
+    });
 	}
 
 	/**

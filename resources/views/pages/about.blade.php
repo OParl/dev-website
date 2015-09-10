@@ -1,28 +1,40 @@
 @extends ('pages.page')
 
 @section ('page')
-    <p>
-        <strong>OParl ist eine Initiative zur Förderung der Offenheit von parlamentarischen Informationssystemen auf
-            kommunaler Ebene in Deutschland.</strong></p><h2>Parlamentarische Informationssysteme in Kommunen</h2><p>
-        Viele Kommunen, Landkreise und Regionen in Deutschland verfügen über <strong>Ratsinformationssysteme</strong>,
-        um die Gremienarbeit im Gemeinderat, Kreistag etc. sowie den Ausschüssen und Bezirksvertretungen zu
-        organisieren. In diesen Ratsinformationssystemen (nachfolgend RIS genannt) wird ein großer Teil der
-        lokalpolitischen Initiativen von der ersten Anfrage bis zur Beschlussfassung dokumentiert und vielerorts sind
-        große Teile der RIS-Daten öffentlich für alle Bürger einsehbar. Damit stellen RISe eine wichtige Grundlage für
-        die politische <strong>Beteiligung</strong> und <strong>Transparenz</strong>&nbsp;von Politik und Verwaltung
-        dar.</p><p>In der Gesellschaft besteht ein hohes Interesse an der Nutzung von RIS-Daten. Projekte wie <a
-                href="https://politik-bei-uns.de/">Politik Bei Uns</a>&nbsp;und <a
-                href="http://www.frankfurt-gestalten.de/" target="_blank">Frankfurt Gestalten</a>, aber auch die Arbeit
-        von Parlamentwatch e.V. (<a href="http://www.abgeordnetenwatch.de/" target="_blank">abgeordnetenwatch.de</a>)
-        zeigen beispielhaft die Möglichkeiten auf.</p><h2>Standardisierter Zugriff auf öffentliche Daten</h2><p>OParl
-        setzt sich für die Schaffung eines einheitlichen Zugriffs auf diese Informationssysteme ein. Die Mitwirkenden
-        hinter OParl haben sich darauf verständigt, einen Schnittstellen-Standard (siehe <a
-                href="http://oparl.org/spezifikation/">Spezifikation</a>) zu definieren. Die teilnehmenden
-        Software-Anbieter passen ihre Systeme so an, dass sie diesen Standard erfüllen.</p><h2>Initiatoren und
-        Unterstützer</h2><p>OParl ist eine Initiative unter der Leitung der Open Knowledge Foundation Deutschland e.V.
-        (OKF-DE) und&nbsp;der Bundes-Arbeitsgemeinschaft der Kommunalen IT-Dienstleister e.V. (Vitako).</p><p>Die
-        folgenden Organisationen und Unternehmen zählen zu den Unterstützern von OParl:
-    </p>
+    @markdown("
+**OParl ist eine Initiative zur Förderung der Offenheit von parlamentarischen
+Informationssystemen auf kommunaler Ebene in Deutschland.**
+
+Viele Kommunen, Landkreise und Regionen in Deutschland verfügen über
+**Ratsinformationssysteme**, um die Gremienarbeit im Gemeinderat, Kreistag etc.
+sowie den Ausschüssen und Bezirksvertretungen zu organisieren. In diesen
+Ratsinformationssystemen (nachfolgend RIS genannt) wird ein großer Teil der
+lokalpolitischen Initiativen von der ersten Anfrage bis zur Beschlussfassung
+dokumentiert und vielerorts sind große Teile der RIS-Daten öffentlich für
+alle Bürger einsehbar. Damit stellen RISe eine wichtige Grundlage für
+die politische **Beteiligung** und **Transparenz** von Politik und Verwaltung dar.
+
+In der Gesellschaft besteht ein hohes Interesse an der Nutzung von RIS-Daten.
+Projekte wie [https://politik-bei-uns.de/](Politik Bei Uns) und
+[http://www.frankfurt-gestalten.de/](Frankfurt Gestalten), aber auch die Arbeit
+von Parlamentwatch e.V. ([http://www.abgeordnetenwatch.de/](abgeordnetenwatch.de))
+zeigen beispielhaft die Möglichkeiten auf.
+
+## Standardisierter Zugriff auf öffentliche Daten
+
+OParl setzt sich für die Schaffung eines einheitlichen Zugriffs auf diese Informationssysteme
+ein. Die Mitwirkenden hinter OParl haben sich darauf verständigt, einen
+Schnittstellen-Standard (siehe [http://oparl.org/spezifikation/](Spezifikation))
+zu definieren. Die teilnehmenden Software-Anbieter passen ihre Systeme so an, dass sie
+diesen Standard erfüllen.
+
+## Initiatoren und Unterstützer
+
+OParl ist eine Initiative unter der Leitung der Open Knowledge Foundation Deutschland
+e.V. (OKF-DE) und der Bundes-Arbeitsgemeinschaft der Kommunalen IT-Dienstleister e.V. (Vitako).
+
+Die folgenden Organisationen und Unternehmen zählen zu den Unterstützern von OParl:
+")
 
     <table class="table-condensed table-striped">
         <tbody>
