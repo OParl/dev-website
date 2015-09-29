@@ -11,8 +11,24 @@ class SpecServiceProvider extends IlluminateServiceProvider
    */
   public function register()
   {
-    $this->app->bind('VersionRepository', 'OParl\Spec\VersionRepository', true);
-    $this->app->bind('LiveCopyRepository', 'OParl\Spec\LiveCopyRepository', true);
+    $this->app->bind('VersionRepository', VersionRepository::class, true);
+    $this->app->bind('LiveCopyRepository', LiveCopyRepository::class, true);
+    $this->app->bind('SpecificationBuildRepository', BuildRepository::class, true);
+
+    $this->app->singleton(
+      'oparl.specification.commands.delete_builds',
+      Commands\DeleteSpecificationBuildsCommand::class
+    );
+
+    $this->commands([
+      'oparl.specification.commands.delete_builds'
+    ]);
   }
 
+  public function provides()
+  {
+    return [
+      'oparl.specification.commands.delete_builds'
+    ];
+  }
 }

@@ -39,4 +39,45 @@ class BuildClient extends AbstractClient
     $url = 'organizations/' . $this->organization . '/projects/' . $this->project . '/builds';
     return $this->request('POST', $url, null, $data->toJson());
   }
+
+  /**
+   * @param string $status
+   * @param array $meta
+   * @param string|array $branch
+   * @return array|null
+   **/
+  public function enumerate($status = 'any', array $meta = [], $branch = '')
+  {
+    $status = ($this->isValidBuildStatus($status)) ? $status : '';
+
+    $url = 'organizations/' . $this->organization . '/projects/' . $this->project . '/builds/?';
+
+    $arguments = [
+      'state' => $status,
+      'meta_data' => $meta,
+      'branch' => $branch
+    ];
+
+    return $this->request('GET', $url, $arguments);
+  }
+
+  public function hasActiveBuild()
+  {
+    $json = $this->enumerate('running');
+
+    return count($json) > 0;
+  }
+
+  protected function isValidBuildStatus($status)
+  {
+    return in_array($status, [
+      'running',
+      'scheduled',
+      'passed',
+      'failed',
+      'canceled',
+      'skipped',
+      'not_run'
+    ]);
+  }
 }

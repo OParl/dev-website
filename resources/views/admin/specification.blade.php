@@ -93,33 +93,35 @@
                 </tr>
             </thead>
             <tbody>
-                @inject ('versions', 'VersionRepository')
-
-                @for ($i = 1; isset($versions[$i]); $i++)
+                @forelse ($builds as $build)
                     <tr>
                         <td>
-                            <a href="//github.com/OParl/spec/commits/{{ $versions[$i]->getHash() }}">
-                                {{ $versions[$i]->getHash() }}
+                            <a href="//github.com/OParl/spec/commits/{{ $build->hash }}">
+                                {{ $build->hash }}
                             </a>
                         </td>
-                        <td>{{ $versions[$i]->getDate()->formatLocalized('%d.%m.%Y') }}</td>
-                        <td>{!! $versions[$i]->getLinkedCommitMessage()  !!}</td>
+                        <td>{{ $build->created_at->formatLocalized('%d.%m.%Y') }}</td>
+                        <td>{!! $build->getLinkedCommitMessage()  !!}</td>
                         <td class="text-center">
-                            @if ($versions[$i]->isAvailable())
+                            @if ($build->isAvailable)
                                 <span class="glyphicon glyphicon-ok text-success"></span>
                             @else
                                 <span class="glyphicon glyphicon-remove text-danger"></span>
                             @endif
                         </td>
                         <td>
-                            @if ($versions[$i]->isAvailable())
-                                <a href="{{ route('admin.specification.delete', $versions[$i]->getHash()) }}" class="btn btn-sm btn-danger">Löschen</a>
+                            @if ($build->isAvailable)
+                                <a href="{{ route('admin.specification.delete', $build->hash) }}" class="btn btn-sm btn-danger">Löschen</a>
                             @else
-                                <a href="{{ route('admin.specification.fetch', $versions[$i]->getHash()) }}" class="btn btn-sm btn-default">Laden</a>
+                                <a href="{{ route('admin.specification.fetch', $build->hash) }}" class="btn btn-sm btn-default">Laden</a>
                             @endif
                         </td>
                     </tr>
-                @endfor
+                @empty
+                    <tr>
+                        <td colspan="5">Momentan sind keine weiteren Build-Informationen verfügbar.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

@@ -5,16 +5,19 @@ use App\Http\Controllers\Controller;
 use App\Jobs\CleanVersions;
 use App\Jobs\UpdateLiveCopy;
 use App\Jobs\UpdateVersionHashes;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use OParl\Spec\BuildRepository;
 
 class SpecificationController extends Controller
 {
-  public function index()
+  public function index(BuildRepository $buildRepository)
   {
     $data = [
       'lastModified' => [
         'livecopy' => app('LiveCopyRepository')->getLastModified(),
         'versions' => app('VersionRepository')->getLastModified(),
-      ]
+      ],
+      'builds' => $buildRepository->getLatest(15)
     ];
 
     return view('admin.specification', $data);
@@ -68,7 +71,7 @@ class SpecificationController extends Controller
     return redirect()->route('admin.specification.index')->with('info', $message);
   }
 
-  public function delete($hash)
+  public function delete(Filesystem $fs, $hash)
   {
     // TODO: implement deleting a single version
     $message = 'Die Löschung wurde erfolgreich durchgeführt.';

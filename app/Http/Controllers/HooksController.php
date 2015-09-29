@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VersionUpdateRequest;
 use App\Jobs\UpdateLiveCopy;
 use App\Jobs\UpdateVersionHashes;
+use OParl\Spec\BuildRepository;
+use OParl\Spec\Jobs\ExtractSpecificationBuildJob;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
@@ -88,23 +91,36 @@ class HooksController extends Controller
    * This hook is hit by the Buildkite deploy process of the specification
    * project. It is called in two different situations:
    *
-   * 1) Whenever an update happens to the spec, it is automatically built by
-   *    Buildkite and sent to this hook
-   *
-   * 2) As a continuation of the scheduled builds, when BK finished building,
-   *    this hook needs to check if the build was scheduled and act accordingly.
+   * Whenever an update happens to the spec, it is automatically built by
+   * Buildkite and sent to this hook
    *
    * @param VersionUpdateRequest $request
    * @param Filesystem $fs
+   * @param BuildRepository $buildRepository
    * @return \Illuminate\Http\JsonResponse
    **/
-  public function addVersion(VersionUpdateRequest $request, Filesystem $fs)
+  public function addVersion(
+    VersionUpdateRequest $request,
+    Filesystem $fs,
+    BuildRepository $buildRepository
+  )
   {
     try
     {
-      $this->saveFiles($request, $fs);
+      $hash = $request->input('version');
+      $build = $buildRepository->getWithHash($hash);
 
-      Environment::set('versions', ['updateInProgress' => false]);
+      $fs->makeDirectory('uploads/');
+
+      $this->dispatch(new ExtractSpecificationBuildJob($build));
+
+      collect($request->file())->each(function (UploadedFile $file) use ($build) {
+        $ext = $file->guessClientExtension();
+
+        if (ends_with($ext, 'gz'))  $file->move($build->tar_gz_storage_path);
+        if (ends_with($ext, 'bz2')) $file->move($build->tar_bz_storage_path);
+        if (ends_with($ext, 'zip')) $file->move($build->tar_zip_storage_path);
+      });
 
       return response()->json([
         'version' => $request->input('version'),
@@ -116,38 +132,13 @@ class HooksController extends Controller
       return response()->json([
         'version'   => $request->input('version'),
         'success'   => false,
-        'exception' => sprintf('%s in %s (%d)', $e->getMessage(), $e->getFile(), $e->getLine())
+        'exception' => sprintf(
+          '%s in %s (%d)',
+          $e->getMessage(),
+          basename($e->getFile()),
+          $e->getLine()
+        )
       ]);
     }
-  }
-
-  public function lockVersionUpdates(VersionUpdateRequest $request)
-  {
-    Environment::set('versions', [
-      'updateInProgress' => true,
-      'hash' => $request->input('version')
-    ]);
-  }
-
-  /**
-   * Save the archives from the request and extract one to enable
-   * quick access to the different output formats.
-   *
-   * @param VersionUpdateRequest $request
-   * @param Filesystem $fs
-   **/
-  protected function saveFiles(VersionUpdateRequest $request, Filesystem $fs)
-  {
-    $version = substr($request->input('version'), 0, 7);
-
-    $path = 'versions/' . $version . '/';
-    $fs->makeDirectory($path, '0755', true, true);
-    $fs->cleanDirectory($path);
-
-    foreach ($request->file() as $file)
-      $file->move(storage_path('app/' . $path), $file->getClientOriginalName());
-
-    chdir(storage_path('app/' . $path));
-    exec('tar -xzf *.tar.gz');
   }
 }

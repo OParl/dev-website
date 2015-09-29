@@ -21,15 +21,22 @@ abstract class AbstractClient
     $this->token = $token;
 
     $organizationAndProject = $this->validateInput($organizationAndProject);
-    if (strpos($organizationAndProject, '/') > 0)
-    {
-      list($this->organization, $this->project) = explode('/', $organizationAndProject);
-    } else
-    {
-      $this->organization = $organizationAndProject;
-    }
+
+    $this->extractCombinedOrganizationFromProject($organizationAndProject);
 
     $this->guzzleClient = new Client($this->getBaseURL(), []);
+  }
+
+  public function organization($organization)
+  {
+    $this->organization = $organization;
+    return $this;
+  }
+
+  public function project($project)
+  {
+    $this->extractCombinedOrganizationFromProject($project);
+    return $this;
   }
 
   private function getBaseURL()
@@ -43,12 +50,33 @@ abstract class AbstractClient
     return sprintf('/%s/%s?%s', $this->apiVersion, $path, $arguments);
   }
 
-  protected function request($method, $uri, $headers = null, $body = null, $options = [])
+  protected function request($method, $uri, array $arguments = [], $headers = null, $body = null, $options = [])
   {
     $request = $this->guzzleClient->createRequest($method, $uri, $headers, $body, $options);
     $request->getQuery()->add('access_token', $this->token);
 
-    print($request);
+    foreach ($arguments as $argument => $value) {
+      if (is_null($value)
+      ||  strlen($value) == 0
+      ||  count($value) == 0)
+      {
+        continue;
+      }
+
+      if (is_array($value)) {
+        collect($value)->map(function ($val, $key) use ($argument) {
+          return [
+            sprintf('%s[%s]', $argument, $key),
+            urlencode($val)
+          ];
+        })->each(function ($encoded) use ($request) {
+          $request->getQuery()->add($encoded[0], $encoded[1]);
+        });
+      } else
+      {
+        $request->getQuery()->add($argument, $value);
+      }
+    }
 
     return $request->send()->json();
   }
@@ -62,6 +90,18 @@ abstract class AbstractClient
       throw new BuildkiteException(sprintf("ID must be %s", ucfirst($type)));
 
     return $id;
+  }
+
+  /**
+   * @param $project
+   **/
+  protected function extractCombinedOrganizationFromProject($project)
+  {
+    if (strpos($project, '/') > 0) {
+      list($this->organization, $this->project) = explode('/', $project);
+    } else {
+      $this->organization = $project;
+    }
   }
 
   // TODO: pagination methods
