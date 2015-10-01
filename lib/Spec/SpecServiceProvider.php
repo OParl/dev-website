@@ -11,7 +11,6 @@ class SpecServiceProvider extends IlluminateServiceProvider
    */
   public function register()
   {
-    $this->app->bind('VersionRepository', VersionRepository::class, true);
     $this->app->bind('LiveCopyRepository', LiveCopyRepository::class, true);
     $this->app->bind('SpecificationBuildRepository', BuildRepository::class, true);
 
@@ -25,9 +24,21 @@ class SpecServiceProvider extends IlluminateServiceProvider
       Commands\UpdateSpecificationBuildDataFromGitHubCommand::class
     );
 
+    $this->app->singleton(
+      'oparl.specification.commands.request_build_bk',
+      Commands\RequestSpecificationBuildCommand::class
+    );
+
+    $this->app->singleton(
+      'oparl.specification.commands.list_builds',
+      Commands\ListSpecificationBuildsCommand::class
+    );
+
     $this->commands([
       'oparl.specification.commands.delete_builds',
-      'oparl.specification.commands.update_builds_gh'
+      'oparl.specification.commands.update_builds_gh',
+      'oparl.specification.commands.request_build_bk',
+      'oparl.specification.commands.list_builds',
     ]);
   }
 
@@ -35,7 +46,9 @@ class SpecServiceProvider extends IlluminateServiceProvider
   {
     return [
       'oparl.specification.commands.delete_builds',
-      'oparl.specification.commands.update_builds_gh'
+      'oparl.specification.commands.update_builds_gh',
+      'oparl.specification.commands.request_build_bk',
+      'oparl.specification.commands.list_builds',
     ];
   }
 }

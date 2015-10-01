@@ -16,15 +16,10 @@ class Kernel extends ConsoleKernel {
     Commands\DeployCommand::class,
 
     Commands\UpdateLiveCopyCommand::class,
-
-    Commands\ListVersionsCommand::class,
-    Commands\UpdateVersionsCommand::class,
-    Commands\GetVersionCommand::class,
-    Commands\RemoveVersionsCommand::class
   ];
 
   protected function schedule(Schedule $schedule)
   {
-    $schedule->command(Commands\RemoveVersionsCommand::class, ['extraneous'])->daily();
+    $schedule->command(\OParl\Spec\Commands\DeleteSpecificationBuildsCommand::class, ['build', 30])->daily();
   }
 }

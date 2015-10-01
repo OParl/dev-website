@@ -54,11 +54,11 @@ class DeleteSpecificationBuildsCommand extends Command
     }
 
     $builds->each(function (SpecificationBuild $build) use ($fs) {
-      if ($build->isAvailable)
+      if ($build->is_available)
       {
-        $fs->deleteDirectory($build->storagePath);
+        $fs->deleteDirectory($build->storage_path);
 
-        $build->isAvailable = false;
+        $build->is_available = false;
         $build->save();
       }
     });
