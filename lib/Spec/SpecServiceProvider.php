@@ -20,15 +20,22 @@ class SpecServiceProvider extends IlluminateServiceProvider
       Commands\DeleteSpecificationBuildsCommand::class
     );
 
+    $this->app->singleton(
+      'oparl.specification.commands.update_builds_gh',
+      Commands\UpdateSpecificationBuildDataFromGitHubCommand::class
+    );
+
     $this->commands([
-      'oparl.specification.commands.delete_builds'
+      'oparl.specification.commands.delete_builds',
+      'oparl.specification.commands.update_builds_gh'
     ]);
   }
 
   public function provides()
   {
     return [
-      'oparl.specification.commands.delete_builds'
+      'oparl.specification.commands.delete_builds',
+      'oparl.specification.commands.update_builds_gh'
     ];
   }
 }

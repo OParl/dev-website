@@ -17,9 +17,10 @@ class CreateSpecificationBuildsTable extends Migration
             $table->timestamps();
             $table->boolean('queried');
             $table->string('hash');
-            $table->string('humanVersion');
-            $table->string('commitMessage');
+            $table->string('human_version');
+            $table->string('commit_message');
             $table->boolean('persistent');
+            $table->boolean('displayed');
         });
     }
 

@@ -25,14 +25,20 @@ class BuildRepository
    * @param int $amount
    * @return SpecificationBuild|\Illuminate\Support\Collection
    */
-  public function getLatest($amount = 1)
+  public function getLatest($amount = 1, $displayable = true)
   {
+    $query = SpecificationBuild::orderBy('created_at', 'desc');
+    if ($displayable)
+    {
+      $query = $query->whereDisplayed(true);
+    }
+
     if ($amount == 1)
     {
-      return SpecificationBuild::orderBy('created_at', 'desc')->first();
+      return $query->first();
     } else
     {
-      return SpecificationBuild::orderBy('created_at', 'desc')->take($amount)->get();
+      return $query->take($amount)->get();
     }
   }
 

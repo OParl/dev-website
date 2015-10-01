@@ -4,18 +4,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class SpecificationBuild extends Model
 {
-  protected $fillable = ['created_at', 'hash', 'commit_message'];
+  protected $fillable = ['created_at', 'hash', 'commit_message', 'human_version'];
+
+  protected $casts = ['queried' => 'boolean', 'persistent' => 'boolean', 'displayed' => 'boolean'];
 
   public static function boot()
   {
-    static::creating(function () {
-      // TODO: check if the hash is already available
+    static::creating(function ($build) {
+      $build->queried = false;
+      $build->persistent = false;
+      $build->displayed = true;
     });
   }
 
   public function getLinkedCommitMessageAttribute()
   {
-    $commitMessage = $this->commitMessage;
+    $commitMessage = $this->commit_message;
 
     if (preg_match('/#(\d+)/', $commitMessage, $matches) > 0)
     {
@@ -24,6 +28,11 @@ class SpecificationBuild extends Model
     }
 
     return $commitMessage;
+  }
+
+  public function getShortHashAttribute()
+  {
+    return substr($this->hash, 0, 7);
   }
 
   public function getIsAvailableAttribute()

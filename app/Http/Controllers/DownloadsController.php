@@ -2,6 +2,7 @@
 
 use App\Http\Requests\VersionSelectRequest;
 use App\Jobs\CreateBuild;
+use OParl\Spec\BuildRepository;
 use OParl\Spec\VersionRepository;
 
 class DownloadsController extends Controller
@@ -13,9 +14,12 @@ class DownloadsController extends Controller
     $this->versions = $versions;
   }
 
-  public function index(\Illuminate\Http\Request $request)
+  public function index(BuildRepository $buildRepository)
   {
-    return view('downloads.index', ['versions' => $this->versions, 'title' => 'Downloads']);
+    return view('downloads.index', [
+      'builds' => $buildRepository->getLatest(15),
+      'title' => 'Downloads'
+    ]);
   }
 
   public function latest($extension)

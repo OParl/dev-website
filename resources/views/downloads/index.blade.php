@@ -14,8 +14,8 @@
         <div class="col-xs-12">
             <br />
             <ul class="list-unstyled text-center">
-                <li><em>{{ $versions[0]->getCommitMessage()  }}</em></li>
-                <li><small>(Erstellt {{ $versions[0]->getDate()->diffForHumans() }}.)</small></li>
+                <li><em>{{ $builds->first()->commit_message  }}</em></li>
+                <li><small>(Erstellt {{ $builds->first()->created_at->diffForHumans() }}.)</small></li>
             </ul>
         </div>
 
@@ -41,7 +41,7 @@
                     <h3 class="modal-title">Bitte ein Downloadformat auswählen</h3>
                 </div>
                 <div class="modal-body">
-                    @include ('downloads.simple_version_form', ['version' => $versions[0]])
+                    @include ('downloads.simple_version_form', ['version' => $builds->first()])
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>

@@ -97,11 +97,11 @@
                     <tr>
                         <td>
                             <a href="//github.com/OParl/spec/commits/{{ $build->hash }}">
-                                {{ $build->hash }}
+                                {{ $build->short_hash }}
                             </a>
                         </td>
                         <td>{{ $build->created_at->formatLocalized('%d.%m.%Y') }}</td>
-                        <td>{!! $build->getLinkedCommitMessage()  !!}</td>
+                        <td>{!! $build->linked_commit_message  !!}</td>
                         <td class="text-center">
                             @if ($build->isAvailable)
                                 <span class="glyphicon glyphicon-ok text-success"></span>
@@ -110,7 +110,7 @@
                             @endif
                         </td>
                         <td>
-                            @if ($build->isAvailable)
+                            @if ($build->is_available)
                                 <a href="{{ route('admin.specification.delete', $build->hash) }}" class="btn btn-sm btn-danger">Löschen</a>
                             @else
                                 <a href="{{ route('admin.specification.fetch', $build->hash) }}" class="btn btn-sm btn-default">Laden</a>

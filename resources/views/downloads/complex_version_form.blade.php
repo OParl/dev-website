@@ -1,7 +1,7 @@
 <form class="form-horizontal" id="download-selector" method="post" action="{{ route('downloads.select') }}">
     {{ csrf_field() }}
 
-    <input type="hidden" name="available" class="available" value="{{ $versions[1]->isAvailable() }}" />
+    <input type="hidden" name="available" class="available" value="{{ $builds->first()->is_available }}" />
 
     <div class="form-group">
         <label for="version" class="control-label col-sm-4">
@@ -9,9 +9,9 @@
         </label>
         <div class="col-sm-8">
             <select class="form-control" name="version" aria-describedby="version-help">
-                @for ($i = 1; isset($versions[$i]); $i++)
-                    @include('downloads.version', ['version' => $versions[$i]])
-                @endfor
+                @foreach ($builds as $version)
+                    @include('downloads.version', ['version' => $version])
+                @endforeach
             </select>
             <div id="version-help" class="help-block">
                 Falls die von Ihnen gewünschte Version nicht mehr in der obigen Auswahl sein sollte,
