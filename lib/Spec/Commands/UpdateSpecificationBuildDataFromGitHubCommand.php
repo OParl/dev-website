@@ -13,7 +13,7 @@ class UpdateSpecificationBuildDataFromGitHubCommand extends Command
 
   public function handle()
   {
-    if (config('queue.driver') === 'sync')
+    if (config('queue.default') === 'sync')
     {
       $this->info('Running specification build data update.');
     } else

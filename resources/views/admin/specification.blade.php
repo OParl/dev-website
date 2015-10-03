@@ -26,7 +26,7 @@
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-sm-9">
-                            Versionsliste
+                            Verfügbare Versionsinformationen
                             <small class="text-muted">({{ $lastModified['versions']->format('d.m.Y h:i:s') }})</small>
                         </div>
                         <div class="col-sm-3">
@@ -82,47 +82,16 @@
     </div>
 
     <div class="col-md-12">
-        <table class="table table-condensed table-striped">
-            <thead>
-                <tr>
-                    <th>Hash</th>
-                    <th>Erstellt am</th>
-                    <th>Beschreibung</th>
-                    <th>Verfügbarkeit</th>
-                    <th>Optionen</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($builds as $build)
-                    <tr>
-                        <td>
-                            <a href="//github.com/OParl/spec/commits/{{ $build->hash }}">
-                                {{ $build->short_hash }}
-                            </a>
-                        </td>
-                        <td>{{ $build->created_at->formatLocalized('%d.%m.%Y') }}</td>
-                        <td>{!! $build->linked_commit_message  !!}</td>
-                        <td class="text-center">
-                            @if ($build->isAvailable)
-                                <span class="glyphicon glyphicon-ok text-success"></span>
-                            @else
-                                <span class="glyphicon glyphicon-remove text-danger"></span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($build->is_available)
-                                <a href="{{ route('admin.specification.delete', $build->hash) }}" class="btn btn-sm btn-danger">Löschen</a>
-                            @else
-                                <a href="{{ route('admin.specification.fetch', $build->hash) }}" class="btn btn-sm btn-default">Laden</a>
-                            @endif
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5">Momentan sind keine weiteren Build-Informationen verfügbar.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="panel">
+            <div class="panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Versionsinformationen</h3>
+                </div>
+                    @include ('admin.specification.builds-table')
+                <div class="panel-footer">
+                    {!! $builds->render() !!}
+                </div>
+            </div>
+        </div>
     </div>
 @stop

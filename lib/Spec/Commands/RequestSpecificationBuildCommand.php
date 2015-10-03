@@ -13,6 +13,14 @@ class RequestSpecificationBuildCommand extends Command
 
   public function handle()
   {
+    if (config('queue.default') === 'sync')
+    {
+      $this->info('Running specification build request.');
+    } else
+    {
+      $this->info('Scheduling specification build request.');
+    }
+
     $hash = $this->argument('hash');
     $this->dispatch(new RequestSpecificationBuildJob($hash));
   }

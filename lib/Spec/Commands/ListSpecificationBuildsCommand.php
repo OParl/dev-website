@@ -16,8 +16,8 @@ class ListSpecificationBuildsCommand extends Command
       return [
         'id' => $build->id,
         'message' => $build->human_version,
-        'avail' => ($build->is_available) ? 'YES' : 'NO',
-        'queried' => ($build->queried) ? 'YES' : 'NO',
+        'avail' => ($build->is_available)  ? 'YES' : 'NO',
+        'queried' => ($build->queried)     ? 'YES' : 'NO',
         'displayed' => ($build->displayed) ? 'YES' : 'NO'
       ];
     });

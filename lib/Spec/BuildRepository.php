@@ -42,6 +42,11 @@ class BuildRepository
     }
   }
 
+  public function getLastModified()
+  {
+    return $this->getLatest(1, false)->created_at;
+  }
+
   public function getDeletableByDate(Carbon $date)
   {
     return SpecificationBuild::all()->filter(function ($build) use ($date) {
