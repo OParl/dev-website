@@ -34,11 +34,17 @@ class SpecServiceProvider extends IlluminateServiceProvider
       Commands\ListSpecificationBuildsCommand::class
     );
 
+    $this->app->singleton(
+      'oparl.specification.commands.update_live_copy',
+      Commands\UpdateLiveCopyCommand::class
+    );
+
     $this->commands([
       'oparl.specification.commands.delete_builds',
       'oparl.specification.commands.update_builds_gh',
       'oparl.specification.commands.request_build_bk',
       'oparl.specification.commands.list_builds',
+      'oparl.specification.commands.update_live_copy',
     ]);
   }
 
@@ -49,6 +55,7 @@ class SpecServiceProvider extends IlluminateServiceProvider
       'oparl.specification.commands.update_builds_gh',
       'oparl.specification.commands.request_build_bk',
       'oparl.specification.commands.list_builds',
+      'oparl.specification.commands.update_live_copy',
     ];
   }
 }

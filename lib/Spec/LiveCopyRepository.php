@@ -153,11 +153,11 @@ class LiveCopyRepository
 
     $path = storage_path('app/' . self::PATH);
 
-    ($forceClone || !$this->fs->exists($path))
+    ($forceClone || !$this->fs->exists(self::PATH))
       ? $this->performCloneRefresh($user, $repository)
       : $this->performPullRefresh($path);
 
-    exec('make live');
+    $this->make();
   }
 
   /**
@@ -170,18 +170,20 @@ class LiveCopyRepository
     $gitURL = sprintf("https://github.com/%s/%s", $user, $repository);
 
     $this->runInDir(storage_path('app'), "git clone --depth=1 {$gitURL} " . self::PATH);
-    $this->runInDir(storage_path('app/' . self::PATH), [&$this, 'make']);
+    $this->make();
   }
 
   protected function performPullRefresh($path)
   {
     $this->runInDir($path, 'git pull --rebase');
-    $this->runInDir(storage_path('app/' . self::PATH), [&$this, 'make']);
+    $this->make();
   }
 
   protected function make()
   {
-    exec('make live');
+    $dir = storage_path('app/' . self::PATH);
+
+    $this->runInDir($dir, 'make live');
   }
 
   public function getHash()

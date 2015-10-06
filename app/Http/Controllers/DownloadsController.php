@@ -7,13 +7,6 @@ use OParl\Spec\VersionRepository;
 
 class DownloadsController extends Controller
 {
-  protected $versions = null;
-
-  public function __construct(VersionRepository $versions)
-  {
-    $this->versions = $versions;
-  }
-
   public function index(BuildRepository $buildRepository)
   {
     return view('downloads.index', [
@@ -22,10 +15,10 @@ class DownloadsController extends Controller
     ]);
   }
 
-  public function latest($extension)
+  public function latest($extension, BuildRepository $buildRepository)
   {
     return redirect(null, 302)->route('downloads.provide', [
-      $this->versions->latest()->getHash() ,
+      $buildRepository->getLatest()->hash,
       $extension
     ]);
   }

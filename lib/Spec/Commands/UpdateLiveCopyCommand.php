@@ -9,7 +9,7 @@ class UpdateLiveCopyCommand extends SpecificationCommand
    *
    * @var string
    */
-  protected $signature = 'livecopy:update {--force}';
+  protected $signature = 'specification:livecopy {--force}';
 
   /**
    * The console command description.
