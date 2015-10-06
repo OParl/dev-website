@@ -14,19 +14,7 @@ use Symfony\Component\Console\Input\InputArgument;
  * @package App\Console\Commands
  **/
 class DeployCommand extends Command {
-
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'deploy';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
+	protected $signature = 'deploy {--update-dependencies}';
 	protected $description = 'Run commands necessary to put the application in a usable state.';
 
 	/**
@@ -36,35 +24,22 @@ class DeployCommand extends Command {
 	 */
 	public function fire()
 	{
-    if ($this->willRun())
+    if ($this->option('update-dependencies'))
     {
-      $this->call('clear-compiled');
-      $this->call('optimize');
-    } else
-    {
-      $this->info('Use --force to run deploy commands in local mode.');
+      exec('npm install', $output);
+      $this->line(implode("\n", $output));
+
+      exec('bower update --allow-root', $output);
+      $this->line(implode("\n", $output));
+
+      exec('bower install --allow-root', $output);
+      $this->line(implode("\n", $output));
+
+      exec('gulp --production', $output);
+      $this->line(implode("\n", $output));
     }
-	}
 
-  /**
-   * Check if the deployment will run (only if environment is *not* local)
-   *
-   * @return bool
-   **/
-  protected function willRun()
-  {
-    return !$this->getLaravel()->environment('local') || $this->option('force');
-  }
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return [
-      ['migrate', 'f', 'Run migrations during deployment.'],
-    ];
+    $this->call('clear-compiled');
+    $this->call('optimize');
 	}
 }
