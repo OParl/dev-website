@@ -51,7 +51,7 @@ class SpecificationController extends Controller
     return redirect()->route('admin.specification.index')->with('info', $message);
   }
 
-  public function clean($what)
+  public function clean($what, BuildRepository $buildRepository)
   {
     $message = 'Die Bereinigung wurde erfolgreich gestartet.';
 

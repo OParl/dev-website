@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Jobs;
+<?php namespace OParl\Spec\Jobs;
 
 use GrahamCampbell\GitHub\GitHubManager;
 
@@ -15,7 +13,7 @@ use OParl\Spec\LiveCopyRepository;
 
 use PharData;
 
-class UpdateLiveCopy extends SpecificationUpdateJob implements SelfHandling, ShouldQueue
+class UpdateLiveCopyJob extends SpecificationJob
 {
   use InteractsWithQueue, SerializesModels;
 

@@ -1,15 +1,9 @@
-<?php
+<?php namespace OParl\Spec\Commands;
 
-namespace App\Console\Commands;
+use OParl\Spec\Jobs\UpdateLiveCopyJob;
 
-use App\Jobs\UpdateLiveCopy;
-use Illuminate\Console\Command;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-
-class UpdateLiveCopyCommand extends Command
+class UpdateLiveCopyCommand extends SpecificationCommand
 {
-  use DispatchesJobs;
-
   /**
    * The name and signature of the console command.
    *
@@ -31,7 +25,8 @@ class UpdateLiveCopyCommand extends Command
    */
   public function handle()
   {
-    $this->info('Scheduling live copy update.');
-    $this->dispatch(new UpdateLiveCopy($this->option('force')));
+    $this->printCommandInfo('live copy update');
+
+    $this->dispatch(new UpdateLiveCopyJob($this->option('force')));
   }
 }

@@ -1,16 +1,14 @@
 <?php namespace OParl\Spec\Commands;
 
 use Carbon\Carbon;
-use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Model\SpecificationBuild;
 use Symfony\Component\Console\Input\InputArgument;
 
-class DeleteSpecificationBuildsCommand extends Command
+class DeleteSpecificationBuildsCommand extends SpecificationCommand
 {
   protected $name = 'specification:delete';
-
   protected $description = 'Delete a certain amount or date-frame of specification builds.';
 
   protected function getArguments()

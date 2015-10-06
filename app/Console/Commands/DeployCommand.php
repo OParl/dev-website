@@ -9,13 +9,6 @@ use Symfony\Component\Console\Input\InputArgument;
  *
  * Runs commands and scripts necessary to put the application in a usable state.
  *
- * This includes but is not limited to
- *
- * - artisan clear-compiled,
- * - artisan optimize,
- *
- * and gulp.
- *
  * In the future, more actions like restarting queues may have to be taken care of.
  *
  * @package App\Console\Commands
@@ -47,25 +40,6 @@ class DeployCommand extends Command {
     {
       $this->call('clear-compiled');
       $this->call('optimize');
-
-      if ($this->option('init'))
-      {
-        exec('npm install');
-
-        $this->call('livecopy:update', ['--force' => true]);
-        $this->call('versions:update');
-      }
-
-      exec('bower update --allow-root', $output);
-      $this->line(implode("\n", $output));
-
-      exec('bower install --allow-root', $output);
-      $this->line(implode("\n", $output));
-
-      exec('gulp --production', $output);
-      $this->line(implode("\n", $output));
-
-      //$this->call('migrate', ['--force' => true]);
     } else
     {
       $this->info('Use --force to run deploy commands in local mode.');
@@ -84,19 +58,13 @@ class DeployCommand extends Command {
 
 	/**
 	 * Get the console command options.
-   *
-   * This command accepts two options,
-   *
-   * 1. force,f - Forces production mode (deployment commands will be run).
-   * 2. init - Initializes the tools necessary for deployment.
 	 *
 	 * @return array
 	 */
 	protected function getOptions()
 	{
 		return [
-      ['force', 'f', InputOption::VALUE_NONE, 'Force production mode.'],
-      ['init', null, InputOption::VALUE_NONE, 'Initialize deployment infrastructure.'],
+      ['migrate', 'f', 'Run migrations during deployment.'],
     ];
 	}
 }

@@ -1,10 +1,9 @@
 <?php namespace OParl\Spec\Commands;
 
-use Illuminate\Console\Command;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Model\SpecificationBuild;
 
-class ListSpecificationBuildsCommand extends Command
+class ListSpecificationBuildsCommand extends SpecificationCommand
 {
   protected $name = 'specification:list';
   protected $description = 'List specification builds with details';

@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel {
 
     Commands\DeployCommand::class,
 
-    Commands\UpdateLiveCopyCommand::class,
+    Commands\SetupCommand::class,
   ];
 
   protected function schedule(Schedule $schedule)
