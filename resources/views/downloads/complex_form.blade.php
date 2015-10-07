@@ -9,12 +9,17 @@
         </label>
         <div class="col-sm-8">
             <select class="form-control" name="version" aria-describedby="version-help">
-                @foreach ($builds as $version)
-                    @include('downloads.version', ['version' => $version])
+                @foreach ($builds as $build)
+                    <option value="{{ $build->hash }}" {{ (isset($selected) && $selected) ? 'selected' : '' }}>
+
+                        {{ $build->human_version }} ({{ $build->short_hash }}
+                        vom {{ $build->created_at->formatLocalized('%d.%m.%Y') }})
+
+                    </option>
                 @endforeach
             </select>
             <div id="version-help" class="help-block">
-                Falls die von Ihnen gewünschte Version nicht mehr in der obigen Auswahl sein sollte,
+                Falls die von Ihnen gewünschte Version nicht in der obigen Auswahl sein sollte,
                 kontaktieren Sie uns bitte per E-Mail unter
                 <a href="mailto:info@oparl.org">info@oparl.org</a>.
             </div>
