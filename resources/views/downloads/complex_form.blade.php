@@ -9,7 +9,7 @@
         </label>
         <div class="col-sm-8">
             <select class="form-control" name="version" aria-describedby="version-help">
-                @foreach ($builds as $build)
+                @foreach ($builds->slice(1) as $build)
                     <option value="{{ $build->hash }}" {{ (isset($selected) && $selected) ? 'selected' : '' }}>
 
                         {{ $build->human_version }} ({{ $build->short_hash }}
