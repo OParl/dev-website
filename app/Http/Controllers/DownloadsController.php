@@ -1,9 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests\VersionSelectRequest;
-use App\Jobs\CreateBuild;
 use OParl\Spec\BuildRepository;
-use OParl\Spec\VersionRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DownloadsController extends Controller
 {
@@ -18,42 +17,33 @@ class DownloadsController extends Controller
   public function latest($extension, BuildRepository $buildRepository)
   {
     return redirect(null, 302)->route('downloads.provide', [
-      $buildRepository->getLatest()->hash,
+      $buildRepository->getLatest()->short_hash,
       $extension
     ]);
   }
 
-  public function getFile($version, $extension)
+  public function getFile($short_hash, $extension, BuildRepository $buildRepository)
   {
+    // TODO: fix downloads
+    $build = $buildRepository->getWithShortHash($short_hash);
+
     $file = null;
 
-    switch ($extension)
+    if (in_array($extension, ['zip', 'tar.gz', 'tar.bz']))
     {
-      case 'docx':
-      case 'pdf':
-      case 'epub':
-      case 'odt':
-      case 'html':
-      case 'txt':
-        $file = storage_path('app/versions/'.$version.'/out/OParl-1.0-draft.'.$extension);
-        break;
+      $property = sprintf('%s_archive_storage_path', str_replace('.', '_' ,$extension));
 
-      case 'zip':
-      case 'tar.gz':
-      case 'tar.bz2':
-        $file = storage_path('app/versions/'.$version.'/OParl-1.0-draft.'.$extension);
+      $file = new \SplFileInfo($build->{$property});
     }
 
-    if ($this->versions->isLatest($version))
+    if (!$file->isFile())
     {
-      $filename = basename($file);
+      abort(404, 'Die angefragte Datei wurde auf diesem Server nicht gefunden.');
     } else
     {
-      $basename = basename($file, ".{$extension}");
-      $filename = sprintf('%s-%s.%s', $basename, $version, $extension);
+      // TODO: filenames
+      return response()->download($file);
     }
-
-    return response()->download(new \SplFileInfo($file), $filename);
   }
 
   public function selectVersion(VersionSelectRequest $request)

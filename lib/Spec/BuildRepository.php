@@ -78,6 +78,11 @@ class BuildRepository
     return SpecificationBuild::whereHash($hash)->first();
   }
 
+  public function getWithShortHash($short_hash)
+  {
+    return SpecificationBuild::where('hash', '>', $short_hash)->first();
+  }
+
   public function getWithTags(array $tags)
   {
     // TODO: implement tags for spec versions
