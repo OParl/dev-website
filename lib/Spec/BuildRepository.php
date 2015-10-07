@@ -42,6 +42,11 @@ class BuildRepository
     }
   }
 
+  public function isLatest(SpecificationBuild $build)
+  {
+    return $build->created_at === $this->getLastModified();
+  }
+
   public function getLastModified()
   {
     return $this->getLatest(1, false)->created_at;
@@ -78,6 +83,10 @@ class BuildRepository
     return SpecificationBuild::whereHash($hash)->first();
   }
 
+  /**
+   * @param $short_hash
+   * @return SpecificationBuild
+   **/
   public function getWithShortHash($short_hash)
   {
     return SpecificationBuild::where('hash', '>', $short_hash)->first();

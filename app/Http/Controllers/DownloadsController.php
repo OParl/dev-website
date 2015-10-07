@@ -2,7 +2,6 @@
 
 use App\Http\Requests\VersionSelectRequest;
 use OParl\Spec\BuildRepository;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DownloadsController extends Controller
 {
@@ -24,7 +23,6 @@ class DownloadsController extends Controller
 
   public function getFile($short_hash, $extension, BuildRepository $buildRepository)
   {
-    // TODO: fix downloads
     $build = $buildRepository->getWithShortHash($short_hash);
 
     $file = null;
@@ -36,13 +34,29 @@ class DownloadsController extends Controller
       $file = new \SplFileInfo($build->{$property});
     }
 
+    if (in_array($extension, ['docx', 'txt', 'pdf', 'odt', 'html', 'epub']))
+    {
+      $file = new \SplFileInfo($build->discoverExtractedFile($extension));
+    }
+
     if (!$file->isFile())
     {
       abort(404, 'Die angefragte Datei wurde auf diesem Server nicht gefunden.');
     } else
     {
-      // TODO: filenames
-      return response()->download($file);
+      if ($buildRepository->isLatest($build))
+      {
+        $filename = $file->getBasename();
+      } else
+      {
+        $filename = sprintf(
+          '%s-%s.%s',
+          $file->getBasename($file->getExtension()),
+          $build->short_hash,
+          $extension);
+      }
+
+      return response()->download($file, $filename);
     }
   }
 

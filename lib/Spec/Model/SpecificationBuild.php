@@ -1,6 +1,7 @@
 <?php namespace OParl\Spec\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Finder\Finder;
 
 class SpecificationBuild extends Model
 {
@@ -83,5 +84,14 @@ class SpecificationBuild extends Model
   {
     $this->queried = false;
     $this->save();
+  }
+
+  public function discoverExtractedFile($extension)
+  {
+    $path = $this->extracted_files_storage_path;
+
+    if (!is_dir($path)) return '';
+
+    return Finder::create()->files()->name("*.{$extension}")->in($path)[0];
   }
 }
