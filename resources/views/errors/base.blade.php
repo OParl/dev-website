@@ -13,7 +13,7 @@
             </p>
         </div>
 
-        <span class="pull-right">
+        <span class="pull-left">
             <a href="{{ \Request::server('HTTP_REFERER') }}">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 Zurück zur vorherigen Seite
