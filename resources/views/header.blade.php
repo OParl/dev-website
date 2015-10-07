@@ -1,6 +1,6 @@
 <header class="page-header">
     <h1>
-        <span class="text-oparl">OParl</span>
+        <span class="text-oparl">OParl.</span>
         <small>Initiative für Offenheit parlamentarischer Informationssysteme</small>
     </h1>
 
