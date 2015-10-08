@@ -90,6 +90,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     ->where('what', '(_missing_|[a-z0-9]{5,})');
   Route::get('/spec/delete/{hash}', ['uses' => 'Admin\SpecificationController@delete', 'as' => 'admin.specification.delete'])
     ->where('hash', '[a-z0-9]{5,}');
+  Route::get('/spec/edit/{id}', ['uses' => 'Admin\SpecificationController@edit', 'as' => 'admin.specification.edit']);
+  Route::post('/spec/edit/{id}', ['uses' => 'Admin\SpecificationController@save', 'as' => 'admin.specification.save']);
 
   Route::get('/settings', ['uses' => 'Admin\SettingsController@index', 'as' => 'admin.settings']);
   Route::post('/settings', ['uses' => 'Admin\SettingsController@save', 'as' => 'admin.settings.save']);

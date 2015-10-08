@@ -1,25 +1,28 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\UpdateLiveCopy;
+use App\Http\Requests\Admin\SaveSpecificationBuildRequest;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Jobs\UpdateAvailableSpecificationVersionsJob;
+use OParl\Spec\Jobs\UpdateLiveCopyJob;
+use OParl\Spec\LiveCopyRepository;
 use OParl\Spec\Model\SpecificationBuild;
 
 class SpecificationController extends Controller
 {
-  public function index(BuildRepository $buildRepository)
+  public function index(LiveCopyRepository $liveCopyRepository, BuildRepository $buildRepository)
   {
     $data = [
       'lastModified' => [
-        'livecopy' => app('LiveCopyRepository')->getLastModified(),
-        'versions' => $buildRepository->getLastModified(),
+        'livecopy' => $liveCopyRepository->getLastModified(),
+        'builds' => $buildRepository->getLastModified(),
       ],
       'builds' => SpecificationBuild::orderBy('created_at', 'desc')->paginate(15)
     ];
 
-    return view('admin.specification', $data);
+    return view('admin.specification.index', $data);
   }
 
   public function update($what)
@@ -29,12 +32,12 @@ class SpecificationController extends Controller
     switch ($what)
     {
       case 'livecopy':
-        $this->dispatch(new UpdateLiveCopy());
+        $this->dispatch(new UpdateLiveCopyJob());
         $message = sprintf($message, 'Livekopie-Pull');
         break;
 
       case 'livecopy-force':
-        $this->dispatch(new UpdateLiveCopy(true));
+        $this->dispatch(new UpdateLiveCopyJob(true));
         $message = sprintf($message, 'Livekopie-Clone');
         break;
 
@@ -95,5 +98,24 @@ class SpecificationController extends Controller
     }
 
     return redirect()->route('admin.specification.index')->with('info', $message);
+  }
+
+  public function edit($id)
+  {
+    try
+    {
+      $build = SpecificationBuild::findOrFail($id);
+    } catch (ModelNotFoundException $e)
+    {
+      abort(404, 'Dieser Build existiert nicht.');
+    }
+
+    return view('admin.specification.edit', compact('build'));
+  }
+
+
+  public function save(SaveSpecificationBuildRequest $request, $id)
+  {
+    return redirect()->route('admin.specification.index')->with('message', "Succesfully saved {$id}");
   }
 }

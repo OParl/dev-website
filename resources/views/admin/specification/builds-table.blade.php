@@ -1,6 +1,6 @@
 <table class="table">
     <thead>
-    <tr>
+    <tr class="text-center">
         <th>Hash</th>
         <th>Erstellt am</th>
         <th>Beschreibung</th>
@@ -27,6 +27,11 @@
             </td>
             <td>
                 <ul class="list-inline">
+                    <li>
+                        <a href="{{ route('admin.specification.edit', $build->id) }}" class="btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </li>
                     <li>
                         @if ($build->displayed)
                             <a href="#" class="btn btn-sm btn-default">

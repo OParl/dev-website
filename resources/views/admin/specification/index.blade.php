@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-sm-9">
                             Verfügbare Versionsinformationen
-                            <small class="text-muted">({{ $lastModified['versions']->format('d.m.Y h:i:s') }})</small>
+                            <small class="text-muted">({{ $lastModified['builds']->format('d.m.Y h:i:s') }})</small>
                         </div>
                         <div class="col-sm-3">
                             <a href="{{ route('admin.specification.update', 'versions') }}" class="btn btn-sm btn-default">Aktualisieren</a>
@@ -82,14 +82,14 @@
     </div>
 
     <div class="col-md-12">
-        <div class="panel">
-            <div class="panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Versionsinformationen</h3>
-                </div>
-                    @include ('admin.specification.builds-table')
-                <div class="panel-footer">
-                    {!! $builds->render() !!}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><a name="buildinformation">Versionsinformationen</a></h3>
+            </div>
+            @include ('admin.specification.builds-table')
+            <div class="panel-footer">
+                <div class="text-center">
+                    {!! $builds->fragment('buildinformation')->render() !!}
                 </div>
             </div>
         </div>
