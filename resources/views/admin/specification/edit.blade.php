@@ -2,11 +2,14 @@
 
 @section ('content')
     <div class="col-md-10 col-md-offset-1">
+        @include ('admin.errors')
+
         <h2>Versionsinformationen für {{ $build->short_hash }}</h2>
 
         <form class="form-horizontal" action="{{ route('admin.specification.save', $build->id) }}" method="post">
             {{ csrf_field() }}
-            <input type="hidden" value="{{ $build->id }}" />
+
+            <input type="hidden" value="{{ $build->id }}" name="id" />
 
             <div class="form-group">
                 <div class="col-sm-3"><label for="created_at">Erstellt am:</label></div>

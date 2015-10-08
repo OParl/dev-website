@@ -1,7 +1,9 @@
 @extends ('admin.base')
 
 @section ('content')
-    @include ('admin.errors')
+    <div class="col-md-10 col-md-offset-1">
+        @include ('admin.errors')
+    </div>
 
     <div class="col-md-6">
         <div class="panel panel-default">

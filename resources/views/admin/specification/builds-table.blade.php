@@ -1,11 +1,13 @@
-<table class="table">
+<table class="table table-condensed table-striped">
     <thead>
     <tr class="text-center">
         <th>Hash</th>
         <th>Erstellt am</th>
         <th>Beschreibung</th>
         <th>Verfügbarkeit</th>
-        <th>Optionen</th>
+        <th>
+            Optionen
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -17,7 +19,9 @@
                 </a>
             </td>
             <td>{{ $build->created_at->formatLocalized('%d.%m.%Y') }}</td>
-            <td>{!! $build->linked_commit_message  !!}</td>
+            <td>
+                {!! $build->linked_commit_message  !!}
+            </td>
             <td>
                 @if ($build->isAvailable)
                     <span class="glyphicon glyphicon-ok text-success"></span>
