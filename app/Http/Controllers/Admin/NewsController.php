@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Cocur\Slugify\Slugify;
 
-use App\Http\Requests\SavePostRequest;
+use App\Http\Requests\Admin\SavePostRequest;
 use App\Http\Controllers\Controller;
 
 use App\Model\Post;

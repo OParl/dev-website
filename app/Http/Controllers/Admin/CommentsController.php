@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangeCommentStatusRequest;
-use App\Http\Requests\EditCommentRequest;
+use App\Http\Requests\Admin\ChangeCommentStatusRequest;
+use App\Http\Requests\Admin\EditCommentRequest;
 use App\Model\Comment;
 
 class CommentsController extends Controller

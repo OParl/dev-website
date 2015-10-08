@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveSettingsRequest;
+use App\Http\Requests\Admin\SaveSettingsRequest;
 use Illuminate\Auth\Guard;
 
 class SettingsController extends Controller
