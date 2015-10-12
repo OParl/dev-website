@@ -40,8 +40,6 @@ $('#title').on('change', function (event) {
         $('#post_title').text('Eintrag “' + t.val() + '” bearbeiten');
     }
 
-    // TODO: show info on outdated slug?
-
     updateSlug();
 });
 

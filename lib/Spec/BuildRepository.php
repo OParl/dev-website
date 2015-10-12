@@ -110,9 +110,4 @@ class BuildRepository
       $this->dispatcher->dispatch(new RequestSpecificationBuildJob($build->hash));
     });
   }
-
-  public function diff($hashBase, $hashOther)
-  {
-    // TODO: implement build diffs
-  }
 }

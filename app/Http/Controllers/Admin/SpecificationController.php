@@ -116,8 +116,11 @@ class SpecificationController extends Controller
 
   public function save(SaveSpecificationBuildRequest $request, $id)
   {
-    // TODO: implement specification build saving
+    /* @var $build SpecificationBuild */
+    $build = SpecificationBuild::find($id);
 
+    $build->update($request->except('_token', 'id'));
+    $build->save();
 
     return redirect()->route('admin.specification.index')->with('message', "Succesfully saved {$id}");
   }
