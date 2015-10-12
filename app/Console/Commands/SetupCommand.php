@@ -1,9 +1,12 @@
 <?php namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\ConfirmableTrait;
 
 class SetupCommand extends Command
 {
+  use ConfirmableTrait;
+
   protected $signature = 'setup';
   protected $description = 'Runs all commands necessary for initial setup of the application.';
 
@@ -15,7 +18,7 @@ class SetupCommand extends Command
 
     $this->call('migrate');
 
-    $this->call('livecopy:update --force');
+    $this->call('specification:livecopy --force');
     $this->call('specification:update');
 
     $this->call('up');
