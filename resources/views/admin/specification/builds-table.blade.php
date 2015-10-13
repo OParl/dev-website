@@ -21,6 +21,10 @@
             <td>{{ $build->created_at->formatLocalized('%d.%m.%Y') }}</td>
             <td>
                 {!! $build->linked_commit_message  !!}
+                @if ($build->commit_message != $build->displayed_message)
+                    <br />
+                    <span>(Angezeigt als &lquot;{{ $build->displayed_message }})&rquot;</span>
+                @endif
             </td>
             <td>
                 @if ($build->isAvailable)

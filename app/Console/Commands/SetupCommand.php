@@ -21,6 +21,8 @@ class SetupCommand extends Command
     $this->call('specification:livecopy --force');
     $this->call('specification:update');
 
+    $this->call('optimize');
+
     $this->call('up');
   }
 }
