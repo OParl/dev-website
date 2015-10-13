@@ -23,7 +23,7 @@
                 {!! $build->linked_commit_message  !!}
                 @if ($build->commit_message != $build->displayed_message)
                     <br />
-                    <span>(Angezeigt als &lquot;{{ $build->displayed_message }})&rquot;</span>
+                    <span>(Angezeigt als &lquot;{{ $build->displayed_message }}&rquot;)</span>
                 @endif
             </td>
             <td>
