@@ -1,14 +1,12 @@
-<table class="table table-condensed table-striped">
+<table class="table table-striped">
     <thead>
-    <tr class="text-center">
-        <th>Hash</th>
-        <th>Erstellt am</th>
-        <th>Beschreibung</th>
-        <th>Verfügbarkeit</th>
-        <th>
-            Optionen
-        </th>
-    </tr>
+        <tr class="text-center">
+            <th>Hash</th>
+            <th>Erstellt am</th>
+            <th>Beschreibung</th>
+            <th>Verfügbarkeit</th>
+            <th>Optionen</th>
+        </tr>
     </thead>
     <tbody>
     @forelse ($builds as $build)
@@ -23,10 +21,10 @@
                 {!! $build->linked_commit_message  !!}
                 @if ($build->commit_message != $build->human_version)
                     <br />
-                    <span>(Angezeigt als &lquot;{{ $build->human_version }}&rquot;)</span>
+                    <span>(Angezeigt als &quot;{{ $build->human_version  }}&quot;)</span>
                 @endif
             </td>
-            <td>
+            <td class="text-center">
                 @if ($build->isAvailable)
                     <span class="glyphicon glyphicon-ok text-success"></span>
                 @else
@@ -34,35 +32,7 @@
                 @endif
             </td>
             <td>
-                <ul class="list-inline">
-                    <li>
-                        <a href="{{ route('admin.specification.edit', $build->id) }}" class="btn btn-sm btn-primary">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                    </li>
-                    <li>
-                        @if ($build->displayed)
-                            <a href="#" class="btn btn-sm btn-default">
-                                <span class="glyphicon glyphicon-eye-close" title="Verstecken"></span>
-                            </a>
-                        @else
-                            <a href="#" class="btn btn-sm btn-default">
-                                <span class="glyphicon glyphicon-eye-open" title="Anzeigen"></span>
-                            </a>
-                        @endif
-                    </li>
-                    <li>
-                        @if ($build->is_available)
-                            <a href="{{ route('admin.specification.delete', $build->hash) }}" class="btn btn-sm btn-danger">
-                                <span class="glyphicon glyphicon-trash" title="Löschen"></span>
-                            </a>
-                        @else
-                            <a href="{{ route('admin.specification.fetch', $build->hash) }}" class="btn btn-sm btn-default">
-                                <span class="glyphicon glyphicon-download-alt" title="Bereitstellen"></span>
-                            </a>
-                        @endif
-                    </li>
-                </ul>
+                @include ('admin.specification.builds-table-options')
             </td>
         </tr>
     @empty
