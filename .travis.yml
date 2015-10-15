@@ -13,6 +13,6 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
   - composer dump-autoload
-  - php artisan setup
+  - php artisan setup --env=local
 
 script: vendor/bin/phpunit
