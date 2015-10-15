@@ -11,7 +11,7 @@ use EFrane\Buildkite\Clients\ClientFactory;
  **/
 class Buildkite
 {
-  /**
+    /**
    * @var mixed|string
    **/
   protected $token = '';
@@ -21,7 +21,7 @@ class Buildkite
    */
   public function __construct($token)
   {
-    $this->token = $token;
+      $this->token = $token;
   }
 
   /**
@@ -30,7 +30,7 @@ class Buildkite
    **/
   public function builds($organization = null)
   {
-    return ClientFactory::make('build', $this->token, $organization);
+      return ClientFactory::make('build', $this->token, $organization);
   }
 
   /**
@@ -39,7 +39,7 @@ class Buildkite
    **/
   public function projects($organization = null)
   {
-    return ClientFactory::make('project', $this->token, $organization);
+      return ClientFactory::make('project', $this->token, $organization);
   }
 
   /**
@@ -48,7 +48,7 @@ class Buildkite
    **/
   public function agents($organization = null)
   {
-    return ClientFactory::make('agent', $this->token, $organization);
+      return ClientFactory::make('agent', $this->token, $organization);
   }
 
   /**
@@ -57,7 +57,7 @@ class Buildkite
    **/
   public function organizations($organization = null)
   {
-    return ClientFactory::make('organization', $this->token, $organization);
+      return ClientFactory::make('organization', $this->token, $organization);
   }
 
   /**
@@ -66,7 +66,7 @@ class Buildkite
    **/
   public function jobs($organization = null)
   {
-    return ClientFactory::make('job', $this->token, $organization);
+      return ClientFactory::make('job', $this->token, $organization);
   }
 
   /**
@@ -74,6 +74,6 @@ class Buildkite
    **/
   public function emoji()
   {
-    return ClientFactory::make('emoji', $this->token);
+      return ClientFactory::make('emoji', $this->token);
   }
 }

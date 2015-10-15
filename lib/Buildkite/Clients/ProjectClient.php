@@ -4,40 +4,45 @@ use EFrane\Buildkite\BuildkiteException;
 
 class ProjectClient extends AbstractClient
 {
-  protected $organization = '';
+    protected $organization = '';
 
-  public function __construct($token, $organization)
-  {
-    if (is_null($organization)) throw new BuildkiteException("\$organization must be valid.");
-    parent::__construct($token, $organization);
-
-    if (is_string($this->organization) && is_string($this->project)) return $this->get($this->project);
-    if (is_string($this->organization)) return $this->index($organization);
-  }
-
-  protected function setOrganization($organization)
-  {
-    if (is_null($organization))
+    public function __construct($token, $organization)
     {
-      $organization = $this->organization;
-    } else {
-      $organization = $this->validateInput($organization);
+        if (is_null($organization)) {
+            throw new BuildkiteException("\$organization must be valid.");
+        }
+        parent::__construct($token, $organization);
+
+        if (is_string($this->organization) && is_string($this->project)) {
+            return $this->get($this->project);
+        }
+        if (is_string($this->organization)) {
+            return $this->index($organization);
+        }
     }
 
-    return $organization;
-  }
+    protected function setOrganization($organization)
+    {
+        if (is_null($organization)) {
+            $organization = $this->organization;
+        } else {
+            $organization = $this->validateInput($organization);
+        }
 
-  public function index($organization = null)
-  {
-    $organization = $this->setOrganization($organization);
-    return $this->request('GET', 'organizations/'.$organization.'/projects');
-  }
+        return $organization;
+    }
 
-  public function get($project, $organization = null)
-  {
-    $organization = $this->setOrganization($organization);
-    $project = $this->validateInput($project);
+    public function index($organization = null)
+    {
+        $organization = $this->setOrganization($organization);
+        return $this->request('GET', 'organizations/'.$organization.'/projects');
+    }
 
-    return $this->request('GET', 'organizations/' . $organization . '/projects/' . $project);
-  }
+    public function get($project, $organization = null)
+    {
+        $organization = $this->setOrganization($organization);
+        $project = $this->validateInput($project);
+
+        return $this->request('GET', 'organizations/' . $organization . '/projects/' . $project);
+    }
 }

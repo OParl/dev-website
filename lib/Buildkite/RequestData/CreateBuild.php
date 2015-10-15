@@ -2,28 +2,28 @@
 
 class CreateBuild extends AbstractRequestData
 {
-  public $commit  = null;
-  public $branch  = null;
-  public $message = null;
+    public $commit  = null;
+    public $branch  = null;
+    public $message = null;
 
-  public $author = null;
-  public $env = null;
-  public $meta_data = null;
-  public $ignore_project_branch_filters = false;
+    public $author = null;
+    public $env = null;
+    public $meta_data = null;
+    public $ignore_project_branch_filters = false;
 
-  public function __construct($message, $commit = 'HEAD', $branch = 'master')
-  {
-    $this->commit = $commit;
-    $this->branch = $branch;
-    $this->message = $message;
-  }
+    public function __construct($message, $commit = 'HEAD', $branch = 'master')
+    {
+        $this->commit = $commit;
+        $this->branch = $branch;
+        $this->message = $message;
+    }
 
   /**
    * @return null|string
    */
   public function getCommit()
   {
-    return $this->commit;
+      return $this->commit;
   }
 
   /**
@@ -31,7 +31,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function setCommit($commit)
   {
-    $this->commit = $commit;
+      $this->commit = $commit;
   }
 
   /**
@@ -39,7 +39,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function getBranch()
   {
-    return $this->branch;
+      return $this->branch;
   }
 
   /**
@@ -47,7 +47,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function setBranch($branch)
   {
-    $this->branch = $branch;
+      $this->branch = $branch;
   }
 
   /**
@@ -55,7 +55,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function getMessage()
   {
-    return $this->message;
+      return $this->message;
   }
 
   /**
@@ -63,7 +63,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function setMessage($message)
   {
-    $this->message = $message;
+      $this->message = $message;
   }
 
   /**
@@ -71,7 +71,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function getAuthor()
   {
-    return $this->author;
+      return $this->author;
   }
 
   /**
@@ -79,7 +79,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function setAuthor($name, $email)
   {
-    $this->author = ['name' => $name, 'email' => $email];
+      $this->author = ['name' => $name, 'email' => $email];
   }
 
   /**
@@ -87,7 +87,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function getEnv()
   {
-    return $this->env;
+      return $this->env;
   }
 
   /**
@@ -95,7 +95,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function setEnv($env)
   {
-    $this->env = $env;
+      $this->env = $env;
   }
 
   /**
@@ -103,7 +103,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function getMetaData()
   {
-    return $this->meta_data;
+      return $this->meta_data;
   }
 
   /**
@@ -111,7 +111,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function setMetaData($meta_data)
   {
-    $this->meta_data = $meta_data;
+      $this->meta_data = $meta_data;
   }
 
   /**
@@ -119,7 +119,7 @@ class CreateBuild extends AbstractRequestData
    */
   public function isIgnoreProjectBranchFilters()
   {
-    return $this->ignore_project_branch_filters;
+      return $this->ignore_project_branch_filters;
   }
 
   /**
@@ -127,6 +127,6 @@ class CreateBuild extends AbstractRequestData
    */
   public function setIgnoreProjectBranchFilters($ignore_project_branch_filters)
   {
-    $this->ignore_project_branch_filters = $ignore_project_branch_filters;
+      $this->ignore_project_branch_filters = $ignore_project_branch_filters;
   }
 }

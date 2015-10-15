@@ -1,3 +1,5 @@
 <?php namespace EFrane\Buildkite;
 
-class BuildkiteException extends \RuntimeException {}
+class BuildkiteException extends \RuntimeException
+{
+}

@@ -2,7 +2,7 @@
 
 class AbstractRequestData implements \ArrayAccess
 {
-  /**
+    /**
    * (PHP 5 &gt;= 5.0.0)<br/>
    * Whether a offset exists
    * @link http://php.net/manual/en/arrayaccess.offsetexists.php
@@ -16,7 +16,7 @@ class AbstractRequestData implements \ArrayAccess
    */
   public function offsetExists($offset)
   {
-    return property_exists($this, $offset) && !is_null($this->{$offset});
+      return property_exists($this, $offset) && !is_null($this->{$offset});
   }
 
   /**
@@ -30,7 +30,7 @@ class AbstractRequestData implements \ArrayAccess
    */
   public function offsetGet($offset)
   {
-    return $this->{$offset};
+      return $this->{$offset};
   }
 
   /**
@@ -47,7 +47,7 @@ class AbstractRequestData implements \ArrayAccess
    */
   public function offsetSet($offset, $value)
   {
-    $this->{$offset} = $value;
+      $this->{$offset} = $value;
   }
 
   /**
@@ -61,18 +61,18 @@ class AbstractRequestData implements \ArrayAccess
    */
   public function offsetUnset($offset)
   {
-    $this->{$offset} = null;
+      $this->{$offset} = null;
   }
 
-  public function toArray()
-  {
-    return collect($this)->filter(function ($item) {
+    public function toArray()
+    {
+        return collect($this)->filter(function ($item) {
       return !is_null($item);
     })->toArray();
-  }
+    }
 
-  public function toJson()
-  {
-    return json_encode($this->toArray());
-  }
+    public function toJson()
+    {
+        return json_encode($this->toArray());
+    }
 }
