@@ -8,3 +8,4 @@
 
 storage/github
 storage/database.sqlite
+.php_cs.cache
