@@ -1,15 +1,14 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use App\Model\Post;
 use App\Model\Comment;
 
 class DashboardController extends Controller
 {
-  public function index()
-  {
-    return view('admin.dashboard', [
+    public function index()
+    {
+        return view('admin.dashboard', [
       'post' => [
         'all' => Post::count(),
         'published' => Post::published()->count(),
@@ -23,5 +22,5 @@ class DashboardController extends Controller
         'unvalidated' => Comment::unvalidated()->count()
       ],
     ]);
-  }
+    }
 }

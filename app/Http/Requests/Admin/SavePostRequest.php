@@ -6,14 +6,14 @@ use App\Http\Requests\Request;
 
 class SavePostRequest extends Request
 {
-  /**
+    /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
   public function authorize()
   {
-    return true;
+      return true;
   }
 
   /**
@@ -23,7 +23,7 @@ class SavePostRequest extends Request
    */
   public function rules()
   {
-    return [
+      return [
       'id'            => 'sometimes|integer',
       'title'         => 'required|string|min:3|max:255',
       'slug'          => 'required|string|min:3|max:255',

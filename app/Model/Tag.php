@@ -5,19 +5,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-  protected $fillable = ['name'];
+    protected $fillable = ['name'];
 
-  public static function boot()
-  {
-    static::creating(function (Tag $tag) {
+    public static function boot()
+    {
+        static::creating(function (Tag $tag) {
       $slugify = Slugify::create();
 
       $tag->slug = $slugify->slugify($tag->name);
     });
-  }
+    }
 
-  public function news()
-  {
-    return $this->belongsToMany(Post::class);
-  }
+    public function news()
+    {
+        return $this->belongsToMany(Post::class);
+    }
 }

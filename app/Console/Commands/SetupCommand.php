@@ -5,24 +5,24 @@ use Illuminate\Console\ConfirmableTrait;
 
 class SetupCommand extends Command
 {
-  use ConfirmableTrait;
+    use ConfirmableTrait;
 
-  protected $signature = 'setup';
-  protected $description = 'Runs all commands necessary for initial setup of the application.';
+    protected $signature = 'setup';
+    protected $description = 'Runs all commands necessary for initial setup of the application.';
 
-  public function handle()
-  {
-    $this->info('Setting up the application...');
+    public function handle()
+    {
+        $this->info('Setting up the application...');
 
-    $this->call('down');
+        $this->call('down');
 
-    $this->call('migrate');
+        $this->call('migrate');
 
-    $this->call('specification:livecopy', ['--force']);
-    $this->call('specification:update');
+        $this->call('specification:livecopy', ['--force']);
+        $this->call('specification:update');
 
-    $this->call('optimize');
+        $this->call('optimize');
 
-    $this->call('up');
-  }
+        $this->call('up');
+    }
 }

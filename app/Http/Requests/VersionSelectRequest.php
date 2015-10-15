@@ -2,10 +2,10 @@
 
 class VersionSelectRequest extends Request
 {
-  public function authorize()
-  {
-    return true;
-  }
+    public function authorize()
+    {
+        return true;
+    }
 
   /**
    * Get the validation rules that apply to the request.
@@ -14,7 +14,7 @@ class VersionSelectRequest extends Request
    */
   public function rules()
   {
-    return [
+      return [
       'version' => 'required|string|size:7',
       'format'  => 'required|in:docx,epub,txt,pdf,odt,html,zip,tar.gz,tar.bz2'
     ];

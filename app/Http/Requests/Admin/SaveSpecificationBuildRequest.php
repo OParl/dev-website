@@ -4,20 +4,20 @@ use App\Http\Requests\Request;
 
 class SaveSpecificationBuildRequest extends Request
 {
-  protected $checkboxes = ['persistent', 'displayed'];
+    protected $checkboxes = ['persistent', 'displayed'];
 
-  public function authorize()
-  {
-    return true;
-  }
+    public function authorize()
+    {
+        return true;
+    }
 
-  public function rules()
-  {
-    return [
+    public function rules()
+    {
+        return [
       'id' => 'required|exists:specification_builds',
       'human_version' => 'required|string|min:5',
       'persistent' => 'required',
       'displayed' => 'required'
     ];
-  }
+    }
 }

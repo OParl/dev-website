@@ -6,21 +6,21 @@ use Illuminate\Auth\Guard;
 
 class SettingsController extends Controller
 {
-  public function index()
-  {
-    return view('admin.settings');
-  }
+    public function index()
+    {
+        return view('admin.settings');
+    }
 
-  public function save(SaveSettingsRequest $request, Guard $guard)
-  {
-    /* @var \App\Model\User $user */
+    public function save(SaveSettingsRequest $request, Guard $guard)
+    {
+        /* @var \App\Model\User $user */
     $user = $guard->user();
 
-    $input = $request->except(['password_confirmation', '_token']);
-    $input['password'] = bcrypt($input['password']);
+        $input = $request->except(['password_confirmation', '_token']);
+        $input['password'] = bcrypt($input['password']);
 
-    $user->update($input);
+        $user->update($input);
 
-    return redirect()->back()->with('info', 'Die Einstellungen wurden gespeichert!');
-  }
+        return redirect()->back()->with('info', 'Die Einstellungen wurden gespeichert!');
+    }
 }

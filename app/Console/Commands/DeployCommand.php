@@ -13,33 +13,33 @@ use Symfony\Component\Console\Input\InputArgument;
  *
  * @package App\Console\Commands
  **/
-class DeployCommand extends Command {
-	protected $signature = 'deploy {--update-dependencies}';
-	protected $description = 'Run commands necessary to put the application in a usable state.';
+class DeployCommand extends Command
+{
+    protected $signature = 'deploy {--update-dependencies}';
+    protected $description = 'Run commands necessary to put the application in a usable state.';
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-    if ($this->option('update-dependencies'))
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
     {
-      exec('npm install', $output);
-      $this->line(implode("\n", $output));
+        if ($this->option('update-dependencies')) {
+            exec('npm install', $output);
+            $this->line(implode("\n", $output));
 
-      exec('bower update --allow-root', $output);
-      $this->line(implode("\n", $output));
+            exec('bower update --allow-root', $output);
+            $this->line(implode("\n", $output));
 
-      exec('bower install --allow-root', $output);
-      $this->line(implode("\n", $output));
+            exec('bower install --allow-root', $output);
+            $this->line(implode("\n", $output));
 
-      exec('gulp --production', $output);
-      $this->line(implode("\n", $output));
+            exec('gulp --production', $output);
+            $this->line(implode("\n", $output));
+        }
+
+        $this->call('clear-compiled');
+        $this->call('optimize');
     }
-
-    $this->call('clear-compiled');
-    $this->call('optimize');
-	}
 }

@@ -3,19 +3,15 @@
 use App\Model\Environment;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Filesystem\Filesystem;
-
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Inspiring;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests\VersionUpdateRequest;
 use App\Jobs\UpdateLiveCopy;
 use App\Jobs\UpdateVersionHashes;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Jobs\ExtractSpecificationBuildJob;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 
 /**
  * Hooks Controller
@@ -29,7 +25,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  **/
 class HooksController extends Controller
 {
-  use DispatchesJobs;
+    use DispatchesJobs;
 
   /**
    * GitHub Spec Change Webhook
@@ -56,18 +52,16 @@ class HooksController extends Controller
    **/
   public function specChange(Request $request)
   {
-    switch ($request->header('x-github-event'))
-    {
+      switch ($request->header('x-github-event')) {
       case 'pull_request':
         // update jobs are only necessary on PR merges
         $json = json_decode($request->input('payload'), true);
 
-        if ($json['action'] == 'closed' && $json['merged'])
-        {
-          $this->dispatch(new UpdateLiveCopy());
-          $this->dispatch(new UpdateVersionHashes());
+        if ($json['action'] == 'closed' && $json['merged']) {
+            $this->dispatch(new UpdateLiveCopy());
+            $this->dispatch(new UpdateVersionHashes());
 
-          return response()->json(['result' => 'Scheduled updates.']);
+            return response()->json(['result' => 'Scheduled updates.']);
         }
 
         return response()->json(['result' => 'No merge happened. Nothing to do.']);
@@ -103,33 +97,35 @@ class HooksController extends Controller
     VersionUpdateRequest $request,
     Filesystem $fs,
     BuildRepository $buildRepository
-  )
-  {
-    try
-    {
-      $hash = $request->input('version');
-      $build = $buildRepository->getWithHash($hash);
+  ) {
+      try {
+          $hash = $request->input('version');
+          $build = $buildRepository->getWithHash($hash);
 
-      $fs->makeDirectory('uploads/');
+          $fs->makeDirectory('uploads/');
 
-      $this->dispatch(new ExtractSpecificationBuildJob($build));
+          $this->dispatch(new ExtractSpecificationBuildJob($build));
 
-      collect($request->file())->each(function (UploadedFile $file) use ($build) {
+          collect($request->file())->each(function (UploadedFile $file) use ($build) {
         $ext = $file->guessClientExtension();
 
-        if (ends_with($ext, 'gz'))  $file->move($build->tar_gz_storage_path);
-        if (ends_with($ext, 'bz2')) $file->move($build->tar_bz_storage_path);
-        if (ends_with($ext, 'zip')) $file->move($build->tar_zip_storage_path);
+        if (ends_with($ext, 'gz')) {
+            $file->move($build->tar_gz_storage_path);
+        }
+        if (ends_with($ext, 'bz2')) {
+            $file->move($build->tar_bz_storage_path);
+        }
+        if (ends_with($ext, 'zip')) {
+            $file->move($build->tar_zip_storage_path);
+        }
       });
 
-      return response()->json([
+          return response()->json([
         'version' => $request->input('version'),
         'success' => true
       ]);
-
-    } catch (\Exception $e)
-    {
-      return response()->json([
+      } catch (\Exception $e) {
+          return response()->json([
         'version'   => $request->input('version'),
         'success'   => false,
         'exception' => sprintf(
@@ -139,6 +135,6 @@ class HooksController extends Controller
           $e->getLine()
         )
       ]);
-    }
+      }
   }
 }

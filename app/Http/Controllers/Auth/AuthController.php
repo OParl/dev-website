@@ -3,33 +3,33 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
+    protected $redirectTo = '/admin/';
+    protected $loginPath  = '/admin/login';
 
-  protected $redirectTo = '/admin/';
-  protected $loginPath  = '/admin/login';
+    /*
+    |--------------------------------------------------------------------------
+    | Registration & Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users, as well as the
+    | authentication of existing users. By default, this controller uses
+    | a simple trait to add these behaviors. Why don't you explore it?
+    |
+    */
 
-	/*
-	|--------------------------------------------------------------------------
-	| Registration & Login Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller handles the registration of new users, as well as the
-	| authentication of existing users. By default, this controller uses
-	| a simple trait to add these behaviors. Why don't you explore it?
-	|
-	*/
+    use AuthenticatesUsers;
 
-	use AuthenticatesUsers;
-
-	/**
-	 * Create a new authentication controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('guest', ['except' => 'getLogout']);
-	}
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => 'getLogout']);
+    }
 
   /**
    * Get a validator for an incoming registration request.
@@ -39,7 +39,7 @@ class AuthController extends Controller {
    */
   public function validator(array $data)
   {
-    return Validator::make($data, [
+      return Validator::make($data, [
       'name' => 'required|max:255',
       'email' => 'required|email|max:255|unique:users',
       'password' => 'required|confirmed|min:6',
@@ -60,5 +60,4 @@ class AuthController extends Controller {
 //      'password' => bcrypt($data['password']),
 //    ]);
 //  }
-
 }

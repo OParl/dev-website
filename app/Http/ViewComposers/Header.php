@@ -4,7 +4,7 @@ use Illuminate\Contracts\View\View;
 
 class Header
 {
-  protected $sections = [
+    protected $sections = [
 //      [
 //        'routeKey' => 'news',
 //        'title' => 'Aktuelles'
@@ -46,33 +46,30 @@ class Header
 //      ],
     ];
 
-  protected function getSections()
-  {
-    $sections = $this->sections;
-    $currentRouteName = \Route::currentRouteName();
-
-    foreach ($sections as $key => $section)
+    protected function getSections()
     {
-      if (isset($section['routeKey']) && starts_with($currentRouteName, $section['routeKey']))
-      {
-        $sections[$key]['current'] = true;
-        break;
-      }
-    }
+        $sections = $this->sections;
+        $currentRouteName = \Route::currentRouteName();
 
-    if (\Auth::check())
-    {
-      $sections[] = [
+        foreach ($sections as $key => $section) {
+            if (isset($section['routeKey']) && starts_with($currentRouteName, $section['routeKey'])) {
+                $sections[$key]['current'] = true;
+                break;
+            }
+        }
+
+        if (\Auth::check()) {
+            $sections[] = [
         'routeKey' => 'admin.dashboard',
         'title' => '<span class="glyphicon glyphicon-user"></span>'
       ];
+        }
+
+        return $sections;
     }
 
-    return $sections;
-  }
-
-  public function compose(View $view)
-  {
-    return $view->with('sections', $this->getSections());
-  }
+    public function compose(View $view)
+    {
+        return $view->with('sections', $this->getSections());
+    }
 }

@@ -3,7 +3,6 @@
 use App\Model\Environment;
 use App\Model\ScheduledBuild;
 use Illuminate\Contracts\Bus\SelfHandling;
-
 use EFrane\Buildkite\RequestData\CreateBuild as CreateBuildRequest;
 
 /**
@@ -16,7 +15,7 @@ use EFrane\Buildkite\RequestData\CreateBuild as CreateBuildRequest;
  **/
 class CreateBuild extends Job implements SelfHandling
 {
-  /**
+    /**
    * @var string The requested version
    **/
   protected $hash   = '';
@@ -33,8 +32,8 @@ class CreateBuild extends Job implements SelfHandling
    */
   public function __construct($hash, $meta = '')
   {
-    $this->hash = $hash;
-    $this->buildMeta = ' '.$meta;
+      $this->hash = $hash;
+      $this->buildMeta = ' '.$meta;
   }
 
   /**
@@ -44,22 +43,21 @@ class CreateBuild extends Job implements SelfHandling
    */
   public function handle()
   {
-    if (!env('debug') && !Environment::get('versions')['updateInProgress'])
-    {
-      // create the build
+      if (!env('debug') && !Environment::get('versions')['updateInProgress']) {
+          // create the build
       $build = new CreateBuildRequest(
         "Building requested version {$this->hash}{$this->buildMeta}",
         $this->hash
       );
 
-      Environment::set('versions', [
+          Environment::set('versions', [
         'updateInProgress' => false,
         'hash' => $this->hash
       ]);
 
-      app('buildkite')
+          app('buildkite')
         ->builds(config('services.buildkite.project'))
         ->create($build);
-    }
+      }
   }
 }

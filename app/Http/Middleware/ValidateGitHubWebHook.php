@@ -15,14 +15,20 @@ class ValidateGitHubWebHook
      */
     public function handle($request, Closure $next)
     {
-      $errorResponse = response()->json(['error' => 'We kindly apologize for the inconvenience but you are not allowed here.']);
+        $errorResponse = response()->json(['error' => 'We kindly apologize for the inconvenience but you are not allowed here.']);
 
       // is application/x-www-form-urlencoded
-      if (!$request->header('content-type', 'application/x-www-form-urlencoded')) return $errorResponse;
+      if (!$request->header('content-type', 'application/x-www-form-urlencoded')) {
+          return $errorResponse;
+      }
 
       // appears to be from github
-      if (!starts_with($request->header('user-agent'), 'GitHub-Hookshot/')) return $errorResponse;
-      if (!$request->header('x-github-event')) return $errorResponse;
+      if (!starts_with($request->header('user-agent'), 'GitHub-Hookshot/')) {
+          return $errorResponse;
+      }
+        if (!$request->header('x-github-event')) {
+            return $errorResponse;
+        }
 
       // check digest (https://developer.github.com/webhooks/securing/)
       // FIXME: This appears to be computed incorrectly

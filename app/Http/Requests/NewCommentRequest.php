@@ -2,14 +2,14 @@
 
 class NewCommentRequest extends Request
 {
-  /**
+    /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
   public function authorize()
   {
-    return true;
+      return true;
   }
 
   /**
@@ -19,7 +19,7 @@ class NewCommentRequest extends Request
    */
   public function rules()
   {
-    return [
+      return [
       'id'         => 'required|integer|exists:posts',
       'author_id'  => 'required_without_all:name,email|exists:users,id',
       'name'       => 'required_without:author_id|string|min:2',

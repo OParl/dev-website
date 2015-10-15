@@ -12,9 +12,9 @@ use OParl\Spec\Model\SpecificationBuild;
 
 class SpecificationController extends Controller
 {
-  public function index(LiveCopyRepository $liveCopyRepository, BuildRepository $buildRepository)
-  {
-    $data = [
+    public function index(LiveCopyRepository $liveCopyRepository, BuildRepository $buildRepository)
+    {
+        $data = [
       'lastModified' => [
         'livecopy' => $liveCopyRepository->getLastModified(),
         'builds' => $buildRepository->getLastModified(),
@@ -22,15 +22,14 @@ class SpecificationController extends Controller
       'builds' => SpecificationBuild::orderBy('created_at', 'desc')->paginate(15)
     ];
 
-    return view('admin.specification.index', $data);
-  }
+        return view('admin.specification.index', $data);
+    }
 
-  public function update($what)
-  {
-    $message = 'Das %supdate wurde erfolgreich gestartet.';
-
-    switch ($what)
+    public function update($what)
     {
+        $message = 'Das %supdate wurde erfolgreich gestartet.';
+
+        switch ($what) {
       case 'livecopy':
         $this->dispatch(new UpdateLiveCopyJob());
         $message = sprintf($message, 'Livekopie-Pull');
@@ -51,12 +50,12 @@ class SpecificationController extends Controller
         break;
     }
 
-    return redirect()->route('admin.specification.index')->with('info', $message);
-  }
+        return redirect()->route('admin.specification.index')->with('info', $message);
+    }
 
-  public function clean($what, BuildRepository $buildRepository)
-  {
-    $message = 'Die Bereinigung wurde erfolgreich gestartet.';
+    public function clean($what, BuildRepository $buildRepository)
+    {
+        $message = 'Die Bereinigung wurde erfolgreich gestartet.';
 
     /*
     switch ($what)
@@ -75,53 +74,49 @@ class SpecificationController extends Controller
     // FIXME: Implement this using the new jobs
 
     return redirect()->route('admin.specification.index')->with('info', $message);
-  }
+    }
 
-  public function delete(Filesystem $fs, $hash)
-  {
-    // TODO: implement deleting a single version
+    public function delete(Filesystem $fs, $hash)
+    {
+        // TODO: implement deleting a single version
     $message = 'Die Löschung wurde erfolgreich durchgeführt.';
 
-    return redirect()->route('admin.specification.index')->with('info', $message);
-  }
-
-  public function fetch($what, BuildRepository $buildRepository)
-  {
-    $message = 'Der Ladevorgang wurde erfolgreich gestartet.';
-
-    if ($what === '_missing_')
-    {
-      $buildRepository->fetchMissing();
-    } else
-    {
-      $buildRepository->fetchWithHash($what);
+        return redirect()->route('admin.specification.index')->with('info', $message);
     }
 
-    return redirect()->route('admin.specification.index')->with('info', $message);
-  }
+    public function fetch($what, BuildRepository $buildRepository)
+    {
+        $message = 'Der Ladevorgang wurde erfolgreich gestartet.';
 
-  public function edit($id)
-  {
-    try
-    {
-      $build = SpecificationBuild::findOrFail($id);
-    } catch (ModelNotFoundException $e)
-    {
-      abort(404, 'Dieser Build existiert nicht.');
+        if ($what === '_missing_') {
+            $buildRepository->fetchMissing();
+        } else {
+            $buildRepository->fetchWithHash($what);
+        }
+
+        return redirect()->route('admin.specification.index')->with('info', $message);
     }
 
-    return view('admin.specification.edit', compact('build'));
-  }
+    public function edit($id)
+    {
+        try {
+            $build = SpecificationBuild::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404, 'Dieser Build existiert nicht.');
+        }
+
+        return view('admin.specification.edit', compact('build'));
+    }
 
 
-  public function save(SaveSpecificationBuildRequest $request, $id)
-  {
-    /* @var $build SpecificationBuild */
+    public function save(SaveSpecificationBuildRequest $request, $id)
+    {
+        /* @var $build SpecificationBuild */
     $build = SpecificationBuild::find($id);
 
-    $build->update($request->except('_token', 'id'));
-    $build->save();
+        $build->update($request->except('_token', 'id'));
+        $build->save();
 
-    return redirect()->route('admin.specification.index')->with('message', "Succesfully saved {$id}");
-  }
+        return redirect()->route('admin.specification.index')->with('message', "Succesfully saved {$id}");
+    }
 }

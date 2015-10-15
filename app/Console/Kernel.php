@@ -3,8 +3,9 @@
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-class Kernel extends ConsoleKernel {
-  /**
+class Kernel extends ConsoleKernel
+{
+    /**
    * The Artisan commands provided by your application.
    *
    * @var array
@@ -18,8 +19,8 @@ class Kernel extends ConsoleKernel {
     Commands\SetupCommand::class,
   ];
 
-  protected function schedule(Schedule $schedule)
-  {
-    $schedule->command(\OParl\Spec\Commands\DeleteSpecificationBuildsCommand::class, ['build', 30])->daily();
-  }
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command(\OParl\Spec\Commands\DeleteSpecificationBuildsCommand::class, ['build', 30])->daily();
+    }
 }

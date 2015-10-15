@@ -1,13 +1,12 @@
 <?php namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
 use App\Model\User;
 use Symfony\Component\Console\Input\InputOption;
 
 class RemoveUserCommand extends Command
 {
-  /**
+    /**
    * The name of the console command.
    *
    * @var string
@@ -21,12 +20,12 @@ class RemoveUserCommand extends Command
    */
   protected $description = 'Remove a user by email address (deletes everything from that user).';
 
-  protected function getOptions()
-  {
-    return [
+    protected function getOptions()
+    {
+        return [
       ['email', null, InputOption::VALUE_REQUIRED, 'E-Mail of the user to be removed']
     ];
-  }
+    }
 
   /**
    * Execute the console command.
@@ -35,10 +34,10 @@ class RemoveUserCommand extends Command
    */
   public function handle()
   {
-    $email = $this->option('email');
+      $email = $this->option('email');
 
-    User::whereEmail($email)->delete();
+      User::whereEmail($email)->delete();
 
-    $this->info("User with email {$email} was deleted successfully.");
+      $this->info("User with email {$email} was deleted successfully.");
   }
 }

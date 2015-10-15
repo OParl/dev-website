@@ -1,18 +1,17 @@
 <?php namespace App\Http\ViewComposers;
 
 use App\Model\Comment;
-
 use Illuminate\Contracts\View\View;
 
 class AdminHeader
 {
-  public function compose(View $view)
-  {
-    $currentRoute = \Route::currentRouteName();
+    public function compose(View $view)
+    {
+        $currentRoute = \Route::currentRouteName();
 
-    $spamCount = Comment::spam()->count();
+        $spamCount = Comment::spam()->count();
 
-    $sections = [
+        $sections = [
       [
         'current' => starts_with($currentRoute, 'admin.dashboard'),
         'route' => 'admin.dashboard.index',
@@ -36,6 +35,6 @@ class AdminHeader
       ],
     ];
 
-    return $view->with('sections', $sections);
-  }
+        return $view->with('sections', $sections);
+    }
 }

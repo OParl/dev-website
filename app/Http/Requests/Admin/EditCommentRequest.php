@@ -6,14 +6,14 @@ use App\Http\Requests\Request;
 
 class EditCommentRequest extends Request
 {
-  /**
+    /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
   public function authorize()
   {
-    return true;
+      return true;
   }
 
   /**
@@ -23,7 +23,7 @@ class EditCommentRequest extends Request
    */
   public function rules()
   {
-    return [
+      return [
       'id' => 'required|exists:comments',
       'author_id' => 'required_without_all:author_email,author_name|exists:users,id',
       'author_email' => 'required_without:author_id|email',
