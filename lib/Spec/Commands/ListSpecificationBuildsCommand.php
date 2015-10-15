@@ -5,12 +5,12 @@ use OParl\Spec\Model\SpecificationBuild;
 
 class ListSpecificationBuildsCommand extends SpecificationCommand
 {
-  protected $name = 'specification:list';
-  protected $description = 'List specification builds with details';
+    protected $name = 'specification:list';
+    protected $description = 'List specification builds with details';
 
-  public function handle(BuildRepository $repository)
-  {
-    $builds = $repository->getLatest(30, false)
+    public function handle(BuildRepository $repository)
+    {
+        $builds = $repository->getLatest(30, false)
       ->map(function (SpecificationBuild $build) {
       return [
         'id' => $build->id,
@@ -21,6 +21,6 @@ class ListSpecificationBuildsCommand extends SpecificationCommand
       ];
     });
 
-    $this->table(['ID', 'Version Text', 'Available', 'Queried', 'Displayed'], $builds);
-  }
+        $this->table(['ID', 'Version Text', 'Available', 'Queried', 'Displayed'], $builds);
+    }
 }

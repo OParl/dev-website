@@ -5,7 +5,7 @@ use OParl\Spec\Model\SpecificationBuild;
 
 class DeleteSpecificationBuildJob extends SpecificationJob
 {
-  /**
+    /**
    * @var SpecificationBuild
    */
   protected $build = null;
@@ -17,11 +17,11 @@ class DeleteSpecificationBuildJob extends SpecificationJob
    */
   public function __construct(SpecificationBuild $build)
   {
-    $this->build = $build;
+      $this->build = $build;
   }
 
-  public function handle(Filesystem $fs)
-  {
-    $fs->deleteDirectory($this->build->storage_path);
-  }
+    public function handle(Filesystem $fs)
+    {
+        $fs->deleteDirectory($this->build->storage_path);
+    }
 }

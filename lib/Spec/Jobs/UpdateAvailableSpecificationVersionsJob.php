@@ -15,11 +15,11 @@ use OParl\Spec\Model\SpecificationBuild;
  */
 class UpdateAvailableSpecificationVersionsJob extends SpecificationJob
 {
-  public function handle(GitHubManager $gh, Dispatcher $dispatcher)
-  {
-    $commits = $gh->repo()->commits()->all($this->user, $this->repo, []);
+    public function handle(GitHubManager $gh, Dispatcher $dispatcher)
+    {
+        $commits = $gh->repo()->commits()->all($this->user, $this->repo, []);
 
-    collect($commits)->each(function (array $commit) use ($dispatcher) {
+        collect($commits)->each(function (array $commit) use ($dispatcher) {
       $hash          = $commit['sha'];
       $commitMessage = $commit['commit']['message'];
       $createdAt     = new Carbon($commit['commit']['committer']['date']);
@@ -32,5 +32,5 @@ class UpdateAvailableSpecificationVersionsJob extends SpecificationJob
         'hash' => $hash,
       ]);
     });
-  }
+    }
 }

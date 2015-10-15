@@ -4,12 +4,12 @@ use OParl\Spec\LiveCopyRepository;
 
 class UpdateLiveCopyJob extends SpecificationJob
 {
-  protected $forceRefresh = false;
+    protected $forceRefresh = false;
 
-  public function __construct($forceRefresh = false)
-  {
-    $this->forceRefresh = $forceRefresh;
-  }
+    public function __construct($forceRefresh = false)
+    {
+        $this->forceRefresh = $forceRefresh;
+    }
 
   /**
    * Execute the job.
@@ -18,6 +18,6 @@ class UpdateLiveCopyJob extends SpecificationJob
    */
   public function handle(LiveCopyRepository $repository)
   {
-    $repository->refresh($this->user, $this->repo, $this->forceRefresh);
+      $repository->refresh($this->user, $this->repo, $this->forceRefresh);
   }
 }

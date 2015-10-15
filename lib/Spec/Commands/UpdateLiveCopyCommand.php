@@ -4,7 +4,7 @@ use OParl\Spec\Jobs\UpdateLiveCopyJob;
 
 class UpdateLiveCopyCommand extends SpecificationCommand
 {
-  /**
+    /**
    * The name and signature of the console command.
    *
    * @var string
@@ -25,8 +25,8 @@ class UpdateLiveCopyCommand extends SpecificationCommand
    */
   public function handle()
   {
-    $this->printCommandInfo('live copy update');
+      $this->printCommandInfo('live copy update');
 
-    $this->dispatch(new UpdateLiveCopyJob($this->option('force')));
+      $this->dispatch(new UpdateLiveCopyJob($this->option('force')));
   }
 }

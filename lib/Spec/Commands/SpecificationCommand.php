@@ -6,14 +6,14 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 
 abstract class SpecificationCommand extends Command implements SelfHandling
 {
-  use DispatchesJobs;
+    use DispatchesJobs;
 
-  protected function printCommandInfo($info)
-  {
-    if (config('queue.default') === 'sync') {
-      $this->info("Running {$info}.");
-    } else {
-      $this->info("Scheduling {$info}.");
+    protected function printCommandInfo($info)
+    {
+        if (config('queue.default') === 'sync') {
+            $this->info("Running {$info}.");
+        } else {
+            $this->info("Scheduling {$info}.");
+        }
     }
-  }
 }

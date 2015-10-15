@@ -5,93 +5,94 @@ use Symfony\Component\Finder\Finder;
 
 class SpecificationBuild extends Model
 {
-  protected $fillable = ['created_at', 'hash', 'commit_message', 'human_version'];
+    protected $fillable = ['created_at', 'hash', 'commit_message', 'human_version'];
 
-  protected $casts = ['queried' => 'boolean', 'persistent' => 'boolean', 'displayed' => 'boolean'];
+    protected $casts = ['queried' => 'boolean', 'persistent' => 'boolean', 'displayed' => 'boolean'];
 
-  public static function boot()
-  {
-    static::creating(function ($build) {
+    public static function boot()
+    {
+        static::creating(function ($build) {
       $build->queried = false;
       $build->persistent = false;
       $build->displayed = true;
     });
-  }
-
-  public function getLinkedCommitMessageAttribute()
-  {
-    $commitMessage = $this->commit_message;
-
-    if (preg_match('/#(\d+)/', $commitMessage, $matches) > 0)
-    {
-      $link = sprintf('<a href="//github.com/OParl/spec/issues/%d">%s</a>', $matches[1], $matches[0]);
-      $commitMessage = str_replace($matches[0], $link, $commitMessage);
     }
 
-    return $commitMessage;
-  }
+    public function getLinkedCommitMessageAttribute()
+    {
+        $commitMessage = $this->commit_message;
 
-  public function getShortHashAttribute()
-  {
-    return substr($this->hash, 0, 7);
-  }
+        if (preg_match('/#(\d+)/', $commitMessage, $matches) > 0) {
+            $link = sprintf('<a href="//github.com/OParl/spec/issues/%d">%s</a>', $matches[1], $matches[0]);
+            $commitMessage = str_replace($matches[0], $link, $commitMessage);
+        }
 
-  public function getIsAvailableAttribute()
-  {
-    return is_dir($this->storage_path);
-  }
+        return $commitMessage;
+    }
 
-  public function getStoragePathAttribute()
-  {
-    $path = 'specification/builds/' . $this->hash;
+    public function getShortHashAttribute()
+    {
+        return substr($this->hash, 0, 7);
+    }
 
-    app('filesystem')->makeDirectory($path);
+    public function getIsAvailableAttribute()
+    {
+        return is_dir($this->storage_path);
+    }
 
-    return storage_path('app' . $path);
-  }
+    public function getStoragePathAttribute()
+    {
+        $path = 'specification/builds/' . $this->hash;
 
-  public function getExtractedFilesStoragePathAttribute()
-  {
-    $path = 'specification/builds/' . $this->hash . '/extracted';
+        app('filesystem')->makeDirectory($path);
 
-    app('filesystem')->makeDirectory($path);
+        return storage_path('app' . $path);
+    }
 
-    return storage_path('app' . $path);
-  }
+    public function getExtractedFilesStoragePathAttribute()
+    {
+        $path = 'specification/builds/' . $this->hash . '/extracted';
 
-  public function getZipArchiveStoragePathAttribute()
-  {
-    return $this->storage_path . '/OParl-' . $this->hash . '.zip';
-  }
+        app('filesystem')->makeDirectory($path);
 
-  public function getTarGzArchiveStoragePathAttribute()
-  {
-    return $this->storage_path . '/OParl-' . $this->hash . '.tar.gz';
-  }
+        return storage_path('app' . $path);
+    }
 
-  public function getTarBzArchiveStoragePathAttribute()
-  {
-    return $this->storage_path . '/OParl-' . $this->hash . '.tar.bz2';
-  }
+    public function getZipArchiveStoragePathAttribute()
+    {
+        return $this->storage_path . '/OParl-' . $this->hash . '.zip';
+    }
 
-  public function enqueue()
-  {
-    $this->queried = true;
-    $this->save();
-  }
+    public function getTarGzArchiveStoragePathAttribute()
+    {
+        return $this->storage_path . '/OParl-' . $this->hash . '.tar.gz';
+    }
 
-  public function dequeue()
-  {
-    $this->queried = false;
-    $this->save();
-  }
+    public function getTarBzArchiveStoragePathAttribute()
+    {
+        return $this->storage_path . '/OParl-' . $this->hash . '.tar.bz2';
+    }
 
-  public function discoverExtractedFile($extension)
-  {
-    $path = $this->extracted_files_storage_path;
+    public function enqueue()
+    {
+        $this->queried = true;
+        $this->save();
+    }
 
-    if (!is_dir($path)) return '';
+    public function dequeue()
+    {
+        $this->queried = false;
+        $this->save();
+    }
 
-    return Finder::create()->files()->name("*.{$extension}")->in($path)[0];
-  }
+    public function discoverExtractedFile($extension)
+    {
+        $path = $this->extracted_files_storage_path;
+
+        if (!is_dir($path)) {
+            return '';
+        }
+
+        return Finder::create()->files()->name("*.{$extension}")->in($path)[0];
+    }
 }

@@ -7,45 +7,44 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class LiveCopyRepository
 {
-  const PATH = 'livecopy';
+    const PATH = 'livecopy';
 
   /**
    * @var \Illuminate\Support\Collection
    **/
   protected $chapters = null;
 
-  protected $content = '';
-  protected $nav = '';
-  protected $hash = '';
+    protected $content = '';
+    protected $nav = '';
+    protected $hash = '';
 
-  protected $cache = null;
-  protected $fs = null;
+    protected $cache = null;
+    protected $fs = null;
 
-  public function __construct(Filesystem $fs, CacheRepository $cache)
-  {
-    $this->fs = $fs;
-    $this->cache = $cache;
-
-    if ($fs->exists($this->getLiveCopyPath()) && $fs->exists($this->getChapterPath()))
+    public function __construct(Filesystem $fs, CacheRepository $cache)
     {
-      $this->loadChapters($fs, $cache);
-      $this->parse($cache, $fs);
-    }
-  }
+        $this->fs = $fs;
+        $this->cache = $cache;
 
-  public function getRaw()
-  {
-    return $this->chapters->reduce(function ($carry, Chapter $chapter) {
+        if ($fs->exists($this->getLiveCopyPath()) && $fs->exists($this->getChapterPath())) {
+            $this->loadChapters($fs, $cache);
+            $this->parse($cache, $fs);
+        }
+    }
+
+    public function getRaw()
+    {
+        return $this->chapters->reduce(function ($carry, Chapter $chapter) {
       return $carry . "\n" . $chapter->getRaw();
     }, '');
-  }
+    }
 
   /**
    * @return string
    */
   public function getContent()
   {
-    return $this->content;
+      return $this->content;
   }
 
   /**
@@ -53,47 +52,46 @@ class LiveCopyRepository
    */
   public function getNav()
   {
-    return $this->nav;
+      return $this->nav;
   }
 
-  public function getLastModified()
-  {
-    $unixTime = $this->fs->lastModified($this->getLiveCopyPath());
-    return Carbon::createFromTimestamp($unixTime);
-  }
+    public function getLastModified()
+    {
+        $unixTime = $this->fs->lastModified($this->getLiveCopyPath());
+        return Carbon::createFromTimestamp($unixTime);
+    }
 
-  protected function buildLiveCopy(Filesystem $fs)
-  {
-    $html = $fs->get(static::getLiveCopyPath());
-    return $html;
-  }
+    protected function buildLiveCopy(Filesystem $fs)
+    {
+        $html = $fs->get(static::getLiveCopyPath());
+        return $html;
+    }
 
   /**
    * @return string
    **/
   protected function parse(CacheRepository $cache, Filesystem $fs)
   {
-    $html = $cache->remember('livecopy:raw_html', 60, function () use ($fs) {
+      $html = $cache->remember('livecopy:raw_html', 60, function () use ($fs) {
       return $this->buildLiveCopy($fs);
     });
 
-    $crawler = new Crawler($html);
-    try
-    {
-      $navElements = $crawler->filter('body > nav');
-      $this->nav = $navElements->html();
-    } catch (\InvalidArgumentException $e)
-    {
-      $this->nav = '';
-    }
+      $crawler = new Crawler($html);
+      try {
+          $navElements = $crawler->filter('body > nav');
+          $this->nav = $navElements->html();
+      } catch (\InvalidArgumentException $e) {
+          $this->nav = '';
+      }
 
-    $content = $crawler->filterXPath("//body/*[not(self::nav)]");
-    foreach ($content as $domElement)
-      $this->content .= $domElement->ownerDocument->saveHTML($domElement);
+      $content = $crawler->filterXPath("//body/*[not(self::nav)]");
+      foreach ($content as $domElement) {
+          $this->content .= $domElement->ownerDocument->saveHTML($domElement);
+      }
 
-    $this->fixHTML($this->content, $this->nav);
+      $this->fixHTML($this->content, $this->nav);
 
-    $this->hash = $cache->rememberForever('livecopy:hash', function () {
+      $this->hash = $cache->rememberForever('livecopy:hash', function () {
       $hash = $this->runInDir(
         storage_path('app/'.static::PATH),
         'git show HEAD --format="%H" | head -n1'
@@ -105,9 +103,9 @@ class LiveCopyRepository
     });
   }
 
-  protected function fixHTML(&$content, &$nav)
-  {
-    // fix image urls
+    protected function fixHTML(&$content, &$nav)
+    {
+        // fix image urls
     $content = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/spezifikation/$2"', $content);
 
     // fix image tags
@@ -119,77 +117,77 @@ class LiveCopyRepository
     // fix code tags
     $content = preg_replace('/<pre class="json">.*<code.*>/', '<pre><code class="language-javascript">', $content);
 
-    $nav = str_replace('<ul>', '<ul class="nav">', $nav);
-  }
+        $nav = str_replace('<ul>', '<ul class="nav">', $nav);
+    }
 
-  public static function getChapterPath()
-  {
-    return LiveCopyRepository::PATH . '/src/';
-  }
+    public static function getChapterPath()
+    {
+        return LiveCopyRepository::PATH . '/src/';
+    }
 
-  public static function getImagesPath()
-  {
-    return LiveCopyRepository::PATH . '/src/images/';
-  }
+    public static function getImagesPath()
+    {
+        return LiveCopyRepository::PATH . '/src/images/';
+    }
 
-  public static function getSchemaPath()
-  {
-    return LiveCopyRepository::PATH . '/schema/';
-  }
+    public static function getSchemaPath()
+    {
+        return LiveCopyRepository::PATH . '/schema/';
+    }
 
-  public static function getExamplesPath()
-  {
-    return LiveCopyRepository::PATH . '/examples/';
-  }
+    public static function getExamplesPath()
+    {
+        return LiveCopyRepository::PATH . '/examples/';
+    }
 
-  public static function getLiveCopyPath()
-  {
-    return LiveCopyRepository::PATH . '/out/live.html';
-  }
+    public static function getLiveCopyPath()
+    {
+        return LiveCopyRepository::PATH . '/out/live.html';
+    }
 
-  public function refresh($user, $repository, $forceClone = false)
-  {
-    $this->clearCache();
+    public function refresh($user, $repository, $forceClone = false)
+    {
+        $this->clearCache();
 
-    $path = storage_path('app/' . self::PATH);
+        $path = storage_path('app/' . self::PATH);
 
-    ($forceClone || !$this->fs->exists(self::PATH))
+        ($forceClone || !$this->fs->exists(self::PATH))
       ? $this->performCloneRefresh($user, $repository)
       : $this->performPullRefresh($path);
 
-    $this->make();
-  }
+        $this->make();
+    }
 
   /**
    * @param Filesystem $fs
    **/
   protected function performCloneRefresh($user, $repository)
   {
-    $this->fs->deleteDirectory(self::PATH);
+      $this->fs->deleteDirectory(self::PATH);
 
-    $gitURL = sprintf("https://github.com/%s/%s", $user, $repository);
+      $gitURL = sprintf("https://github.com/%s/%s", $user, $repository);
 
-    $this->runInDir(storage_path('app'), "git clone --depth=1 {$gitURL} " . self::PATH);
-    $this->make();
+      $this->runInDir(storage_path('app'), "git clone --depth=1 {$gitURL} " . self::PATH);
+      $this->make();
   }
 
-  protected function performPullRefresh($path)
-  {
-    $this->runInDir($path, 'git pull --rebase');
-    $this->make();
-  }
+    protected function performPullRefresh($path)
+    {
+        $this->runInDir($path, 'git pull --rebase');
+        $this->make();
+    }
 
-  protected function make()
-  {
-    $dir = storage_path('app/' . self::PATH);
+    protected function make()
+    {
+        $dir = storage_path('app/' . self::PATH);
 
-    $this->runInDir($dir, 'make live');
-  }
+        $this->runInDir($dir, 'make live');
+    }
 
-  public function getHash()
-  {
-    return $this->hash;
-  }
+    public function getHash()
+    {
+        return $this->hash;
+    }
 
   /**
    * @param Filesystem $fs
@@ -197,7 +195,7 @@ class LiveCopyRepository
    **/
   protected function loadChapters(Filesystem $fs, CacheRepository $cache)
   {
-    $this->chapters = $cache->remember(
+      $this->chapters = $cache->remember(
       'livecopy:chapters',
       240,
       function () use ($fs) {
@@ -218,9 +216,9 @@ class LiveCopyRepository
    */
   protected function clearCache()
   {
-    $this->cache->forget('livecopy:chapters');
-    $this->cache->forget('livecopy:raw_html');
-    $this->cache->forget('livecopy:hash');
+      $this->cache->forget('livecopy:chapters');
+      $this->cache->forget('livecopy:raw_html');
+      $this->cache->forget('livecopy:hash');
   }
 
   /**
@@ -239,24 +237,21 @@ class LiveCopyRepository
    **/
   protected function runInDir($dir, $cmd)
   {
-    $cwd = getcwd();
+      $cwd = getcwd();
 
-    chdir($dir);
+      chdir($dir);
 
-    $res = null;
-    if (is_array($cmd))
-    {
-      $res = call_user_func($cmd);
-    } else if (is_callable($cmd))
-    {
-      $res = $cmd();
-    } else
-    {
-      $res = exec($cmd);
-    }
+      $res = null;
+      if (is_array($cmd)) {
+          $res = call_user_func($cmd);
+      } elseif (is_callable($cmd)) {
+          $res = $cmd();
+      } else {
+          $res = exec($cmd);
+      }
 
-    chdir($cwd);
+      chdir($cwd);
 
-    return $res;
+      return $res;
   }
 }
