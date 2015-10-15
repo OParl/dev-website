@@ -1,13 +1,18 @@
 language: php
-sudo: false
 
 php:
   - 5.5
   - 5.6
+  - hhvm
+
+env:
+  global:
+    - QUEUE_DRIVER=sync
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --prefer-source --no-interaction --dev
-  - travis_retry composer dump-autoload
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+  - composer dump-autoload
+  - artisan setup
 
 script: vendor/bin/phpunit
