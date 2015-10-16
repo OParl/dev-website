@@ -57,8 +57,12 @@ class LiveCopyRepository
 
     public function getLastModified()
     {
-        $unixTime = $this->fs->lastModified($this->getLiveCopyPath());
-        return Carbon::createFromTimestamp($unixTime);
+        try {
+            $unixTime = $this->fs->lastModified($this->getLiveCopyPath());
+            return Carbon::createFromTimestamp($unixTime);
+        } catch (\Exception $e) {
+            return Carbon::createFromDate(1999, 1, 1);
+        }
     }
 
     protected function buildLiveCopy(Filesystem $fs)
