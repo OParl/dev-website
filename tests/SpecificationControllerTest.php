@@ -11,6 +11,14 @@ class SpecificationControllerTest extends TestCase
      */
     public function testShow()
     {
-        $this->visit('/spezifikation')->see('OParl-Spezifikation');
+        $this->visit('/spezifikation');
+
+        $this->see('Spezifikation - OParl.org'); // title
+
+        $this->see('OParl.'); // header
+        $this->matchesRegularExpression('<li role="presentation" class="active">\w*<a href="http://localhost/spezifikation">\w*Spezifikation\w*</a>\w*</li>'); // menu
+
+        // NOTE: not testing for the loaded livecopy contents since that requires pandoc
+        //       in the testing environment
     }
 }
