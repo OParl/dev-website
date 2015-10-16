@@ -21,4 +21,11 @@ class SpecificationControllerTest extends TestCase
         // NOTE: not testing for the loaded livecopy contents since that requires pandoc
         //       in the testing environment
     }
+
+    public function testRaw()
+    {
+        $request = $this->call('GET', '/spezifikation.md');
+
+        $this->assertEquals(200, $request->status());
+    }
 }
