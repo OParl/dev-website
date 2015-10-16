@@ -9,7 +9,9 @@ class AdminLoginTest extends TestCase
      */
     public function testLogin()
     {
-        $this->visit('/admin/dashboard');
-        $this->assertRedirectedToRoute('admin.login');
+        $this->visit('/admin')->see('Login');
+
+        $this->type('tester@oparl.org', 'email');
+        $this->type('testerpassword', 'password');
     }
 }

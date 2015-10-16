@@ -13,6 +13,7 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
   - composer dump-autoload
+  - touch storage/database.sqlite
   - php artisan setup --env=local
 
 script: vendor/bin/phpunit
