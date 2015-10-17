@@ -2,31 +2,47 @@
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 
+/**
+ * Class Chapter
+ * @package OParl\Spec
+ **/
 class Chapter
 {
-    protected $filename = '';
-    protected $raw = '';
+  /**
+   * @var null|\SplFileInfo
+   **/
+  protected $fileInfo = null;
+  /**
+   * @var string
+   **/
+  protected $raw = '';
 
-    public function __construct(Filesystem $fs, $filename)
-    {
-        $this->filename = $filename;
-        $this->raw = $fs->get($filename);
-    }
+  /**
+   * @param \SplFileInfo $fileInfo
+   */
+  public function __construct(\SplFileInfo $fileInfo)
+  {
+      $this->fileInfo = $fileInfo;
+      $this->raw = file_get_contents($fileInfo->getRealPath());
+  }
 
-    public function getEnriched()
-    {
-        return view('specification.chapter', [
-      'chapter' => $this->raw,
-      'filename' => $this->filename
-    ])->render();
-    }
+  /**
+   * @return string
+   **/
+  public function getEnriched()
+  {
+      return view('specification.chapter', [
+          'chapter' => $this->raw,
+          'filename' => $this->fileInfo->getRealPath()
+        ])->render();
+  }
 
   /**
    * @return string
    */
   public function getFilename()
   {
-      return basename($this->filename);
+      return $this->fileInfo->getBasename();
   }
 
   /**
@@ -35,5 +51,10 @@ class Chapter
   public function getRaw()
   {
       return $this->raw;
+  }
+
+  public function __toString()
+  {
+    return $this->getRaw();
   }
 }
