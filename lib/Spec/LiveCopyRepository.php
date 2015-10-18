@@ -53,10 +53,17 @@ class LiveCopyRepository
       $this->fs = $fs;
       $this->cache = $cache;
 
-      $this->loadChapters($fs, $cache);
+      // FIXME: While this is working as expected, it kind of should not
+      //        since this is supposed to run if the chapter path exists
+      if (!$fs->exists(static::getChapterPath()))
+      {
+        $this->loadChapters($cache);
+      }
 
-      if (!$fs->exists($this->getLiveCopyPath())) {
-          $this->buildLiveCopy($fs);
+      // FIXME: While this is working as expected, it kind of should not
+      //        since this is supposed to run if the live copy path does not exist
+      if ($fs->exists(static::getLiveCopyPath())) {
+          $this->buildLiveCopy();
       }
 
       $this->parse($fs, $cache);
@@ -67,26 +74,28 @@ class LiveCopyRepository
    **/
   public function getRaw()
   {
+      if (is_null($this->chapters)) return '';
+
       return $this->chapters->reduce(function ($carry, Chapter $chapter) {
             return $carry . "\n\n" . $chapter;
         }, '');
   }
 
-    /**
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
+  /**
+   * @return string
+   **/
+  public function getContent()
+  {
+      return $this->content;
+  }
 
-    /**
-     * @return string
-     */
-    public function getNav()
-    {
-        return $this->nav;
-    }
+  /**
+   * @return string
+   **/
+  public function getNav()
+  {
+      return $this->nav;
+  }
 
   /**
    * @return static
@@ -102,13 +111,12 @@ class LiveCopyRepository
   }
 
   /**
-   * @param Filesystem $fs
    * @return mixed|string
-   **/
-  protected function buildLiveCopy(Filesystem $fs)
+   */
+  protected function buildLiveCopy()
   {
-      if ($fs->exists(static::getLiveCopyPath())) {
-          $html = $fs->get(static::getLiveCopyPath());
+      if ($this->fs->exists(static::getLiveCopyPath())) {
+          $html = $this->fs->get(static::getLiveCopyPath());
       } else {
           // fallback to using Parsedown
           $markdown = $this->getRaw();
@@ -124,7 +132,7 @@ class LiveCopyRepository
     protected function parse(Filesystem $fs, CacheRepository $cache)
     {
         $html = $cache->remember('livecopy:raw_html', 60, function () use ($fs) {
-            return $this->buildLiveCopy($fs);
+            return $this->buildLiveCopy();
         });
 
         $this->extractNav($html);
@@ -242,10 +250,10 @@ class LiveCopyRepository
   }
 
   /**
-   * @param Filesystem $fs
    * @param CacheRepository $cache
-   **/
-  protected function loadChapters(Filesystem $fs, CacheRepository $cache)
+   * @internal param Filesystem $fs
+   */
+  protected function loadChapters(CacheRepository $cache)
   {
       $this->chapters = $cache->remember(
           'livecopy:chapters',
@@ -274,7 +282,7 @@ class LiveCopyRepository
   /**
    * Clear the cached data
    */
-  protected function clearCache()
+  public function clearCache()
   {
       $this->cache->forget('livecopy:chapters');
       $this->cache->forget('livecopy:raw_html');
@@ -352,10 +360,18 @@ class LiveCopyRepository
   protected function extractHash(CacheRepository $cache)
   {
       $this->hash = $cache->rememberForever('livecopy:hash', function () {
-      $hash = $this->runInDir(
-        storage_path('app/' . static::PATH),
-        'git show HEAD --format="%H" | head -n1'
-      );
+
+        try
+        {
+          $hash = $this->runInDir(
+            storage_path('app/' . static::PATH),
+            'git show HEAD --format="%H" | head -n1'
+          );
+        } catch (\ErrorException $e)
+        {
+          $hash = '<unknown>';
+        }
+
 
       $hash = trim($hash);
 

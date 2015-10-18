@@ -1,9 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use OParl\Spec\LiveCopyRepository;
 
 class SpecLiveCopyRepositoryTest extends TestCase
@@ -19,9 +16,8 @@ class SpecLiveCopyRepositoryTest extends TestCase
     {
         $instance = app()->make(LiveCopyRepository::class);
 
-        // must return a string, should return a string of length > 0
         $this->assertTrue(is_string($instance->getRaw()));
-        $this->assertTrue(strlen($instance->getRaw()) > 0);
+        $this->assertTrue(strlen($instance->getRaw()) > 0, 'Failed asserting that the raw output has a string length > 0.');
 
         $this->assertContains('OParl-Spezifikation', $instance->getRaw());
 
@@ -33,7 +29,6 @@ class SpecLiveCopyRepositoryTest extends TestCase
     {
         $instance = app()->make(LiveCopyRepository::class);
 
-        // must return a string, should return a string of length > 0
         $this->assertTrue(is_string($instance->getContent()));
         $this->assertTrue(strlen($instance->getContent()) >= 0);
 
@@ -45,7 +40,6 @@ class SpecLiveCopyRepositoryTest extends TestCase
     {
         $instance = app()->make(LiveCopyRepository::class);
 
-        // must return a string, should return a string of length > 0
         $this->assertTrue(is_string($instance->getNav()));
         $this->assertTrue(strlen($instance->getNav()) >= 0);
 
@@ -117,5 +111,23 @@ class SpecLiveCopyRepositoryTest extends TestCase
         //       to Parsedown output if the live.html version could not be
         //       generated for some reason
         //$this->assertFileExists($instance->getLiveCopyPath());
+    }
+
+    public function testGetHash()
+    {
+        $instance = app()->make(LiveCopyRepository::class);
+
+        $this->assertTrue(is_string($instance->getHash()));
+        $this->assertRegExp('/([a-z0-9]{40}|<unknown>)/', $instance->getHash());
+    }
+
+    public function testClearCache()
+    {
+        // TODO: This test requires cache facade mocking which appears not to be working as of L5.1
+    }
+
+    public function testRefresh()
+    {
+        // TODO: Not sure on how to test this
     }
 }
