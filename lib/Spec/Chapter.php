@@ -23,18 +23,16 @@ class Chapter
   public function __construct(\SplFileInfo $fileInfo)
   {
       $this->fileInfo = $fileInfo;
-      $this->raw = file_get_contents($fileInfo->getRealPath());
-  }
 
-  /**
-   * @return string
-   **/
-  public function getEnriched()
-  {
-      return view('specification.chapter', [
-          'chapter' => $this->raw,
-          'filename' => $this->fileInfo->getRealPath()
-        ])->render();
+      try
+      {
+          $contents = file_get_contents($fileInfo->getRealPath());
+      } catch (\ErrorException $e)
+      {
+          $contents = '';
+      }
+
+      $this->raw = $contents;
   }
 
   /**
