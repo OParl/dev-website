@@ -1,7 +1,5 @@
 <?php namespace OParl\Spec;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
-
 /**
  * Class Chapter
  * @package OParl\Spec
@@ -53,6 +51,6 @@ class Chapter
 
   public function __toString()
   {
-    return $this->getRaw();
+      return $this->getRaw();
   }
 }
