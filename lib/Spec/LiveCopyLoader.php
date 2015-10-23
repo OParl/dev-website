@@ -1,5 +1,6 @@
 <?php namespace OParl\Spec;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Parsedown;
 
@@ -19,9 +20,42 @@ class LiveCopyLoader
      */
     public function getRepositoryStatus()
     {
+        try
+        {
+            $hashCmd = 'git show HEAD --format="%H" | head -n1';
+
+            $cwd = getcwd();
+            chdir($this->path);
+
+            $hash = exec($hashCmd);
+            $hash = trim($hash);
+
+            chdir($cwd);
+
+        } catch (\ErrorException $e)
+        {
+            $hash = '<unknown>';
+        }
+
+        try {
+            $lastModifiedCmd = 'git show HEAD --format="%aD" | head -n1';
+
+            $cwd = getcwd();
+            chdir($this->path);
+
+            $rfc2822Date = exec($lastModifiedCmd);
+            $rfc2822Date = trim($rfc2822Date);
+
+            chdir($cwd);
+
+            $lastModified = Carbon::createFromFormat(Carbon::RFC2822, $rfc2822Date);
+        } catch (\Exception $e) {
+            $lastModified = null;//Carbon::createFromDate(1999, 1, 1);
+        }
+
         return [
-            'hash' => '',
-            'last_modified' => null
+            'hash' => $hash,
+            'last_modified' => $lastModified
         ];
     }
 

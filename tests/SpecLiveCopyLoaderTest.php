@@ -112,4 +112,45 @@ class SpecLiveCopyLoaderTest extends TestCase
         $this->assertTrue($instance->deleteRepository());
         $this->assertFileNotExists(storage_path('app/testclone'));
     }
+
+    public function testGetRepositoryInformationWithExistingRepository()
+    {
+        $fs = app(Filesystem::class);
+
+        $instance = new LiveCopyLoader($fs, storage_path('app/testclone'));
+        $instance->updateRepository();
+
+        $information = $instance->getRepositoryStatus();
+
+        $this->assertTrue(is_array($information));
+        $this->assertTrue(count($information) == 2);
+
+        $this->assertArrayHasKey('hash', $information);
+        $this->assertArrayHasKey('last_modified', $information);
+
+        $this->assertTrue(strlen($information['hash']) == 40);
+        $this->assertInstanceOf(Carbon\Carbon::class, $information['last_modified']);
+
+        // make sure to leave in a clean state!
+        $instance->deleteRepository();
+    }
+
+    public function testGetRepositoryInformationWithNonExistingRepository()
+    {
+        $fs = app(Filesystem::class);
+
+        $instance = new LiveCopyLoader($fs, storage_path('app/testclone'));
+        $instance->deleteRepository();
+
+        $information = $instance->getRepositoryStatus();
+
+        $this->assertTrue(is_array($information));
+        $this->assertTrue(count($information) == 2);
+
+        $this->assertArrayHasKey('hash', $information);
+        $this->assertArrayHasKey('last_modified', $information);
+
+        $this->assertEquals('<unknown>', $information['hash']);
+        $this->assertNull($information['last_modified']);
+    }
 }
