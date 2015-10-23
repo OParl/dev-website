@@ -1,6 +1,6 @@
 <?php namespace OParl\Spec\Jobs;
 
-use OParl\Spec\LiveCopyRepository;
+use OParl\Spec\LiveCopyLoader;
 
 class UpdateLiveCopyJob extends SpecificationJob
 {
@@ -16,8 +16,8 @@ class UpdateLiveCopyJob extends SpecificationJob
    *
    * @return void
    */
-  public function handle(LiveCopyRepository $repository)
+  public function handle(LiveCopyLoader $loader)
   {
-      $repository->refresh($this->user, $this->repo, $this->forceRefresh);
+      $loader->updateRepository($this->forceRefresh);
   }
 }

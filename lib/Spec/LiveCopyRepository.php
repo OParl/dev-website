@@ -12,24 +12,26 @@ use Symfony\Component\Finder\Finder;
  **/
 class LiveCopyRepository
 {
-    /**
-   *
+  /**
+   * @const string Livecopy storage path inside the app/storage directory
    */
   const PATH = 'livecopy';
 
-    /**
-     * @var \Illuminate\Support\Collection
-     **/
-    protected $chapters = null;
+  /**
+   * @var \Illuminate\Support\Collection
+   **/
+  protected $chapters = null;
 
   /**
    * @var string
    **/
   protected $content = '';
+
   /**
    * @var string
    **/
   protected $nav = '';
+
   /**
    * @var string
    **/
@@ -39,16 +41,19 @@ class LiveCopyRepository
    * @var CacheRepository|null
    **/
   protected $cache = null;
+
   /**
    * @var Filesystem|null
    **/
   protected $fs = null;
 
+  protected $loader = null;
+
   /**
    * @param Filesystem $fs
    * @param CacheRepository $cache
    */
-  public function __construct(Filesystem $fs, CacheRepository $cache)
+  public function __construct(Filesystem $fs, CacheRepository $cache, LiveCopyLoader $loader)
   {
       $this->fs = $fs;
       $this->cache = $cache;
@@ -193,45 +198,6 @@ class LiveCopyRepository
   }
 
   /**
-   * @param $user
-   * @param $repository
-   * @param bool|false $forceClone
-   **/
-  public function refresh($user, $repository, $forceClone = false)
-  {
-      $this->clearCache();
-
-      $path = storage_path('app/' . self::PATH);
-
-      ($forceClone || !$this->fs->exists(self::PATH))
-      ? $this->performCloneRefresh($user, $repository)
-      : $this->performPullRefresh($path);
-
-      $this->make();
-  }
-
-  /**
-   * @param $user
-   * @param $repository
-   **/
-  protected function performCloneRefresh($user, $repository)
-  {
-      $this->fs->deleteDirectory(self::PATH);
-
-      $gitURL = sprintf("https://github.com/%s/%s", $user, $repository);
-
-      $this->runInDir(storage_path('app'), "git clone --depth=1 {$gitURL} " . self::PATH);
-  }
-
-  /**
-   * @param $path
-   **/
-  protected function performPullRefresh($path)
-  {
-      $this->runInDir($path, 'git pull --rebase');
-  }
-
-  /**
    *
    */
   protected function make()
@@ -290,40 +256,6 @@ class LiveCopyRepository
   }
 
   /**
-   * Run a command (or function) in a given working dir
-   *
-   * Changes to the given dir, runs `$cmd`
-   * and returns to the previous working
-   * directory thus ensuring that commands always exit
-   * into a clean environment.
-   *
-   * NOTE: If `$cmd` is a string, it will be passed on to `exec()` AS IS.
-   *
-   * @param string $dir
-   * @param \Closure|callable|string $cmd
-   * @return string
-   **/
-  protected function runInDir($dir, $cmd)
-  {
-      $cwd = getcwd();
-
-      chdir($dir);
-
-      $res = null;
-      if (is_array($cmd)) {
-          $res = call_user_func($cmd);
-      } elseif (is_callable($cmd)) {
-          $res = $cmd();
-      } else {
-          $res = exec($cmd);
-      }
-
-      chdir($cwd);
-
-      return $res;
-  }
-
-  /**
    * @param $html string
    * @return void
    **/
@@ -372,7 +304,6 @@ class LiveCopyRepository
           $hash = '<unknown>';
         }
 
-
       $hash = trim($hash);
 
       return $hash;
@@ -404,4 +335,38 @@ class LiveCopyRepository
   {
       $this->nav = str_replace('<ul>', '<ul class="nav">', $this->nav);
   }
+
+    /**
+     * Run a command (or function) in a given working dir
+     *
+     * Changes to the given dir, runs `$cmd`
+     * and returns to the previous working
+     * directory thus ensuring that commands always exit
+     * into a clean environment.
+     *
+     * NOTE: If `$cmd` is a string, it will be passed on to `exec()` AS IS.
+     *
+     * @param string $dir
+     * @param \Closure|callable|string $cmd
+     * @return string
+     **/
+    protected function runInDir($dir, $cmd)
+    {
+        $cwd = getcwd();
+
+        chdir($dir);
+
+        $res = null;
+        if (is_array($cmd)) {
+            $res = call_user_func($cmd);
+        } elseif (is_callable($cmd)) {
+            $res = $cmd();
+        } else {
+            $res = exec($cmd);
+        }
+
+        chdir($cwd);
+
+        return $res;
+    }
 }

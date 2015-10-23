@@ -1,5 +1,6 @@
 <?php namespace OParl\Spec;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use \Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class SpecServiceProvider extends IlluminateServiceProvider
@@ -12,6 +13,12 @@ class SpecServiceProvider extends IlluminateServiceProvider
   public function register()
   {
       $this->app->bind('LiveCopyRepository', LiveCopyRepository::class, true);
+
+      $this->app->bind(LiveCopyLoader::class, function () {
+          $fs = app(Filesystem::class);
+          return new LiveCopyLoader($fs, LiveCopyRepository::PATH);
+      });
+
       $this->app->bind('SpecificationBuildRepository', BuildRepository::class, true);
 
       $this->app->singleton(
