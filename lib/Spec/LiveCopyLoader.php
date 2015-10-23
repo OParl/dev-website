@@ -19,7 +19,10 @@ class LiveCopyLoader
      */
     public function getRepositoryStatus()
     {
-        $hash =
+        return [
+            'hash' => '',
+            'last_modified' => null
+        ];
     }
 
     public function updateRepository($forceClone = false)
