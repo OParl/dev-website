@@ -1,3 +1,5 @@
+sudo: required
+dist: trusty 
 language: php
 
 php:
@@ -10,7 +12,8 @@ env:
     - QUEUE_DRIVER=sync
 
 before_script:
-  - apt-get install -qq pandoc
+  - sudo apt-get update -qq
+  - sudo apt-get install pandoc
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
   - composer dump-autoload
