@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use OParl\Spec\LiveVersionRepository;
+use Symfony\Component\Finder\Finder;
 
 class SpecificationControllerTest extends TestCase
 {
@@ -17,9 +19,6 @@ class SpecificationControllerTest extends TestCase
 
         $this->see('OParl.'); // header
         $this->matchesRegularExpression('<li role="presentation" class="active">\w*<a href="http://localhost/spezifikation">\w*Spezifikation\w*</a>\w*</li>'); // menu
-
-        // NOTE: not testing for the loaded livecopy contents since that requires pandoc
-        //       in the testing environment
     }
 
     public function testRaw()
@@ -27,5 +26,32 @@ class SpecificationControllerTest extends TestCase
         $request = $this->call('GET', '/spezifikation.md');
 
         $this->assertEquals(200, $request->status());
+        $this->assertContains('% OParl-Spezifikation', $request->getContent());
+    }
+
+    public function testImageNoDirectoryIndex()
+    {
+        $request = $this->call('GET', '/spezifikation/images/');
+
+        $this->assertEquals(404, $request->status());
+    }
+
+    public function testImageGet()
+    {
+        // first, get all images
+        $images = Finder::create()->in(LiveVersionRepository::getImagesPath())->name('*.png');
+
+        // FIXME: Somehow, these files are reporting not found eventhough they are at the given paths
+
+//        foreach ($images as $image)
+//        {
+//            /* @var $image \SplFileInfo */
+//            $url = "/spezifikation/images/{$image->getBasename()}";
+//            dd($url);
+//            $request = $this->call('GET', $url);
+//
+//            $this->assertEquals(200, $request->status());
+//            $this->assertContains('image/', $request->headers['Content-type']);
+//        }
     }
 }
