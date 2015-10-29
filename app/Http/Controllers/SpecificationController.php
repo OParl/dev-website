@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\LiveCopyRepository;
+use OParl\Spec\LiveVersionRepository;
 
 class SpecificationController extends Controller
 {
@@ -10,19 +10,24 @@ class SpecificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveCopyRepository $livecopy)
+    public function index(LiveVersionRepository $livecopy)
     {
         $title = 'Spezifikation';
 
         return view('specification.index', compact('livecopy', 'title'));
     }
 
-    public function image(Filesystem $fs, $image)
+    public function imageIndex()
     {
-        return $fs->get(LiveCopyRepository::getImagesPath().$image);
+        abort(404);
     }
 
-    public function raw(LiveCopyRepository $livecopy)
+    public function image(Filesystem $fs, $image)
+    {
+        return $fs->get(LiveVersionRepository::getImagesPath().$image);
+    }
+
+    public function raw(LiveVersionRepository $livecopy)
     {
         return response($livecopy->getRaw(), 200, ['Content-type' => 'text/plain']);
     }

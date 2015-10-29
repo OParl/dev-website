@@ -5,15 +5,15 @@ use Illuminate\Contracts\View\View;
 class Header
 {
     protected $sections = [
-//      [
-//        'routeKey' => 'news',
-//        'title' => 'Aktuelles'
-//      ],
-//
-//      [
-//        'routeKey' => 'about',
-//        'title' => 'Über OParl'
-//      ],
+      [
+        'routeKey' => 'news',
+        'title' => 'Aktuelles'
+      ],
+
+      [
+        'routeKey' => 'about',
+        'title' => 'Über OParl'
+      ],
 
       [
         'routeKey' => 'specification',
@@ -30,20 +30,20 @@ class Header
 //        'url' => 'http://demoserver.oparl.org/'
 //      ],
 
-//      [
-//        'routeKey' => 'status',
-//        'title' => 'Status'
-//      ],
+      [
+        'routeKey' => 'status',
+        'title' => 'Status'
+      ],
 
-//      [
-//        'routeKey' => 'newsletter',
-//        'title' => 'Newsletter'
-//      ],
-//
-//      [
-//        'routeKey' => 'imprint',
-//        'title' => 'Impressum'
-//      ],
+      [
+        'routeKey' => 'newsletter',
+        'title' => 'Newsletter'
+      ],
+
+      [
+        'routeKey' => 'imprint',
+        'title' => 'Impressum'
+      ],
     ];
 
     protected function getSections()

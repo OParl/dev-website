@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Jobs\UpdateAvailableSpecificationVersionsJob;
 use OParl\Spec\Jobs\UpdateLiveCopyJob;
-use OParl\Spec\LiveCopyRepository;
+use OParl\Spec\LiveVersionRepository;
 use OParl\Spec\Model\SpecificationBuild;
 
 class SpecificationController extends Controller
 {
-    public function index(LiveCopyRepository $liveCopyRepository, BuildRepository $buildRepository)
+    public function index(LiveVersionRepository $liveCopyRepository, BuildRepository $buildRepository)
     {
         $data = [
       'lastModified' => [

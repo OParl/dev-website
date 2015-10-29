@@ -17,10 +17,7 @@ Route::pattern('month', '\d{2}');
 Route::pattern('day', '\d{2}');
 Route::pattern('slug', '[[:print:]]+');
 
-Route::get('/', ['uses' => function () { return redirect('/spezifikation'); }, 'as' => 'news.index']);
-
-// FIXME: reactivate when news are being used
-//Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
+Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
 
 // About
 Route::get('/ueber-oparl', ['uses' => 'StaticPagesController@about', 'as' => 'about.index']);
@@ -28,6 +25,7 @@ Route::get('/ueber-oparl', ['uses' => 'StaticPagesController@about', 'as' => 'ab
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
 Route::get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
+Route::get('/spezifikation/images/', ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
 Route::get('/spezifikation/images/{image}', [
   'uses' => 'SpecificationController@image',
   'as' => 'specification.image'
@@ -41,7 +39,10 @@ Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downlo
 Route::get('/downloads/latest.{downloadsExtension}', [
   'uses' => 'DownloadsController@latest',
   'as' => 'downloads.latest'
-
+]);
+Route::get('/spezifikation.{downloadsExtension}', [
+  'uses' => 'DownloadsController@latest',
+  'as'   => 'spezifikation.download'
 ]);
 Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
   'uses' => 'DownloadsController@getFile',
@@ -55,6 +56,9 @@ Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status
 
 // Imprint
 Route::get('/impressum', ['uses' => 'StaticPagesController@imprint', 'as' => 'imprint.index']);
+
+// Newsletter
+Route::get('/newsletter', ['uses' => 'NewsletterController@index', 'as' => 'newsletter.index']);
 
 // Admin Login
 Route::get('/admin/login', ['uses' => 'Auth\AuthController@getLogin', 'as' => 'admin.login']);
