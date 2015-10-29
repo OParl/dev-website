@@ -10,6 +10,7 @@ env:
     - QUEUE_DRIVER=sync
 
 before_script:
+  - apt-get install -qq pandoc
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
   - composer dump-autoload
