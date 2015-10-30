@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\LiveVersionRepository;
+use Mockery\Mock;
 use OParl\Spec\LiveVersionUpdater;
 
 class SpecLiveVersionUpdaterTest extends TestCase
@@ -88,12 +88,16 @@ class SpecLiveVersionUpdaterTest extends TestCase
     public function testCloneRepositoryShouldMakeLive()
     {
         $fs = app(Filesystem::class);
+
         $instance = $this->getMock(LiveVersionUpdater::class, ['makeLiveVersion'], [$fs, 'makelive']);
         $instance->expects($this->once())->method('makeLiveVersion');
 
-        $instance->cloneRepository();
+        /* @var $instance LiveVersionUpdater */
+        if ($instance->repositoryExists()) {
+            $instance->deleteRepository();
+        }
 
-        $instance->deleteRepository();
+        $instance->cloneRepository();
     }
 
     /**
