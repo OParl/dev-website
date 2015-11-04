@@ -1,5 +1,7 @@
 sudo: required
-dist: trusty
+# TODO: get that on trusty asap (this depends on travis supporting PHP on trusty)
+# dist: trusty
+
 language: php
 
 php:
@@ -12,8 +14,10 @@ env:
   global:
     - QUEUE_DRIVER=sync
 
-before_script:
+install:
   - sudo apt-get install -y pandoc
+
+before_script:
   - composer install --prefer-source --no-interaction
   - touch storage/database.sqlite
   - php artisan setup --env=local
