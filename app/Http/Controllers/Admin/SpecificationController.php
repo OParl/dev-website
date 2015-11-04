@@ -15,12 +15,12 @@ class SpecificationController extends Controller
     public function index(LiveVersionRepository $liveCopyRepository, BuildRepository $buildRepository)
     {
         $data = [
-      'lastModified' => [
-        'livecopy' => $liveCopyRepository->getLastModified(),
-        'builds' => $buildRepository->getLastModified(),
-      ],
-      'builds' => SpecificationBuild::orderBy('created_at', 'desc')->paginate(15)
-    ];
+            'lastModified' => [
+                'livecopy' => $liveCopyRepository->getLastModified(),
+                'builds' => $buildRepository->getLastModified(),
+            ],
+            'builds' => SpecificationBuild::orderBy('created_at', 'desc')->paginate(15)
+        ];
 
         return view('admin.specification.index', $data);
     }
@@ -30,56 +30,42 @@ class SpecificationController extends Controller
         $message = 'Das %supdate wurde erfolgreich gestartet.';
 
         switch ($what) {
-      case 'livecopy':
-        $this->dispatch(new UpdateLiveCopyJob());
-        $message = sprintf($message, 'Livekopie-Pull');
-        break;
+            case 'livecopy':
+                $this->dispatch(new UpdateLiveCopyJob());
+                $message = sprintf($message, 'Livekopie-Pull');
+                break;
 
-      case 'livecopy-force':
-        $this->dispatch(new UpdateLiveCopyJob(true));
-        $message = sprintf($message, 'Livekopie-Clone');
-        break;
+            case 'livecopy-force':
+                $this->dispatch(new UpdateLiveCopyJob(true));
+                $message = sprintf($message, 'Livekopie-Clone');
+                break;
 
-      case 'versions':
-        $this->dispatch(new UpdateAvailableSpecificationVersionsJob);
-        $message = sprintf($message, 'Versionslisten');
-        break;
+            case 'versions':
+                $this->dispatch(new UpdateAvailableSpecificationVersionsJob);
+                $message = sprintf($message, 'Versionslisten');
+                break;
 
-      default:
-        $message = "Es existiert keine Updatemethode für {$what}.";
-        break;
-    }
+            default:
+                $message = "Es existiert keine Updatemethode für {$what}.";
+                break;
+        }
 
         return redirect()->route('admin.specification.index')->with('info', $message);
     }
 
-    public function clean($what, BuildRepository $buildRepository)
+    public function clean($what)
     {
-        $message = 'Die Bereinigung wurde erfolgreich gestartet.';
+        $message = "{$what} wurde ausgewählt.";
 
-    /*
-    switch ($what)
-    {
-      case 'all':
-      case 'extraneous':
-        $this->dispatch(new CleanVersions($what));
-        break;
+        // FIXME: Implement this using the new jobs
 
-      default:
-        $message = "Es existiert keine Reinigungsmethode für {$what}.";
-        break;
-    }
-    */
-
-    // FIXME: Implement this using the new jobs
-
-    return redirect()->route('admin.specification.index')->with('info', $message);
+        return redirect()->route('admin.specification.index')->with('info', $message);
     }
 
     public function delete(Filesystem $fs, $hash)
     {
         // TODO: implement deleting a single version
-    $message = 'Die Löschung wurde erfolgreich durchgeführt.';
+        $message = 'Die Löschung wurde erfolgreich durchgeführt.';
 
         return redirect()->route('admin.specification.index')->with('info', $message);
     }
@@ -112,7 +98,7 @@ class SpecificationController extends Controller
     public function save(SaveSpecificationBuildRequest $request, $id)
     {
         /* @var $build SpecificationBuild */
-    $build = SpecificationBuild::find($id);
+        $build = SpecificationBuild::find($id);
 
         $build->update($request->except('_token', 'id'));
         $build->save();
