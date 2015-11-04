@@ -11,8 +11,12 @@ engines:
         enabled: false
       CleanCode/StaticAccess:
         enabled: false
+      Naming/ShortVariable:
+        enabled: false
       Naming/LongVariable:
         maximum: 30
+      Naming/ShortMethodName:
+        excluded: up
   fixme:
     enabled: true
 ratings:
