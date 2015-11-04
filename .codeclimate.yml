@@ -6,6 +6,13 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    checks:
+      Controversial/Superglobals:
+        enabled: false
+      CleanCode/StaticAccess:
+        enabled: false
+      Naming/LongVariable:
+        maximum: 30
   fixme:
     enabled: true
 ratings:
