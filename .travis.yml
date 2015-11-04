@@ -11,6 +11,7 @@ php:
   - hhvm
 
 matrix:
+  fast_finish: true
   allow_failures:
     - php: '7.0'
     - php: hhvm
@@ -24,7 +25,7 @@ install:
   - sudo dpkg -i pandoc-1.15.1-1-amd64.deb
 
 before_script:
-  - composer install --prefer-source --no-interaction
+  - composer install --prefer-source --no-interaction --no-scripts
   - touch storage/database.sqlite
   - php artisan setup --env=local
 
