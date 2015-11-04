@@ -54,7 +54,7 @@ class LiveVersionUpdater
     {
         $config = config('services.repositories.spec');
 
-        if (app()->environment('testing')) {
+        if (env('APP_ENV') === 'testing') {
             $gitURL = base_path('tests/assets/spec.git');
         } else {
             $gitURL = sprintf('https://github.com/%s/%s.git', $config['user'], $config['repository']);
