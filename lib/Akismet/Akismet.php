@@ -7,9 +7,9 @@ class Akismet
     const API_VERSION = '1.1';
 
     const SPAM = true;
-    const HAM  = false;
+    const HAM = false;
 
-    protected $key      = '';
+    protected $key = '';
     protected $homepage = '';
 
     protected $verified = false;
@@ -22,43 +22,43 @@ class Akismet
 
     public function __construct($key, $homepage, $debug = false)
     {
-        $this->key      = $key;
+        $this->key = $key;
         $this->homepage = $homepage;
-        $this->debug    = $debug;
+        $this->debug = $debug;
 
-        $this->client = new Client(['base_url' => "https://{$key}.rest.akismet.com/".Akismet::API_VERSION."/"]);
+        $this->client = new Client(['base_url' => "https://{$key}.rest.akismet.com/" . Akismet::API_VERSION . "/"]);
     }
 
-  /**
-   * Check a comment for ham or spam.
-   *
-   * This method automatically sets the blog url, user ip, user agent, referrer and character set.
-   * It is however possible to override any of the allowed fields.
-   *
-   * Additionally, requests will be send in debug mode if the object was initialized with debug=true.
-   *
-   * @param array $data
-   **/
-  public function checkComment(array $data)
-  {
-      // reset pro tip
-    $this->proTip = '';
+    /**
+     * Check a comment for ham or spam.
+     *
+     * This method automatically sets the blog url, user ip, user agent, referrer and character set.
+     * It is however possible to override any of the allowed fields.
+     *
+     * Additionally, requests will be send in debug mode if the object was initialized with debug=true.
+     *
+     * @param array $data
+     **/
+    public function checkComment(array $data)
+    {
+        // reset pro tip
+        $this->proTip = '';
 
-      $this->verifyKey();
+        $this->verifyKey();
 
-      $data = $this->prepareData($data);
+        $data = $this->prepareData($data);
 
-    /* @var \Guzzle\Http\Message\Response $response */
-    $response = $this->client->post('comment-check', ['body' => $data]);
+        /* @var \Guzzle\Http\Message\Response $response */
+        $response = $this->client->post('comment-check', ['body' => $data]);
 
-      $success = ((String)$response->getBody() == 'true') ? Akismet::SPAM : Akismet::HAM;
+        $success = ((String)$response->getBody() == 'true') ? Akismet::SPAM : Akismet::HAM;
 
-      if ($response->hasHeader('X-akismet-pro-tip')) {
-          $this->proTip = $response->getHeader('X-akismet-pro-tip');
-      }
+        if ($response->hasHeader('X-akismet-pro-tip')) {
+            $this->proTip = $response->getHeader('X-akismet-pro-tip');
+        }
 
-      return $success;
-  }
+        return $success;
+    }
 
     public function submitSpam($data)
     {
@@ -83,12 +83,12 @@ class Akismet
     protected function verifyKey()
     {
         if (!$this->verified) {
-            $response = $this->client->post('https://rest.akismet.com/'.Akismet::API_VERSION.'/verify-key', [
-        'body' => [
-          'key' => $this->key,
-          'blog' => $this->homepage
-        ]
-      ]);
+            $response = $this->client->post('https://rest.akismet.com/' . Akismet::API_VERSION . '/verify-key', [
+                'body' => [
+                    'key' => $this->key,
+                    'blog' => $this->homepage
+                ]
+            ]);
 
             if (intval($response->getHeader('content-length')) !== 5) {
                 throw new \RuntimeException("Invalid Akismet API key!");
@@ -111,57 +111,13 @@ class Akismet
 
     protected function prepareData(array $data)
     {
-        $allowedDataFields = [
-      'blog',
-      'user_ip',
-      'user_agent',
-      'referrer',
-      'permalink',
-      'comment_type',
-      'comment_author',
-      'comment_author_email',
-      'comment_author_url',
-      'comment_content',
-      'comment_date_gmt',
-      'comment_post_modified_gmt',
-      'blog_lang',
-      'blog_charset',
-      'user_role',
-      'is_test',
-    ];
+        // check for a valid keyset
+        $this->validateInput($data);
 
-    // check for a valid keyset
+        // set some default keys
+        list($ip, $useragent, $referrer) = $this->setDefaults();
 
-    foreach (array_keys($data) as $key) {
-        if (!in_array($key, $allowedDataFields)) {
-            throw new \RuntimeException("Invalid data key " . $key);
-        }
-    }
-
-    // set some default keys
-
-    $ip = (isset($_SERVER['REMOTE_ADDR'])) ?     $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
-        $ua = (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : '';
-        $rf = (isset($_SERVER['HTTP_REFERER'])) ?    $_SERVER['HTTP_REFERER'] : '';
-
-        if (!isset($data['blog'])) {
-            $data['blog'] = $this->homepage;
-        }
-        if (!isset($data['user_ip'])) {
-            $data['user_ip'] = $ip;
-        }
-        if (!isset($data['user_agent'])) {
-            $data['user_agent'] = $ua;
-        }
-        if (!isset($data['referrer'])) {
-            $data['referrer'] = $rf;
-        }
-        if (!isset($data['comment_type'])) {
-            $data['comment_type'] = 'comment';
-        }
-        if (!isset($data['blog_charset'])) {
-            $data['blog_charset'] = 'utf-8';
-        }
+        $data = $this->setCommonData($data, $ip, $useragent, $referrer);
 
         if ($this->debug) {
             $data['is_test'] = true;
@@ -170,6 +126,91 @@ class Akismet
             return $data;
         }
 
+        return $data;
+    }
+
+    /**
+     * @return array
+     **/
+    protected function getAllowedFields()
+    {
+        $allowedDataFields = [
+            'blog',
+            'user_ip',
+            'user_agent',
+            'referrer',
+            'permalink',
+            'comment_type',
+            'comment_author',
+            'comment_author_email',
+            'comment_author_url',
+            'comment_content',
+            'comment_date_gmt',
+            'comment_post_modified_gmt',
+            'blog_lang',
+            'blog_charset',
+            'user_role',
+            'is_test',
+        ];
+        return $allowedDataFields;
+    }
+
+    /**
+     * @param array $data
+     **/
+    protected function validateInput(array $data)
+    {
+        foreach (array_keys($data) as $key) {
+            if (!in_array($key, $this->getAllowedFields())) {
+                throw new \RuntimeException("Invalid data key " . $key);
+            }
+        }
+    }
+
+    /**
+     * @return array
+     **/
+    protected function setDefaults()
+    {
+        $ip = (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+        $ua = (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        $rf = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
+        return array($ip, $ua, $rf);
+    }
+
+    /**
+     * @param array $data
+     * @param $ip
+     * @param $ua
+     * @param $rf
+     * @return array
+     **/
+    protected function setCommonData(array $data, $ip, $ua, $rf)
+    {
+        if (!isset($data['blog'])) {
+            $data['blog'] = $this->homepage;
+        }
+
+        if (!isset($data['user_ip'])) {
+            $data['user_ip'] = $ip;
+        }
+
+        if (!isset($data['user_agent'])) {
+            $data['user_agent'] = $ua;
+        }
+
+        if (!isset($data['referrer'])) {
+            $data['referrer'] = $rf;
+        }
+
+        if (!isset($data['comment_type'])) {
+            $data['comment_type'] = 'comment';
+        }
+
+        if (!isset($data['blog_charset'])) {
+            $data['blog_charset'] = 'utf-8';
+            return $data;
+        }
         return $data;
     }
 }
