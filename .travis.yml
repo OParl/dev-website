@@ -11,9 +11,9 @@ env:
     - QUEUE_DRIVER=sync
 
 before_script:
-  composer install --prefer-source --no-interaction
-  touch storage/database.sqlite
-  php artisan setup --env=local
+  - composer install --prefer-source --no-interaction
+  - touch storage/database.sqlite
+  - php artisan setup --env=local
 
 #sudo: required
 #language: php
