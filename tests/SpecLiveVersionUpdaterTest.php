@@ -225,5 +225,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
 
         $this->assertEquals(-1, $instance->makeLiveVersion(true));
         $this->assertEquals($lastModified, filemtime(storage_path('app/testclone/out/live.html')));
+
+        $instance->deleteRepository();
     }
 }
