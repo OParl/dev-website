@@ -1,9 +1,9 @@
-sudo: required
 language: php
 
 php:
   - 5.5
   - 5.6
+  - '7.0'
   - hhvm
 
 env:
@@ -11,15 +11,32 @@ env:
     - QUEUE_DRIVER=sync
 
 before_script:
-  - sudo apt-get update -qq
-  - sudo apt-get install cabal-install
-  - cabal update
-  - cabal install pandoc
-  - export PATH=~/.cabal/bin:$PATH
-  - composer self-update
-  - composer install --prefer-source --no-interaction
-  - composer dump-autoload
-  - touch storage/database.sqlite
-  - php artisan setup --env=local
+  composer install --prefer-source --no-interaction
+  touch storage/database.sqlite
+  php artisan setup --env=local
 
-script: vendor/bin/phpunit
+#sudo: required
+#language: php
+#
+#php:
+#  - 5.5
+#  - 5.6
+#  - hhvm
+#
+#env:
+#  global:
+#    - QUEUE_DRIVER=sync
+#
+#before_script:
+#  - sudo apt-get update -qq
+#  - sudo apt-get install cabal-install
+#  - cabal update
+#  - cabal install pandoc
+#  - export PATH=~/.cabal/bin:$PATH
+#  - composer self-update
+#  - composer install --prefer-source --no-interaction
+#  - composer dump-autoload
+#  - touch storage/database.sqlite
+#  - php artisan setup --env=local
+#
+#script: vendor/bin/phpunit
