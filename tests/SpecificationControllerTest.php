@@ -26,7 +26,7 @@ class SpecificationControllerTest extends TestCase
         $request = $this->call('GET', '/spezifikation.md');
 
         $this->assertEquals(200, $request->status());
-        $this->assertContains('% OParl-Spezifikation', $request->getContent());
+        $this->assertContains('OParl-Spezifikation', $request->getContent());
     }
 
     public function testImageNoDirectoryIndex()
