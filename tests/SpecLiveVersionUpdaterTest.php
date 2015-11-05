@@ -11,7 +11,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         parent::setUp();
 
-        $this->gitURL = base_path('tests/assets/spec.git');
+        $this->gitURL = 'file://' . base_path('tests/assets/spec.git');
     }
 
     /**
