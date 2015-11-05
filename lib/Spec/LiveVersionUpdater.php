@@ -5,10 +5,11 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 
 class LiveVersionUpdater
 {
+    protected $gitURL = '';
     protected $path = '';
     protected $fs = null;
 
-    public function __construct(Filesystem $fs, $path)
+    public function __construct(Filesystem $fs, $path, $gitURL)
     {
         // make path absolute by assuming it was relative to storage_path('app');
         if (!starts_with($path, DIRECTORY_SEPARATOR)) {
@@ -16,7 +17,9 @@ class LiveVersionUpdater
         }
 
         $this->fs = $fs;
+
         $this->path = $path;
+        $this->gitURL = $gitURL;
     }
 
     /**
@@ -52,15 +55,7 @@ class LiveVersionUpdater
      **/
     public function cloneRepository($dryRun = false)
     {
-        $config = config('services.repositories.spec');
-
-        if (env('APP_ENV') === 'testing') {
-            $gitURL = base_path('tests/assets/spec.git');
-        } else {
-            $gitURL = sprintf('https://github.com/%s/%s.git', $config['user'], $config['repository']);
-        }
-
-        $gitCommand = sprintf('git clone --depth=1 %s %s 2>/dev/null', $gitURL, $this->path);
+        $gitCommand = sprintf('git clone --depth=1 %s %s 2>/dev/null', $this->gitURL, $this->path);
 
         $retVal = -1;
 

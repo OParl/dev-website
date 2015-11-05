@@ -1,11 +1,19 @@
 <?php
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Mockery\Mock;
 use OParl\Spec\LiveVersionUpdater;
 
 class SpecLiveVersionUpdaterTest extends TestCase
 {
+    protected $gitURL = '';
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->gitURL = base_path('tests/assets/spec.git');
+    }
+
     /**
      * A basic test example.
      *
@@ -15,7 +23,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = $this->getMock(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, '');
+        $instance = new LiveVersionUpdater($fs, '', $this->gitURL);
 
         $this->assertInstanceOf(LiveVersionUpdater::class, $instance);
     }
@@ -23,7 +31,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     public function testRepositoryExistsWithExistingPath()
     {
         $fs = app(Filesystem::class);
-        $instance = new LiveVersionUpdater($fs, __DIR__);
+        $instance = new LiveVersionUpdater($fs, __DIR__, $this->gitURL);
 
         $this->assertTrue($instance->repositoryExists());
     }
@@ -31,7 +39,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     public function testRepositoryExistsWithNonexistingPath()
     {
         $fs = app(Filesystem::class);
-        $instance = new LiveVersionUpdater($fs, '__DIR__');
+        $instance = new LiveVersionUpdater($fs, '__DIR__', $this->gitURL);
 
         $this->assertFalse($instance->repositoryExists());
     }
@@ -40,7 +48,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = $this->getMock(LiveVersionUpdater::class, ['rebaseRepository'], [$fs, __DIR__]);
+        $instance = $this->getMock(LiveVersionUpdater::class, ['rebaseRepository'], [$fs, __DIR__, $this->gitURL]);
         $instance->expects($this->once())->method('rebaseRepository');
 
         $instance->updateRepository();
@@ -50,7 +58,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = $this->getMock(LiveVersionUpdater::class, ['cloneRepository'], [$fs, '__DIR__']);
+        $instance = $this->getMock(LiveVersionUpdater::class, ['cloneRepository'], [$fs, '__DIR__', $this->gitURL]);
         $instance->expects($this->once())->method('cloneRepository');
 
         $instance->updateRepository();
@@ -60,7 +68,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = $this->getMock(LiveVersionUpdater::class, ['cloneRepository'], [$fs, __DIR__]);
+        $instance = $this->getMock(LiveVersionUpdater::class, ['cloneRepository'], [$fs, __DIR__, $this->gitURL]);
         $instance->expects($this->once())->method('cloneRepository');
 
         $instance->updateRepository(true);
@@ -69,7 +77,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     public function testCloneRepositoryDryRun()
     {
         $fs = app(Filesystem::class);
-        $instance = new LiveVersionUpdater($fs, '__DIR__');
+        $instance = new LiveVersionUpdater($fs, '__DIR__', $this->gitURL);
 
         $this->assertEquals(-1, $instance->cloneRepository(true));
         $this->assertFileNotExists(storage_path('app/__DIR__'));
@@ -78,7 +86,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     public function testCloneRepositoryShouldClone()
     {
         $fs = app(Filesystem::class);
-        $instance = new LiveVersionUpdater($fs, 'testclone');
+        $instance = new LiveVersionUpdater($fs, 'testclone', $this->gitURL);
 
         $this->assertEquals(0, $instance->cloneRepository());
         $this->assertFileExists(storage_path('app/testclone'));
@@ -89,7 +97,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = $this->getMock(LiveVersionUpdater::class, ['makeLiveVersion'], [$fs, 'makelive']);
+        $instance = $this->getMock(LiveVersionUpdater::class, ['makeLiveVersion'], [$fs, 'makelive', $this->gitURL]);
         $instance->expects($this->once())->method('makeLiveVersion');
 
         /* @var $instance LiveVersionUpdater */
@@ -106,7 +114,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     public function testRebaseRepositoryDefaultWithExistingDir()
     {
         $fs = app(Filesystem::class);
-        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'));
+        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
 
         $this->assertEquals(0, $instance->rebaseRepository());
     }
@@ -118,7 +126,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'));
+        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
 
         if (!$instance->repositoryExists())
         {
@@ -133,7 +141,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'));
+        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
         $instance->updateRepository();
 
         $information = $instance->getRepositoryStatus();
@@ -155,7 +163,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'));
+        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
         $instance->deleteRepository();
 
         $information = $instance->getRepositoryStatus();
@@ -174,7 +182,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'));
+        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
         if (!$instance->repositoryExists())
         {
             $instance->updateRepository();
@@ -190,7 +198,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'));
+        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
         if (!$instance->repositoryExists())
         {
             $instance->updateRepository();
@@ -204,7 +212,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, '__DIR__');
+        $instance = new LiveVersionUpdater($fs, '__DIR__', $this->gitURL);
         $this->assertEquals(-2, $instance->makeLiveVersion());
         $this->assertFileNotExists(storage_path('app/__DIR__/out/live.html'));
     }
@@ -213,7 +221,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         $fs = app(Filesystem::class);
 
-        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'));
+        $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
         if (!$instance->repositoryExists())
         {
             $instance->updateRepository();

@@ -18,7 +18,11 @@ class SpecServiceProvider extends IlluminateServiceProvider
 
       $this->app->bind(LiveVersionUpdater::class, function () {
           $fs = app(Filesystem::class);
-          return new LiveVersionUpdater($fs, LiveVersionRepository::PATH);
+
+          $config = config('services.repositories.spec');
+          $gitURL = sprintf('https://github.com/%s/%s.git', $config['user'], $config['repository']);
+
+          return new LiveVersionUpdater($fs, LiveVersionRepository::PATH, $gitURL);
       });
 
       $this->app->bind(LiveVersionBuilder::class, function() {
