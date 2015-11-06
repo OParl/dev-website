@@ -9,7 +9,7 @@ if (!file_exists('tests/assets')) {
 }
 
 if (!file_exists('tests/assets/spec.git')) {
-    exec('git clone --depth 10 --bare https://github.com/OParl/spec.git tests/assets/spec.git');
+    exec('git clone --bare https://github.com/OParl/spec.git tests/assets/spec.git');
 }
 
 if (!file_exists('storage/app/live_version')) {
