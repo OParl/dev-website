@@ -8,17 +8,6 @@ use OParl\Spec\LiveVersionUpdater;
 
 class SpecLiveVersionBuilderTest extends TestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-
-        // make sure that the repository exists
-
-        /* @var $updater LiveVersionUpdater */
-        $updater = app(LiveVersionUpdater::class);
-        $updater->updateRepository();
-    }
-
     public function testCreate()
     {
         $fs = app(Filesystem::class);
