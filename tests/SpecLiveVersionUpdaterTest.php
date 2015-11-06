@@ -10,8 +10,8 @@ class SpecLiveVersionUpdaterTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        $this->gitURL = 'file://' . base_path('tests/assets/spec.git');
+        
+        $this->gitURL = 'https://github.com/OParl/spec.git';
     }
 
     /**
