@@ -9,3 +9,6 @@
 storage/github
 storage/database.sqlite
 .php_cs.cache
+
+tests/assets/spec.git
+
