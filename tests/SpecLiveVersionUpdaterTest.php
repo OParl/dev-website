@@ -106,6 +106,8 @@ class SpecLiveVersionUpdaterTest extends TestCase
         }
 
         $instance->cloneRepository();
+
+        $instance->deleteRepository();
     }
 
     /**
