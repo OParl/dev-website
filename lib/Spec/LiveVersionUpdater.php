@@ -55,7 +55,7 @@ class LiveVersionUpdater
      **/
     public function cloneRepository($dryRun = false)
     {
-        $gitCommand = sprintf('git clone --depth=1 %s %s 2>/dev/null', $this->gitURL, $this->path);
+        $gitCommand = sprintf('git clone -q --depth=1 %s %s', $this->gitURL, $this->path);
 
         $retVal = -1;
 
@@ -79,7 +79,7 @@ class LiveVersionUpdater
      **/
     public function rebaseRepository($dryRun = false)
     {
-        $gitCommand = sprintf('git pull --rebase origin master 2>/dev/null');
+        $gitCommand = sprintf('git pull -q --rebase origin master');
 
         if (!$this->repositoryExists())
         {
