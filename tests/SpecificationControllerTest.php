@@ -43,15 +43,14 @@ class SpecificationControllerTest extends TestCase
 
         // FIXME: Somehow, these files are reporting not found eventhough they are at the given paths
 
-//        foreach ($images as $image)
-//        {
-//            /* @var $image \SplFileInfo */
-//            $url = "/spezifikation/images/{$image->getBasename()}";
-//            dd($url);
-//            $request = $this->call('GET', $url);
-//
-//            $this->assertEquals(200, $request->status());
-//            $this->assertContains('image/', $request->headers['Content-type']);
-//        }
+        foreach ($images as $image)
+        {
+            /* @var $image \SplFileInfo */
+            $url = "/spezifikation/images/{$image->getBasename()}";
+            $request = $this->call('GET', $url);
+
+            $this->assertEquals(200, $request->status());
+            $this->assertContains('image/', $request->headers['Content-type']);
+        }
     }
 }
