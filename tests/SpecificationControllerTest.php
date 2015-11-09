@@ -50,7 +50,6 @@ class SpecificationControllerTest extends TestCase
             $request = $this->call('GET', $url);
 
             $this->assertEquals(200, $request->status());
-            $this->assertContains('image/', $request->headers['Content-type']);
         }
     }
 }
