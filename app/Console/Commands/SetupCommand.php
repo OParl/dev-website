@@ -18,7 +18,7 @@ class SetupCommand extends Command
 
         $this->call('migrate');
 
-        $this->call('specification:livecopy', ['--force']);
+        $this->call('specification:live', ['--force']);
         $this->call('specification:update');
 
         $this->call('optimize');
