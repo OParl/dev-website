@@ -6,7 +6,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Jobs\UpdateAvailableSpecificationVersionsJob;
-use OParl\Spec\Jobs\UpdateLiveCopyJob;
+use OParl\Spec\Jobs\UpdateLiveVersionJob;
 use OParl\Spec\LiveVersionRepository;
 use OParl\Spec\Model\SpecificationBuild;
 
@@ -31,12 +31,12 @@ class SpecificationController extends Controller
 
         switch ($what) {
             case 'livecopy':
-                $this->dispatch(new UpdateLiveCopyJob());
+                $this->dispatch(new UpdateLiveVersionJob());
                 $message = sprintf($message, 'Livekopie-Pull');
                 break;
 
             case 'livecopy-force':
-                $this->dispatch(new UpdateLiveCopyJob(true));
+                $this->dispatch(new UpdateLiveVersionJob(true));
                 $message = sprintf($message, 'Livekopie-Clone');
                 break;
 
