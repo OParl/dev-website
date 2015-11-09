@@ -1,7 +1,7 @@
 <?php namespace OParl\Spec;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use \Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class SpecServiceProvider extends IlluminateServiceProvider
 {

@@ -24,7 +24,8 @@ class SpecificationController extends Controller
 
     public function image(Filesystem $fs, $image)
     {
-        return $fs->get(LiveVersionRepository::getImagesPath() . $image);
+        //return $fs->get(LiveVersionRepository::getImagesPath() . $image);
+        return file_get_contents(LiveVersionRepository::getImagesPath() . $image);
     }
 
     public function raw(LiveVersionRepository $livecopy)
