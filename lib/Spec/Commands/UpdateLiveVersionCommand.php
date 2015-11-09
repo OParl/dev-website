@@ -1,15 +1,15 @@
 <?php namespace OParl\Spec\Commands;
 
-use OParl\Spec\Jobs\UpdateLiveCopyJob;
+use OParl\Spec\Jobs\UpdateLiveVersionJob;
 
-class UpdateLiveCopyCommand extends SpecificationCommand
+class UpdateLiveVersionCommand extends SpecificationCommand
 {
     /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'specification:livecopy {--force}';
+  protected $signature = 'specification:live {--force}';
 
   /**
    * The console command description.
@@ -25,8 +25,8 @@ class UpdateLiveCopyCommand extends SpecificationCommand
    */
   public function handle()
   {
-      $this->printCommandInfo('live copy update');
+      $this->printCommandInfo('live version update');
 
-      $this->dispatch(new UpdateLiveCopyJob($this->option('force')));
+      $this->dispatch(new UpdateLiveVersionJob($this->option('force')));
   }
 }

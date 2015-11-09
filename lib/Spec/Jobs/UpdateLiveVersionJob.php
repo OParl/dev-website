@@ -2,7 +2,7 @@
 
 use OParl\Spec\LiveVersionUpdater;
 
-class UpdateLiveCopyJob extends SpecificationJob
+class UpdateLiveVersionJob extends SpecificationJob
 {
     protected $forceRefresh = false;
 
@@ -16,8 +16,8 @@ class UpdateLiveCopyJob extends SpecificationJob
    *
    * @return void
    */
-  public function handle(LiveVersionUpdater $loader)
+  public function handle(LiveVersionUpdater $updater)
   {
-      $loader->updateRepository($this->forceRefresh);
+      $updater->updateRepository($this->forceRefresh);
   }
 }
