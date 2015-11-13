@@ -24,8 +24,13 @@ class NewsArchive
 
         try
         {
-            $year = Carbon::createFromFormat('Y-m-d H:i:s', Post::published()->min('published_at'))->year;
-        } catch (\ErrorException $e) {
+            $year = app('cache')->remember('news.archive.starting_year', 300, function () {
+                $oldest = Post::published()->min('published_at');
+                $year = Carbon::createFromFormat('Y-m-d H:i:s', $oldest)->year;
+
+                return $year;
+            });
+        } catch (\Exception $e) {
             return [];
         }
 
@@ -56,6 +61,7 @@ class NewsArchive
         }
 
         krsort($archiveList);
+
         return $archiveList;
     }
 }
