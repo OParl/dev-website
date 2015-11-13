@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-9">
             <div>
-                {!! $livecopy->getContent() !!}
+                {!! $liveversion->getContent() !!}
 
                 @include ('specification.license')
             </div>

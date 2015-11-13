@@ -10,11 +10,11 @@ class SpecificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveVersionRepository $livecopy)
+    public function index(LiveVersionRepository $liveversion)
     {
         $title = 'Spezifikation';
 
-        return view('specification.index', compact('livecopy', 'title'));
+        return view('specification.index', compact('liveversion', 'title'));
     }
 
     public function imageIndex()

@@ -10,13 +10,13 @@
     </form>
 
     <div>
-        {!! $livecopy->getNav() !!}
+        {!! $liveversion->getNav() !!}
     </div>
 
     <footer class="text-muted">
         <small>
-            Zuletzt aktualisiert <a href="//github.com/OParl/spec/commit/{{ $livecopy->getHash() }}">
-            {{ $livecopy->getLastModified()->diffForHumans() }}
+            Zuletzt aktualisiert <a href="//github.com/OParl/spec/commit/{{ $liveversion->getHash() }}">
+            {{ $liveversion->getLastModified()->diffForHumans() }}
             </a>
         </small>
     </footer>
