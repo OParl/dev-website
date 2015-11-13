@@ -39,9 +39,7 @@ class SpecificationControllerTest extends TestCase
     public function testImageGet()
     {
         // first, get all images
-        $images = Finder::create()->in(LiveVersionRepository::getImagesPath())->name('*.png');
-
-        // FIXME: Somehow, these files are reporting not found even though they are at the given paths
+        $images = Finder::create()->in(LiveVersionRepository::getImagesPath('', true))->name('*.png');
 
         foreach ($images as $image)
         {

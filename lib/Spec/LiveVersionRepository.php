@@ -27,20 +27,12 @@ class LiveVersionRepository
         $this->builder = $builder;
     }
 
-    /**
-     * @return string
-     **/
-    public static function getChapterPath()
-    {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/src/');
-    }
-
     protected static function getPath($path, $realpath = false)
     {
-        $path = 'app/' . $path;
+        $path = LiveVersionRepository::PATH . $path;
 
         if ($realpath) {
-            return storage_path($path);
+            return storage_path('app/' . $path);
         } else {
             return $path;
         }
@@ -49,9 +41,17 @@ class LiveVersionRepository
     /**
      * @return string
      **/
+    public static function getChapterPath($realpath = false)
+    {
+        return static::getPath('/src/', $realpath);
+    }
+
+    /**
+     * @return string
+     **/
     public static function getImagesPath($path = '', $realpath = false)
     {
-        $path = LiveVersionRepository::PATH . '/src/images/' . $path;
+        $path = '/src/images/' . $path;
 
         return static::getPath($path, $realpath);
     }
@@ -59,25 +59,29 @@ class LiveVersionRepository
     /**
      * @return string
      **/
-    public static function getSchemaPath()
+    public static function getSchemaPath($path = '', $realpath = false)
     {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/schema/');
+        $path = '/schema/' . $path;
+
+        return static::getPath($path, $realpath);
     }
 
     /**
      * @return string
      **/
-    public static function getExamplesPath()
+    public static function getExamplesPath($path = '', $realpath = false)
     {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/examples/');
+        $path = '/examples/' . $path;
+
+        return static::getPath($path, $realpath);
     }
 
     /**
      * @return string
      **/
-    public static function getLiveVersionPath()
+    public static function getLiveVersionPath($realpath = false)
     {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/out/live.html');
+        return static::getPath('/out/live.html', $realpath);
     }
 
     /**

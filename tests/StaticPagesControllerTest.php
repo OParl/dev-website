@@ -11,20 +11,20 @@ class StaticPagesControllerTest extends TestCase
     {
         $this->visit('/impressum')
             ->see('Anbieter im Sinne des § 5 Telemediengesetzes')
-            ->see('OParl wird unterstützt durch:');
+            ->see('Ein Projekt von:');
     }
 
     public function testStatus()
     {
         $this->visit('/status')
             ->see('Hier sammeln wir Informationen zum Stand der Standard-Entwicklung (Spezifikation).')
-            ->see('OParl wird unterstützt durch:');
+            ->see('Ein Projekt von:');
     }
 
     public function testAbout()
     {
         $this->visit('/ueber-oparl')
             ->see('Viele Kommunen, Landkreise und Regionen')
-            ->see('OParl wird unterstützt durch:');
+            ->see('Ein Projekt von:');
     }
 }

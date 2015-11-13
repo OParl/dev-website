@@ -52,8 +52,8 @@ class LiveVersionBuilder
     public function load($liveVersionPath)
     {
         // NOTE: Find out why filesystem sometimes fails to resolve existing files
-        if (file_exists($liveVersionPath)) {
-            $this->html = file_get_contents($liveVersionPath);
+        if ($this->fs->exists($liveVersionPath)) {
+            $this->html = $this->fs->get($liveVersionPath);
         } else {
             throw new FileNotFoundException("Failed to locate live version HTML");
         }
@@ -66,7 +66,7 @@ class LiveVersionBuilder
     {
         $finder = new Finder();
 
-        $finder->in(LiveVersionRepository::getChapterPath())->name('*.md');
+        $finder->in(LiveVersionRepository::getChapterPath(true))->name('*.md');
 
         $files = iterator_to_array($finder);
 

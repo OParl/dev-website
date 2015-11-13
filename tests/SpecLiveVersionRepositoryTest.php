@@ -22,7 +22,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
 
         $this->assertTrue(is_string($instance->getChapterPath()));
         $this->assertStringEndsWith($path, $instance->getChapterPath());
-        $this->assertFileExists($instance->getChapterPath());
+        $this->assertFileExists($instance->getChapterPath(true));
     }
 
     public function testGetImagesPath()
@@ -34,7 +34,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
 
         $this->assertTrue(is_string($instance->getImagesPath()));
         $this->assertStringEndsWith($path, $instance->getImagesPath());
-        $this->assertFileExists($instance->getImagesPath());
+        $this->assertFileExists($instance->getImagesPath('', true));
     }
 
     public function testGetSchemaPath()
@@ -46,7 +46,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
 
         $this->assertTrue(is_string($instance->getSchemaPath()));
         $this->assertStringEndsWith($path, $instance->getSchemaPath());
-        $this->assertFileExists($instance->getSchemaPath());
+        $this->assertFileExists($instance->getSchemaPath('', true));
     }
 
     public function testGetExamplesPath()
@@ -58,7 +58,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
 
         $this->assertTrue(is_string($instance->getExamplesPath()));
         $this->assertStringEndsWith($path, $instance->getExamplesPath());
-        $this->assertFileExists($instance->getExamplesPath());
+        $this->assertFileExists($instance->getExamplesPath('', true));
     }
 
     public function testGetLiveCopyPath()
@@ -70,6 +70,6 @@ class SpecLiveVersionRepositoryTest extends TestCase
 
         $this->assertTrue(is_string($instance->getLiveVersionPath()));
         $this->assertStringEndsWith($path, $instance->getLiveVersionPath());
-        $this->assertFileExists($instance->getLiveVersionPath());
+        $this->assertFileExists($instance->getLiveVersionPath(true));
     }
 }
