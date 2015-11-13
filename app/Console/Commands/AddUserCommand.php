@@ -35,7 +35,7 @@ class AddUserCommand extends Command
      */
     public function handle()
     {
-        $password = $this->generateRandomPassword(16);
+        $password = str_random(12);
 
         $user = User::create([
             'name' => $this->option('name'),
@@ -45,21 +45,5 @@ class AddUserCommand extends Command
 
         $this->info('User ' . $user->name . ' successfully created with ID ' . $user->id);
         $this->line('Temporary password: ' . $password);
-    }
-
-    // TODO: extract that to a separate class
-    protected function generateRandomPassword($length = 8)
-    {
-        $chars = "abcdefghklmnopqrstuvxyzABCDEFGHKLMNOPQRSTUVXYZ0123456789-:;,/&%(#+*";
-
-        $password = '';
-
-        mt_srand();
-        do {
-            $char = mt_rand(0, strlen($chars) - 1);
-            $password .= $chars[$char];
-        } while (strlen($password) < $length);
-
-        return $password;
     }
 }
