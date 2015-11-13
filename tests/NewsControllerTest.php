@@ -1,18 +1,34 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class NewsControllerTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    use DatabaseTransactions;
+
+    public function testIndexWithoutPosts()
     {
-        $this->assertTrue(true);
+        $this->visit('/')->see('Leider sind keine Nachrichten für diese Anzeige vorhanden.');
+    }
+
+    public function testIndexWithSinglePost()
+    {
+        $user = factory(App\Model\User::class)->create();
+        $post = factory(App\Model\Post::class)->create();
+
+        $user->posts()->save($post);
+
+        $this->visit('/')
+            ->see($post->title)
+            ->see($user->name);
+    }
+
+    public function testIndexShowsPagination()
+    {
+        $user = factory(App\Model\User::class)->create();
+        factory(App\Model\Post::class, 30)->create();
+
+        $this->visit('/')
+            ->see();
     }
 }

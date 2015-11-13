@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 class StaticPagesControllerTest extends TestCase
 {
     /**
@@ -11,8 +7,24 @@ class StaticPagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testImprint()
     {
-        $this->assertTrue(true);
+        $this->visit('/impressum')
+            ->see('Anbieter im Sinne des § 5 Telemediengesetzes')
+            ->see('OParl wird unterstützt durch:');
+    }
+
+    public function testStatus()
+    {
+        $this->visit('/status')
+            ->see('Hier sammeln wir Informationen zum Stand der Standard-Entwicklung (Spezifikation).')
+            ->see('OParl wird unterstützt durch:');
+    }
+
+    public function testAbout()
+    {
+        $this->visit('/ueber-oparl')
+            ->see('Viele Kommunen, Landkreise und Regionen')
+            ->see('OParl wird unterstützt durch:');
     }
 }
