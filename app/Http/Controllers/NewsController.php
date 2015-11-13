@@ -1,13 +1,12 @@
 <?php namespace App\Http\Controllers;
 
-use App\Jobs\ValidateComment;
+use App\Http\Requests\NewCommentRequest;
 use App\Model\Comment;
+use App\Model\Post;
+use App\Model\Tag;
 use Carbon\Carbon;
 use Illuminate\Auth\Guard;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Model\Post;
-use App\Model\Tag;
-use App\Http\Requests\NewCommentRequest;
 
 class NewsController extends Controller
 {
@@ -22,12 +21,12 @@ class NewsController extends Controller
     public function tag($tag)
     {
         $posts = Post::published()->whereHas('tags', function ($query) use ($tag) {
-      return $query->whereSlug($tag);
-    })->paginate(15);
+            return $query->whereSlug($tag);
+        })->paginate(15);
 
         $tag = Tag::whereSlug($tag);
 
-        $title = $tag->name.' - Aktuelles';
+        $title = $tag->name . ' - Aktuelles';
 
         return view('news.index', compact('posts', 'title'));
     }
@@ -35,7 +34,7 @@ class NewsController extends Controller
     public function yearly($year)
     {
         $start = Carbon::createFromDate($year)->startOfYear();
-        $end   = $start->copy()->endOfYear();
+        $end = $start->copy()->endOfYear();
 
         $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
@@ -47,7 +46,7 @@ class NewsController extends Controller
     public function monthly($year, $month)
     {
         $start = Carbon::createFromDate($year, $month)->startOfMonth();
-        $end   = $start->copy()->endOfMonth();
+        $end = $start->copy()->endOfMonth();
 
         $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
@@ -59,7 +58,7 @@ class NewsController extends Controller
     public function daily($year, $month, $day)
     {
         $start = Carbon::createFromDate($year, $month, $day)->startOfDay();
-        $end   = $start->copy()->endOfDay();
+        $end = $start->copy()->endOfDay();
 
         $posts = Post::published()->whereBetween('published_at', [$start, $end])->orderBy('published_at')->paginate(15);
 
@@ -71,7 +70,7 @@ class NewsController extends Controller
     public function post($year, $month, $day, $slug)
     {
         $start = Carbon::createFromDate($year, $month, $day)->startOfDay();
-        $end   = $start->copy()->endOfDay();
+        $end = $start->copy()->endOfDay();
 
         $post = Post::whereBetween('published_at', [$start, $end])->whereSlug($slug)->first();
 
@@ -89,7 +88,7 @@ class NewsController extends Controller
         } catch (ModelNotFoundException $e) {
             // TODO: flash error message?
 
-      return redirect()->route('news.index');
+            return redirect()->route('news.index');
         }
     }
 
@@ -101,15 +100,15 @@ class NewsController extends Controller
 
         if ($guard->check()) {
             /* @var \App\Model\User $user */
-      $user = $guard->user();
+            $user = $guard->user();
             $user->comments()->save($comment);
         }
 
         $post->comments()->save($comment);
 
-    // FIXME: akismet complains about an invalid key
-    //$this->dispatch(new ValidateComment($comment));
+        // FIXME: akismet complains about an invalid key
+        //$this->dispatch(new ValidateComment($comment));
 
-    return redirect()->back()->with('info', 'Der Kommentar wurde erfolgreich gespeichert.');
+        return redirect()->back()->with('info', 'Der Kommentar wurde erfolgreich gespeichert.');
     }
 }

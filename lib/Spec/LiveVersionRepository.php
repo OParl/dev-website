@@ -1,10 +1,5 @@
 <?php namespace OParl\Spec;
 
-use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\Finder\Finder;
-
 /**
  * Class LiveCopyRepository
  * @package OParl\Spec
@@ -30,6 +25,59 @@ class LiveVersionRepository
     {
         $this->loader = $loader;
         $this->builder = $builder;
+    }
+
+    /**
+     * @return string
+     **/
+    public static function getChapterPath()
+    {
+        return storage_path('app/' . LiveVersionRepository::PATH . '/src/');
+    }
+
+    protected static function getPath($path, $realpath = false)
+    {
+        $path = 'app/' . $path;
+
+        if ($realpath) {
+            return storage_path($path);
+        } else {
+            return $path;
+        }
+    }
+
+    /**
+     * @return string
+     **/
+    public static function getImagesPath($path = '', $realpath = false)
+    {
+        $path = LiveVersionRepository::PATH . '/src/images/' . $path;
+
+        return static::getPath($path, $realpath);
+    }
+
+    /**
+     * @return string
+     **/
+    public static function getSchemaPath()
+    {
+        return storage_path('app/' . LiveVersionRepository::PATH . '/schema/');
+    }
+
+    /**
+     * @return string
+     **/
+    public static function getExamplesPath()
+    {
+        return storage_path('app/' . LiveVersionRepository::PATH . '/examples/');
+    }
+
+    /**
+     * @return string
+     **/
+    public static function getLiveVersionPath()
+    {
+        return storage_path('app/' . LiveVersionRepository::PATH . '/out/live.html');
     }
 
     /**
@@ -70,45 +118,5 @@ class LiveVersionRepository
     public function getHash()
     {
         return $this->loader->getRepositoryStatus()['hash'];
-    }
-
-    /**
-     * @return string
-     **/
-    public static function getChapterPath()
-    {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/src/');
-    }
-
-    /**
-     * @return string
-     **/
-    public static function getImagesPath()
-    {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/src/images/');
-    }
-
-    /**
-     * @return string
-     **/
-    public static function getSchemaPath()
-    {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/schema/');
-    }
-
-    /**
-     * @return string
-     **/
-    public static function getExamplesPath()
-    {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/examples/');
-    }
-
-    /**
-     * @return string
-     **/
-    public static function getLiveVersionPath()
-    {
-        return storage_path('app/' . LiveVersionRepository::PATH . '/out/live.html');
     }
 }
