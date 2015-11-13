@@ -4,8 +4,8 @@
     <p>
         <strong>Anbieter im Sinne des § 5 Telemediengesetzes</strong><br/>
         Open Knowledge Foundation Deutschland e.V.<br/>
-        Schlesische Str. 6<br/>
-        10997 Berlin
+        Singerstr. 109<br />
+        10179 Berlin
     </p>
 
     <p>
