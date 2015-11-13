@@ -6,8 +6,8 @@
             @include ('news.list')
         </div>
         <aside class="col-md-3">
-            @include ('common.contributors')
             @include ('news.archive')
+            @include ('common.contributors')
         </aside>
     </div>
 @stop
