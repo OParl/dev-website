@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use Illuminate\Auth\Guard;
-use Illuminate\Http\Request;
-use Cocur\Slugify\Slugify;
-use App\Http\Requests\Admin\SavePostRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SavePostRequest;
 use App\Model\Post;
 use App\Model\Tag;
+use Carbon\Carbon;
+use Cocur\Slugify\Slugify;
+use Illuminate\Auth\Guard;
+use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
@@ -15,20 +15,34 @@ class NewsController extends Controller
     {
         $order = $request->input('order_by', 'created_at');
 
-    // TODO: introduce sorting option
-    $sort  = ($order === 'created_at') ? 'desc' : 'asc';
+        // TODO: introduce sorting option
+        $sort = ($order === 'created_at') ? 'desc' : 'asc';
 
         $posts = Post::with('author')->orderBy($order, $sort)->paginate(15);
 
         return view('admin.news.index', [
-      'posts' => $posts,
-      'order' => $order
-    ]);
+            'posts' => $posts,
+            'order' => $order
+        ]);
     }
 
     public function create()
     {
         return $this->getEditView();
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     **/
+    protected function getEditView($post = null)
+    {
+        if (is_null($post)) {
+            $post = (new Post)->newInstance();
+        }
+
+        $tags = Tag::all()->lists('name', 'id');
+
+        return view('admin.news.edit', compact('post', 'tags'));
     }
 
     public function edit($id)
@@ -57,19 +71,19 @@ class NewsController extends Controller
         } else {
             $post = Post::create($postData);
 
-      /* @var \App\Model\User $user */
-      $user = $guard->user();
+            /* @var \App\Model\User $user */
+            $user = $guard->user();
             $user->posts()->save($post);
         }
 
         $tags = collect($request->input('tags'))->map(function ($tag) {
-      if (is_numeric($tag)) {
-          return $tag;
-      } else {
-          $newTag = Tag::create(['name' => $tag]);
-          return $newTag->id;
-      }
-    });
+            if (is_numeric($tag)) {
+                return $tag;
+            } else {
+                $newTag = Tag::create(['name' => $tag]);
+                return $newTag->id;
+            }
+        });
 
         $post->tags()->sync($tags->all());
 
@@ -86,20 +100,6 @@ class NewsController extends Controller
 
         $post->delete();
 
-        return redirect()->back()->with('info', 'Succesfully deleted '.$title);
+        return redirect()->back()->with('info', 'Succesfully deleted ' . $title);
     }
-
-  /**
-   * @return \Illuminate\View\View
-   **/
-  protected function getEditView($post = null)
-  {
-      if (is_null($post)) {
-          $post = (new Post)->newInstance();
-      }
-
-      $tags = Tag::all()->lists('name', 'id');
-
-      return view('admin.news.edit', compact('post', 'tags'));
-  }
 }
