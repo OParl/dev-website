@@ -5,8 +5,8 @@
         <div class="col-md-9">
             @yield ('page')
         </div>
-        <div class="col-md-3">
+        <aside class="col-md-3">
             @include ('common.contributors')
-        </div>
+        </aside>
     </div>
 @stop

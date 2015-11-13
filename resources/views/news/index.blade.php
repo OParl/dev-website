@@ -5,9 +5,9 @@
         <div class="col-md-9">
             @include ('news.list')
         </div>
-        <div class="col-md-3">
+        <aside class="col-md-3">
             @include ('common.contributors')
             @include ('news.archive')
-        </div>
+        </aside>
     </div>
 @stop

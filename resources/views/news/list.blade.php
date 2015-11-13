@@ -1,5 +1,5 @@
 @forelse ($posts as $post)
-    @include ('news.single', compact('post'))
+    @include ('news.single')
 @empty
     <div class="well well-lg">
         <p class="text-center">
@@ -8,6 +8,8 @@
     </div>
 @endforelse
 
-<div class="text-center">
-    {!! $posts->render() !!}
-</div>
+@if ($posts->count() > 0)
+    <div class="text-center">
+        {!! $posts->render() !!}
+    </div>
+@endif
