@@ -37,6 +37,26 @@ header .form-inline {
   white-space: nowrap;
 }
 
+.nav-lines {
+  background: linear-gradient(to bottom, transparent 95%, $nav-link-hover-bg);
+
+  > li {
+    float: left;
+
+    a:hover {
+      background: linear-gradient(to bottom, transparent 95%, darken($nav-link-hover-bg, 50%));
+    }
+
+    &.active, &:focus {
+      background: linear-gradient(to bottom, transparent 95%, $brand-primary);
+    }
+  }
+}
+
+.page-header {
+  border-bottom: none;
+}
+
 @media (max-width: 768px) {
   .toc.affix {
     position: static;

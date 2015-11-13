@@ -5,10 +5,10 @@
     </h1>
 
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <nav>
                 <a name="navigation">&nbsp;</a>
-                <ul class="nav nav-pills">
+                <ul class="nav nav-lines">
                     @foreach ($sections as $section)
                         @if (isset($section['current']) && $section['current'])
                             <li role="presentation" class="active">
@@ -27,8 +27,9 @@
                 </ul>
             </nav>
         </div>
+        {{--
         <div class="col-md-2">
-            {{--
+
             <form class="form-inline " method="POST" action="{{ route('search.lookup') }}">
                 {{ csrf_field() }}
 
@@ -41,8 +42,8 @@
                     </div>
                 </div>
             </form>
-            --}}
         </div>
+        --}}
     </div>
 
 </header>
