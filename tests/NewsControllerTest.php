@@ -8,7 +8,7 @@ class NewsControllerTest extends TestCase
 
     public function testIndexWithoutPosts()
     {
-        $this->visit('/')->see('Leider sind keine Nachrichten für diese Anzeige vorhanden.');
+        $this->visit('/aktuelles')->see('Leider sind keine Nachrichten für diese Anzeige vorhanden.');
     }
 
     public function testIndexWithSinglePost()
@@ -18,18 +18,20 @@ class NewsControllerTest extends TestCase
 
         $user->posts()->save($post);
 
-        $this->visit('/')
+        $this->visit('/aktuelles')
             ->see($post->title)
             ->see($user->name)
-            ->see('Ein Projekt von:');
+            ->see('OParl wird unterstützt von:');
     }
 
     public function testIndexShowsPagination()
     {
         $user = factory(App\Model\User::class)->create();
-        factory(App\Model\Post::class, 30)->create();
+        factory(App\Model\Post::class, 30)->create()->each(function ($p) use ($user) {
+            $user->posts()->save($p);
+        });
 
-//        $this->visit('/')
-//            ->see();
+        $this->visit('/aktuelles')
+            ->see('class="pagination"');
     }
 }
