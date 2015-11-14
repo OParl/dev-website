@@ -5,46 +5,51 @@ use Illuminate\Contracts\View\View;
 class Header
 {
     protected $sections = [
-      [
-        'routeKey' => 'news',
-        'title' => 'Aktuelles'
-      ],
+        [
+            'routeKey' => 'about',
+            'title' => 'Über OParl'
+        ],
 
-      [
-        'routeKey' => 'about',
-        'title' => 'Über OParl'
-      ],
+        [
+            'routeKey' => 'news',
+            'title' => 'Aktuelles'
+        ],
 
-      [
-        'routeKey' => 'specification',
-        'title' => 'Spezifikation'
-      ],
+        [
+            'routeKey' => 'specification',
+            'title' => 'Spezifikation'
+        ],
 
-      [
-        'routeKey' => 'downloads',
-        'title' => 'Downloads'
-      ],
+        [
+            'routeKey' => 'downloads',
+            'title' => 'Downloads'
+        ],
 
 //      [
 //        'title' => 'Demoserver',
 //        'url' => 'http://demoserver.oparl.org/'
 //      ],
 
-      [
-        'routeKey' => 'status',
-        'title' => 'Status'
-      ],
+        [
+            'routeKey' => 'status',
+            'title' => 'Status'
+        ],
 
-      [
-        'routeKey' => 'newsletter',
-        'title' => 'Newsletter'
-      ],
+        [
+            'routeKey' => 'newsletter',
+            'title' => 'Newsletter'
+        ],
 
-      [
-        'routeKey' => 'imprint',
-        'title' => 'Impressum'
-      ],
+        [
+            'routeKey' => 'imprint',
+            'title' => 'Impressum'
+        ],
     ];
+
+    public function compose(View $view)
+    {
+        return $view->with('sections', $this->getSections());
+    }
 
     protected function getSections()
     {
@@ -59,17 +64,12 @@ class Header
         }
 
         if (\Auth::check()) {
-            $sections[] = [
-        'routeKey' => 'admin.dashboard',
-        'title' => '<span class="glyphicon glyphicon-user"></span>'
-      ];
+            array_unshift($sections, [
+                'routeKey' => 'admin.dashboard',
+                'title' => '<span class="glyphicon glyphicon-user"></span>'
+            ]);
         }
 
         return $sections;
-    }
-
-    public function compose(View $view)
-    {
-        return $view->with('sections', $this->getSections());
     }
 }
