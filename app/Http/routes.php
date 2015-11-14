@@ -17,10 +17,8 @@ Route::pattern('month', '\d{2}');
 Route::pattern('day', '\d{2}');
 Route::pattern('slug', '[[:print:]]+');
 
-Route::get('/', ['uses' => 'NewsController@index', 'as' => 'news.index']);
-
 // About
-Route::get('/ueber-oparl', ['uses' => 'StaticPagesController@about', 'as' => 'about.index']);
+Route::get('/', ['uses' => 'StaticPagesController@about', 'as' => 'about.index']);
 
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
@@ -133,5 +131,5 @@ Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as
 Route::post('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@comment', 'as' => 'news.comment']);
 Route::get('/tags/{tag}', ['uses' => 'NewsController@tag', 'as' => 'news.tag'])->where('tag', '[[:print:]]+');
 
-// as a last resort, try guessing the input as post slug
-Route::get('/{slug}', ['uses' => 'NewsController@guess', 'as' => 'news.guess']);
+// NOTE: as a last resort, maybe try guessing the input as post slug?
+// Route::get('/{slug}', ['uses' => 'NewsController@guess', 'as' => 'news.guess']);
