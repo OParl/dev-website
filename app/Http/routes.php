@@ -19,6 +19,10 @@ Route::pattern('slug', '[[:print:]]+');
 
 // About
 Route::get('/', ['uses' => 'AboutController@index', 'as' => 'about.index']);
+Route::get('/ueber-oparl/', ['uses' => 'AboutController@redirectIndex']);
+Route::get('/ueber-oparl/kommunen', ['uses' => 'AboutController@councils', 'as' => 'about.councils']);
+Route::get('/ueber-oparl/entwickler', ['uses' => 'AboutController@developers', 'as' => 'about.developers']);
+Route::get('/ueber-oparl/ris-hersteller', ['uses' => 'AboutController@ris', 'as' => 'about.ris']);
 
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);

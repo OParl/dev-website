@@ -1,154 +1,70 @@
-@extends ('pages.page')
+@extends ('about.base')
 
-@section ('page')
-    @markdown("
-**OParl ist eine Initiative zur Förderung der Offenheit von parlamentarischen
-Informationssystemen auf kommunaler Ebene in Deutschland.**
+@section ('about-content')
+    <div class="jumbotron">
+        <h1>Willkommen!</h1>
 
-Viele Kommunen, Landkreise und Regionen in Deutschland verfügen über
-**Ratsinformationssysteme**, um die Gremienarbeit im Gemeinderat, Kreistag etc.
-sowie den Ausschüssen und Bezirksvertretungen zu organisieren. In diesen
-Ratsinformationssystemen (nachfolgend RIS genannt) wird ein großer Teil der
-lokalpolitischen Initiativen von der ersten Anfrage bis zur Beschlussfassung
-dokumentiert und vielerorts sind große Teile der RIS-Daten öffentlich für
-alle Bürger einsehbar. Damit stellen RISe eine wichtige Grundlage für
-die politische **Beteiligung** und **Transparenz** von Politik und Verwaltung dar.
+        <p>
+            OParl ist eine Initiative zur Standardisierung des offenen Zugriffs auf
+            parlamentarische Informationssysteme in Deutschland.
+        </p>
 
-In der Gesellschaft besteht ein hohes Interesse an der Nutzung von RIS-Daten.
-Projekte wie [https://politik-bei-uns.de/](Politik Bei Uns) und
-[http://www.frankfurt-gestalten.de/](Frankfurt Gestalten), aber auch die Arbeit
-von Parlamentwatch e.V. ([http://www.abgeordnetenwatch.de/](abgeordnetenwatch.de))
-zeigen beispielhaft die Möglichkeiten auf.
+        <p>
+            Das Ziel von OParl ist die Schaffung einer Standard-API für den Zugang zu öffentlichen Inhalten in
+            kommunalen <a href="https://de.wikipedia.org/wiki/Ratsinformationssystem">Ratsinformationssystemen</a>,
+            damit die Inhalte daraus im Sinne von Open Data für möglichst viele verschiedene Zwecke
+            eingesetzt werden können.
+        </p>
+    </div>
 
-## Standardisierter Zugriff auf öffentliche Daten
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Für Kommunen</h2>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        {{-- TODO: 2 line definition --}}
+                    </p>
+                </div>
 
-OParl setzt sich für die Schaffung eines einheitlichen Zugriffs auf diese Informationssysteme
-ein. Die Mitwirkenden hinter OParl haben sich darauf verständigt, einen
-Schnittstellen-Standard (siehe [http://oparl.org/spezifikation/](Spezifikation))
-zu definieren. Die teilnehmenden Software-Anbieter passen ihre Systeme so an, dass sie
-diesen Standard erfüllen.
+                <div class="panel-footer">
+                    <a href="{{ route('about.councils') }}">Weitere Informationen</a>
+                </div>
+            </div>
 
-## Initiatoren und Unterstützer
 
-OParl ist eine Initiative unter der Leitung der Open Knowledge Foundation Deutschland
-e.V. (OKF-DE) und der Bundes-Arbeitsgemeinschaft der Kommunalen IT-Dienstleister e.V. (Vitako).
-
-Die folgenden Organisationen und Unternehmen zählen zu den Unterstützern von OParl:
-")
-
-    <table class="table-condensed table-striped">
-        <tbody>
-            <tr>
-                <td><b>Organisation/Firma</b></td>
-                <td><b>Kategorie</b></td>
-            </tr>
-            <tr>
-                <td><a href="http://www.cc-egov.de/" target="_blank">CC e-Gov GmbH</a></td>
-                <td>RIS-Hersteller</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.citeq.de/" target="_blank">Citeq</a> (Münster)</td>
-                <td>Kommunale Dienstleister</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.itdz-berlin.de/" target="_blank">ITDZ Berlin</a></td>
-                <td>Kommunale Dienstleister</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.rz-kiru.de/" target="_blank">Kiru</a> (Ulm)</td>
-                <td>Kommunale Dienstleister</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.kdvz-frechen.de/" target="_blank">KDVZ Rhein-Erft-Rur</a></td>
-                <td>Kommunale Dienstleister</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.krzn.de/" target="_blank">KRZN</a></td>
-                <td>Kommunale Dienstleister</td>
-            </tr>
-            <tr>
-                <td><a href="http://okfn.de/" target="_blank">Open Knowledge Foundation e.V.</a></td>
-                <td>Initiativen</td>
-            </tr>
-            <tr>
-                <td><a href="https://www.openpetition.de/">openPetition</a></td>
-                <td>Initiativen</td>
-            </tr>
-            <tr>
-                <td><a href="http://openruhr.de/" target="_blank">OpenRuhr</a></td>
-                <td>Initiativen</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.abgeordnetenwatch.de/" target="_blank">Parlamentwatch e.V.</a></td>
-                <td>Initiativen</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.piratenpartei.de/" target="_blank">Piratenpartei</a></td>
-                <td>Parteien</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.provox.de/" target="_blank">PROVOX Systemplanung GmbH</a></td>
-                <td>RIS-Hersteller</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.quinscape.de/" target="_blank">QuinScape GmbH</a></td>
-                <td>RIS-Hersteller</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.regioit-aachen.de/" target="_blank">regioIT</a> (Aachen)</td>
-                <td>Kommunale Dienstleister</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.somacos.de/" target="_blank">Somacos GmbH und Co. KG</a></td>
-                <td>RIS-Hersteller</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.bonn.de/" target="_blank">Stadt Bonn</a></td>
-                <td>Kommune</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.stadt-koeln.de/" target="_blank">Stadt Köln</a></td>
-                <td>Kommune</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.moers.de/" target="_blank">Stadt Moers</a></td>
-                <td>Kommune</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.sitzungsdienst.net/" target="_blank">Sternberg Software-Technik GmbH</a></td>
-                <td>RIS-Hersteller</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.vitako.de/">Vitako</a></td>
-                <td>Initiativen</td>
-            </tr>
-            <tr>
-                <td><a href="http://www.wikimedia.de/" target="_blank">Wikimedia Deutschland</a></td>
-                <td>Initiativen</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>Weitere Informationen</h2>
-
-    <p>
-        Sie finden <a href="https://twitter.com/OParlOrg" target="_blank">OParl auf
-        Twitter</a>. Wenn Sie wichtige Neuigkeiten rund um OParl außerdem per E-Mail erfahren wollen, bieten wie
-        Ihnen einen <a href="http://oparl.org/newsletter/">E-Mail-Newsletter</a> an.
-    </p>
-
-    <h2>Das schreiben andere</h2>
-
-    <ul>
-        <li><a href="http://www.opensaga.org/blog/2013/04/18/oparl-neuer-offener-standard-fur-ratsinformationssysteme/"
-               target="_blank">OParl. – neuer Standard für Ratsinformationssysteme</a>&nbsp;von Christoph Barchnicki,
-            OpenSAGA Blog, 18. April 2013
-        </li>
-        <li><a href="http://blog.egovernment.krzn.de/oparl-ein-neuer-stern-am-standardhimmel/" target="_blank">OParl.
-                Ein neuer Stern am Standardhimmel</a> von Ernst Mayer, KRZN, 19. April 2013
-        </li>
-        <li><a href="http://www.offenedaten-koeln.de/blog/standardisierungsbemuehungen-erfolgreich" target="_blank">Standardisierungsbemühungen
-                erfolgreich</a> von Offene Daten Köln, 22. April 2013
-        </li>
-    </ul>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Für Entwickler</h2>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        {{-- TODO: 2 line definition --}}
+                    </p>
+                </div>
+                <div class="panel-footer">
+                    <a href="{{ route('about.developers') }}">Weitere Informationen</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Für RIS-Hersteller</h2>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        {{-- TODO: 2 line definition --}}
+                    </p>
+                </div>
+                <div class="panel-footer">
+                    <a href="{{ route('about.ris') }}">Weitere Informationen</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop

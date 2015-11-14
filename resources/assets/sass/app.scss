@@ -43,6 +43,8 @@ header .form-inline {
   > li {
     float: left;
 
+    a { color: #01aae7; }
+
     a:hover {
       background: linear-gradient(to bottom, transparent 95%, darken($nav-link-hover-bg, 50%));
     }
@@ -112,9 +114,35 @@ header .form-inline {
   }
 }
 
+.jumbotron {
+  background: transparent;
+  border: 1px solid $brand-primary;
+}
+
+.panel-default {
+  .panel-heading {
+    background: $brand-primary;
+  }
+
+  .panel-footer {
+    background: none;
+    border-top-color: $brand-primary;
+  }
+
+  border-color: $brand-primary;
+}
+
 aside {
   border-left: 1px solid #eee;
+}
 
+footer {
+  border-top: 1px solid #eee;
+  margin-top: 1.2em;
+  margin-botto: 1.2em;
+}
+
+.contributors {
   h3 {
     font-size: .9em;
     margin-top: 0;
