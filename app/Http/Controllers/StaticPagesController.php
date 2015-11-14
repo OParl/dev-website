@@ -11,9 +11,4 @@ class StaticPagesController extends Controller
     {
         return view('pages.status', ['title' => 'Status']);
     }
-
-    public function about()
-    {
-        return view('pages.about', ['title' => 'Über OParl']);
-    }
 }

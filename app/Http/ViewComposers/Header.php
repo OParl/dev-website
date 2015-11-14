@@ -30,10 +30,10 @@ class Header
 //        'url' => 'http://demoserver.oparl.org/'
 //      ],
 
-        [
-            'routeKey' => 'status',
-            'title' => 'Status'
-        ],
+//        [
+//            'routeKey' => 'status',
+//            'title' => 'Status'
+//        ],
 
         [
             'routeKey' => 'newsletter',

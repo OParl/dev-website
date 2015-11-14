@@ -18,7 +18,7 @@ Route::pattern('day', '\d{2}');
 Route::pattern('slug', '[[:print:]]+');
 
 // About
-Route::get('/', ['uses' => 'StaticPagesController@about', 'as' => 'about.index']);
+Route::get('/', ['uses' => 'AboutController@index', 'as' => 'about.index']);
 
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
@@ -50,7 +50,8 @@ Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 
 // Status
-Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status.index']);
+// NOTE: When reenabling this, also uncomment the menu entry in the header composer
+// Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status.index']);
 
 // Imprint
 Route::get('/impressum', ['uses' => 'StaticPagesController@imprint', 'as' => 'imprint.index']);
@@ -124,6 +125,7 @@ Route::get('/_hooks/lock_version_updates', [
 
 Route::post('/search', ['uses' => 'SearchController@search', 'as' => 'search.lookup']);
 
+Route::get('/aktuelles', ['uses' => 'NewsController@index', 'as' => 'news.index']);
 Route::get('/{year}', ['uses' => 'NewsController@yearly', 'as' => 'news.yearly']);
 Route::get('/{year}/{month}', ['uses' => 'NewsController@monthly', 'as' => 'news.monthly']);
 Route::get('/{year}/{month}/{day}', ['uses' => 'NewsController@daily', 'as' => 'news.daily']);

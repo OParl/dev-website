@@ -20,11 +20,4 @@ class StaticPagesControllerTest extends TestCase
             ->see('Hier sammeln wir Informationen zum Stand der Standard-Entwicklung (Spezifikation).')
             ->see('Ein Projekt von:');
     }
-
-    public function testAbout()
-    {
-        $this->visit('/ueber-oparl')
-            ->see('Viele Kommunen, Landkreise und Regionen')
-            ->see('Ein Projekt von:');
-    }
 }
