@@ -14,7 +14,7 @@ class SettingsController extends Controller
     public function save(SaveSettingsRequest $request, Guard $guard)
     {
         /* @var \App\Model\User $user */
-    $user = $guard->user();
+        $user = $guard->user();
 
         $input = $request->except(['password_confirmation', '_token']);
         $input['password'] = bcrypt($input['password']);
