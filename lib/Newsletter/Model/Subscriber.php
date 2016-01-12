@@ -8,7 +8,7 @@ class Subscriber extends EloquentModel
 
     public function __construct(array $attributes = [])
     {
-        $this->table = config('newsletter.prefix') . 'subscribers';
+        $this->table = config('newsletter.prefix') . 'subscriber';
 
         parent::__construct($attributes);
     }

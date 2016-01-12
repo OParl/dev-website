@@ -58,6 +58,7 @@ elixir(function(mix) {
             'bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/alert.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/tab.js',
 
             'moment/moment.js',
             'moment/locale/de.js',

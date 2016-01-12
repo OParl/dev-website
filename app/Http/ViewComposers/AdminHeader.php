@@ -12,28 +12,33 @@ class AdminHeader
         $spamCount = Comment::spam()->count();
 
         $sections = [
-      [
-        'current' => starts_with($currentRoute, 'admin.dashboard'),
-        'route' => 'admin.dashboard.index',
-        'title' => 'Übersicht'
-      ],
-      [
-        'current' => starts_with($currentRoute, 'admin.news'),
-        'route' => 'admin.news.index',
-        'title' => 'Nachrichten'
-      ],
-      [
-        'current' => starts_with($currentRoute, 'admin.comments'),
-        'route' => 'admin.comments.index',
-        'title' => ($spamCount > 0) ? 'Kommentare <span class="badge">'.Comment::spam()->count().'</span>'
-                                    : 'Kommentare'
-      ],
-      [
-        'current' => starts_with($currentRoute, 'admin.specification'),
-        'route' => 'admin.specification.index',
-        'title' => 'Spezifikation'
-      ],
-    ];
+            [
+                'current' => starts_with($currentRoute, 'admin.dashboard'),
+                'route' => 'admin.dashboard.index',
+                'title' => 'Übersicht'
+            ],
+            [
+                'current' => starts_with($currentRoute, 'admin.news.'),
+                'route' => 'admin.news.index',
+                'title' => 'Nachrichten'
+            ],
+            [
+                'current' => starts_with($currentRoute, 'admin.comments'),
+                'route' => 'admin.comments.index',
+                'title' => ($spamCount > 0) ? 'Kommentare <span class="badge">' . Comment::spam()->count() . '</span>'
+                    : 'Kommentare'
+            ],
+            [
+                'current' => starts_with($currentRoute, 'admin.specification'),
+                'route' => 'admin.specification.index',
+                'title' => 'Spezifikation'
+            ],
+            [
+                'current' => starts_with($currentRoute, 'admin.newsletter.'),
+                'route' => 'admin.newsletter.index',
+                'title' => 'Newsletter'
+            ]
+        ];
 
         return $view->with('sections', $sections);
     }

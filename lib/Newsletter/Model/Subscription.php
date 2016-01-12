@@ -6,7 +6,7 @@ class Subscription extends EloquentModel
 {
     public function __construct(array $attributes = [])
     {
-        $this->table = config('newsletter.prefix') . 'subscriptions';
+        $this->table = config('newsletter.prefix') . 'lists';
 
         parent::__construct($attributes);
     }
