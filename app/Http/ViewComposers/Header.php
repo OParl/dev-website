@@ -5,15 +5,15 @@ use Illuminate\Contracts\View\View;
 class Header
 {
     protected $sections = [
-        [
-            'routeKey' => 'about',
-            'title' => 'Über OParl'
-        ],
-
-        [
-            'routeKey' => 'news',
-            'title' => 'Aktuelles'
-        ],
+//        [
+//            'routeKey' => 'about',
+//            'title' => 'Über OParl'
+//        ],
+//
+//        [
+//            'routeKey' => 'news',
+//            'title' => 'Aktuelles'
+//        ],
 
         [
             'routeKey' => 'specification',
@@ -35,15 +35,15 @@ class Header
 //            'title' => 'Status'
 //        ],
 
-        [
-            'routeKey' => 'newsletter',
-            'title' => 'Newsletter'
-        ],
-
-        [
-            'routeKey' => 'imprint',
-            'title' => 'Impressum'
-        ],
+//        [
+//            'routeKey' => 'newsletter',
+//            'title' => 'Newsletter'
+//        ],
+//
+//        [
+//            'routeKey' => 'imprint',
+//            'title' => 'Impressum'
+//        ],
     ];
 
     public function compose(View $view)

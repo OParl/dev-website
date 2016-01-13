@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+/*
 // Home
 Route::pattern('year', '\d{4}');
 Route::pattern('month', '\d{2}');
@@ -23,6 +23,11 @@ Route::get('/ueber-oparl/', ['uses' => 'AboutController@redirectIndex']);
 Route::get('/ueber-oparl/kommunen', ['uses' => 'AboutController@councils', 'as' => 'about.councils']);
 Route::get('/ueber-oparl/entwickler', ['uses' => 'AboutController@developers', 'as' => 'about.developers']);
 Route::get('/ueber-oparl/ris-hersteller', ['uses' => 'AboutController@ris', 'as' => 'about.ris']);
+*/
+
+Route::get('/', ['uses' => function() {
+    return redirect()->route('specification.index');
+}, 'as' => 'about.index']);
 
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
@@ -56,7 +61,7 @@ Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' =
 // Status
 // NOTE: When reenabling this, also uncomment the menu entry in the header composer
 // Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status.index']);
-
+/*
 // Imprint
 Route::get('/impressum', ['uses' => 'StaticPagesController@imprint', 'as' => 'imprint.index']);
 
@@ -105,6 +110,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/settings', ['uses' => 'Admin\SettingsController@index', 'as' => 'admin.settings']);
     Route::post('/settings', ['uses' => 'Admin\SettingsController@save', 'as' => 'admin.settings.save']);
 });
+*/
 
 // Hooks
 Route::get('/_hooks', function () {
