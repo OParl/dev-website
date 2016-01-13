@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "436fc0efbc61ad766df296029ea4ced7",
+    "hash": "a367462aff4833ed1946e10b774b6ecb",
+    "content-hash": "ae28f0ba2a4cc53308e534d2732e876f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -463,6 +464,44 @@
                 "string"
             ],
             "time": "2014-12-20 21:24:13"
+        },
+        {
+            "name": "efrane/laravel-deploy",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eFrane/laravel-deploy.git",
+                "reference": "31604076915d926863d7c2669df7992e31c995d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/31604076915d926863d7c2669df7992e31c995d6",
+                "reference": "31604076915d926863d7c2669df7992e31c995d6",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EFrane\\Deploy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stefan Graupner",
+                    "email": "stefan.graupner@gmail.com"
+                }
+            ],
+            "keywords": [
+                "artisan",
+                "deploy",
+                "gulp",
+                "laravel"
+            ],
+            "time": "2016-01-13 09:41:39"
         },
         {
             "name": "erusev/parsedown",
