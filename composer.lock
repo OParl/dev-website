@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a9110ec93803ce43dd233d44922dc659",
-    "content-hash": "c004d94c787742f88db0ae199109d54e",
+    "hash": "b3e8843e0549cd4af30d08825f503ea0",
+    "content-hash": "9836573ff931b670ae7d1359ed11176b",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -443,22 +443,23 @@
         },
         {
             "name": "efrane/laravel-deploy",
-            "version": "v2.0.0",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/laravel-deploy.git",
-                "reference": "70d95e380ebb992e8f27acb25e2296a7d1cca625"
+                "reference": "bc81ca156996848a917fdb8fb8f4f221c1a289c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/70d95e380ebb992e8f27acb25e2296a7d1cca625",
-                "reference": "70d95e380ebb992e8f27acb25e2296a7d1cca625",
+                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/bc81ca156996848a917fdb8fb8f4f221c1a289c8",
+                "reference": "bc81ca156996848a917fdb8fb8f4f221c1a289c8",
                 "shasum": ""
             },
             "require": {
-                "efrane/conditional-process": "^1.0",
+                "efrane/conditional-process": ">=1.0",
                 "illuminate/console": ">=5.1",
-                "php": ">=5.6"
+                "php": ">=5.6",
+                "symfony/process": ">=2.7"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.2"
@@ -485,7 +486,7 @@
                 "gulp",
                 "laravel"
             ],
-            "time": "2016-02-09 09:08:49"
+            "time": "2016-02-10 17:57:19"
         },
         {
             "name": "erusev/parsedown",
