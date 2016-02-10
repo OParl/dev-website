@@ -18,7 +18,7 @@
     "league/flysystem-sftp": "^1.0",
     "backup-manager/laravel": "^1.0",
     "pda/pheanstalk": "^3.1",
-    "efrane/laravel-deploy": "2.0.3"
+    "efrane/laravel-deploy": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",

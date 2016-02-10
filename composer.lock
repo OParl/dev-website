@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3e8843e0549cd4af30d08825f503ea0",
-    "content-hash": "9836573ff931b670ae7d1359ed11176b",
+    "hash": "1c1582028a74d178c37bbdb0dd954b29",
+    "content-hash": "f346662c88e2ff414c72dd9790c1f0ca",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -443,7 +443,7 @@
         },
         {
             "name": "efrane/laravel-deploy",
-            "version": "v2.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/laravel-deploy.git",
@@ -3924,7 +3924,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "efrane/laravel-deploy": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

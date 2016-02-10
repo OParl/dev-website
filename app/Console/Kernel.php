@@ -14,8 +14,6 @@ class Kernel extends ConsoleKernel
     Commands\AddUserCommand::class,
     Commands\RemoveUserCommand::class,
 
-    Commands\DeployCommand::class,
-
     Commands\SetupCommand::class,
   ];
 

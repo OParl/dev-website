@@ -5,8 +5,6 @@ use Illuminate\Console\ConfirmableTrait;
 
 class SetupCommand extends Command
 {
-    use ConfirmableTrait;
-
     protected $signature = 'setup';
     protected $description = 'Runs all commands necessary for initial setup of the application.';
 
