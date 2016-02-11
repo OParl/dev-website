@@ -101,7 +101,10 @@ class HooksController extends Controller
             $hash = $request->input('version');
             $build = $buildRepository->getWithHash($hash);
 
-            $fs->makeDirectory('uploads/');
+            if (!$fs->isDirectory('uploads/'))
+            {
+                $fs->makeDirectory('uploads/');
+            }
 
             $this->dispatch(new ExtractSpecificationBuildJob($build));
 
@@ -111,9 +114,11 @@ class HooksController extends Controller
                 if (ends_with($ext, 'gz')) {
                     $file->move($build->tar_gz_storage_path);
                 }
+
                 if (ends_with($ext, 'bz2')) {
                     $file->move($build->tar_bz_storage_path);
                 }
+
                 if (ends_with($ext, 'zip')) {
                     $file->move($build->zip_storage_path);
                 }
