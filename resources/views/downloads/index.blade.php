@@ -24,6 +24,7 @@
         </div>
     </div>
 
+    {{--
     <div class="row">
         <div class="col-xs-12">
             <h3>Eine ältere Version anfordern:</h3>
@@ -33,6 +34,7 @@
             @include('downloads.complex_form')
         </div>
     </div>
+    --}}
 
     <div class="modal fade" id="downloadFormatSelectModal" tabindex="1" role="dialog">
         <div class="modal-dialog">
