@@ -12,10 +12,10 @@ class SpecificationBuild extends Model
     public static function boot()
     {
         static::creating(function ($build) {
-      $build->queried = false;
-      $build->persistent = false;
-      $build->displayed = true;
-    });
+            $build->queried = false;
+            $build->persistent = false;
+            $build->displayed = true;
+        });
     }
 
     public function getLinkedCommitMessageAttribute()

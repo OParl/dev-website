@@ -10,7 +10,17 @@ Dieses Programm wird mit Hilfe des [Laravel 5.1](laravel/laravel) Frameworks in 
 Allgemeine Hinweise zum Aufsetzen einer lokalen Entwicklungsumgebung für Laravelanwendungen findet 
 sich in der [Dokumentation](http://laravel.com/docs/5.1/homestead). 
 
-Die Umgebungsvariablen in `.env.example` sind die für Homestead funktionierenden Defaultwerte, daher
-reicht es, diese einfach in eine `.env` zu kopieren.
- 
+Die Umgebungsvariablen in `.env.example` sind die für 
+Homestead funktionierenden Defaultwerte, daher
+reicht es, diese  einfach in eine `.env` zu kopieren. 
+Einzig die Variable `APP_KEY` **muss** modifiziert werden.
+Dieser kann manuell ein 32-zeichiger Schlüssel zugewiesen werden.
+Alternativ generiert das `php artisan app:key`-Kommando einen
+zufälligen Schlüssel.
+
+## Lizenz
+
+Dieses Programm steht unter den Bedingungen der
+[MIT-Lizenz](https://opensource.org/licenses/MIT) zur
+Verfügung.
 
