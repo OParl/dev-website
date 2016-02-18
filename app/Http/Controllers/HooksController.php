@@ -9,6 +9,8 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Jobs\ExtractSpecificationBuildJob;
+use OParl\Spec\Jobs\UpdateAvailableSpecificationVersionsJob;
+use OParl\Spec\Jobs\UpdateLiveVersionJob;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -56,8 +58,8 @@ class HooksController extends Controller
                 $json = json_decode($request->input('payload'), true);
 
                 if ($json['action'] == 'closed' && $json['merged']) {
-                    $this->dispatch(new UpdateLiveCopy());
-                    $this->dispatch(new UpdateVersionHashes());
+                    $this->dispatch(new UpdateLiveVersionJob());
+                    $this->dispatch(new UpdateAvailableSpecificationVersionsJob());
 
                     return response()->json(['result' => 'Scheduled updates.']);
                 }
@@ -66,8 +68,8 @@ class HooksController extends Controller
 
             case 'push':
                 // just initiate spec and version updates
-                $this->dispatch(new UpdateLiveCopy());
-                $this->dispatch(new UpdateVersionHashes());
+                $this->dispatch(new UpdateLiveVersionJob());
+                $this->dispatch(new UpdateAvailableSpecificationVersionsJob());
 
                 return response()->json(['result' => 'Scheduled updates.']);
 
@@ -101,8 +103,7 @@ class HooksController extends Controller
             $hash = $request->input('version');
             $build = $buildRepository->getWithHash($hash);
 
-            if (!$fs->isDirectory('uploads/'))
-            {
+            if (!$fs->isDirectory('uploads/')) {
                 $fs->makeDirectory('uploads/');
             }
 
