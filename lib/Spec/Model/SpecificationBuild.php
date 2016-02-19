@@ -108,6 +108,9 @@ class SpecificationBuild extends Model
             return '';
         }
 
-        return Finder::create()->files()->name("*.{$extension}")->in($path)[0];
+        $finder = Finder::create()->files()->name("*.{$extension}")->in($path);
+        foreach ($finder as $file) {
+            if (ends_with($file, $extension)) return (string)$file;
+        }
     }
 }
