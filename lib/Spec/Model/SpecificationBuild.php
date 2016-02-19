@@ -58,32 +58,32 @@ class SpecificationBuild extends Model
         return storage_path('app' . DIRECTORY_SEPARATOR . $path);
     }
 
-    public function getZipArchiveStoragePathAttribute()
+    public function getZipStoragePathAttribute()
     {
         return $this->storage_path . DIRECTORY_SEPARATOR . $this->zip_archive_filename;
     }
 
-    public function getTarGzArchiveStoragePathAttribute()
+    public function getTarGzStoragePathAttribute()
     {
         return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_gz_archive_filename;
     }
 
-    public function getTarBzArchiveStoragePathAttribute()
+    public function getTarBzStoragePathAttribute()
     {
         return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_bz_archive_filename;
     }
 
-    public function getZipArchiveFilenameAttribute()
+    public function getZipFilenameAttribute()
     {
         return 'OParl-' . $this->hash . '.zip';
     }
 
-    public function getTarGzArchiveFilenameAttribute()
+    public function getTarGzFilenameAttribute()
     {
         return 'OParl-' . $this->hash . '.tar.gz';
     }
 
-    public function getTarBzArchiveFilenameAttribute()
+    public function getTarBzFilenameAttribute()
     {
         return 'OParl-' . $this->hash . '.tar.bz2';
     }
