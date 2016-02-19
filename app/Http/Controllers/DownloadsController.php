@@ -37,7 +37,7 @@ class DownloadsController extends Controller
             $file = new \SplFileInfo($build->discoverExtractedFile($extension));
         }
 
-        if (!$file->isFile()) {
+        if (is_null($file) || !$file->isFile()) {
             abort(404, 'Die angefragte Datei wurde auf diesem Server nicht gefunden.');
         } else {
             if ($buildRepository->isLatest($build)) {
