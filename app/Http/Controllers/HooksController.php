@@ -107,10 +107,8 @@ class HooksController extends Controller
                 $fs->makeDirectory('uploads/');
             }
 
-            $this->dispatch(new ExtractSpecificationBuildJob($build));
-
             collect($request->file())->each(function (UploadedFile $file) use ($build) {
-                $ext = $file->guessClientExtension();
+                $ext = $file->getClientOriginalExtension();
 
                 if (ends_with($ext, 'gz')) {
                     $file->move($build->tar_gz_storage_path);
@@ -124,6 +122,8 @@ class HooksController extends Controller
                     $file->move($build->zip_storage_path);
                 }
             });
+
+            $this->dispatch(new ExtractSpecificationBuildJob($build));
 
             return response()->json([
                 'version' => $request->input('version'),
