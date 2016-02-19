@@ -110,7 +110,7 @@ class BuildRepository
      **/
     public function getWithShortHash($short_hash)
     {
-        return SpecificationBuild::where('hash', '>', $short_hash)->first();
+        return SpecificationBuild::whereRaw("hash like '{$short_hash}%'")->first();
     }
 
     /**
