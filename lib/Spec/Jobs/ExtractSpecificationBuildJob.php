@@ -21,12 +21,11 @@ class ExtractSpecificationBuildJob extends SpecificationJob
 
     public function handle()
     {
-        $extractCmd = sprintf('tar -xzf %s %s',
-            $this->build->tar_gz_storage_path,
-            $this->build->extracted_files_storage_path
-        );
+        // extract
+        $extractCmd = sprintf('tar -xzf %s out/', $this->build->tar_gz_storage_path);
 
         $process = new Process($extractCmd);
+        $process->setWorkingDirectory($this->build->extracted_files_storage_path);
         $process->mustRun();
 
         try {
@@ -35,5 +34,14 @@ class ExtractSpecificationBuildJob extends SpecificationJob
             $output = $process->getOutput();
             \Log::error("Specification Build archive extraction failed. Full output follows:\n\n{$output}");
         }
+
+        // move from out/* to ../
+        $moveCmd = 'mv out/* ./ && rm -rf out/';
+
+        $process = new Process($moveCmd);
+        $process->setWorkingDirectory($this->build->extracted_files_storage_path);
+        $process->mustRun();
+
+        $process->run();
     }
 }
