@@ -8,17 +8,17 @@ class DownloadsController extends Controller
     public function index(BuildRepository $buildRepository)
     {
         return view('downloads.index', [
-      'builds' => $buildRepository->getLatest(15),
-      'title' => 'Downloads'
-    ]);
+            'builds' => $buildRepository->getLatest(15),
+            'title' => 'Downloads'
+        ]);
     }
 
     public function latest($extension, BuildRepository $buildRepository)
     {
         return redirect(null, 302)->route('downloads.provide', [
-      $buildRepository->getLatest()->short_hash,
-      $extension
-    ]);
+            $buildRepository->getLatest()->short_hash,
+            $extension
+        ]);
     }
 
     public function getFile($short_hash, $extension, BuildRepository $buildRepository)
@@ -28,7 +28,7 @@ class DownloadsController extends Controller
         $file = null;
 
         if (in_array($extension, ['zip', 'tar.gz', 'tar.bz'])) {
-            $property = sprintf('%s_archive_storage_path', str_replace('.', '_', $extension));
+            $property = sprintf('%s_storage_path', str_replace('.', '_', $extension));
 
             $file = new \SplFileInfo($build->{$property});
         }
@@ -44,10 +44,10 @@ class DownloadsController extends Controller
                 $filename = $file->getBasename();
             } else {
                 $filename = sprintf(
-          '%s-%s.%s',
-          $file->getBasename($file->getExtension()),
-          $build->short_hash,
-          $extension);
+                    '%s-%s.%s',
+                    $file->getBasename($file->getExtension()),
+                    $build->short_hash,
+                    $extension);
             }
 
             return response()->download($file, $filename);
@@ -57,9 +57,9 @@ class DownloadsController extends Controller
     public function selectVersion(VersionSelectRequest $request)
     {
         // redirect to download link
-    return redirect(null, 302)->route('downloads.provide', [
-      $request->input('version'),
-      $request->input('format')
-    ]);
+        return redirect(null, 302)->route('downloads.provide', [
+            $request->input('version'),
+            $request->input('format')
+        ]);
     }
 }

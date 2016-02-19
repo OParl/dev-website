@@ -57,6 +57,7 @@ class BuildRepository
      */
     public function getLatest($amount = 1, $displayable = true)
     {
+        /* @var $query \Illuminate\Database\Query\Builder */
         $query = SpecificationBuild::orderBy('created_at', 'desc');
         if ($displayable) {
             $query = $query->whereDisplayed(true);
