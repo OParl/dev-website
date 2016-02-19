@@ -83,7 +83,7 @@ header .form-inline {
 
   .nav > li > a { padding: 0; }
 
-  a {
+  a:not(.btn) {
     color: $color;
     text-decoration: none;
     font-weight: 400;

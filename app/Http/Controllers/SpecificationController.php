@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use OParl\Spec\BuildRepository;
 use OParl\Spec\LiveVersionRepository;
 
 class SpecificationController extends Controller
@@ -10,11 +11,12 @@ class SpecificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveVersionRepository $liveversion)
+    public function index(LiveVersionRepository $liveversion, BuildRepository $buildRepository)
     {
         $title = 'Spezifikation';
+        $builds = $buildRepository->getLatest(15);
 
-        return view('specification.index', compact('liveversion', 'title'));
+        return view('specification.index', compact('liveversion', 'title', 'builds'));
     }
 
     public function imageIndex()

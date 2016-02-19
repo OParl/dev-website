@@ -1,4 +1,7 @@
 <nav class="toc hidden-sm" id="toc">
+    @include ('downloads.button', ['buttonSize' => 'sm'])
+
+    {{--
     <form class="form-inline" action="#" method="get">
         <div class="input-group">
             <div class="input-group-addon">
@@ -8,6 +11,7 @@
                    aria-label="Mit diesem Formular lässt sich das Inhaltsverzeichnis nach Begriffen filtern" />
         </div>
     </form>
+    --}}
 
     <div>
         {!! $liveversion->getNav() !!}

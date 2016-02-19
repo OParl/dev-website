@@ -42,7 +42,7 @@ Route::get('/spezifikation/images/{image}', [
 Route::pattern('downloadsExtension', '(docx|txt|pdf|odt|html|epub|zip|tar\.gz|tar\.bz2)');
 Route::pattern('downloadsVersion', '[a-z0-9]{7}');
 
-Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
+//Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
 Route::get('/downloads/latest.{downloadsExtension}', [
     'uses' => 'DownloadsController@latest',
     'as' => 'downloads.latest'
@@ -141,15 +141,15 @@ Route::get('/_hooks/lock_version_updates', [
 
 // News and Search
 
-Route::post('/search', ['uses' => 'SearchController@search', 'as' => 'search.lookup']);
-
-Route::get('/aktuelles', ['uses' => 'NewsController@index', 'as' => 'news.index']);
-Route::get('/{year}', ['uses' => 'NewsController@yearly', 'as' => 'news.yearly']);
-Route::get('/{year}/{month}', ['uses' => 'NewsController@monthly', 'as' => 'news.monthly']);
-Route::get('/{year}/{month}/{day}', ['uses' => 'NewsController@daily', 'as' => 'news.daily']);
-Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as' => 'news.post']);
-Route::post('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@comment', 'as' => 'news.comment']);
-Route::get('/tags/{tag}', ['uses' => 'NewsController@tag', 'as' => 'news.tag'])->where('tag', '[[:print:]]+');
+//Route::post('/search', ['uses' => 'SearchController@search', 'as' => 'search.lookup']);
+//
+//Route::get('/aktuelles', ['uses' => 'NewsController@index', 'as' => 'news.index']);
+//Route::get('/{year}', ['uses' => 'NewsController@yearly', 'as' => 'news.yearly']);
+//Route::get('/{year}/{month}', ['uses' => 'NewsController@monthly', 'as' => 'news.monthly']);
+//Route::get('/{year}/{month}/{day}', ['uses' => 'NewsController@daily', 'as' => 'news.daily']);
+//Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as' => 'news.post']);
+//Route::post('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@comment', 'as' => 'news.comment']);
+//Route::get('/tags/{tag}', ['uses' => 'NewsController@tag', 'as' => 'news.tag'])->where('tag', '[[:print:]]+');
 
 // NOTE: as a last resort, maybe try guessing the input as post slug?
 // Route::get('/{slug}', ['uses' => 'NewsController@guess', 'as' => 'news.guess']);

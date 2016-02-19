@@ -20,10 +20,10 @@ class Header
             'title' => 'Spezifikation'
         ],
 
-        [
-            'routeKey' => 'downloads',
-            'title' => 'Downloads'
-        ],
+//        [
+//            'routeKey' => 'downloads',
+//            'title' => 'Downloads'
+//        ],
 
 //      [
 //        'title' => 'Demoserver',
