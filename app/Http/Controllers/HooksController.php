@@ -95,7 +95,6 @@ class HooksController extends Controller
      **/
     public function addVersion(
         VersionUpdateRequest $request,
-        Filesystem $fs,
         BuildRepository $buildRepository
     )
     {
@@ -103,23 +102,19 @@ class HooksController extends Controller
             $hash = $request->input('version');
             $build = $buildRepository->getWithHash($hash);
 
-            if (!$fs->isDirectory('uploads/')) {
-                $fs->makeDirectory('uploads/');
-            }
-
             collect($request->file())->each(function (UploadedFile $file) use ($build) {
                 $ext = $file->getClientOriginalExtension();
 
                 if (ends_with($ext, 'gz')) {
-                    $file->move($build->tar_gz_storage_path);
+                    $file->move($build->storage_path, $build->tar_gz_filename);
                 }
 
                 if (ends_with($ext, 'bz2')) {
-                    $file->move($build->tar_bz_storage_path);
+                    $file->move($build->storage_path, $build->tar_bz_filename);
                 }
 
                 if (ends_with($ext, 'zip')) {
-                    $file->move($build->zip_storage_path);
+                    $file->move($build->storage_path, $build->zip_filename);
                 }
             });
 

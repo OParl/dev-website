@@ -60,17 +60,32 @@ class SpecificationBuild extends Model
 
     public function getZipArchiveStoragePathAttribute()
     {
-        return $this->storage_path . '/OParl-' . $this->hash . '.zip';
+        return $this->storage_path . DIRECTORY_SEPARATOR . $this->zip_archive_filename;
     }
 
     public function getTarGzArchiveStoragePathAttribute()
     {
-        return $this->storage_path . '/OParl-' . $this->hash . '.tar.gz';
+        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_gz_archive_filename;
     }
 
     public function getTarBzArchiveStoragePathAttribute()
     {
-        return $this->storage_path . '/OParl-' . $this->hash . '.tar.bz2';
+        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_bz_archive_filename;
+    }
+
+    public function getZipArchiveFilenameAttribute()
+    {
+        return 'OParl-' . $this->hash . '.zip';
+    }
+
+    public function getTarGzArchiveFilenameAttribute()
+    {
+        return 'OParl-' . $this->hash . '.tar.gz';
+    }
+
+    public function getTarBzArchiveFilenameAttribute()
+    {
+        return 'OParl-' . $this->hash . '.tar.bz2';
     }
 
     public function enqueue()
