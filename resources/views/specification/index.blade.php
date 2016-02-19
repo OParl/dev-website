@@ -13,4 +13,6 @@
             </div>
         </div>
     </div>
+
+    @include ('downloads.button_modal')
 @stop
