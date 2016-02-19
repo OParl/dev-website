@@ -21,7 +21,7 @@ class ExtractSpecificationBuildJob extends SpecificationJob
 
     public function handle()
     {
-        $extractCmd = sprintf('tar -xvzf %s %s',
+        $extractCmd = sprintf('tar -xzf %s %s',
             $this->build->tar_gz_storage_path,
             $this->build->extracted_files_storage_path
         );
