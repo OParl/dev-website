@@ -46,7 +46,7 @@ class SpecificationBuild extends Model
 
         app('filesystem')->makeDirectory($path);
 
-        return storage_path('app' . $path);
+        return storage_path('app' . DIRECTORY_SEPARATOR . $path);
     }
 
     public function getExtractedFilesStoragePathAttribute()
@@ -55,7 +55,7 @@ class SpecificationBuild extends Model
 
         app('filesystem')->makeDirectory($path);
 
-        return storage_path('app' . $path);
+        return storage_path('app' . DIRECTORY_SEPARATOR . $path);
     }
 
     public function getZipArchiveStoragePathAttribute()
