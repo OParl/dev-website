@@ -109,8 +109,11 @@ class SpecificationBuild extends Model
         }
 
         $finder = Finder::create()->files()->name("*.{$extension}")->in($path);
-        foreach ($finder as $file) {
-            if (ends_with($file, $extension)) return (string)$file;
-        }
+
+        return collect(iterator_to_array($finder))->filter(
+            function ($file) use ($extension) {
+                return ends_with($file, $extension);
+            }
+        )->first();
     }
 }
