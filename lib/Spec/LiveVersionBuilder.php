@@ -114,6 +114,6 @@ class LiveVersionBuilder
         $html = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $html);
 
         // fix code tags
-        $html = preg_replace('/<pre class="json">.*<code.*>/', '<pre><code class="language-javascript">', $html);
+        $html = preg_replace('/<pre(.+)class="json">.*<code.*>/', '<pre$1><code class="language-javascript">', $html);
     }
 }
