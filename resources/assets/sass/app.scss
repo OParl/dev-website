@@ -91,6 +91,10 @@ header .form-inline {
     font-size: 1em;
   }
 
+  #toc a.btn {
+    color: $btn-primary-color;
+  }
+
   nav li {
     display: inline-block;
 
