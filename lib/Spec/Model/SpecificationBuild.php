@@ -60,17 +60,17 @@ class SpecificationBuild extends Model
 
     public function getZipStoragePathAttribute()
     {
-        return $this->storage_path . DIRECTORY_SEPARATOR . $this->zip_archive_filename;
+        return $this->storage_path . DIRECTORY_SEPARATOR . $this->zip_filename;
     }
 
     public function getTarGzStoragePathAttribute()
     {
-        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_gz_archive_filename;
+        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_gz_filename;
     }
 
     public function getTarBzStoragePathAttribute()
     {
-        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_bz_archive_filename;
+        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_bz_filename;
     }
 
     public function getZipFilenameAttribute()
