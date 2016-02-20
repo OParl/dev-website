@@ -446,12 +446,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/laravel-deploy.git",
-                "reference": "62f299a22dff566dff868bfb66e9163497b5fc5c"
+                "reference": "3e0539a5d5819ba3bc5f17cbd94a9a1a7afc9edf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/62f299a22dff566dff868bfb66e9163497b5fc5c",
-                "reference": "62f299a22dff566dff868bfb66e9163497b5fc5c",
+                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/3e0539a5d5819ba3bc5f17cbd94a9a1a7afc9edf",
+                "reference": "3e0539a5d5819ba3bc5f17cbd94a9a1a7afc9edf",
                 "shasum": ""
             },
             "require": {
@@ -485,7 +485,7 @@
                 "gulp",
                 "laravel"
             ],
-            "time": "2016-02-20 14:04:55"
+            "time": "2016-02-20 14:50:13"
         },
         {
             "name": "erusev/parsedown",
