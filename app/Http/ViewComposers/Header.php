@@ -5,45 +5,15 @@ use Illuminate\Contracts\View\View;
 class Header
 {
     protected $sections = [
-//        [
-//            'routeKey' => 'about',
-//            'title' => 'Über OParl'
-//        ],
-//
-//        [
-//            'routeKey' => 'news',
-//            'title' => 'Aktuelles'
-//        ],
-
         [
             'routeKey' => 'specification',
             'title' => 'Spezifikation'
         ],
 
-//        [
-//            'routeKey' => 'downloads',
-//            'title' => 'Downloads'
-//        ],
-
 //      [
 //        'title' => 'Demoserver',
 //        'url' => 'http://demoserver.oparl.org/'
 //      ],
-
-//        [
-//            'routeKey' => 'status',
-//            'title' => 'Status'
-//        ],
-
-//        [
-//            'routeKey' => 'newsletter',
-//            'title' => 'Newsletter'
-//        ],
-//
-//        [
-//            'routeKey' => 'imprint',
-//            'title' => 'Impressum'
-//        ],
     ];
 
     public function compose(View $view)

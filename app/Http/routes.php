@@ -10,20 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-/*
-// Home
-Route::pattern('year', '\d{4}');
-Route::pattern('month', '\d{2}');
-Route::pattern('day', '\d{2}');
-Route::pattern('slug', '[[:print:]]+');
-
-// About
-Route::get('/', ['uses' => 'AboutController@index', 'as' => 'about.index']);
-Route::get('/ueber-oparl/', ['uses' => 'AboutController@redirectIndex']);
-Route::get('/ueber-oparl/kommunen', ['uses' => 'AboutController@councils', 'as' => 'about.councils']);
-Route::get('/ueber-oparl/entwickler', ['uses' => 'AboutController@developers', 'as' => 'about.developers']);
-Route::get('/ueber-oparl/ris-hersteller', ['uses' => 'AboutController@ris', 'as' => 'about.ris']);
-*/
 
 Route::get('/', ['uses' => function() {
     return redirect()->route('specification.index');
@@ -58,60 +44,6 @@ Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
 
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 
-// Status
-// NOTE: When reenabling this, also uncomment the menu entry in the header composer
-// Route::get('/status', ['uses' => 'StaticPagesController@status', 'as' => 'status.index']);
-/*
-// Imprint
-Route::get('/impressum', ['uses' => 'StaticPagesController@imprint', 'as' => 'imprint.index']);
-
-// Newsletter
-Route::get('/newsletter', ['uses' => 'NewsletterController@index', 'as' => 'newsletter.index']);
-
-// Admin Login
-Route::get('/admin/login', ['uses' => 'Auth\AuthController@getLogin', 'as' => 'admin.login']);
-Route::post('/admin/login', ['uses' => 'Auth\AuthController@postLogin', 'as' => 'admin.perform_login']);
-
-Route::get('/admin/logout', ['uses' => 'Auth\AuthController@getLogout', 'as' => 'admin.logout']);
-
-// Admin
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-    Route::pattern('id', '\d+');
-
-    Route::get('/', ['uses' => 'Admin\DashboardController@index', 'as' => 'admin.dashboard.index']);
-
-    Route::get('/posts', ['uses' => 'Admin\NewsController@index', 'as' => 'admin.news.index']);
-    Route::get('/posts/new', ['uses' => 'Admin\NewsController@create', 'as' => 'admin.news.create']);
-    Route::get('/posts/{id}', ['uses' => 'Admin\NewsController@edit', 'as' => 'admin.news.edit']);
-    Route::post('/posts', ['uses' => 'Admin\NewsController@save', 'as' => 'admin.news.save']);
-    Route::get('/posts/{id}/delete', ['uses' => 'Admin\NewsController@delete', 'as' => 'admin.news.delete']);
-    Route::post('/posts/slug/', ['uses' => 'Admin\NewsController@slug', 'as' => 'admin.news.slug']);
-
-    Route::get('/comments', ['uses' => 'Admin\CommentsController@index', 'as' => 'admin.comments.index']);
-    Route::post('/comments', ['uses' => 'Admin\CommentsController@save', 'as' => 'admin.comments.save']);
-    Route::post('/comments/status', ['uses' => 'Admin\CommentsController@index', 'as' => 'admin.comments.status']);
-    Route::get('/comments/{id}', ['uses' => 'Admin\CommentsController@edit', 'as' => 'admin.comments.edit']);
-    Route::get('/comments/{id}/delete', ['uses' => 'Admin\CommentsController@delete', 'as' => 'admin.comments.delete']);
-
-    Route::get('/newsletter', ['uses' => 'Admin\NewsletterController@index', 'as' => 'admin.newsletter.index']);
-
-    Route::get('/spec', ['uses' => 'Admin\SpecificationController@index', 'as' => 'admin.specification.index']);
-    Route::get('/spec/update/{what}', ['uses' => 'Admin\SpecificationController@index', 'as' => 'admin.specification.update'])
-        ->where('what', '(livecopy|livecopy-force|versions)');
-    Route::get('/spec/clean/{what}', ['uses' => 'Admin\SpecificationController@clean', 'as' => 'admin.specification.clean'])
-        ->where('what', '(all|extraneous)');
-    Route::get('/spec/fetch/{what}', ['uses' => 'Admin\SpecificationController@fetch', 'as' => 'admin.specification.fetch'])
-        ->where('what', '(_missing_|[a-z0-9]{5,})');
-    Route::get('/spec/delete/{hash}', ['uses' => 'Admin\SpecificationController@delete', 'as' => 'admin.specification.delete'])
-        ->where('hash', '[a-z0-9]{5,}');
-    Route::get('/spec/edit/{id}', ['uses' => 'Admin\SpecificationController@edit', 'as' => 'admin.specification.edit']);
-    Route::post('/spec/edit/{id}', ['uses' => 'Admin\SpecificationController@save', 'as' => 'admin.specification.save']);
-
-    Route::get('/settings', ['uses' => 'Admin\SettingsController@index', 'as' => 'admin.settings']);
-    Route::post('/settings', ['uses' => 'Admin\SettingsController@save', 'as' => 'admin.settings.save']);
-});
-*/
-
 // Hooks
 Route::get('/_hooks', function () {
     return redirect()->route('specification.index');
@@ -138,18 +70,3 @@ Route::get('/_hooks/lock_version_updates', [
     'uses' => 'HooksController@lockVersionUpdates',
     'as' => 'hooks.lock_vu'
 ]);
-
-// News and Search
-
-//Route::post('/search', ['uses' => 'SearchController@search', 'as' => 'search.lookup']);
-//
-//Route::get('/aktuelles', ['uses' => 'NewsController@index', 'as' => 'news.index']);
-//Route::get('/{year}', ['uses' => 'NewsController@yearly', 'as' => 'news.yearly']);
-//Route::get('/{year}/{month}', ['uses' => 'NewsController@monthly', 'as' => 'news.monthly']);
-//Route::get('/{year}/{month}/{day}', ['uses' => 'NewsController@daily', 'as' => 'news.daily']);
-//Route::get('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@post', 'as' => 'news.post']);
-//Route::post('/{year}/{month}/{day}/{slug}', ['uses' => 'NewsController@comment', 'as' => 'news.comment']);
-//Route::get('/tags/{tag}', ['uses' => 'NewsController@tag', 'as' => 'news.tag'])->where('tag', '[[:print:]]+');
-
-// NOTE: as a last resort, maybe try guessing the input as post slug?
-// Route::get('/{slug}', ['uses' => 'NewsController@guess', 'as' => 'news.guess']);

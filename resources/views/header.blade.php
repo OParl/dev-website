@@ -27,23 +27,6 @@
                 </ul>
             </nav>
         </div>
-        {{--
-        <div class="col-md-2">
-
-            <form class="form-inline " method="POST" action="{{ route('search.lookup') }}">
-                {{ csrf_field() }}
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-                        <label for="query" class="sr-only">Suchbegriffe</label>
-                        <input type="search" name="q" id="query" placeholder="Suche&hellip;"
-                               class="form-control" />
-                    </div>
-                </div>
-            </form>
-        </div>
-        --}}
     </div>
 
 </header>

@@ -34,8 +34,7 @@
       "App\\": "app/",
       "OParl\\Spec\\": "lib/Spec/",
       "EFrane\\Akismet\\": "lib/Akismet/",
-      "EFrane\\Buildkite\\": "lib/Buildkite/",
-      "EFrane\\Newsletter\\": "lib/Newsletter"
+      "EFrane\\Buildkite\\": "lib/Buildkite/"
     }
   },
   "autoload-dev": {
