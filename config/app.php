@@ -149,8 +149,10 @@ return [
         OParl\Spec\SpecServiceProvider::class,
         GrahamCampbell\GitHub\GitHubServiceProvider::class,
         Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider::class,
+
         EFrane\Buildkite\BuildkiteServiceProvider::class,
         EFrane\Deploy\DeployServiceProvider::class,
+        EFrane\Letterpress\Providers\LaravelServiceProvider::class,
     ],
 
     /*

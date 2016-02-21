@@ -2,7 +2,6 @@ $font-size-base : 16px;
 $brand-primary : #01aae7;
 
 @import "../../../vendor/_bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
-@import "../../../vendor/_bower_components/eonasdan-bootstrap-datetimepicker/src/sass/_bootstrap-datetimepicker";
 
 @import url(http://fonts.googleapis.com/css?family=Dosis);
 
@@ -153,6 +152,11 @@ footer {
     margin-bottom: 1.2em;
     font-weight: bold;
   }
+}
+
+p {
+  text-align: justify;
+  hyphens: auto;
 }
 
 h1, h2, h3, h4 { & > a { color: inherit; }}

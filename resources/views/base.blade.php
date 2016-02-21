@@ -5,14 +5,14 @@
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width" />
 
         <meta property="og:locale" content="de_DE">
         <meta property="og:type" content="website">
         <meta property="og:title" content="OParl - Initiative für Offenheit parlamentarischer Informationssysteme">
         <meta property="og:description" content="Initiative für Offenheit parlamentarischer Informationssysteme">
         <meta property="og:site_name" content="OParl">
-        <meta property="og:url" content="http://oparl.org">
+        <meta property="og:url" content="{{ url('/') }}">
 
 
         <title>
@@ -49,7 +49,7 @@
                     @include ('header')
 
                     <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-12">
                             <a name="content">&nbsp;</a>
                             @yield('content')
                         </div>

@@ -1,5 +1,6 @@
 <?php namespace OParl\Spec;
 
+use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Finder\Finder;
@@ -81,6 +82,11 @@ class LiveVersionBuilder
 
         $this->fixNavHTML($this->nav);
         $this->fixContentHTML($this->content);
+
+        /* @var $letterpress Letterpress */
+        $letterpress = app(Letterpress::class);
+
+        $this->content = $letterpress->press($this->content);
     }
 
     public function extractSections()
