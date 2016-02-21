@@ -113,8 +113,9 @@ class LiveVersionBuilder
         // fix table tags
         $html = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $html);
 
-        // fix code tags
-        $html = preg_replace('/<pre(.+)class="json">.*<code.*>/', '<pre$1><code class="language-javascript">', $html);
+        // fix code tags for prism
+        $html = preg_replace('/<pre(.+)class="json">.*?<code.*?>/', '<pre$1><code class="language-javascript">', $html);
+        $html = preg_replace('/<pre(.+)class="sql">.*?<code.*?>/', '<pre$1><code class="language-sql">', $html);
 
         // wrap examples into closed-by-default accordions
         $exampleIdentifierCount = 1;

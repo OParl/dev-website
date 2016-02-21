@@ -16,9 +16,6 @@
   "dependencies": {
     "jquery": "~2.1.1",
     "prism": "*",
-    "bootstrap-sass-official": "~3.3.4",
-    "select2": "~4.0.0",
-    "eonasdan-bootstrap-datetimepicker": "~4.15.35",
-    "pusher": "~2.2.4"
+    "bootstrap-sass-official": "~3.3.4"
   }
 }
