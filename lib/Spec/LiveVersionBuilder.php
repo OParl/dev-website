@@ -115,5 +115,22 @@ class LiveVersionBuilder
 
         // fix code tags
         $html = preg_replace('/<pre(.+)class="json">.*<code.*>/', '<pre$1><code class="language-javascript">', $html);
+
+        // wrap examples into closed-by-default accordions
+        $exampleIdentifierCount = 1;
+        $html = preg_replace_callback(
+            '#<p><strong>(Beispiel.*?)</strong></p>\n(<pre(?:.*?)</pre>)#s',
+            function ($match) use (&$exampleIdentifierCount) {
+                $data = [
+                    'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
+                    'exampleTitle' => $match[1],
+                    'exampleCode' => $match[2]
+                ];
+
+                $exampleIdentifierCount++;
+
+                return view('specification.example', $data);
+            }, $html
+        );
     }
 }

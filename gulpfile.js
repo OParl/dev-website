@@ -41,6 +41,7 @@ elixir(function(mix) {
             'bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js',
             'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
+            'bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
 
             'select2/dist/js/select2.js'
         ], 'public/js/lib.js', 'vendor/_bower_components'
