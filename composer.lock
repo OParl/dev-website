@@ -371,12 +371,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/letterpress.git",
-                "reference": "254137e851b711357976f3fc621d01e35bfb7804"
+                "reference": "5c84f58fdefbd01166d5a24dfe2f48845b8ac188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/letterpress/zipball/254137e851b711357976f3fc621d01e35bfb7804",
-                "reference": "254137e851b711357976f3fc621d01e35bfb7804",
+                "url": "https://api.github.com/repos/eFrane/letterpress/zipball/5c84f58fdefbd01166d5a24dfe2f48845b8ac188",
+                "reference": "5c84f58fdefbd01166d5a24dfe2f48845b8ac188",
                 "shasum": ""
             },
             "require": {
@@ -414,7 +414,7 @@
                 }
             ],
             "description": "A configurable output formatting wrapper for PHP.",
-            "time": "2016-02-21 12:55:09"
+            "time": "2016-02-21 14:27:12"
         },
         {
             "name": "embed/embed",

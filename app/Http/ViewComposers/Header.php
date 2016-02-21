@@ -6,8 +6,18 @@ class Header
 {
     protected $sections = [
         [
+            'title' => 'Über OParl',
+            'url' => 'https://oparl.org/ueber-oparl/'
+        ],
+
+        [
             'routeKey' => 'specification',
             'title' => 'Spezifikation'
+        ],
+
+        [
+            'title' => 'Kontakt',
+            'url' => 'https://oparl.org/kontakt/'
         ],
 
 //      [

@@ -1,24 +1,29 @@
 $font-size-base : 16px;
-$brand-primary : #01aae7;
+$brand-primary : #3498db;
 
 @import "../../../vendor/_bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
 
 @import url(http://fonts.googleapis.com/css?family=Dosis);
-
-@import "spinner";
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 body { position: relative; }
 
-header .form-inline {
-//@viewport(min-width: $screen-md-min ) {
-    margin-top: 1.5em;
-//  }
+.navbar-default {
+  background: white;
+  text-align: center;
+  border: none;
+  margin-bottom: 0;
 }
 
 .text-oparl {
   font-family: 'Dosis', 'Helvetica Neue', sans-serif;
   font-weight: 300;
-  color: #01aae7;
+  color: $brand-primary;
+  font-size: 32px;
+  vertical-align: center;
+  padding-right: $navbar-padding-horizontal;
+
+  & > a { text-decoration: none; }
 }
 
 .text-tiny {
@@ -34,24 +39,6 @@ header .form-inline {
   overflow-x:auto;
   overflow-y:hidden;
   white-space: nowrap;
-}
-
-.nav-lines {
-  background: linear-gradient(to bottom, transparent 95%, $nav-link-hover-bg);
-
-  > li {
-    float: left;
-
-    a { color: #01aae7; }
-
-    a:hover {
-      background: linear-gradient(to bottom, transparent 95%, darken($nav-link-hover-bg, 50%));
-    }
-
-    &.active, &:focus {
-      background: linear-gradient(to bottom, transparent 95%, $brand-primary);
-    }
-  }
 }
 
 .page-header {
@@ -74,6 +61,10 @@ header .form-inline {
 
   max-height: 100%;
 
+  > a:first-of-type {
+    margin-bottom: 1.2em;
+  }
+
   > div {
     min-height: 240px;
     max-height: 480px;
@@ -87,7 +78,7 @@ header .form-inline {
     text-decoration: none;
     font-weight: 400;
 
-    font-size: 1em;
+    font-size: .8em;
   }
 
   #toc a.btn {
@@ -117,41 +108,12 @@ header .form-inline {
   }
 }
 
-.jumbotron {
-  background: transparent;
-  border: 1px solid $brand-primary;
-}
-
-.panel-default {
-  .panel-heading {
-    background: $brand-primary;
-  }
-
-  .panel-footer {
-    background: none;
-    border-top-color: $brand-primary;
-  }
-
-  border-color: $brand-primary;
-}
-
-aside {
-  border-left: 1px solid #eee;
-}
-
 footer {
   border-top: 1px solid #eee;
   margin-top: 1.2em;
-  margin-botto: 1.2em;
-}
+  margin-bottom: 1.2em;
 
-.contributors {
-  h3 {
-    font-size: .9em;
-    margin-top: 0;
-    margin-bottom: 1.2em;
-    font-weight: bold;
-  }
+  small:not(a) { font-size: .8em; }
 }
 
 p {
@@ -186,3 +148,5 @@ figcaption {
   text-align: center;
   font-variant: small-caps;
 }
+
+@import '_skin';
