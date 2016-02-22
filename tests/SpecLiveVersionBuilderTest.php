@@ -4,7 +4,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use OParl\Spec\LiveVersionBuilder;
 use OParl\Spec\LiveVersionRepository;
-use OParl\Spec\LiveVersionUpdater;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 class SpecLiveVersionBuilderTest extends TestCase
 {
@@ -47,12 +47,26 @@ class SpecLiveVersionBuilderTest extends TestCase
 
     public function testLoad()
     {
+        /* @var $builderMock LiveVersionBuilder|PHPUnit_Framework_MockObject_MockObject */
+        $builderMock = $this->getMock(LiveVersionBuilder::class, [
+            'parseChapters',
+            'parseHTML'
+        ], [
+            app(Filesystem::class),
+            ''
+        ]);
 
+        $builderMock->expects($this->once())->method('parseChapters');
+        $builderMock->expects($this->once())->method('parseHTML');
+
+        $builderMock->load(LiveVersionRepository::getLiveVersionPath());
     }
 
     public function testLoadWithNonExistingHTML()
     {
+        $this->setExpectedException(FileNotFoundException::class);
 
+        app(LiveVersionBuilder::class)->load('file_not_found');
     }
 
     public function testParseChapters()
