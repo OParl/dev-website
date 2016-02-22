@@ -1,6 +1,7 @@
 <?php
+
 return [
-  /**
+  /*
    * The locale used for all language dependent input fixes.
    * Note that this can be overridden every single time
    * simply with:
@@ -23,8 +24,8 @@ return [
     'enableParserInMarkup' => true,
 
     // use "markdown extra" syntax instead of parsedown's defaults
-    // this only works if parsedown-extra was installed  
-    'useMarkdownExtra' => false
+    // this only works if parsedown-extra was installed
+    'useMarkdownExtra' => false,
   ],
 
   // apply markup *fixes*. please note that disabling this also disables
@@ -63,17 +64,17 @@ return [
     // if silent fail is enabled, the embedder will just return the original input
     // when something goes wrong along the way, otherwise, a LetterpressException
     // will be thrown
-    'silentfail' => false
+    'silentfail' => false,
   ],
 
   'microtypography' => [
-    'enabled' => true,
+    'enabled'           => true,
     'enableHyphenation' => true,
 
     'useDefaults' => true,
 
     // you only need to add your additional fixers here, most of
     // the stuff is handled by the defaults in config/jolitypo.php
-    'additionalFixers' => []
-  ]
+    'additionalFixers' => [],
+  ],
 ];

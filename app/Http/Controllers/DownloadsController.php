@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Requests\VersionSelectRequest;
 use OParl\Spec\BuildRepository;
@@ -9,7 +11,7 @@ class DownloadsController extends Controller
     {
         return view('downloads.index', [
             'builds' => $buildRepository->getLatest(15),
-            'title' => 'Downloads'
+            'title'  => 'Downloads',
         ]);
     }
 
@@ -17,7 +19,7 @@ class DownloadsController extends Controller
     {
         return redirect(null, 302)->route('downloads.provide', [
             $buildRepository->getLatest()->short_hash,
-            $extension
+            $extension,
         ]);
     }
 
@@ -59,7 +61,7 @@ class DownloadsController extends Controller
         // redirect to download link
         return redirect(null, 302)->route('downloads.provide', [
             $request->input('version'),
-            $request->input('format')
+            $request->input('format'),
         ]);
     }
 }

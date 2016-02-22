@@ -1,4 +1,6 @@
-<?php namespace App\Http;
+<?php
+
+namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -25,9 +27,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => 'App\Http\Middleware\Authenticate',
+        'auth'       => 'App\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
-    'hooks.github' => 'App\Http\Middleware\ValidateGitHubWebHook',
+        'guest'      => 'App\Http\Middleware\RedirectIfAuthenticated',
+    'hooks.github'   => 'App\Http\Middleware\ValidateGitHubWebHook',
     ];
 }

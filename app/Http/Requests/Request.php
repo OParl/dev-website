@@ -1,4 +1,6 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -7,10 +9,11 @@ abstract class Request extends FormRequest
     protected $checkboxes = [];
 
   /**
-   * Checkbox fixing curtesy of https://laracasts.com/discuss/channels/general-discussion/laravel-5-validation-input-format/replies/85007
+   * Checkbox fixing curtesy of https://laracasts.com/discuss/channels/general-discussion/laravel-5-validation-input-format/replies/85007.
    *
    * @param null $key
    * @param null $default
+   *
    * @return array|string
    */
   public function input($key = null, $default = null)

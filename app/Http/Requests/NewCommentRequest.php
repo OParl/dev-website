@@ -1,4 +1,6 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 class NewCommentRequest extends Request
 {
@@ -24,7 +26,7 @@ class NewCommentRequest extends Request
       'author_id'  => 'required_without_all:name,email|exists:users,id',
       'name'       => 'required_without:author_id|string|min:2',
       'email'      => 'required_without:author_id|email',
-      'content'    => 'required|string|min:3'
+      'content'    => 'required|string|min:3',
     ];
   }
 }

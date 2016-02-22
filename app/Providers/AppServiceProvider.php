@@ -1,4 +1,6 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use App\Http\ViewComposers\AdminHeader;
 use App\Http\ViewComposers\Header;

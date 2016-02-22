@@ -1,4 +1,6 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 class VersionSelectRequest extends Request
 {
@@ -16,7 +18,7 @@ class VersionSelectRequest extends Request
   {
       return [
       'version' => 'required|string|size:7',
-      'format'  => 'required|in:docx,epub,txt,pdf,odt,html,zip,tar.gz,tar.bz2'
+      'format'  => 'required|in:docx,epub,txt,pdf,odt,html,zip,tar.gz,tar.bz2',
     ];
   }
 }

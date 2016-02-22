@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec;
+<?php
+
+namespace OParl\Spec;
 
 use Carbon\Carbon;
 use Illuminate\Bus\Dispatcher;
@@ -6,8 +8,7 @@ use OParl\Spec\Jobs\RequestSpecificationBuildJob;
 use OParl\Spec\Model\SpecificationBuild;
 
 /**
- * Class BuildRepository
- * @package OParl\Spec
+ * Class BuildRepository.
  **/
 class BuildRepository
 {
@@ -36,6 +37,7 @@ class BuildRepository
 
     /**
      * @param SpecificationBuild $build
+     *
      * @return bool
      **/
     public function isLatest(SpecificationBuild $build)
@@ -53,6 +55,7 @@ class BuildRepository
 
     /**
      * @param int $amount
+     *
      * @return SpecificationBuild|\Illuminate\Support\Collection
      */
     public function getLatest($amount = 1, $displayable = true)
@@ -72,6 +75,7 @@ class BuildRepository
 
     /**
      * @param Carbon $date
+     *
      * @return static
      **/
     public function getDeletableByDate(Carbon $date)
@@ -83,6 +87,7 @@ class BuildRepository
 
     /**
      * @param int $amount
+     *
      * @return mixed
      **/
     public function getDeletableByAmount($amount = 30)
@@ -95,6 +100,7 @@ class BuildRepository
 
     /**
      * @param $hash
+     *
      * @return SpecificationBuild
      */
     public function getWithHash($hash)
@@ -106,6 +112,7 @@ class BuildRepository
      * Request a build with a shortened hash.
      *
      * @param $short_hash string Shortened git hash
+     *
      * @return SpecificationBuild
      **/
     public function getWithShortHash($short_hash)
@@ -117,6 +124,7 @@ class BuildRepository
      * Request builds by tags.
      *
      * @param array $tags
+     *
      * @return SpecificationBuild|\Illuminate\Support\Collection
      **/
     public function getWithTags(array $tags)
@@ -125,7 +133,7 @@ class BuildRepository
     }
 
     /**
-     * Request a specific job's assets from the build system
+     * Request a specific job's assets from the build system.
      *
      * @param $hash string The git hash of the to-be-requested build
      **/

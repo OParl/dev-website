@@ -50,10 +50,10 @@ class SpecLiveVersionBuilderTest extends TestCase
         /* @var $builderMock LiveVersionBuilder|PHPUnit_Framework_MockObject_MockObject */
         $builderMock = $this->getMock(LiveVersionBuilder::class, [
             'parseChapters',
-            'parseHTML'
+            'parseHTML',
         ], [
             app(Filesystem::class),
-            ''
+            '',
         ]);
 
         $builderMock->expects($this->once())->method('parseChapters');
@@ -71,26 +71,21 @@ class SpecLiveVersionBuilderTest extends TestCase
 
     public function testParseChapters()
     {
-
     }
 
     public function testParseHTML()
     {
-
     }
 
     public function testExtractSections()
     {
-
     }
 
     public function testFixNavHTML()
     {
-
     }
 
     public function testFixContentHTML()
     {
-
     }
 }

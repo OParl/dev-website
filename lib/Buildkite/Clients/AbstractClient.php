@@ -1,4 +1,6 @@
-<?php namespace EFrane\Buildkite\Clients;
+<?php
+
+namespace EFrane\Buildkite\Clients;
 
 use EFrane\Buildkite\BuildkiteException;
 use Guzzle\Http\Client;
@@ -30,23 +32,26 @@ abstract class AbstractClient
     public function organization($organization)
     {
         $this->organization = $organization;
+
         return $this;
     }
 
     public function project($project)
     {
         $this->extractCombinedOrganizationFromProject($project);
+
         return $this;
     }
 
     private function getBaseURL()
     {
-        return $this->baseURL . '/' . $this->apiVersion . '/';
+        return $this->baseURL.'/'.$this->apiVersion.'/';
     }
 
     protected function prepareURL($path, array $arguments)
     {
         $arguments = implode('&', $arguments);
+
         return sprintf('/%s/%s?%s', $this->apiVersion, $path, $arguments);
     }
 
@@ -66,7 +71,7 @@ abstract class AbstractClient
                 collect($value)->map(function ($val, $key) use ($argument) {
           return [
             sprintf('%s[%s]', $argument, $key),
-            urlencode($val)
+            urlencode($val),
           ];
         })->each(function ($encoded) use ($request) {
           $request->getQuery()->add($encoded[0], $encoded[1]);
@@ -82,12 +87,12 @@ abstract class AbstractClient
     protected function validateInput($id, $type = 'string')
     {
         if (is_null($id)) {
-            return null;
+            return;
         }
 
         $validationMethod = sprintf('is_%s', $type);
         if (!call_user_func($validationMethod, $id)) {
-            throw new BuildkiteException(sprintf("ID must be %s", ucfirst($type)));
+            throw new BuildkiteException(sprintf('ID must be %s', ucfirst($type)));
         }
 
         return $id;

@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Jobs;
+<?php
+
+namespace OParl\Spec\Jobs;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\Model\SpecificationBuild;

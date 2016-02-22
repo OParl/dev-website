@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Jobs;
+<?php
+
+namespace OParl\Spec\Jobs;
 
 use Carbon\Carbon;
 use GrahamCampbell\GitHub\GitHubManager;
@@ -6,12 +8,10 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use OParl\Spec\Model\SpecificationBuild;
 
 /**
- * Class UpdateAvailableSpecificationVersionsJob
+ * Class UpdateAvailableSpecificationVersionsJob.
  *
  * Update the available version information from GitHub
  * and import it to the SpecificationBuild table.
- *
- * @package OParl\Spec\Jobs
  */
 class UpdateAvailableSpecificationVersionsJob extends SpecificationJob
 {
@@ -20,16 +20,16 @@ class UpdateAvailableSpecificationVersionsJob extends SpecificationJob
         $commits = $gh->repo()->commits()->all($this->user, $this->repo, []);
 
         collect($commits)->each(function (array $commit) use ($dispatcher) {
-      $hash          = $commit['sha'];
+      $hash = $commit['sha'];
       $commitMessage = $commit['commit']['message'];
-      $createdAt     = new Carbon($commit['commit']['committer']['date']);
-      $humanVersion  = explode("\n", $commitMessage)[0];
+      $createdAt = new Carbon($commit['commit']['committer']['date']);
+      $humanVersion = explode("\n", $commitMessage)[0];
 
       SpecificationBuild::firstOrCreate([
         'commit_message' => $commitMessage,
-        'human_version' => $humanVersion,
-        'created_at' => $createdAt,
-        'hash' => $hash,
+        'human_version'  => $humanVersion,
+        'created_at'     => $createdAt,
+        'hash'           => $hash,
       ]);
     });
     }

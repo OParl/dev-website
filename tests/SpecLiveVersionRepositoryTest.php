@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use OParl\Spec\LiveVersionRepository;
 
 class SpecLiveVersionRepositoryTest extends TestCase
@@ -18,7 +17,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
         /* @var $instance LiveVersionRepository */
         $instance = app(LiveVersionRepository::class);
 
-        $path = LiveVersionRepository::PATH . '/src/';
+        $path = LiveVersionRepository::PATH.'/src/';
 
         $this->assertTrue(is_string($instance->getChapterPath()));
         $this->assertStringEndsWith($path, $instance->getChapterPath());
@@ -30,7 +29,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
         /* @var $instance LiveVersionRepository */
         $instance = app(LiveVersionRepository::class);
 
-        $path = LiveVersionRepository::PATH . '/src/images/';
+        $path = LiveVersionRepository::PATH.'/src/images/';
 
         $this->assertTrue(is_string($instance->getImagesPath()));
         $this->assertStringEndsWith($path, $instance->getImagesPath());
@@ -42,7 +41,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
         /* @var $instance LiveVersionRepository */
         $instance = app(LiveVersionRepository::class);
 
-        $path = LiveVersionRepository::PATH . '/schema/';
+        $path = LiveVersionRepository::PATH.'/schema/';
 
         $this->assertTrue(is_string($instance->getSchemaPath()));
         $this->assertStringEndsWith($path, $instance->getSchemaPath());
@@ -54,7 +53,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
         /* @var $instance LiveVersionRepository */
         $instance = app(LiveVersionRepository::class);
 
-        $path = LiveVersionRepository::PATH . '/examples/';
+        $path = LiveVersionRepository::PATH.'/examples/';
 
         $this->assertTrue(is_string($instance->getExamplesPath()));
         $this->assertStringEndsWith($path, $instance->getExamplesPath());
@@ -66,7 +65,7 @@ class SpecLiveVersionRepositoryTest extends TestCase
         /* @var $instance LiveVersionRepository */
         $instance = app(LiveVersionRepository::class);
 
-        $path = LiveVersionRepository::PATH . '/out/live.html';
+        $path = LiveVersionRepository::PATH.'/out/live.html';
 
         $this->assertTrue(is_string($instance->getLiveVersionPath()));
         $this->assertStringEndsWith($path, $instance->getLiveVersionPath());

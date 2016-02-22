@@ -2,7 +2,7 @@
 
 use OParl\Spec\LiveVersionUpdater;
 
-include __DIR__ . '/../bootstrap/autoload.php';
+include __DIR__.'/../bootstrap/autoload.php';
 
 if (!file_exists('tests/assets')) {
     mkdir('tests/assets', 0777, true);

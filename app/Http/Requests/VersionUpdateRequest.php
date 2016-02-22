@@ -1,4 +1,6 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 class VersionUpdateRequest extends Request
 {
@@ -10,7 +12,7 @@ class VersionUpdateRequest extends Request
     public function rules()
     {
         return [
-            'version' => 'required|string|min:4|max:40'
+            'version' => 'required|string|min:4|max:40',
         ];
     }
 }

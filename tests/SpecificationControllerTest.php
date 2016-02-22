@@ -41,8 +41,7 @@ class SpecificationControllerTest extends TestCase
         // first, get all images
         $images = Finder::create()->in(LiveVersionRepository::getImagesPath('', true))->name('*.png');
 
-        foreach ($images as $image)
-        {
+        foreach ($images as $image) {
             /* @var $image \SplFileInfo */
             $url = "/spezifikation/images/{$image->getBasename()}";
             $request = $this->call('GET', $url);

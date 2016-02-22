@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Commands;
+<?php
+
+namespace OParl\Spec\Commands;
 
 use OParl\Spec\BuildRepository;
 use OParl\Spec\Model\SpecificationBuild;
@@ -13,11 +15,11 @@ class ListSpecificationBuildsCommand extends SpecificationCommand
         $builds = $repository->getLatest(30, false)
       ->map(function (SpecificationBuild $build) {
       return [
-        'id' => $build->id,
-        'message' => $build->human_version,
-        'avail' => ($build->is_available)  ? 'YES' : 'NO',
-        'queried' => ($build->queried)     ? 'YES' : 'NO',
-        'displayed' => ($build->displayed) ? 'YES' : 'NO'
+        'id'        => $build->id,
+        'message'   => $build->human_version,
+        'avail'     => ($build->is_available)  ? 'YES' : 'NO',
+        'queried'   => ($build->queried)     ? 'YES' : 'NO',
+        'displayed' => ($build->displayed) ? 'YES' : 'NO',
       ];
     });
 

@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Jobs;
+<?php
+
+namespace OParl\Spec\Jobs;
 
 use EFrane\Buildkite\Buildkite;
 use EFrane\Buildkite\RequestData\CreateBuild;
@@ -10,6 +12,7 @@ class RequestSpecificationBuildJob extends SpecificationJob
 
   /**
    * RequestSpecificationBuildJob constructor.
+   *
    * @param string $hash
    */
   public function __construct($hash)
@@ -24,6 +27,7 @@ class RequestSpecificationBuildJob extends SpecificationJob
   {
       if (env('debug')) {
           \Log::info("Would request specification build for hash {$this->hash}");
+
           return true;
       }
 
@@ -36,6 +40,7 @@ class RequestSpecificationBuildJob extends SpecificationJob
       $build = $repo->getWithHash($this->hash);
       if ($build->isAvailable) {
           \Log::debug('Build is already available, aborting.');
+
           return true;
       }
 

@@ -1,4 +1,6 @@
-<?php namespace EFrane\Buildkite;
+<?php
+
+namespace EFrane\Buildkite;
 
 use Illuminate\Support\ServiceProvider;
 

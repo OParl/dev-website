@@ -1,4 +1,6 @@
-<?php namespace EFrane\Akismet;
+<?php
+
+namespace EFrane\Akismet;
 
 use Guzzle\Http\Client;
 
@@ -26,7 +28,7 @@ class Akismet
         $this->homepage = $homepage;
         $this->debug = $debug;
 
-        $this->client = new Client(['base_url' => "https://{$key}.rest.akismet.com/" . Akismet::API_VERSION . "/"]);
+        $this->client = new Client(['base_url' => "https://{$key}.rest.akismet.com/".self::API_VERSION.'/']);
     }
 
     /**
@@ -51,7 +53,7 @@ class Akismet
         /* @var \Guzzle\Http\Message\Response $response */
         $response = $this->client->post('comment-check', ['body' => $data]);
 
-        $success = ((String)$response->getBody() == 'true') ? Akismet::SPAM : Akismet::HAM;
+        $success = ((string) $response->getBody() == 'true') ? self::SPAM : self::HAM;
 
         if ($response->hasHeader('X-akismet-pro-tip')) {
             $this->proTip = $response->getHeader('X-akismet-pro-tip');
@@ -83,15 +85,15 @@ class Akismet
     protected function verifyKey()
     {
         if (!$this->verified) {
-            $response = $this->client->post('https://rest.akismet.com/' . Akismet::API_VERSION . '/verify-key', [
+            $response = $this->client->post('https://rest.akismet.com/'.self::API_VERSION.'/verify-key', [
                 'body' => [
-                    'key' => $this->key,
-                    'blog' => $this->homepage
-                ]
+                    'key'  => $this->key,
+                    'blog' => $this->homepage,
+                ],
             ]);
 
             if (intval($response->getHeader('content-length')) !== 5) {
-                throw new \RuntimeException("Invalid Akismet API key!");
+                throw new \RuntimeException('Invalid Akismet API key!');
             }
         }
 
@@ -106,7 +108,7 @@ class Akismet
 
         $response = $this->client->post("submit-{$type}", ['body' => $data]);
 
-        return (String)$response->getBody();
+        return (string) $response->getBody();
     }
 
     protected function prepareData(array $data)
@@ -152,6 +154,7 @@ class Akismet
             'user_role',
             'is_test',
         ];
+
         return $allowedDataFields;
     }
 
@@ -162,7 +165,7 @@ class Akismet
     {
         foreach (array_keys($data) as $key) {
             if (!in_array($key, $this->getAllowedFields())) {
-                throw new \RuntimeException("Invalid data key " . $key);
+                throw new \RuntimeException('Invalid data key '.$key);
             }
         }
     }
@@ -175,7 +178,8 @@ class Akismet
         $ip = (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
         $ua = (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : '';
         $rf = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
-        return array($ip, $ua, $rf);
+
+        return [$ip, $ua, $rf];
     }
 
     /**
@@ -183,6 +187,7 @@ class Akismet
      * @param $ip
      * @param $ua
      * @param $rf
+     *
      * @return array
      **/
     protected function setCommonData(array $data, $ip, $ua, $rf)
@@ -209,8 +214,10 @@ class Akismet
 
         if (!isset($data['blog_charset'])) {
             $data['blog_charset'] = 'utf-8';
+
             return $data;
         }
+
         return $data;
     }
 }

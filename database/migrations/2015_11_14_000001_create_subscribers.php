@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateSubscribers extends Migration
 {
@@ -14,7 +14,7 @@ class CreateSubscribers extends Migration
     {
         $prefix = config('newsletter.prefix');
 
-        Schema::create($prefix . 'subscriber', function (Blueprint $table) {
+        Schema::create($prefix.'subscriber', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
 

@@ -1,4 +1,6 @@
-<?php namespace App\Model;
+<?php
+
+namespace App\Model;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -47,7 +49,7 @@ class Post extends Model
         $this->published_at->year,
         sprintf('%02d', $this->published_at->month),
         sprintf('%02d', $this->published_at->day),
-        $this->slug
+        $this->slug,
       ]
     );
     }
@@ -62,6 +64,7 @@ class Post extends Model
     public function getTagListAttribute()
     {
         $list = $this->tags->lists('id');
+
         return $list->all();
     }
 

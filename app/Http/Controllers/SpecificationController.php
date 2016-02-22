@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\BuildRepository;
@@ -7,7 +9,7 @@ use OParl\Spec\LiveVersionRepository;
 class SpecificationController extends Controller
 {
     /**
-     * Show the specification's live copy
+     * Show the specification's live copy.
      *
      * @return \Illuminate\Http\Response
      */

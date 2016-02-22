@@ -1,8 +1,10 @@
-<?php namespace App\Console\Commands;
+<?php
 
+namespace App\Console\Commands;
+
+use App\Model\User;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
-use App\Model\User;
 
 class AddUserCommand extends Command
 {
@@ -24,7 +26,7 @@ class AddUserCommand extends Command
     {
         return [
             ['name', null, InputOption::VALUE_REQUIRED, 'The user\'s name'],
-            ['email', null, InputOption::VALUE_REQUIRED, 'The user\'s email']
+            ['email', null, InputOption::VALUE_REQUIRED, 'The user\'s email'],
         ];
     }
 
@@ -38,12 +40,12 @@ class AddUserCommand extends Command
         $password = str_random(12);
 
         $user = User::create([
-            'name' => $this->option('name'),
-            'email' => $this->option('email'),
-            'password' => bcrypt($password)
+            'name'     => $this->option('name'),
+            'email'    => $this->option('email'),
+            'password' => bcrypt($password),
         ]);
 
-        $this->info('User ' . $user->name . ' successfully created with ID ' . $user->id);
-        $this->line('Temporary password: ' . $password);
+        $this->info('User '.$user->name.' successfully created with ID '.$user->id);
+        $this->line('Temporary password: '.$password);
     }
 }

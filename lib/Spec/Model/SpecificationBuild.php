@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Model;
+<?php
+
+namespace OParl\Spec\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Finder\Finder;
@@ -42,50 +44,50 @@ class SpecificationBuild extends Model
 
     public function getStoragePathAttribute()
     {
-        $path = 'specification/builds/' . $this->hash;
+        $path = 'specification/builds/'.$this->hash;
 
         app('filesystem')->makeDirectory($path);
 
-        return storage_path('app' . DIRECTORY_SEPARATOR . $path);
+        return storage_path('app'.DIRECTORY_SEPARATOR.$path);
     }
 
     public function getExtractedFilesStoragePathAttribute()
     {
-        $path = 'specification/builds/' . $this->hash . '/extracted';
+        $path = 'specification/builds/'.$this->hash.'/extracted';
 
         app('filesystem')->makeDirectory($path);
 
-        return storage_path('app' . DIRECTORY_SEPARATOR . $path);
+        return storage_path('app'.DIRECTORY_SEPARATOR.$path);
     }
 
     public function getZipStoragePathAttribute()
     {
-        return $this->storage_path . DIRECTORY_SEPARATOR . $this->zip_filename;
+        return $this->storage_path.DIRECTORY_SEPARATOR.$this->zip_filename;
     }
 
     public function getTarGzStoragePathAttribute()
     {
-        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_gz_filename;
+        return $this->storage_path.DIRECTORY_SEPARATOR.$this->tar_gz_filename;
     }
 
     public function getTarBzStoragePathAttribute()
     {
-        return $this->storage_path . DIRECTORY_SEPARATOR . $this->tar_bz_filename;
+        return $this->storage_path.DIRECTORY_SEPARATOR.$this->tar_bz_filename;
     }
 
     public function getZipFilenameAttribute()
     {
-        return 'OParl-' . $this->hash . '.zip';
+        return 'OParl-'.$this->hash.'.zip';
     }
 
     public function getTarGzFilenameAttribute()
     {
-        return 'OParl-' . $this->hash . '.tar.gz';
+        return 'OParl-'.$this->hash.'.tar.gz';
     }
 
     public function getTarBzFilenameAttribute()
     {
-        return 'OParl-' . $this->hash . '.tar.bz2';
+        return 'OParl-'.$this->hash.'.tar.bz2';
     }
 
     public function enqueue()
