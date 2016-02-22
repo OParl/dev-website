@@ -5212,6 +5212,11 @@
       "from": "pretty-hrtime@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/pretty-hrtime/-/pretty-hrtime-1.0.2.tgz"
     },
+    "prismjs": {
+      "version": "1.4.1",
+      "from": "prismjs@latest",
+      "resolved": "https://registry.npmjs.org/prismjs/-/prismjs-1.4.1.tgz"
+    },
     "private": {
       "version": "0.1.6",
       "from": "private@>=0.1.5 <0.2.0",

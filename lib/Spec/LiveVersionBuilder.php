@@ -120,8 +120,8 @@ class LiveVersionBuilder
         $html = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $html);
 
         // fix code tags for prism
-        $html = preg_replace('/<pre(.+)class="json">.*?<code.*?>/', '<pre$1><code class="language-javascript">', $html);
-        $html = preg_replace('/<pre(.+)class="sql">.*?<code.*?>/', '<pre$1><code class="language-sql">', $html);
+        $html = $this->fixCodeTag($html, 'json', 'javascript');
+        $html = $this->fixCodeTag($html, 'sql');
 
         // wrap examples into closed-by-default accordions
         $exampleIdentifierCount = 1;
@@ -139,5 +139,17 @@ class LiveVersionBuilder
                 return view('specification.example', $data);
             }, $html
         );
+    }
+
+    /**
+     * @param $html
+     * @return mixed
+     **/
+    protected function fixCodeTag(&$html, $fromLanguage, $toLanguage = '')
+    {
+        if ($toLanguage == '') $toLanguage = $fromLanguage;
+
+        $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/', '<pre$1><code class="language-'.$toLanguage.'">', $html);
+        return $html;
     }
 }
