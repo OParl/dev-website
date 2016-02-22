@@ -1,4 +1,6 @@
-<?php namespace EFrane\Buildkite\Clients;
+<?php
+
+namespace EFrane\Buildkite\Clients;
 
 use EFrane\Buildkite\BuildkiteException;
 use EFrane\Buildkite\RequestData\CreateBuild;
@@ -8,7 +10,7 @@ class BuildClient extends AbstractClient
     public function __construct($token, $organization, $project = null)
     {
         if (is_null($organization)) {
-            throw new BuildkiteException("\$organization must be valid.");
+            throw new BuildkiteException('$organization must be valid.');
         }
         parent::__construct($token, $organization);
     }
@@ -18,10 +20,11 @@ class BuildClient extends AbstractClient
         if (!is_null($this->organization)) {
             if (!is_null($this->project)) {
                 $this->project = $this->validateInput($this->project);
-                return $this->request('GET', 'organizations/' . $this->organization . '/projects/' . $this->project . '/builds');
+
+                return $this->request('GET', 'organizations/'.$this->organization.'/projects/'.$this->project.'/builds');
             }
 
-            return $this->request('GET', 'organizations/' . $this->organization . '/builds');
+            return $this->request('GET', 'organizations/'.$this->organization.'/builds');
         }
 
         return $this->request('GET', 'builds');
@@ -31,12 +34,13 @@ class BuildClient extends AbstractClient
     {
         $id = $this->validateInput($id, 'int');
 
-        return $this->request('GET', 'organizations/' . $this->organization . '/projects/' . $this->project . '/builds/' . $id);
+        return $this->request('GET', 'organizations/'.$this->organization.'/projects/'.$this->project.'/builds/'.$id);
     }
 
     public function create(CreateBuild $data)
     {
-        $url = 'organizations/' . $this->organization . '/projects/' . $this->project . '/builds';
+        $url = 'organizations/'.$this->organization.'/projects/'.$this->project.'/builds';
+
         return $this->request('POST', $url, null, $data->toJson());
     }
 
@@ -44,18 +48,19 @@ class BuildClient extends AbstractClient
    * @param string $status
    * @param array $meta
    * @param string|array $branch
+   *
    * @return array|null
    **/
   public function enumerate($status = 'any', array $meta = [], $branch = '')
   {
       $status = ($this->isValidBuildStatus($status)) ? $status : '';
 
-      $url = 'organizations/' . $this->organization . '/projects/' . $this->project . '/builds/?';
+      $url = 'organizations/'.$this->organization.'/projects/'.$this->project.'/builds/?';
 
       $arguments = [
-      'state' => $status,
+      'state'     => $status,
       'meta_data' => $meta,
-      'branch' => $branch
+      'branch'    => $branch,
     ];
 
       return $this->request('GET', $url, $arguments);
@@ -77,7 +82,7 @@ class BuildClient extends AbstractClient
       'failed',
       'canceled',
       'skipped',
-      'not_run'
+      'not_run',
     ]);
     }
 }

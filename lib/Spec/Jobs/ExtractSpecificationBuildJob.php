@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Jobs;
+<?php
+
+namespace OParl\Spec\Jobs;
 
 use OParl\Spec\Model\SpecificationBuild;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -17,7 +19,6 @@ class ExtractSpecificationBuildJob extends SpecificationJob
     {
         $this->build = $build;
     }
-
 
     public function handle()
     {

@@ -1,4 +1,6 @@
-<?php namespace EFrane\Buildkite\Clients;
+<?php
+
+namespace EFrane\Buildkite\Clients;
 
 use EFrane\Buildkite\BuildkiteException;
 
@@ -9,7 +11,7 @@ class ProjectClient extends AbstractClient
     public function __construct($token, $organization)
     {
         if (is_null($organization)) {
-            throw new BuildkiteException("\$organization must be valid.");
+            throw new BuildkiteException('$organization must be valid.');
         }
         parent::__construct($token, $organization);
 
@@ -35,6 +37,7 @@ class ProjectClient extends AbstractClient
     public function index($organization = null)
     {
         $organization = $this->setOrganization($organization);
+
         return $this->request('GET', 'organizations/'.$organization.'/projects');
     }
 
@@ -43,6 +46,6 @@ class ProjectClient extends AbstractClient
         $organization = $this->setOrganization($organization);
         $project = $this->validateInput($project);
 
-        return $this->request('GET', 'organizations/' . $organization . '/projects/' . $project);
+        return $this->request('GET', 'organizations/'.$organization.'/projects/'.$project);
     }
 }

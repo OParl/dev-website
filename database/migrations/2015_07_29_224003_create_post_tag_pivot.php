@@ -1,18 +1,18 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePostTagPivot extends Migration
 {
-  /**
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    Schema::create('post_tag', function (Blueprint $table) {
+      Schema::create('post_tag', function (Blueprint $table) {
       $table->integer('post_id', false, true);
       $table->integer('tag_id', false, true);
 
@@ -28,6 +28,6 @@ class CreatePostTagPivot extends Migration
    */
   public function down()
   {
-    Schema::drop('post_tag');
+      Schema::drop('post_tag');
   }
 }

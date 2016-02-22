@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Commands;
+<?php
+
+namespace OParl\Spec\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -15,7 +17,7 @@ class DeleteSpecificationBuildsCommand extends SpecificationCommand
     {
         return [
       ['object', InputArgument::REQUIRED, 'The type of object to delete (currently only `build`)', null],
-      ['deletionMethod', InputArgument::REQUIRED, 'The method of deletion. (By date (format=yyyy-mm-dd) or amount.)', null]
+      ['deletionMethod', InputArgument::REQUIRED, 'The method of deletion. (By date (format=yyyy-mm-dd) or amount.)', null],
     ];
     }
 
@@ -29,7 +31,7 @@ class DeleteSpecificationBuildsCommand extends SpecificationCommand
     }
 
   /**
-   * Delete SpecificationBuild(s)
+   * Delete SpecificationBuild(s).
    *
    * @param BuildRepository $buildRepository
    * @param Filesystem $fs

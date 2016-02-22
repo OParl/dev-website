@@ -1,4 +1,6 @@
-<?php namespace EFrane\Buildkite\Clients;
+<?php
+
+namespace EFrane\Buildkite\Clients;
 
 final class ClientFactory
 {
@@ -10,7 +12,7 @@ final class ClientFactory
         $name = sprintf('EFrane\\Buildkite\\Clients\\%sClient', $name);
 
         if (class_exists($name)) {
-            $hash = sha1($name . $id);
+            $hash = sha1($name.$id);
 
             if (!in_array($hash, array_keys(static::$clients))) {
                 static::$clients[$hash] = new $name($token, $id);

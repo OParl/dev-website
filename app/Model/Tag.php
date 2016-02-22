@@ -1,4 +1,6 @@
-<?php namespace App\Model;
+<?php
+
+namespace App\Model;
 
 use Cocur\Slugify\Slugify;
 use Illuminate\Database\Eloquent\Model;

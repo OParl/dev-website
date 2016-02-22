@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec;
+<?php
+
+namespace OParl\Spec;
 
 use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -46,7 +48,7 @@ class LiveVersionBuilder
     public function getRaw()
     {
         return $this->chapters->reduce(function ($carry, $current) {
-            return $carry . $current;
+            return $carry.$current;
         }, '');
     }
 
@@ -56,7 +58,7 @@ class LiveVersionBuilder
         if ($this->fs->exists($liveVersionPath)) {
             $this->html = $this->fs->get($liveVersionPath);
         } else {
-            throw new FileNotFoundException("Failed to locate live version HTML");
+            throw new FileNotFoundException('Failed to locate live version HTML');
         }
 
         $this->parseChapters();
@@ -96,7 +98,7 @@ class LiveVersionBuilder
         $navElements = $crawler->filter('body > nav');
         $this->nav = $navElements->html();
 
-        $content = $crawler->filterXPath("//body/*[not(self::nav)]");
+        $content = $crawler->filterXPath('//body/*[not(self::nav)]');
 
         foreach ($content as $domElement) {
             $this->content .= $domElement->ownerDocument->saveHTML($domElement);
@@ -129,9 +131,9 @@ class LiveVersionBuilder
             '#<p><strong>(Beispiel.*?)</strong></p>\n(<pre(?:.*?)</pre>)#s',
             function ($match) use (&$exampleIdentifierCount) {
                 $data = [
-                    'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
-                    'exampleTitle' => $match[1],
-                    'exampleCode' => $match[2]
+                    'exampleIdentifier' => 'example-'.$exampleIdentifierCount,
+                    'exampleTitle'      => $match[1],
+                    'exampleCode'       => $match[2],
                 ];
 
                 $exampleIdentifierCount++;
@@ -143,13 +145,17 @@ class LiveVersionBuilder
 
     /**
      * @param $html
+     *
      * @return mixed
      **/
     protected function fixCodeTag(&$html, $fromLanguage, $toLanguage = '')
     {
-        if ($toLanguage == '') $toLanguage = $fromLanguage;
+        if ($toLanguage == '') {
+            $toLanguage = $fromLanguage;
+        }
 
         $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/', '<pre$1><code class="language-'.$toLanguage.'">', $html);
+
         return $html;
     }
 }

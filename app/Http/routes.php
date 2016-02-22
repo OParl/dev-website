@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['uses' => function() {
+Route::get('/', ['uses' => function () {
     return redirect()->route('specification.index');
 }, 'as' => 'about.index']);
 
@@ -21,7 +21,7 @@ Route::get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' =
 Route::get('/spezifikation/images/', ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
 Route::get('/spezifikation/images/{image}', [
     'uses' => 'SpecificationController@image',
-    'as' => 'specification.image'
+    'as'   => 'specification.image',
 ])->where('image', '[[:print:]]+\.png');
 
 // Downloads
@@ -31,15 +31,15 @@ Route::pattern('downloadsVersion', '[a-z0-9]{7}');
 //Route::get('/downloads', ['uses' => 'DownloadsController@index', 'as' => 'downloads.index']);
 Route::get('/downloads/latest.{downloadsExtension}', [
     'uses' => 'DownloadsController@latest',
-    'as' => 'downloads.latest'
+    'as'   => 'downloads.latest',
 ]);
 Route::get('/spezifikation.{downloadsExtension}', [
     'uses' => 'DownloadsController@latest',
-    'as' => 'spezifikation.download'
+    'as'   => 'spezifikation.download',
 ]);
 Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
     'uses' => 'DownloadsController@getFile',
-    'as' => 'downloads.provide'
+    'as'   => 'downloads.provide',
 ]);
 
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
@@ -53,9 +53,9 @@ Route::get('/_hooks/spec_change', function () {
     return redirect()->route('specification.index');
 });
 Route::post('/_hooks/spec_change', [
-    'uses' => 'HooksController@specChange',
-    'as' => 'hooks.spec',
-    'middleware' => ['hooks.github']
+    'uses'       => 'HooksController@specChange',
+    'as'         => 'hooks.spec',
+    'middleware' => ['hooks.github'],
 ]);
 
 Route::get('/_hooks/add_version', function () {
@@ -63,10 +63,10 @@ Route::get('/_hooks/add_version', function () {
 });
 Route::post('/_hooks/add_version', [
     'uses' => 'HooksController@addVersion',
-    'as' => 'hooks.add'
+    'as'   => 'hooks.add',
 ]);
 
 Route::get('/_hooks/lock_version_updates', [
     'uses' => 'HooksController@lockVersionUpdates',
-    'as' => 'hooks.lock_vu'
+    'as'   => 'hooks.lock_vu',
 ]);

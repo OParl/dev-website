@@ -1,7 +1,9 @@
-<?php namespace App\Console\Commands;
+<?php
 
-use Illuminate\Console\Command;
+namespace App\Console\Commands;
+
 use App\Model\User;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
 class RemoveUserCommand extends Command
@@ -23,7 +25,7 @@ class RemoveUserCommand extends Command
     protected function getOptions()
     {
         return [
-      ['email', null, InputOption::VALUE_REQUIRED, 'E-Mail of the user to be removed']
+      ['email', null, InputOption::VALUE_REQUIRED, 'E-Mail of the user to be removed'],
     ];
     }
 

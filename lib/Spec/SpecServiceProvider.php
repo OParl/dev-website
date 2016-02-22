@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec;
+<?php
+
+namespace OParl\Spec;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
@@ -27,6 +29,7 @@ class SpecServiceProvider extends IlluminateServiceProvider
 
         $this->app->bind(LiveVersionBuilder::class, function () {
             $fs = app(Filesystem::class);
+
             return new LiveVersionBuilder($fs, LiveVersionRepository::getLiveVersionPath());
         });
 

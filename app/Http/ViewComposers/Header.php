@@ -1,4 +1,6 @@
-<?php namespace App\Http\ViewComposers;
+<?php
+
+namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
 
@@ -7,17 +9,17 @@ class Header
     protected $sections = [
         [
             'title' => 'Über OParl',
-            'url' => 'https://oparl.org/ueber-oparl/'
+            'url'   => 'https://oparl.org/ueber-oparl/',
         ],
 
         [
             'routeKey' => 'specification',
-            'title' => 'Spezifikation'
+            'title'    => 'Spezifikation',
         ],
 
         [
             'title' => 'Kontakt',
-            'url' => 'https://oparl.org/kontakt/'
+            'url'   => 'https://oparl.org/kontakt/',
         ],
 
 //      [
@@ -46,7 +48,7 @@ class Header
         if (\Auth::check()) {
             array_unshift($sections, [
                 'routeKey' => 'admin.dashboard',
-                'title' => '<span class="glyphicon glyphicon-user"></span>'
+                'title'    => '<span class="glyphicon glyphicon-user"></span>',
             ]);
         }
 

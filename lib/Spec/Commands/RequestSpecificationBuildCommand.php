@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Commands;
+<?php
+
+namespace OParl\Spec\Commands;
 
 use OParl\Spec\Jobs\RequestSpecificationBuildJob;
 

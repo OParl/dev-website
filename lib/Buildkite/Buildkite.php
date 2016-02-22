@@ -1,13 +1,11 @@
-<?php namespace EFrane\Buildkite;
+<?php
+
+namespace EFrane\Buildkite;
 
 use EFrane\Buildkite\Clients\ClientFactory;
 
 /**
- * Buildkite - API Entry Point
- *
- *
- *
- * @package EFrane\Buildkite
+ * Buildkite - API Entry Point.
  **/
 class Buildkite
 {
@@ -26,6 +24,7 @@ class Buildkite
 
   /**
    * @param null $organization
+   *
    * @return mixed
    **/
   public function builds($organization = null)
@@ -35,6 +34,7 @@ class Buildkite
 
   /**
    * @param null $organization
+   *
    * @return mixed
    **/
   public function projects($organization = null)
@@ -44,6 +44,7 @@ class Buildkite
 
   /**
    * @param null $organization
+   *
    * @return mixed
    **/
   public function agents($organization = null)
@@ -53,6 +54,7 @@ class Buildkite
 
   /**
    * @param null $organization
+   *
    * @return mixed
    **/
   public function organizations($organization = null)
@@ -62,6 +64,7 @@ class Buildkite
 
   /**
    * @param null $organization
+   *
    * @return mixed
    **/
   public function jobs($organization = null)

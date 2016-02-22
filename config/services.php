@@ -24,20 +24,20 @@ return [
     ],
 
     'ses' => [
-        'key' => '',
+        'key'    => '',
         'secret' => '',
         'region' => 'us-east-1',
     ],
 
     'stripe' => [
-        'model' => 'App\User',
-        'key' => '',
+        'model'  => 'App\User',
+        'key'    => '',
         'secret' => '',
     ],
 
     // buildkite service config for efrane/buildkite
     'buildkite' => [
-        'project' => env('BUILDKITE_PROJECT'),
+        'project'      => env('BUILDKITE_PROJECT'),
         'access_token' => env('BUILDKITE_ACCESS_TOKEN', ''),
     ],
 
@@ -46,10 +46,10 @@ return [
         'key' => env('AKISMET_KEY'),
     ],
 
-    'repositories' =>[
+    'repositories' => [
         'spec' => [
-            'user' => 'OParl',
-            'repository' => 'spec'
-        ]
-    ]
+            'user'       => 'OParl',
+            'repository' => 'spec',
+        ],
+    ],
 ];

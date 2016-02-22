@@ -1,4 +1,6 @@
-<?php namespace EFrane\Akismet\Providers;
+<?php
+
+namespace EFrane\Akismet\Providers;
 
 use EFrane\Akismet\Akismet;
 use Illuminate\Support\ServiceProvider;

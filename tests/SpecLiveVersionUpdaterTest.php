@@ -11,7 +11,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
     {
         parent::setUp();
 
-        $this->gitURL = 'file://' . __DIR__ . '/assets/spec.git';
+        $this->gitURL = 'file://'.__DIR__.'/assets/spec.git';
     }
 
     /**
@@ -130,8 +130,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
 
         $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
 
-        if (!$instance->repositoryExists())
-        {
+        if (!$instance->repositoryExists()) {
             $instance->updateRepository();
         }
 
@@ -185,8 +184,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
         $fs = app(Filesystem::class);
 
         $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
-        if (!$instance->repositoryExists())
-        {
+        if (!$instance->repositoryExists()) {
             $instance->updateRepository();
         }
 
@@ -201,8 +199,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
         $fs = app(Filesystem::class);
 
         $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
-        if (!$instance->repositoryExists())
-        {
+        if (!$instance->repositoryExists()) {
             $instance->updateRepository();
         }
 
@@ -224,8 +221,7 @@ class SpecLiveVersionUpdaterTest extends TestCase
         $fs = app(Filesystem::class);
 
         $instance = new LiveVersionUpdater($fs, storage_path('app/testclone'), $this->gitURL);
-        if (!$instance->repositoryExists())
-        {
+        if (!$instance->repositoryExists()) {
             $instance->updateRepository();
         }
 

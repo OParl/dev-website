@@ -24,10 +24,10 @@ class DropDeprecatedTables extends Migration
 
         $prefix = 'newsletter_'; // was config('newsletter.prefix');
 
-        Schema::dropIfExists($prefix . 'messages');
-        Schema::dropIfExists($prefix . 'subscribers');
-        Schema::dropIfExists($prefix . 'subscribers_subscriptions');
-        Schema::dropIfExists($prefix . 'subscriptions');
+        Schema::dropIfExists($prefix.'messages');
+        Schema::dropIfExists($prefix.'subscribers');
+        Schema::dropIfExists($prefix.'subscribers_subscriptions');
+        Schema::dropIfExists($prefix.'subscriptions');
 
         Model::reguard();
     }
@@ -44,6 +44,6 @@ class DropDeprecatedTables extends Migration
         //       you might want to consider duplicating it's original migration
         //       into a new copy that runs after this one.
 
-        throw new LogicException("This migration cannot be rolled back.");
+        throw new LogicException('This migration cannot be rolled back.');
     }
 }

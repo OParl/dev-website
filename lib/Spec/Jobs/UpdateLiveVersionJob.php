@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Jobs;
+<?php
+
+namespace OParl\Spec\Jobs;
 
 use OParl\Spec\LiveVersionUpdater;
 

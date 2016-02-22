@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec;
+<?php
+
+namespace OParl\Spec;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -31,8 +33,8 @@ class LiveVersionUpdater
         $lastModified = $this->determineLastModified();
 
         return [
-            'hash' => $hash,
-            'last_modified' => $lastModified
+            'hash'          => $hash,
+            'last_modified' => $lastModified,
         ];
     }
 
@@ -48,9 +50,10 @@ class LiveVersionUpdater
     }
 
     /**
-     * Clones the Spec repository
+     * Clones the Spec repository.
      *
      * @param bool|false $dryRun
+     *
      * @return int negative if dry run, zero if everything went fine, greater than zero in any other case
      **/
     public function cloneRepository($dryRun = false)
@@ -59,8 +62,7 @@ class LiveVersionUpdater
 
         $retVal = -1;
 
-        if (!$dryRun)
-        {
+        if (!$dryRun) {
             exec($gitCommand, $output, $retVal);
         }
 
@@ -72,24 +74,23 @@ class LiveVersionUpdater
     }
 
     /**
-     * Rebases spec repository to current HEAD
+     * Rebases spec repository to current HEAD.
      *
      * @param bool|false $dryRun
+     *
      * @return int -1 if dry run, 0 if everything went fine, >0 in any other case, -2 if the repository does not exist
      **/
     public function rebaseRepository($dryRun = false)
     {
         $gitCommand = sprintf('git pull -q --rebase origin master');
 
-        if (!$this->repositoryExists())
-        {
+        if (!$this->repositoryExists()) {
             return -2;
         }
 
         $retVal = -1;
 
-        if (!$dryRun)
-        {
+        if (!$dryRun) {
             $oldDir = getcwd();
 
             chdir($this->path);
@@ -122,8 +123,7 @@ class LiveVersionUpdater
             try {
                 $dir = new \RecursiveDirectoryIterator($this->path, \FilesystemIterator::SKIP_DOTS);
                 $last = $this->path;
-            } catch (\UnexpectedValueException $e)
-            {
+            } catch (\UnexpectedValueException $e) {
                 $dir = new \RecursiveDirectoryIterator(storage_path("app/{$this->path}"), \FilesystemIterator::SKIP_DOTS);
                 $last = storage_path("app/{$this->path}");
             }
@@ -134,15 +134,16 @@ class LiveVersionUpdater
                 /* @var $path \SplFileInfo */
                 if ($path->isFile()) {
                     unlink($path);
-                } else if ($path->isDir())
-                {
+                } elseif ($path->isDir()) {
                     rmdir($path);
                 }
             }
 
             rmdir($last);
 
-            if (!is_dir($last)) return true;
+            if (!is_dir($last)) {
+                return true;
+            }
         }
 
         return false;
@@ -150,15 +151,13 @@ class LiveVersionUpdater
 
     public function makeLiveVersion($dryRun = false)
     {
-        if (!$this->repositoryExists())
-        {
+        if (!$this->repositoryExists()) {
             return -2;
         }
 
         $retVal = -1;
 
-        if (!$dryRun)
-        {
+        if (!$dryRun) {
             $makeCmd = 'make live';
 
             $olddir = getcwd();
@@ -175,15 +174,13 @@ class LiveVersionUpdater
 
     public function cleanLiveVersion($dryRun = false)
     {
-        if (!$this->repositoryExists())
-        {
+        if (!$this->repositoryExists()) {
             return -2;
         }
 
         $retVal = -1;
 
-        if (!$dryRun)
-        {
+        if (!$dryRun) {
             $makeCmd = 'make clean';
 
             $olddir = getcwd();
@@ -237,7 +234,6 @@ class LiveVersionUpdater
             $hash = trim($hash);
 
             chdir($cwd);
-
         } catch (\ErrorException $e) {
             $hash = '<unknown>';
         }

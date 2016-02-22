@@ -1,4 +1,6 @@
-<?php namespace App\Model;
+<?php
+
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -49,13 +51,13 @@ class Comment extends Model
 
     public function getGravatarAttribute()
     {
-        /**
+        /*
      * - only return avatars rated g or pg
      * - use retro themed default otherwise
      **/
-    $baseURL = "//gravatar.com/avatar/%s&r=pg&d=retro&s=32";
+    $baseURL = '//gravatar.com/avatar/%s&r=pg&d=retro&s=32';
 
-    /**
+    /*
      * - trim whitespace
      * - make lower case
      * - compute md5 hash
@@ -68,6 +70,7 @@ class Comment extends Model
     public function getMarkdownContentAttribute()
     {
         $pd = \Parsedown::instance();
+
         return $pd->parse($this->content);
     }
 

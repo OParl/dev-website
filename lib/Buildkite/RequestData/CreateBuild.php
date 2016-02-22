@@ -1,9 +1,11 @@
-<?php namespace EFrane\Buildkite\RequestData;
+<?php
+
+namespace EFrane\Buildkite\RequestData;
 
 class CreateBuild extends AbstractRequestData
 {
-    public $commit  = null;
-    public $branch  = null;
+    public $commit = null;
+    public $branch = null;
     public $message = null;
 
     public $author = null;
@@ -115,7 +117,7 @@ class CreateBuild extends AbstractRequestData
   }
 
   /**
-   * @return boolean
+   * @return bool
    */
   public function isIgnoreProjectBranchFilters()
   {
@@ -123,7 +125,7 @@ class CreateBuild extends AbstractRequestData
   }
 
   /**
-   * @param boolean $ignore_project_branch_filters
+   * @param bool $ignore_project_branch_filters
    */
   public function setIgnoreProjectBranchFilters($ignore_project_branch_filters)
   {

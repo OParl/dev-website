@@ -1,4 +1,6 @@
-<?php namespace OParl\Spec\Jobs;
+<?php
+
+namespace OParl\Spec\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Bus\SelfHandling;

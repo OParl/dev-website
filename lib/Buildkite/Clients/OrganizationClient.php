@@ -1,4 +1,6 @@
-<?php namespace EFrane\Buildkite\Clients;
+<?php
+
+namespace EFrane\Buildkite\Clients;
 
 class OrganizationClient extends AbstractClient
 {
@@ -12,6 +14,7 @@ class OrganizationClient extends AbstractClient
     public function get($name)
     {
         $this->validateInput($name);
+
         return $this->request('GET', 'organizations/'.$name);
     }
 

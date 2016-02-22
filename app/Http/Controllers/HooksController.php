@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Requests\VersionUpdateRequest;
-use App\Jobs\UpdateLiveCopy;
-use App\Jobs\UpdateVersionHashes;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Inspiring;
@@ -14,21 +14,19 @@ use OParl\Spec\Jobs\UpdateLiveVersionJob;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Hooks Controller
+ * Hooks Controller.
  *
  * This website is kept up-to-date with the help of webhooks.
  * One of them (specChange) is responsible for updating the live copy if an eligible
  * update occurs in th GH spec repo. The other one (addVersion) is called whenever
  * a new spec version was built by Buildkite. The latter one makes downloads work.
- *
- * @package App\Http\Controllers
  **/
 class HooksController extends Controller
 {
     use DispatchesJobs;
 
     /**
-     * GitHub Spec Change Webhook
+     * GitHub Spec Change Webhook.
      *
      * This hook is called by GitHub on certain Spec repository updates.
      * The webhook setup on GH should be the following:
@@ -47,7 +45,9 @@ class HooksController extends Controller
      * the live copy and the version repository accordingly.
      *
      * @param Request $request
+     *
      * @see \App\Http\Middleware\ValidateGitHubWebHook
+     *
      * @return \Illuminate\Http\JsonResponse
      **/
     public function specChange(Request $request)
@@ -80,7 +80,7 @@ class HooksController extends Controller
     }
 
     /**
-     * Buildkite Deploy Hook
+     * Buildkite Deploy Hook.
      *
      * This hook is hit by the Buildkite deploy process of the specification
      * project. It is called in two different situations:
@@ -89,15 +89,15 @@ class HooksController extends Controller
      * Buildkite and sent to this hook
      *
      * @param VersionUpdateRequest $request
-     * @param Filesystem $fs
-     * @param BuildRepository $buildRepository
+     * @param Filesystem           $fs
+     * @param BuildRepository      $buildRepository
+     *
      * @return \Illuminate\Http\JsonResponse
      **/
     public function addVersion(
         VersionUpdateRequest $request,
         BuildRepository $buildRepository
-    )
-    {
+    ) {
         try {
             $hash = $request->input('version');
             $build = $buildRepository->getWithHash($hash);
@@ -122,18 +122,18 @@ class HooksController extends Controller
 
             return response()->json([
                 'version' => $request->input('version'),
-                'success' => true
+                'success' => true,
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'version' => $request->input('version'),
-                'success' => false,
+                'version'   => $request->input('version'),
+                'success'   => false,
                 'exception' => sprintf(
                     '%s in %s (%d)',
                     $e->getMessage(),
                     basename($e->getFile()),
                     $e->getLine()
-                )
+                ),
             ]);
         }
     }
