@@ -146,13 +146,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        OParl\Spec\SpecServiceProvider::class,
-        GrahamCampbell\GitHub\GitHubServiceProvider::class,
         Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider::class,
-
         EFrane\Buildkite\BuildkiteServiceProvider::class,
         EFrane\Deploy\DeployServiceProvider::class,
         EFrane\Letterpress\Providers\LaravelServiceProvider::class,
+        GrahamCampbell\GitHub\GitHubServiceProvider::class,
+
+        OParl\Spec\SpecServiceProvider::class,
+        OParl\Server\ServerServiceProvider::class,
     ],
 
     /*

@@ -48,7 +48,7 @@ class LiveVersionBuilder
     public function getRaw()
     {
         return $this->chapters->reduce(function ($carry, $current) {
-            return $carry.$current;
+            return $carry . $current;
         }, '');
     }
 
@@ -129,18 +129,23 @@ class LiveVersionBuilder
         $exampleIdentifierCount = 1;
         $html = preg_replace_callback(
             '#<p><strong>(Beispiel.*?)</strong></p>\n(<pre(?:.*?)</pre>)#s',
-            function ($match) use (&$exampleIdentifierCount) {
-                $data = [
-                    'exampleIdentifier' => 'example-'.$exampleIdentifierCount,
-                    'exampleTitle'      => $match[1],
-                    'exampleCode'       => $match[2],
-                ];
-
-                $exampleIdentifierCount++;
-
-                return view('specification.example', $data);
-            }, $html
+            $this->transformSchemaCodeExamplesToButtons(), $html
         );
+
+//        $crawler = new Crawler();
+//
+//        $crawler->addContent($html);
+//        foreach ($crawler->filter('section') as $elem) {
+//            /* @var \DOMElement $elem; */
+//            $id = $elem->getAttribute('id');
+//            if (is_null($id) || strlen($id) == 0) continue;
+//
+//            $jumpMark = $elem->ownerDocument->createElement('a', "&para;");
+//            $jumpMark->setAttribute('href', "#{$id}");
+//
+//            $elem->firstChild->appendChild($jumpMark);
+//            $html = $elem->ownerDocument->saveHTML();
+//        }
     }
 
     /**
@@ -154,8 +159,23 @@ class LiveVersionBuilder
             $toLanguage = $fromLanguage;
         }
 
-        $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/', '<pre$1><code class="language-'.$toLanguage.'">', $html);
+        $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/', '<pre$1><code class="language-' . $toLanguage . '">', $html);
 
         return $html;
+    }
+
+    protected function transformSchemaCodeExamplesToButtons()
+    {
+        return function ($match) use (&$exampleIdentifierCount) {
+            $data = [
+                'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
+                'exampleTitle' => $match[1],
+                'exampleCode' => $match[2],
+            ];
+
+            $exampleIdentifierCount++;
+
+            return view('specification.example', $data);
+        };
     }
 }
