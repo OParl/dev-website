@@ -20,31 +20,28 @@ class RequestSpecificationBuildJob extends SpecificationJob
       $this->hash = $hash;
   }
 
-  /**
-   *
-   */
-  public function handle(Buildkite $bk, BuildRepository $repo)
-  {
-      if (env('debug')) {
-          \Log::info("Would request specification build for hash {$this->hash}");
+    public function handle(Buildkite $bk, BuildRepository $repo)
+    {
+        if (env('debug')) {
+            \Log::info("Would request specification build for hash {$this->hash}");
 
-          return true;
-      }
+            return true;
+        }
 
-      $project = config('services.buildkite.project');
-      if ($bk->builds()->project($project)->hasActiveBuild()) {
-          $this->release(60);
-          \Log::debug('Released build request onto queue due to an active build.');
-      }
+        $project = config('services.buildkite.project');
+        if ($bk->builds()->project($project)->hasActiveBuild()) {
+            $this->release(60);
+            \Log::debug('Released build request onto queue due to an active build.');
+        }
 
-      $build = $repo->getWithHash($this->hash);
-      if ($build->isAvailable) {
-          \Log::debug('Build is already available, aborting.');
+        $build = $repo->getWithHash($this->hash);
+        if ($build->isAvailable) {
+            \Log::debug('Build is already available, aborting.');
 
-          return true;
-      }
+            return true;
+        }
 
-      $request = new CreateBuild("Building requested version {$this->hash}", $this->hash);
-      $bk->builds()->project($project)->create($request);
-  }
+        $request = new CreateBuild("Building requested version {$this->hash}", $this->hash);
+        $bk->builds()->project($project)->create($request);
+    }
 }

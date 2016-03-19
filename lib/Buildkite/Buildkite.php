@@ -14,13 +14,10 @@ class Buildkite
    **/
   protected $token = '';
 
-  /**
-   *
-   */
-  public function __construct($token)
-  {
-      $this->token = $token;
-  }
+    public function __construct($token)
+    {
+        $this->token = $token;
+    }
 
   /**
    * @param null $organization

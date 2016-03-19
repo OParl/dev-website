@@ -36,10 +36,10 @@ class CreateAgendaItemsTable extends Migration
             $table->foreign('resolution_file_id')->references('id')->on('oparl_files');
 
             // TODO: auxiliary file is n:n
-            
+
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
-            
+
             // TODO: keyword is n:n
         });
     }

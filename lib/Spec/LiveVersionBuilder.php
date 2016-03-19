@@ -48,7 +48,7 @@ class LiveVersionBuilder
     public function getRaw()
     {
         return $this->chapters->reduce(function ($carry, $current) {
-            return $carry . $current;
+            return $carry.$current;
         }, '');
     }
 
@@ -159,7 +159,7 @@ class LiveVersionBuilder
             $toLanguage = $fromLanguage;
         }
 
-        $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/', '<pre$1><code class="language-' . $toLanguage . '">', $html);
+        $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/', '<pre$1><code class="language-'.$toLanguage.'">', $html);
 
         return $html;
     }
@@ -168,9 +168,9 @@ class LiveVersionBuilder
     {
         return function ($match) use (&$exampleIdentifierCount) {
             $data = [
-                'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
-                'exampleTitle' => $match[1],
-                'exampleCode' => $match[2],
+                'exampleIdentifier' => 'example-'.$exampleIdentifierCount,
+                'exampleTitle'      => $match[1],
+                'exampleCode'       => $match[2],
             ];
 
             $exampleIdentifierCount++;
