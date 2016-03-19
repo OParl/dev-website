@@ -12,9 +12,22 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('oparl_locations', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
+
+            // oparl.id is not in the db layer
+            // type is not in the db layer
+
+            $table->string('description');
+            $table->json('geometry');
+
+            // TODO: body is 1:n
+            // TODO: organization is 1:n
+            // TODO: meeting 1:n
+
+            // TODO: keyword is n:n
         });
     }
 
@@ -25,6 +38,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('locations');
+        Schema::drop('oparl_locations');
     }
 }

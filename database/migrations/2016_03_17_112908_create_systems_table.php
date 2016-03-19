@@ -12,9 +12,27 @@ class CreateSystemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('systems', function (Blueprint $table) {
+        Schema::create('oparl_systems', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+
+            // oparl.id is not in the db layer
+            // type is not in the db layer
+
+            $table->string('oparl_version');
+
+            // TODO: other oparl_versions is n:n
+            // TODO: body is 1:n
+
+            $table->string('name');
+
+            $table->string('contact_email');
+            $table->string('contact_name');
+
+            $table->string('website');
+
+            // vendor is not supported in the database layer
+            // product is not supported in the database layer
         });
     }
 
@@ -25,6 +43,6 @@ class CreateSystemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('systems');
+        Schema::drop('oparl_systems');
     }
 }

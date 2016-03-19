@@ -12,9 +12,23 @@ class CreateLegislativeTermsTable extends Migration
      */
     public function up()
     {
-        Schema::create('legislative_terms', function (Blueprint $table) {
+        Schema::create('oparl_legislative_terms', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+
+            // oparl.id is not in the db layer
+            // type is not in the db layer
+
+            $table->unsignedInteger('body_id')->nullable();
+            $table->foreign('body_id')->references('id')->on('bodies');
+
+            $table->string('name')->nullable();
+            $table->string('short_name')->nullable();
+
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+
+            // TODO: keyword is n:n
         });
     }
 
@@ -25,6 +39,6 @@ class CreateLegislativeTermsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('legislative_terms');
+        Schema::drop('oparl_legislative_terms');
     }
 }
