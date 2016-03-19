@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateConsultationsTable extends Migration
 {
@@ -29,7 +29,7 @@ class CreateConsultationsTable extends Migration
             $table->foreign('meeting_id')->references('id')->on('oparl_meetings');
 
             // TODO: organization is n:n
-            
+
             $table->boolean('authoritative')->nullable();
             $table->string('role')->nullable();
 
