@@ -18,6 +18,11 @@ class Header
         ],
 
         [
+            'routeKey' => 'api',
+            'title'    => 'Demo',
+        ],
+
+        [
             'title' => 'Kontakt',
             'url'   => 'https://oparl.org/kontakt/',
         ],
