@@ -82,13 +82,8 @@ class LiveVersionBuilder
     {
         $this->extractSections();
 
-        $this->fixNavHTML($this->nav);
-        $this->fixContentHTML($this->content);
-
-        /* @var $letterpress Letterpress */
-        $letterpress = app(Letterpress::class);
-
-        $this->content = $letterpress->press($this->content);
+        $this->fixNavHTML();
+        $this->fixContentHTML();
     }
 
     public function extractSections()
@@ -105,13 +100,15 @@ class LiveVersionBuilder
         }
     }
 
-    public function fixNavHTML(&$html)
+    public function fixNavHTML()
     {
-        $html = str_replace('<ul>', '<ul class="nav">', $html);
+        $this->nav = str_replace('<ul>', '<ul class="nav">', $this->nav);
     }
 
-    public function fixContentHTML(&$html)
+    public function fixContentHTML()
     {
+        $html = $this->content;
+
         // fix image urls
         $html = preg_replace('/"(.?)(images\/.+\.png)"/', '"$1/spezifikation/$2"', $html);
 
@@ -132,20 +129,9 @@ class LiveVersionBuilder
             $this->transformSchemaCodeExamplesToButtons(), $html
         );
 
-//        $crawler = new Crawler();
-//
-//        $crawler->addContent($html);
-//        foreach ($crawler->filter('section') as $elem) {
-//            /* @var \DOMElement $elem; */
-//            $id = $elem->getAttribute('id');
-//            if (is_null($id) || strlen($id) == 0) continue;
-//
-//            $jumpMark = $elem->ownerDocument->createElement('a', "&para;");
-//            $jumpMark->setAttribute('href', "#{$id}");
-//
-//            $elem->firstChild->appendChild($jumpMark);
-//            $html = $elem->ownerDocument->saveHTML();
-//        }
+        /* @var $letterpress Letterpress */
+        $letterpress = app(Letterpress::class);
+        $this->content = $letterpress->typofix($html);
     }
 
     /**

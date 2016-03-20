@@ -11,6 +11,9 @@ class SpecificationController extends Controller
     /**
      * Show the specification's live copy.
      *
+     * @param LiveVersionRepository $liveversion
+     * @param BuildRepository $buildRepository
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(LiveVersionRepository $liveversion, BuildRepository $buildRepository)
