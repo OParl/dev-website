@@ -21,8 +21,8 @@ class CreateSystemsTable extends Migration
 
             $table->string('oparl_version');
 
-            // TODO: other oparl_versions is n:n
-            // TODO: body is 1:n
+            // other oparl_versions is not in the db layer
+            // body is 1:n
 
             $table->string('name');
 
