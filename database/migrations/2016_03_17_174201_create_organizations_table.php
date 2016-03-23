@@ -59,8 +59,6 @@ class CreateOrganizationsTable extends Migration
             $table->foreign('location_id')->references('id')->on('oparl_locations');
 
             $table->string('external_body')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 

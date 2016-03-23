@@ -39,8 +39,6 @@ class CreateAgendaItemsTable extends Migration
 
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 

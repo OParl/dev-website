@@ -50,8 +50,6 @@ class CreatePeopleTable extends Migration
 
             $table->string('life')->nullable();
             $table->string('life_source')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 

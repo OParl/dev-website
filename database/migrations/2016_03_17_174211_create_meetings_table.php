@@ -50,8 +50,6 @@ class CreateMeetingsTable extends Migration
 
             // TODO: auxiliaryFile is n:n
             // TODO: agendaItem is n:1
-
-            // TODO: keyword is n:n
         });
     }
 

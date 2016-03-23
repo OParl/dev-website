@@ -27,7 +27,7 @@ class CreateLocationsTable extends Migration
             // TODO: organization is 1:n
             // TODO: meeting 1:n
 
-            // TODO: keyword is n:n
+            
         });
     }
 

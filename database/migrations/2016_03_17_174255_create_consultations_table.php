@@ -33,7 +33,7 @@ class CreateConsultationsTable extends Migration
             $table->boolean('authoritative')->nullable();
             $table->string('role')->nullable();
 
-            // TODO: keyword is n:n
+            
         });
     }
 

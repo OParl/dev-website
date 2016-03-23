@@ -43,8 +43,6 @@ class CreatePapersTable extends Migration
             // TODO: under_direction_of is n:n
             // TODO: originator_organization is n:n
             // TODO: consultation is 1:n
-
-            // TODO: keyword is n:n
         });
     }
 

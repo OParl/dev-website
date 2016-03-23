@@ -50,8 +50,6 @@ class CreateBodiesTable extends Migration
 
             $table->unsignedInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('oparl_locations');
-
-            $table->json('keyword')->nullable();
         });
     }
 

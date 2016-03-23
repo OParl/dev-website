@@ -27,8 +27,6 @@ class CreateLegislativeTermsTable extends Migration
 
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 
