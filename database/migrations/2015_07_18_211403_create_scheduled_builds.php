@@ -13,11 +13,11 @@ class CreateScheduledBuilds extends Migration
     public function up()
     {
         Schema::create('scheduled_builds', function (Blueprint $table) {
-          $table->increments('id');
-          $table->timestamps();
-          $table->string('version');
-          $table->string('email');
-          $table->string('format');
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('version');
+            $table->string('email');
+            $table->string('format');
         });
     }
 

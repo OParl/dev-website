@@ -39,11 +39,89 @@ class DropDeprecatedTables extends Migration
      */
     public function down()
     {
-        // NOTE: This migration cannot be rolled back, as it is dropping a lot of
-        //       deprecated tables. If you want to bring back one of those,
-        //       you might want to consider duplicating it's original migration
-        //       into a new copy that runs after this one.
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password', 60);
+            $table->rememberToken();
+            $table->timestamps();
+        });
 
-        throw new LogicException('This migration cannot be rolled back.');
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token')->index();
+            $table->timestamp('created_at');
+        });
+
+        Schema::create('posts', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->timestamps();
+            $table->dateTime('published_at')->nullable()->default(null);
+
+            $table->string('title');
+            $table->string('slug');
+
+            $table->string('content');
+
+            $table->integer('author_id', false, true)->nullable();
+            $table->foreign('author_id')->references('id')->on('users');
+        });
+
+        Schema::create('tags', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->timestamps();
+
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+        });
+
+        Schema::create('post_tag', function (Blueprint $table) {
+            $table->integer('post_id', false, true);
+            $table->integer('tag_id', false, true);
+
+            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('tag_id')->references('id')->on('tags');
+        });
+
+        Schema::create('environment_variables', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('key')->unique();
+            $table->json('value');
+        });
+
+        $prefix = 'newsletter_'; // was config('newsletter.prefix');
+
+        Schema::create($prefix.'messages', function (Blueprint $table) use ($prefix) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('subject');
+            $table->text('message');
+
+            $table->integer('subscription_id', false, true)->nullable();
+            $table->foreign('subscription_id')->references('id')->on($prefix.'subscriptions');
+
+            $table->dateTime('sent_on')->nullable();
+        });
+
+        Schema::create($prefix.'subscribers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+
+            $table->string('name')->nullable();
+            $table->string('email')->unique();
+            $table->string('company')->nullable();
+        });
+
+        Schema::create($prefix.'subscribers_subscriptions', function (Blueprint $table) {
+            $table->integer('subscriber_id', false, true);
+            $table->integer('subscription_id', false, true);
+
+            $table->foreign('subscriber_id')->references('id')->on($prefix.'subscribers');
+            $table->foreign('subscription_id')->references('id')->on($prefix.'subscriptions');
+        });
     }
 }
