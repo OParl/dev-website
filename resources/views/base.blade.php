@@ -14,13 +14,12 @@
         <meta property="og:site_name" content="OParl">
         <meta property="og:url" content="{{ url('/') }}">
 
-
         <title>
-        @if (isset($title))
-            {{ $title.' - ' }}OParl.org
-        @else
-            @yield('title')
-        @endif
+            @if (isset($title))
+                {{ $title.' - ' }}OParl.org
+            @else
+                @yield('title')
+            @endif
         </title>
 
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />

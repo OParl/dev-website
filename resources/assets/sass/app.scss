@@ -1,4 +1,10 @@
 $font-size-base : 16px;
+
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   "Source Code Pro", Monaco, Consolas, "Courier New", monospace;
+
 $brand-primary : #3498db;
 
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
