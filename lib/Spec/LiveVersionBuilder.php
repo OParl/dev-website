@@ -8,21 +8,46 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
+/**
+ * Class LiveVersionBuilder
+ *
+ * Prepare the live version for web display
+ *
+ * @package OParl\Spec
+ */
 class LiveVersionBuilder
 {
+    /**
+     * @var Filesystem
+     **/
     protected $fs = null;
 
+    /**
+     * @var string full live version HTML from `make live`
+     **/
     protected $html = '';
 
+    /**
+     * @var string extracted content
+     **/
     protected $content = '';
 
+    /**
+     * @var string extracted navigation
+     **/
     protected $nav = '';
 
     /**
-     * @var \Illuminate\Support\Collection
+     * @var \Illuminate\Support\Collection list of chapters
      */
     protected $chapters = null;
 
+    /**
+     * LiveVersionBuilder constructor.
+     *
+     * @param Filesystem $fs
+     * @param $liveVersionPath
+     */
     public function __construct(Filesystem $fs, $liveVersionPath)
     {
         $this->fs = $fs;
@@ -30,21 +55,33 @@ class LiveVersionBuilder
         $this->load($liveVersionPath);
     }
 
+    /**
+     * @return string
+     **/
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * @return string
+     **/
     public function getNav()
     {
         return $this->nav;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     **/
     public function getChapters()
     {
         return $this->chapters;
     }
 
+    /**
+     * @return string get the raw markdown version of the concatenated chapters
+     **/
     public function getRaw()
     {
         return $this->chapters->reduce(function ($carry, $current) {
@@ -52,6 +89,9 @@ class LiveVersionBuilder
         }, '');
     }
 
+    /**
+     * @param $liveVersionPath
+     **/
     public function load($liveVersionPath)
     {
         // NOTE: Find out why filesystem sometimes fails to resolve existing files
@@ -65,6 +105,9 @@ class LiveVersionBuilder
         $this->parseHTML();
     }
 
+    /**
+     * Parse the raw markdown chapters into a collection
+     */
     public function parseChapters()
     {
         $finder = new Finder();
@@ -78,6 +121,9 @@ class LiveVersionBuilder
         });
     }
 
+    /**
+     * Extract and optimize the html sections for web display
+     */
     public function parseHTML()
     {
         $this->extractSections();
@@ -86,6 +132,9 @@ class LiveVersionBuilder
         $this->fixContentHTML();
     }
 
+    /**
+     *
+     */
     public function extractSections()
     {
         $crawler = new Crawler($this->html);
@@ -100,11 +149,17 @@ class LiveVersionBuilder
         }
     }
 
+    /**
+     *
+     */
     public function fixNavHTML()
     {
         $this->nav = str_replace('<ul>', '<ul class="nav">', $this->nav);
     }
 
+    /**
+     *
+     */
     public function fixContentHTML()
     {
         $html = $this->content;
@@ -150,6 +205,9 @@ class LiveVersionBuilder
         return $html;
     }
 
+    /**
+     * @return \Closure
+     **/
     protected function transformSchemaCodeExamplesToButtons()
     {
         return function ($match) use (&$exampleIdentifierCount) {
