@@ -15,6 +15,7 @@ class CreateAgendaItemsTable extends Migration
         Schema::create('agenda_items', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             // oparl.id is not in the db layer
             // type is not in the db layer

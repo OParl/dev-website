@@ -15,6 +15,7 @@ class CreateMembershipsTable extends Migration
         Schema::create('oparl_memberships', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             // oparl.id is not in the db layer
             // type is not in the db layer

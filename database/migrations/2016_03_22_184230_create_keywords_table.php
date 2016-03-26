@@ -15,6 +15,7 @@ class CreateKeywordsTable extends Migration
         Schema::create('oparl_keywords', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('name')->nullable();
             $table->string('human_name')->nullable()->unique();

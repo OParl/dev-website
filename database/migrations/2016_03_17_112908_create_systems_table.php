@@ -15,6 +15,7 @@ class CreateSystemsTable extends Migration
         Schema::create('oparl_systems', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             // oparl.id is not in the db layer
             // type is not in the db layer
