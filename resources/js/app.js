@@ -19,7 +19,7 @@ function setupLiveCopy() {
             top: $('#toc').offset().top - 16,
             bottom: $('#toc').offset().bottom
          }
-    }).width($('#toc').parent().width());
+    });
 
     $('#toc input').change(function (event) {
         // kudos: http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
