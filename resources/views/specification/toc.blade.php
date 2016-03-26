@@ -19,7 +19,7 @@
 
     <footer class="text-muted">
         <small>
-            Zuletzt aktualisiert <a href="//github.com/OParl/spec/commit/{{ $liveversion->getHash() }}">
+            <a href="//github.com/OParl/spec/commit/{{ $liveversion->getHash() }}"> Zuletzt aktualisiert
             {{ $liveversion->getLastModified()->diffForHumans() }}
             </a>
         </small>

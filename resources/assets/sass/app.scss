@@ -60,15 +60,14 @@ body { position: relative; }
   margin-bottom: 20px;
 
   max-height: 100%;
+  
+  &.affix {
+    width: inherit;
+    padding-right: 30px;
+  }
 
   > a:first-of-type {
     margin-bottom: 1.2em;
-  }
-
-  > div {
-    min-height: 240px;
-    max-height: 480px;
-    overflow-y: scroll;
   }
 
   .nav > li > a { padding: 0; }
@@ -113,7 +112,7 @@ footer {
   margin-top: 1.2em;
   margin-bottom: 1.2em;
 
-  small:not(a) { font-size: .8em; }
+  small { font-size: 1em; }
 }
 
 p {
