@@ -4,7 +4,7 @@ namespace OParl\Server\Model;
 
 class System extends BaseModel
 {
-    public function body()
+    public function bodies()
     {
         return $this->hasMany(Body::class, 'system_id', 'id');
     }

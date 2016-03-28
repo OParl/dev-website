@@ -36,7 +36,8 @@ class Keyword extends BaseModel
 
     public function legislativeTerms()
     {
-        return $this->belongsToMany(Keyword::class, 'oparl_keywords_legislative_terms', 'keyword_id', 'legislative_term_id');
+        return $this->belongsToMany(Keyword::class, 'oparl_keywords_legislative_terms', 'keyword_id',
+            'legislative_term_id');
     }
 
     public function locations()

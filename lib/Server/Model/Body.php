@@ -9,7 +9,13 @@ class Body extends BaseModel
         return $this->hasMany(LegislativeTerm::class, 'body_id', 'id');
     }
 
-    public function keywords() {
+    public function keywords()
+    {
         return $this->belongsToMany(Keyword::class, 'oparl_keywords_bodies', 'body_id', 'keyword_id');
+    }
+
+    public function system()
+    {
+        return $this->belongsTo(System::class);
     }
 }
