@@ -19,7 +19,8 @@
     "efrane/laravel-deploy": "dev-master",
     "efrane/transfugio": "dev-master",
     "fzaninotto/faker": "^1.5",
-    "barryvdh/laravel-debugbar": "^2.2"
+    "barryvdh/laravel-debugbar": "^2.2",
+    "oneblackbear/roman-numbers": "@dev"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",

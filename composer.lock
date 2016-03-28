@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "23b547cec3a228f7c30744ae821e000d",
-    "content-hash": "2f54a1bd7364c113df070ade777fa91a",
+    "hash": "b80d0ff945859b2ff34d317ce6e23526",
+    "content-hash": "683477f55fab4b0f6c25f1fb4f1c9386",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1929,6 +1929,49 @@
                 "php"
             ],
             "time": "2016-02-28 19:48:28"
+        },
+        {
+            "name": "oneblackbear/roman-numbers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rossriley/RomanNumbers.git",
+                "reference": "d72619b20fc4a9d70b25761c25bb3e3edd1a288b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rossriley/RomanNumbers/zipball/d72619b20fc4a9d70b25761c25bb3e3edd1a288b",
+                "reference": "d72619b20fc4a9d70b25761c25bb3e3edd1a288b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RomanNumber\\": "lib",
+                    "RomanNumber\\Tests\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ross Riley",
+                    "email": "riley.ross@gmail.com",
+                    "homepage": "http://rossriley.co.uk"
+                }
+            ],
+            "description": "Roman number formatter",
+            "keywords": [
+                "roman",
+                "roman number",
+                "roman numeral"
+            ],
+            "time": "2014-02-05 08:57:57"
         },
         {
             "name": "org_heigl/hyphenator",
@@ -4444,7 +4487,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "efrane/laravel-deploy": 20,
-        "efrane/transfugio": 20
+        "efrane/transfugio": 20,
+        "oneblackbear/roman-numbers": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
