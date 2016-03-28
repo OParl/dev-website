@@ -5,7 +5,7 @@
         <div class="col-md-3">
             @include ('specification.toc')
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 spec-running-text">
             <div>
                 {!! $liveversion->getContent() !!}
 
