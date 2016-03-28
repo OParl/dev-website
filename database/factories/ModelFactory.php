@@ -12,24 +12,72 @@
 use Cocur\Slugify\Slugify;
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-$factory->define(App\Model\User::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\System::class, function (Faker\Generator $faker) {
+
     return [
-        'name'           => $faker->name,
-        'email'          => $faker->email,
-        'password'       => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'oparl_version' => '1.0-dev',
+        'contact_name' => $faker->name,
+        'contact_email' => $faker->email,
+        'website' => 'http://spec.oparl.org/demo'
     ];
 });
 
-$factory->define(App\Model\Post::class, function (Faker\Generator $faker) {
-    $title = $faker->catchPhrase;
-
-    $slugify = app(Slugify::class);
-
+$factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $faker) {
     return [
-        'title'        => $title,
-        'slug'         => $slugify->slugify($title),
-        'content'      => $faker->realText(600),
-        'published_at' => $faker->dateTimeThisMonth,
+    ];
+});
+
+$factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Consultation::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\File::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Organization::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Paper::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+
+$factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $faker) {
+    return [
     ];
 });
