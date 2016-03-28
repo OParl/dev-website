@@ -12,7 +12,7 @@ class CreateAgendaItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('agenda_items', function (Blueprint $table) {
+        Schema::create('oparl_agenda_items', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
@@ -50,6 +50,6 @@ class CreateAgendaItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('agenda_items');
+        Schema::drop('oparl_agenda_items');
     }
 }

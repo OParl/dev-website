@@ -24,7 +24,6 @@ class CreateLegislativeTermsTable extends Migration
             $table->foreign('body_id')->references('id')->on('bodies');
 
             $table->string('name')->nullable();
-            $table->string('short_name')->nullable();
 
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();

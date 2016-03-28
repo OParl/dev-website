@@ -46,7 +46,7 @@ class CreateBodiesTable extends Migration
 
             $table->string('classification')->nullable();
             $table->string('street_address')->nullable();
-            $table->string('postal_cody')->nullable();
+            $table->string('postal_code')->nullable();
             $table->string('locality')->nullable();
 
             $table->unsignedInteger('location_id')->nullable();
