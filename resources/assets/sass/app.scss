@@ -30,11 +30,6 @@ body { position: relative; }
   font-size: $font-size-base * 0.75;
 }
 
-.toc.affix {
-  top: 16px;
-  margin-top: 0;
-}
-
 .nowrap {
   overflow-x:auto;
   overflow-y:hidden;
@@ -64,6 +59,12 @@ body { position: relative; }
   &.affix {
     width: inherit;
     padding-right: 30px;
+  }
+
+  &.affix {
+    top: 16px;
+    margin-top: 0;
+    overflow-y: auto;
   }
 
   > a:first-of-type {
