@@ -51,11 +51,18 @@ body { position: relative; }
   border-bottom: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $screen-md) {
   .toc.affix {
     position: static;
 
     > div { max-height: none; }
+  }
+}
+
+@media (min-width: $screen-md) {
+  .toc.affix {
+    width: inherit;
+    padding-right: 30px;
   }
 }
 
@@ -66,11 +73,6 @@ body { position: relative; }
   margin-bottom: 20px;
 
   max-height: 100%;
-  
-  &.affix {
-    width: inherit;
-    padding-right: 30px;
-  }
 
   > a:first-of-type {
     margin-bottom: 1.2em;

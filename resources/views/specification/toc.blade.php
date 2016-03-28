@@ -1,4 +1,4 @@
-<nav class="toc hidden-sm" id="toc">
+<nav class="toc" id="toc">
     @include ('downloads.button', ['buttonSize' => 'sm'])
 
     {{--
