@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/laravel-deploy.git",
-                "reference": "22a914c10a64658ef02f23209f6c5c13ff915da8"
+                "reference": "434b492aad781b41d1f4c5ee4f740dd190e8fe6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/22a914c10a64658ef02f23209f6c5c13ff915da8",
-                "reference": "22a914c10a64658ef02f23209f6c5c13ff915da8",
+                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/434b492aad781b41d1f4c5ee4f740dd190e8fe6e",
+                "reference": "434b492aad781b41d1f4c5ee4f740dd190e8fe6e",
                 "shasum": ""
             },
             "require": {
@@ -417,7 +417,7 @@
                 "gulp",
                 "laravel"
             ],
-            "time": "2016-03-05 23:37:08"
+            "time": "2016-03-29 20:40:16"
         },
         {
             "name": "efrane/letterpress",
@@ -477,12 +477,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/Transfugio.git",
-                "reference": "46af7e6d67677d4857c730e4846acf673048965b"
+                "reference": "2eea51019a5d2de9df566359a246074b36e7f6c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/46af7e6d67677d4857c730e4846acf673048965b",
-                "reference": "46af7e6d67677d4857c730e4846acf673048965b",
+                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/2eea51019a5d2de9df566359a246074b36e7f6c1",
+                "reference": "2eea51019a5d2de9df566359a246074b36e7f6c1",
                 "shasum": ""
             },
             "require": {
@@ -519,7 +519,7 @@
                 }
             ],
             "description": "Fractal based APIs in Laravel.",
-            "time": "2016-03-22 16:41:38"
+            "time": "2016-03-29 18:10:07"
         },
         {
             "name": "embed/embed",
