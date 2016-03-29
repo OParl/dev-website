@@ -18,6 +18,7 @@
         </div>
     </div>
 
+    @if (isset($paginationCode))
     <div class="row">
         <div class="col-xs-12">
             <hr />
@@ -26,4 +27,5 @@
             </div>
         </div>
     </div>
+    @endif
 @stop
