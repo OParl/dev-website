@@ -31,7 +31,7 @@ class CreateAgendaItemsTable extends Migration
             $table->foreign('consultation_id')->references('id')->on('oparl_consultations');
 
             $table->string('result')->nullable();
-            $table->string('resolutionText')->nullable();
+            $table->string('resolution_text')->nullable();
 
             $table->unsignedInteger('resolution_file_id')->nullable();
             $table->foreign('resolution_file_id')->references('id')->on('oparl_files');

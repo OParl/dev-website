@@ -19,7 +19,9 @@ $slugify = Slugify::create();
 $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $faker) {
 
     return [
+        'name'          => 'OParl Demoserver',
         'oparl_version' => '1.0-dev',
+
         'contact_name'  => $faker->name,
         'contact_email' => $faker->email,
         'website'       => 'http://spec.oparl.org/demo'
