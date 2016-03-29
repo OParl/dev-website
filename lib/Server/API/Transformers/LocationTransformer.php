@@ -1,5 +1,7 @@
 <?php
 
+namespace OParl\Server\API\Transformers;
+
 use EFrane\Transfugio\Transformers\BaseTransformer;
 use OParl\Server\Model\Location;
 
