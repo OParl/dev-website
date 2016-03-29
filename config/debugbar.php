@@ -71,7 +71,7 @@ return array(
      | Extension, without the server-side code. It uses Debugbar collectors instead.
      |
      */
-    'clockwork' => false,
+    'clockwork' => true,
 
     /*
      |--------------------------------------------------------------------------
@@ -120,8 +120,8 @@ return array(
         ),
         'db' => array(
             'with_params'       => true,   // Render SQL with the parameters substituted
-            'timeline'          => false,  // Add the queries to the timeline
-            'backtrace'         => false,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
+            'timeline'          => true,  // Add the queries to the timeline
+            'backtrace'         => true,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
             'explain' => array(            // EXPERIMENTAL: Show EXPLAIN output on queries
                 'enabled' => false,
                 'types' => array('SELECT'), // array('SELECT', 'INSERT', 'UPDATE', 'DELETE'); for MySQL 5.6.3+
