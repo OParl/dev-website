@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'api/v1/'], function () {
+Route::group(['prefix' => 'api/v1/', 'middleware' => ['api.format']], function () {
     Route::get('/', [
         'uses' => 'OParl\Server\API\Controllers\RootController@index',
         'as'   => 'api.index'

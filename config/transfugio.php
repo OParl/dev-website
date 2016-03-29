@@ -25,6 +25,6 @@
 
     'web' => [
         'documentationType' => 'JSONSchema',
-        'documentationRoot' => '/resources/assets/schema',
+        'documentationRoot' => '/storage/app/live_version/schema/',
     ],
 ];

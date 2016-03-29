@@ -152,6 +152,7 @@ return [
         EFrane\Buildkite\BuildkiteServiceProvider::class,
         EFrane\Deploy\DeployServiceProvider::class,
         EFrane\Letterpress\Providers\LaravelServiceProvider::class,
+        EFrane\Transfugio\TransfugioServiceProvider::class,
         GrahamCampbell\GitHub\GitHubServiceProvider::class,
 
         OParl\Spec\SpecServiceProvider::class,
