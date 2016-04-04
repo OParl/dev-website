@@ -3,7 +3,7 @@
 namespace OParl\Server;
 
 use Illuminate\Support\ServiceProvider;
-use OParl\Server\Commands\Populate;
+use OParl\Server\Commands\PopulateCommand;
 
 class ServerServiceProvider extends ServiceProvider
 {
@@ -18,6 +18,6 @@ class ServerServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->commands(Populate::class);
+        $this->commands(PopulateCommand::class);
     }
 }

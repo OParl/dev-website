@@ -10,7 +10,7 @@ class SystemTransformer extends BaseTransformer
     public function transform(System $system)
     {
         return [
-            'id'   => strval($system->id),
+            'id'   => route('api.v1.system.show', $system),
             'type' => 'http://spec.oparl.org/spezifikation/#system-entity',
         ];
     }

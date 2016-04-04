@@ -8,7 +8,7 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['api.format']], function (
 
     Route::resource('system',
         'OParl\Server\API\Controllers\SystemController',
-        ['only' => 'index']
+        ['only' => ['index', 'show']]
     );
 
     Route::resource('body',

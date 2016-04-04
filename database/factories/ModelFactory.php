@@ -49,14 +49,14 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
             }),
 
         'contact_email' => $faker->email,
-        'contact_name' => $faker->name,
+        'contact_name'  => $faker->name,
 
         'classification' => $faker->word,
 
         // TODO: sometimes substitute these with a Location object
         'street_address' => $faker->streetName,
-        'postal_code' => $faker->postcode,
-        'locality' => $faker->city
+        'postal_code'    => $faker->postcode,
+        'locality'       => $faker->city
     ];
 });
 
@@ -98,7 +98,17 @@ $factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $f
 });
 
 $factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $faker) {
+    $geometry = json_encode([
+        'type'        => 'point',
+        'coordinates' => [
+            $faker->latitude,
+            $faker->longitude
+        ]
+    ]);
+
     return [
+        'description' => $faker->words(7),
+        'geometry'    => $geometry
     ];
 });
 
@@ -114,15 +124,37 @@ $factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator
 
 $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generator $faker) {
     return [
+        
     ];
 });
 
 $factory->define(OParl\Server\Model\Paper::class, function (Faker\Generator $faker) {
     return [
+        'name' => $faker->sentence(),
+        'reference' => $faker->word,
+        'published_date' => $faker->dateTimeThisDecade,
+        'paper_type' => $faker->word,
     ];
 });
 
 $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $faker) {
+    $gender = $faker->boolean(30) ? 0 : 1;
+    $genderString = ($gender) ? 'female' : 'male';
+    if ($faker->numberBetween(0, 5) == 3) {
+        $genderString = 'other';
+    }
+
     return [
+        'family_name'     => $faker->lastName,
+        'given_name'      => ($gender) ? $faker->firstNameFemale : $faker->firstNameMale,
+        'form_of_address' => '', // TODO: form of address
+        'affix'           => '', // TODO: affix
+        'gender'          => $genderString,
+        'street_address'  => $faker->streetAddress,
+        'postal_code'     => $faker->numberBetween(10000, 17000),
+        'sub_locality'    => $faker->word,
+        'locality'        => $faker->city,
+        'life'            => $faker->text,
+        'life_source'     => $faker->url,
     ];
 });
