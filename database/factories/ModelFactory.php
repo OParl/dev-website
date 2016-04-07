@@ -29,7 +29,13 @@ $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $fa
 });
 
 $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $faker) {
-    $name = $faker->words(7);
+    $name = ucfirst(implode(' ', $faker->words(7)));
+
+    $equivalentBody = collect(
+        range(0, $faker->numberBetween(0, 5)))
+        ->map(function () use ($faker) {
+            return $faker->url;
+        })->toArray();
 
     return [
         'name'                => $name,
@@ -42,38 +48,35 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
         'ags' => $faker->numberBetween(100000, 169999999999),
         'rgs' => $faker->numberBetween(100000000000, 169999999999),
 
-        'equivalent_body' => collect(
-            range(0, $faker->numberBetween(0, 5)))
-            ->map(function ($num) use ($faker) {
-                return $faker->url;
-            }),
+        'equivalent_body' => $equivalentBody,
 
         'contact_email' => $faker->email,
         'contact_name'  => $faker->name,
 
         'classification' => $faker->word,
-
-        // TODO: sometimes substitute these with a Location object
-        'street_address' => $faker->streetName,
-        'postal_code'    => $faker->postcode,
-        'locality'       => $faker->city
     ];
 });
 
 $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Generator $faker) {
     $romanizer = new Romanizer();
-    $startDate = new Carbon($faker->dateTimeThisCentury);
+
+    $startDate = Carbon::instance($faker->dateTimeThisCentury);
+
+    $startDate->hour = 0;
+    $startDate->minute = 0;
+    $startDate->second = 0;
 
     return [
-        'name' => sprintf('%d. Wahlperiode', $romanizer->formatNumber($faker->numberBetween(10, 22))),
+        'name' => sprintf('%s. Wahlperiode', $romanizer->formatNumber($faker->numberBetween(10, 60))),
 
         'start_date' => $startDate,
-        'end_date'   => $startDate->addYear($faker->numberBetween(2, 5)),
+        'end_date'   => Carbon::instance($startDate)->addYears($faker->numberBetween(1, 5))
     ];
 });
 
 $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator $faker) {
     return [
+
     ];
 });
 
@@ -89,7 +92,7 @@ $factory->define(OParl\Server\Model\File::class, function (Faker\Generator $fake
 });
 
 $factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $faker) use ($slugify) {
-    $humanName = $faker->words(3);
+    $humanName = implode(' ', $faker->words(3));
 
     return [
         'human_name' => $humanName,
@@ -107,12 +110,22 @@ $factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $
     ]);
 
     return [
-        'description' => $faker->words(7),
-        'geometry'    => $geometry
+        'description'    => $faker->words(7),
+        'geometry'       => $geometry,
+        'street_address' => $faker->streetAddress,
+        'postal_code'    => $faker->numberBetween(10000, 17000),
+        'sub_locality'   => $faker->word,
     ];
 });
 
 $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $faker) {
+
+    $startDate = Carbon::instance($faker->dateTimeThisCentury);
+
+    $startDate->hour = $faker->numberBetween(9, 17);
+    $startDate->minute = $faker->randomElement([0, 15, 30, 45]);
+    $startDate->second = 0;
+
     return [
     ];
 });
@@ -123,23 +136,70 @@ $factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator
 });
 
 $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generator $faker) {
+    $romanizer = new Romanizer();
+
+    $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
+    $shortName = 'O-' . $romanizer->formatNumber($faker->randomNumber(3));
+
+    $organizationTypes = [
+        'externes Gremium',
+        'Fraktion',
+        'Gremium',
+        'Institution',
+        'Partei',
+        'Sonstiges',
+        'Verwaltungsbereich',
+    ];
+
+    $classification = $faker->randomElement([
+        'Parlament',
+        'Ausschuss',
+        'Beirat',
+        'Projektbeirat',
+        'Arbeitsgemeinschaft',
+        'Verwaltungsrat',
+        'Kommission',
+        'Fraktion',
+        'Partei'
+    ]);
+
+    $startDate = Carbon::instance($faker->dateTimeThisDecade);
+
+    $startDate->hour = 0;
+    $startDate->minute = 0;
+    $startDate->second = 0;
+
+    $externalBody = collect(
+        range(0, $faker->numberBetween(0, 5)))
+        ->map(function () use ($faker) {
+            return $faker->url;
+        })->toArray();
+
     return [
-        
+        'name'              => $name,
+        'short_name'        => $shortName,
+        'organization_type' => $faker->randomElement($organizationTypes),
+        'classification'    => $classification,
+        'start_date'        => $startDate,
+        'end_date'          => Carbon::instance($startDate)->addMonths($faker->numberBetween(1, 36)),
+        'website'           => $faker->url,
+        'external_body'     => $externalBody,
     ];
 });
 
 $factory->define(OParl\Server\Model\Paper::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->sentence(),
-        'reference' => $faker->word,
+        'name'           => $faker->sentence,
+        'reference'      => $faker->word,
         'published_date' => $faker->dateTimeThisDecade,
-        'paper_type' => $faker->word,
+        'paper_type'     => $faker->word,
     ];
 });
 
 $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $faker) {
     $gender = $faker->boolean(30) ? 0 : 1;
     $genderString = ($gender) ? 'female' : 'male';
+
     if ($faker->numberBetween(0, 5) == 3) {
         $genderString = 'other';
     }
@@ -150,10 +210,6 @@ $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $fa
         'form_of_address' => '', // TODO: form of address
         'affix'           => '', // TODO: affix
         'gender'          => $genderString,
-        'street_address'  => $faker->streetAddress,
-        'postal_code'     => $faker->numberBetween(10000, 17000),
-        'sub_locality'    => $faker->word,
-        'locality'        => $faker->city,
         'life'            => $faker->text,
         'life_source'     => $faker->url,
     ];

@@ -7,6 +7,6 @@ use App\Http\Controllers\Controller;
 class RootController extends Controller
 {
     public function index() {
-        return view('server::overview');
+        return redirect()->route('api.v1.system.index', ['format' => 'html']);
     }
 }

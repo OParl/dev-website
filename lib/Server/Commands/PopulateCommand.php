@@ -83,6 +83,15 @@ class PopulateCommand extends Command
         $body->legislativeTerms()->saveMany(factory(LegislativeTerm::class,
             $this->faker->numberBetween(1, 5))->create());
 
+        $keywords = $this->getSomeKeywords();
+
         $body->save();
+    }
+
+    protected function getSomeKeywords($maxNb = 10)
+    {
+        $amount = $this->faker->numberBetween(0, $maxNb);
+
+        return factory(Keyword::class, $amount)->create();
     }
 }

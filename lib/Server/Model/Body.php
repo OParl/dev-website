@@ -4,6 +4,12 @@ namespace OParl\Server\Model;
 
 class Body extends BaseModel
 {
+    protected $dates = ['license_valid_since', 'oparl_since'];
+    
+    protected $casts = [
+        'equivalent_body' => 'array'
+    ];
+
     public function legislativeTerms()
     {
         return $this->hasMany(LegislativeTerm::class, 'body_id', 'id');
