@@ -40,7 +40,8 @@ elixir(function(mix) {
             'bootstrap-sass/assets/javascripts/bootstrap/affix.js',
             'bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js',
             'bootstrap-sass/assets/javascripts/bootstrap/modal.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/collapse.js'
+            'bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
+            'bootstrap-sass/assets/javascripts/bootstrap/tab.js'
         ], 'public/js/lib.js', 'node_modules'
     );
 

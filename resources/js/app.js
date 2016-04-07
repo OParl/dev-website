@@ -2,9 +2,26 @@ jQuery.expr[':'].like = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 };
 
+Prism.hooks.add('wrap', function(env) {
+    if (env.type == 'string' && env.content.match(/http/))
+    {
+        var url = env.content.replace('"', '');
+        url = url.replace("'", '');
+        env.content = "<a href=\"" + url + "\">" + env.content + "</a>";
+    }
+});
+
 $(document).ready(function () {
     if (document.location.pathname.match(/downloads/))     setupDownloads();
     if (document.location.pathname.match(/spezifikation/)) setupLiveCopy();
+
+    $('.tab-content a[data-toggle=tab]').each(function () {
+        $(this).on('click', function (event) {
+            event.preventDefault();
+            $('.main .nav-tabs a[href='+$(this).attr('href')+"]").tab('show');
+            return false;
+        })
+    });
 });
 
 function setupDownloads()
