@@ -134,21 +134,17 @@ class PopulateCommand extends Command
         }
 
         $amount = $this->faker->numberBetween(0, $maxNb);
-        /* @var $keywords Collection */
-        $keywords = collect();
 
-        $generatedKeywordOrWords = factory(Keyword::class, $amount)->create();
-        if ($generatedKeywordOrWords instanceof Collection) {
-            $generatedKeywordOrWords->each(function (
-                Keyword $keyword
-            ) use ($keywords) {
-                $keywords->push($keyword);
-            });
-        } else {
-            $keywords->push($generatedKeywordOrWords);
+        if ($amount == 0) return collect();
+
+        $currentKeywordCount = Keyword::all()->count();
+        if ($currentKeywordCount < $amount) {
+            factory(Keyword::class, $amount - $currentKeywordCount)->create();
         }
 
-        return $keywords;
+        $keywordOrKeywords = Keyword::all()->random($amount);
+
+        return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
     }
 
     protected function getSomePeople($maxNb = 50)
@@ -167,7 +163,8 @@ class PopulateCommand extends Command
         factory(Person::class, $amount)->create()->each(function (
             Person $person
         ) use ($people) {
-            $person->keywords()->saveMany($this->getSomeKeywords());
+            $keywords = $this->getSomeKeywords();
+            $person->keywords()->saveMany($keywords);
 
             $people->push($person);
         });

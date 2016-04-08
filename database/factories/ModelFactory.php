@@ -11,9 +11,27 @@
 */
 use Carbon\Carbon;
 use Cocur\Slugify\Slugify;
+use OParl\Server\Model\Keyword;
 use RomanNumber\Formatter as Romanizer;
 
 $slugify = Slugify::create();
+
+// TODO: Maybe investigate why eloquent sometimes fails to synchronize the db correctly
+if (!function_exists('hash_store')) {
+    function hash_store(...$args)
+    {
+        static $hash_store = [];
+        $argsString = var_export($args, true);
+
+        if (!in_array($argsString, $hash_store)) {
+            array_push($hash_store, md5($argsString));
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $faker) {
@@ -93,7 +111,7 @@ $factory->define(OParl\Server\Model\File::class, function (Faker\Generator $fake
 
 $factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $faker) use ($slugify) {
     do {
-        $humanName = ucfirst(implode(' ', $faker->words($faker->numberBetween(1, 3))));
+        $humanName = $faker->word;
     } while (Keyword::whereHumanName($humanName)->exists());
 
     return [
@@ -110,11 +128,13 @@ $factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $
         ]
     ]);
 
+    $postalCode = sprintf('%05d', $faker->numberBetween(10000, 17000) - 1000);
+
     return [
         'description'    => $faker->words(7),
         'geometry'       => $geometry,
         'street_address' => $faker->streetAddress,
-        'postal_code'    => $faker->numberBetween(10000, 17000),
+        'postal_code'    => $postalCode,
         'sub_locality'   => $faker->word,
     ];
 });
@@ -128,11 +148,13 @@ $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $f
     $startDate->second = 0;
 
     return [
+
     ];
 });
 
 $factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator $faker) {
     return [
+
     ];
 });
 
@@ -209,7 +231,7 @@ $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $fa
         'family_name'     => $faker->lastName,
         'given_name'      => ($gender) ? $faker->firstNameFemale : $faker->firstNameMale,
         'form_of_address' => '', // TODO: form of address
-        'affix'           => '', // TODO: affix
+        'affix'           => ($gender) ? $faker->titleFemale : $faker->titleMale,
         'gender'          => $genderString,
         'life'            => $faker->text,
         'life_source'     => $faker->url,

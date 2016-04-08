@@ -37,11 +37,6 @@ class CreatePeopleTable extends Migration
             // TODO: phone number is 1:n
             // TODO: email is 1:n
 
-            $table->string('street_address')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('sub_locality')->nullable();
-            $table->string('locality')->nullable();
-
             $table->unsignedInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('oparl_locations');
 
