@@ -477,12 +477,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/Transfugio.git",
-                "reference": "0259e56cd21bb8cdd67de57f4b7014f521fb610c"
+                "reference": "7c1dcddba2241ead27af420d231690a6c75f487e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/0259e56cd21bb8cdd67de57f4b7014f521fb610c",
-                "reference": "0259e56cd21bb8cdd67de57f4b7014f521fb610c",
+                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/7c1dcddba2241ead27af420d231690a6c75f487e",
+                "reference": "7c1dcddba2241ead27af420d231690a6c75f487e",
                 "shasum": ""
             },
             "require": {
@@ -519,7 +519,7 @@
                 }
             ],
             "description": "Fractal based APIs in Laravel.",
-            "time": "2016-04-05 10:00:56"
+            "time": "2016-04-08 12:19:34"
         },
         {
             "name": "embed/embed",

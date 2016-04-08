@@ -232,6 +232,7 @@ $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $fa
         'given_name'      => ($gender) ? $faker->firstNameFemale : $faker->firstNameMale,
         'form_of_address' => '', // TODO: form of address
         'affix'           => ($gender) ? $faker->titleFemale : $faker->titleMale,
+        'title'           => [],
         'gender'          => $genderString,
         'life'            => $faker->text,
         'life_source'     => $faker->url,

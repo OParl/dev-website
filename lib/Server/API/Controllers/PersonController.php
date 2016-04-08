@@ -7,7 +7,6 @@ use EFrane\Transfugio\Http\Method\IndexPaginatedTrait;
 use EFrane\Transfugio\Http\Method\ShowItemTrait;
 use EFrane\Transfugio\Query\QueryService;
 use EFrane\Transfugio\Query\ValueExpression;
-use OParl\Server\Model\Person;
 
 class PersonController extends APIController
 {
@@ -17,5 +16,10 @@ class PersonController extends APIController
     protected function queryBody(QueryService &$query, ValueExpression $valueExpression)
     {
         $query->where('body_id', $valueExpression->getExpression(), $valueExpression->getValue());
+    }
+
+    protected function queryOrganization(QueryService &$query, ValueExpression $valueExpression)
+    {
+        // TODO: implement organization querying
     }
 }

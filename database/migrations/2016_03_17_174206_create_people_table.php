@@ -29,13 +29,11 @@ class CreatePeopleTable extends Migration
             $table->string('given_name')->nullable();
             $table->string('form_of_address')->nullable();
             $table->string('affix')->nullable();
-
-            // TODO: title is 1:n
-
+            $table->string('title')->nullable();
             $table->string('gender')->nullable();
 
-            // TODO: phone number is 1:n
-            // TODO: email is 1:n
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
 
             $table->unsignedInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('oparl_locations');
