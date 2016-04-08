@@ -92,11 +92,12 @@ $factory->define(OParl\Server\Model\File::class, function (Faker\Generator $fake
 });
 
 $factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $faker) use ($slugify) {
-    $humanName = implode(' ', $faker->words(3));
+    do {
+        $humanName = ucfirst(implode(' ', $faker->words($faker->numberBetween(1, 3))));
+    } while (Keyword::whereHumanName($humanName)->exists());
 
     return [
         'human_name' => $humanName,
-        'name'       => $slugify->slugify($humanName),
     ];
 });
 

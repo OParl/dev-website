@@ -11,7 +11,10 @@ class Keyword extends BaseModel
         if (is_null($this->attributes['name'])) {
             $slugify = Slugify::create();
             $this->attributes['name'] = $slugify->slugify($this->human_name);
+            $this->save();
         }
+
+        return $this->attributes['name'];
     }
 
     public function agendaItems()

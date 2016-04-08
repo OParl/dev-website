@@ -2,6 +2,7 @@ jQuery.expr[':'].like = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 };
 
+// make links in code blocks clickable
 Prism.hooks.add('wrap', function(env) {
     if (env.type == 'string' && env.content.match(/http/))
     {
