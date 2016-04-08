@@ -4,7 +4,7 @@
     'modelNamespace' => 'OParl\\Server\\Model\\',
 
     'transformers' => [
-        'serializer' => 'EFrane\Transfugio\Transformers\SanitizedDataArraySerializer',
+        'serializer' => OParl\Server\API\Serializer::class,
 
         'namespace'    => 'OParl\\Server\\API\\Transformers',
         'classPattern' => '[:modelName]Transformer',

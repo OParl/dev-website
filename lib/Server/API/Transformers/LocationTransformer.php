@@ -9,6 +9,9 @@ class LocationTransformer extends BaseTransformer
 {
     public function transform(Location $location)
     {
-        return [];
+        return [
+            'id' => route('api.v1.location.show', $location),
+            'type' => 'http://spec.oparl.org/spezifikation/1.0/#entity-location',
+        ];
     }
 }

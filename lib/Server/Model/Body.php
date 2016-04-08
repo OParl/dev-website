@@ -4,7 +4,7 @@ namespace OParl\Server\Model;
 
 class Body extends BaseModel
 {
-    protected $dates = ['license_valid_since', 'oparl_since'];
+    protected $dates = ['license_valid_since', 'oparl_since', 'deleted_at'];
     
     protected $casts = [
         'equivalent_body' => 'array'
