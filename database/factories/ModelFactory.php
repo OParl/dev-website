@@ -131,7 +131,7 @@ $factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $
     $postalCode = sprintf('%05d', $faker->numberBetween(10000, 17000) - 1000);
 
     return [
-        'description'    => $faker->words(7),
+        'description'    => $faker->sentence(),
         'geometry'       => $geometry,
         'street_address' => $faker->streetAddress,
         'postal_code'    => $postalCode,

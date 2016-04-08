@@ -90,9 +90,8 @@ class PopulateCommand extends Command
 
         $legislativeTerms = $this->getSomeLegislativeTerms();
         $body->legislativeTerms()->saveMany($legislativeTerms);
-
-        $keywords = $this->getSomeKeywords(2);
-        $body->keywords()->saveMany($keywords);
+        $body->keywords()->saveMany($this->getSomeKeywords(2));
+        $body->location()->associate($this->getLocation());
 
         $body->save();
 
@@ -163,12 +162,27 @@ class PopulateCommand extends Command
         factory(Person::class, $amount)->create()->each(function (
             Person $person
         ) use ($people) {
-            $keywords = $this->getSomeKeywords();
-            $person->keywords()->saveMany($keywords);
+            $person->keywords()->saveMany($this->getSomeKeywords());
+            $person->location()->associate($this->getLocation());
 
             $people->push($person);
         });
 
         return $people;
+    }
+
+    protected function getLocation() {
+        // NOTE: Raising this value increases the spreading of different locations over all entities
+        // NOTE: It also increases the total time needed for db population
+        $willGenerateNewLocation = $this->faker->boolean(60);
+
+        $locations = Location::all();
+        if ($locations->count() == 0 || $willGenerateNewLocation) {
+            $location = factory(Location::class)->create();
+        } else {
+            $location = $locations->random();
+        }
+
+        return $location;
     }
 }

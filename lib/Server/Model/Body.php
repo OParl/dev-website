@@ -15,6 +15,10 @@ class Body extends BaseModel
         return $this->hasMany(LegislativeTerm::class, 'body_id', 'id');
     }
 
+    public function location() {
+        return $this->belongsTo(Location::class);
+    }
+
     public function people() {
         return $this->hasMany(Person::class, 'body_id', 'id');
     }
