@@ -153,8 +153,17 @@ $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $f
 });
 
 $factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator $faker) {
-    return [
+    $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
+    $startDate->hour = 0;
+    $startDate->minute = 0;
+    $startDate->second = 0;
+
+    return [
+        'role'         => $faker->colorName,
+        'voting_right' => $faker->boolean(),
+        'start_date'   => $startDate,
+        'end_date'     => Carbon::instance($startDate)->addMonths($faker->numberBetween(5, 25)),
     ];
 });
 

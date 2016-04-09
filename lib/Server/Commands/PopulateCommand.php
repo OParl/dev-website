@@ -53,6 +53,30 @@ class PopulateCommand extends Command
             // TODO: add people, organizations, memberships, meetings
             $people = $this->getSomePeople($this->faker->randomElement([10, 100, 1000]));
             $body->people()->saveMany($people);
+
+            $organizations = $this->getSomeOrganizations($this->faker->randomElement([10, 20, 50]));
+            $organizations->each(function (Organization $organization) use ($body, $people) {
+                $organization->body()->associate($body);
+
+                $people->random($this->faker->numberBetween(2, $people->count()))->each(function (Person $person) use (
+                    $organization
+                ) {
+                    /* @var $membership Membership */
+                    $membership = factory(Membership::class)->create();
+
+                    $membership->person()->associate($person);
+                    $membership->organization()->associate($organization);
+
+                    $membership->keywords()->saveMany($this->getSomeKeywords());
+
+                    $membership->save();
+                });
+
+                $organization->keywords()->saveMany($this->getSomeKeywords());
+                $organization->location()->associate($this->getLocation());
+
+                $organization->save();
+            });
         });
 
         Model::reguard();
@@ -98,6 +122,81 @@ class PopulateCommand extends Command
         return $body;
     }
 
+    protected function getSomePeople($maxNb = 50)
+    {
+        if ($maxNb < 2) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
+        }
+
+        $amount = $this->faker->numberBetween(2, $maxNb);
+
+        /* @var $people Collection */
+        $people = collect();
+
+        // NOTE: it may be valuable to make it possible to fetch some existing people
+        //       or only existing people with this method too
+        factory(Person::class, $amount)->create()->each(function (
+            Person $person
+        ) use ($people) {
+            $person->keywords()->saveMany($this->getSomeKeywords());
+            $person->location()->associate($this->getLocation());
+
+            $people->push($person);
+        });
+
+        return $people;
+    }
+
+    protected function getSomeOrganizations($maxNb = 2)
+    {
+        if ($maxNb < 2) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
+        }
+
+        $amount = $this->faker->numberBetween(2, $maxNb);
+
+        // TODO: suborganizations?
+        return factory(Organization::class, $amount)->create();
+    }
+
+    protected function getSomeKeywords($maxNb = 10)
+    {
+        if ($maxNb < 0) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 0");
+        }
+
+        $amount = $this->faker->numberBetween(0, $maxNb);
+
+        if ($amount == 0) {
+            return collect();
+        }
+
+        $currentKeywordCount = Keyword::all()->count();
+        if ($currentKeywordCount < $amount) {
+            factory(Keyword::class, $amount - $currentKeywordCount)->create();
+        }
+
+        $keywordOrKeywords = Keyword::all()->random($amount);
+
+        return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
+    }
+
+    protected function getLocation()
+    {
+        // NOTE: Raising this value increases the spreading of different locations over all entities
+        // NOTE: It also increases the total time needed for db population
+        $willGenerateNewLocation = $this->faker->boolean(60);
+
+        $locations = Location::all();
+        if ($locations->count() == 0 || $willGenerateNewLocation) {
+            $location = factory(Location::class)->create();
+        } else {
+            $location = $locations->random();
+        }
+
+        return $location;
+    }
+
     /**
      * @return Collection
      **/
@@ -124,65 +223,5 @@ class PopulateCommand extends Command
         }
 
         return $legislativeTerms;
-    }
-
-    protected function getSomeKeywords($maxNb = 10)
-    {
-        if ($maxNb < 0) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 0");
-        }
-
-        $amount = $this->faker->numberBetween(0, $maxNb);
-
-        if ($amount == 0) return collect();
-
-        $currentKeywordCount = Keyword::all()->count();
-        if ($currentKeywordCount < $amount) {
-            factory(Keyword::class, $amount - $currentKeywordCount)->create();
-        }
-
-        $keywordOrKeywords = Keyword::all()->random($amount);
-
-        return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
-    }
-
-    protected function getSomePeople($maxNb = 50)
-    {
-        if ($maxNb < 2) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
-        }
-
-        $amount = $this->faker->numberBetween(2, $maxNb);
-
-        /* @var $people Collection */
-        $people = collect();
-
-        // NOTE: it may be valuable to make it possible to fetch some existing people
-        //       or only existing people with this method too
-        factory(Person::class, $amount)->create()->each(function (
-            Person $person
-        ) use ($people) {
-            $person->keywords()->saveMany($this->getSomeKeywords());
-            $person->location()->associate($this->getLocation());
-
-            $people->push($person);
-        });
-
-        return $people;
-    }
-
-    protected function getLocation() {
-        // NOTE: Raising this value increases the spreading of different locations over all entities
-        // NOTE: It also increases the total time needed for db population
-        $willGenerateNewLocation = $this->faker->boolean(60);
-
-        $locations = Location::all();
-        if ($locations->count() == 0 || $willGenerateNewLocation) {
-            $location = factory(Location::class)->create();
-        } else {
-            $location = $locations->random();
-        }
-
-        return $location;
     }
 }

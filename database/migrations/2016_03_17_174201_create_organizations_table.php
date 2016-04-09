@@ -24,11 +24,11 @@ class CreateOrganizationsTable extends Migration
             $table->foreign('body_id')->references('id')->on('bodies');
 
             $table->string('name')->nullable();
-            $table->string('shortName')->nullable();
+            $table->string('short_name')->nullable();
 
             // TODO: membership is n:n
             // TODO: meeting is 1:n
-            // TODO: post is n:n
+            $table->json('post')->nullable();
 
             $table->unsignedInteger('sub_organization_of')->nullable();
             $table->foreign('sub_organization_of')->references('id')->on('oparl_organizations');

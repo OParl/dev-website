@@ -4,11 +4,9 @@ namespace OParl\Server\API\Transformers;
 
 use EFrane\Transfugio\Transformers\BaseTransformer;
 use OParl\Server\Model\Body;
-use OParl\Server\Model\LegislativeTerm;
 
 class BodyTransformer extends BaseTransformer
 {
-    protected $availableIncludes = ['legislativeTerm', 'location'];
     protected $defaultIncludes = ['legislativeTerm', 'location'];
 
     public function transform(Body $body)
@@ -25,7 +23,7 @@ class BodyTransformer extends BaseTransformer
             'oparlSince'        => ($body->oparl_since) ? $this->formatDate($body->oparl_since) : null,
             'ags'               => $body->ags,
             'rgs'               => $body->rgs,
-            'equivalent'    => $body->equivalent_body,
+            'equivalent'        => $body->equivalent_body,
             'contactEmail'      => $body->contact_email,
             'contactName'       => $body->contact_name,
             'organization'      => route_where('api.v1.organization.index', ['body' => $body->id]),
@@ -35,20 +33,20 @@ class BodyTransformer extends BaseTransformer
             // legislative term is an included object
             'classification'    => $body->classification,
             // location is an included object
-            'keyword'           => $body->keywords,
+            'keyword'           => $body->keywords->pluck('human_name'),
             'created'           => $this->formatDate($body->created_at),
             'modified'          => $this->formatDate($body->updated_at),
-            'deleted'           => ($body->trashed()) ? true : false,
+            'deleted'           => $body->trashed(),
         ];
     }
 
     public function includeLegislativeTerm(Body $body)
     {
-        // TODO: drop the body_id fields out of this
-        return $this->collection($body->legislativeTerms, new LegislativeTermTransformer());
+        return $this->collection($body->legislativeTerms, new LegislativeTermTransformer(true));
     }
 
-    public function includeLocation(Body $body) {
-        return $this->item($body->location, new LocationTransformer());
+    public function includeLocation(Body $body)
+    {
+        return $this->item($body->location, new LocationTransformer(true));
     }
 }

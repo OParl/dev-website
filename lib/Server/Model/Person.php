@@ -16,6 +16,11 @@ class Person extends BaseModel
         return implode(' ', [$this->form_of_address, $title, $this->affix, $this->given_name, $this->family_name]);
     }
 
+    public function memberships()
+    {
+        return $this->hasMany(Membership::class);
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);

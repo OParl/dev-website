@@ -3,7 +3,6 @@
 namespace OParl\Server\API;
 
 use EFrane\Transfugio\Transformers\SanitizedDataArraySerializer;
-use OParl\Server\Model\Keyword;
 
 class Serializer extends SanitizedDataArraySerializer
 {
@@ -11,11 +10,9 @@ class Serializer extends SanitizedDataArraySerializer
     {
         $data = parent::reformatData($data);
 
-        // reformat keywords
-        if (array_key_exists('keyword', $data)) {
-            $data['keyword'] = $data['keyword']->map(function (Keyword $keyword) {
-                return $keyword->human_name;
-            });
+        // remove deleted key if deleted is false
+        if (array_key_exists('deleted', $data) && !$data['deleted']) {
+            unset($data['deleted']);
         }
 
         // fix nested 'data' arrays

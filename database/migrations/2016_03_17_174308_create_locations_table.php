@@ -23,6 +23,7 @@ class CreateLocationsTable extends Migration
             $table->string('description');
             $table->json('geometry');
 
+            $table->string('room')->nullable();
             $table->string('street_address')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('sub_locality')->nullable();
@@ -30,9 +31,8 @@ class CreateLocationsTable extends Migration
 
             // TODO: body is 1:n
             // TODO: organization is 1:n
-            // TODO: meeting 1:n
-
-            
+            // TODO: meeting is 1:n
+            // TODO: person is 1:n
         });
     }
 

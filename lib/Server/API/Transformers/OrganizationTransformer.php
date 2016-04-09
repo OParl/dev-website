@@ -9,6 +9,9 @@ class OrganizationTransformer extends BaseTransformer
 {
     public function transform(Organization $organization)
     {
-        return [];
+        return [
+            'id'   => route('api.v1.organization.show', $organization),
+            'type' => 'http://spec.oparl.org/spezifikation/1.0/#entity-organization',
+        ];
     }
 }
