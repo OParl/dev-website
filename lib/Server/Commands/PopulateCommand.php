@@ -42,42 +42,7 @@ class PopulateCommand extends Command
 
         $this->info('Populating the demoserver db...');
 
-        $system = $this->generateSystem();
-
-        $bodies = collect(range(1, $this->faker->numberBetween(3, 9)))
-            ->map(function () use ($system) {
-                return $this->generateBodyWithLegislativeTerms($system);
-            });
-
-        $bodies->each(function (Body $body) {
-            // TODO: add people, organizations, memberships, meetings
-            $people = $this->getSomePeople($this->faker->randomElement([10, 100, 1000]));
-            $body->people()->saveMany($people);
-
-            $organizations = $this->getSomeOrganizations($this->faker->randomElement([10, 20, 50]));
-            $organizations->each(function (Organization $organization) use ($body, $people) {
-                $organization->body()->associate($body);
-
-                $people->random($this->faker->numberBetween(2, $people->count()))->each(function (Person $person) use (
-                    $organization
-                ) {
-                    /* @var $membership Membership */
-                    $membership = factory(Membership::class)->create();
-
-                    $membership->person()->associate($person);
-                    $membership->organization()->associate($organization);
-
-                    $membership->keywords()->saveMany($this->getSomeKeywords());
-
-                    $membership->save();
-                });
-
-                $organization->keywords()->saveMany($this->getSomeKeywords());
-                $organization->location()->associate($this->getLocation());
-
-                $organization->save();
-            });
-        });
+        $this->generateData();
 
         Model::reguard();
 
@@ -98,6 +63,81 @@ class PopulateCommand extends Command
         Location::truncate();
         File::truncate();
         Keyword::truncate();
+    }
+
+    protected function generateData()
+    {
+        $system = $this->generateSystem();
+
+        $bodies = collect(range(1, $this->faker->numberBetween(3, 9)))
+            ->map(function () use ($system) {
+                return $this->generateBodyWithLegislativeTerms($system);
+            });
+
+        $bodies->each(function (Body $body) {
+            // TODO: add people, organizations, memberships, meetings
+            $people = $this->getSomePeople($this->faker->randomElement([10, 100, 1000]));
+            $body->people()->saveMany($people);
+
+            $organizations = $this->getSomeOrganizations($this->faker->randomElement([10, 20, 50]));
+            $organizations->each(function (Organization $organization) use ($body, $people) {
+                $organization->body()->associate($body);
+
+                $people->random($this->faker->numberBetween(2, $people->count()))->each(function (
+                    Person $person
+                ) use (
+                    $organization
+                ) {
+                    /* @var $membership Membership */
+                    $membership = factory(Membership::class)->create();
+
+                    $membership->person()->associate($person);
+                    $membership->organization()->associate($organization);
+
+                    $membership->keywords()->saveMany($this->getSomeKeywords());
+
+                    $membership->save();
+                });
+
+                $organization->keywords()->saveMany($this->getSomeKeywords());
+                $organization->location()->associate($this->getLocation());
+
+                $organization->save();
+            });
+
+            $meetings = factory(Meeting::class, $this->faker->numberBetween(10, 100))->create();
+            $meetings->each(function (Meeting $meeting) use ($organizations) {
+                /* @var $organizations Collection */
+                $meetingOrganizations = $organizations->random($this->faker->numberBetween(1,
+                    $organizations->count() / 2));
+
+                if ($meetingOrganizations instanceof Organization) {
+                    $meetingOrganizations = collect([$meetingOrganizations]);
+                }
+
+                $meeting->organizations()->saveMany($meetingOrganizations);
+                /* @var $possibleParticipants Collection */
+                $possibleParticipants = collect($meetingOrganizations->map(function(Organization $organization) {
+                    return $organization->people;
+                })->flatten()->map(function(Collection $collection) {
+                    return $collection->all();
+                })->first());
+
+                $participants = $possibleParticipants->random($this->faker->numberBetween(1, $possibleParticipants->count() / 2));
+                if ($participants instanceof Person) {
+                    $participants = collect([$participants]);
+                }
+
+                $meeting->participants()->saveMany($participants);
+
+                $meeting->location()->associate($meetingOrganizations[0]->location);
+
+                // TODO: Agenda Item
+
+                // TODO: Invitation, Protocol, etc.
+
+            });
+        });
     }
 
     protected function generateSystem()
@@ -164,6 +204,9 @@ class PopulateCommand extends Command
         if ($maxNb < 0) {
             throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 0");
         }
+
+        // FIXME: keywords are so broken
+        return collect();
 
         $amount = $this->faker->numberBetween(0, $maxNb);
 

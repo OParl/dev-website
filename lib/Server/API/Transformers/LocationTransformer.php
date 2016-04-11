@@ -27,8 +27,11 @@ class LocationTransformer extends BaseTransformer
 
         if ($this->isIncluding()) {
             $data = array_merge($data, [
-                // TODO: collection route lists for bodies, organizations, people, meetings and papers
-                //       that use the current location
+                'body'         => $this->collectionRouteList('api.v1.body.show', $location->bodies),
+                'organization' => $this->collectionRouteList('api.v1.organization.show', $location->organizations),
+                'person'       => $this->collectionRouteList('api.v1.person.show', $location->people),
+                'meeting'      => $this->collectionRouteList('api.v1.meeting.show', $location->meetings),
+                'paper'        => $this->collectionRouteList('api.v1.paper.show', $location->papers),
             ]);
         }
 

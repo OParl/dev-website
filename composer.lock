@@ -477,27 +477,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/Transfugio.git",
-                "reference": "4a8a4dc197a9df10b0e128b1f9165229c6357bff"
+                "reference": "722c15a755138f12a65d0637dc5223d3aa37b277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/4a8a4dc197a9df10b0e128b1f9165229c6357bff",
-                "reference": "4a8a4dc197a9df10b0e128b1f9165229c6357bff",
+                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/722c15a755138f12a65d0637dc5223d3aa37b277",
+                "reference": "722c15a755138f12a65d0637dc5223d3aa37b277",
                 "shasum": ""
             },
             "require": {
                 "illuminate/database": ">=5.1",
-                "illuminate/http": "^5.1",
+                "illuminate/http": ">=5.1",
                 "illuminate/pagination": ">=5.1",
                 "illuminate/support": ">=5.1",
                 "league/fractal": "*",
                 "league/uri": "^4.1",
                 "php": ">=5.5",
-                "phpdocumentor/reflection-docblock": "^2.0",
-                "symfony/yaml": "~2.6"
+                "symfony/yaml": ">=2.6"
             },
             "require-dev": {
-                "codeception/codeception": "^2.1"
+                "codeception/codeception": "^2.1",
+                "phpdocumentor/reflection-docblock": "^2.0"
             },
             "suggest": {
                 "phpdocumentor/reflection-docblock": "Install to use PHPDoc documentation."
@@ -519,7 +519,7 @@
                 }
             ],
             "description": "Fractal based APIs in Laravel.",
-            "time": "2016-04-08 15:12:15"
+            "time": "2016-04-10 13:07:00"
         },
         {
             "name": "embed/embed",
@@ -2115,55 +2115,6 @@
             "time": "2015-08-07 21:42:41"
         },
         {
-            "name": "phpdocumentor/reflection-docblock",
-            "version": "2.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "d68dbdc53dc358a816f00b300704702b2eaff7b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/d68dbdc53dc358a816f00b300704702b2eaff7b8",
-                "reference": "d68dbdc53dc358a816f00b300704702b2eaff7b8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "suggest": {
-                "dflydev/markdown": "~1.0",
-                "erusev/parsedown": "~1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "phpDocumentor": [
-                        "src/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mike van Riel",
-                    "email": "mike.vanriel@naenius.com"
-                }
-            ],
-            "time": "2015-02-03 12:10:50"
-        },
-        {
             "name": "predis/predis",
             "version": "v1.0.3",
             "source": {
@@ -3568,6 +3519,55 @@
                 "testing"
             ],
             "time": "2015-04-02 19:54:00"
+        },
+        {
+            "name": "phpdocumentor/reflection-docblock",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
+                "reference": "d68dbdc53dc358a816f00b300704702b2eaff7b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/d68dbdc53dc358a816f00b300704702b2eaff7b8",
+                "reference": "d68dbdc53dc358a816f00b300704702b2eaff7b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "dflydev/markdown": "~1.0",
+                "erusev/parsedown": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "phpDocumentor": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "mike.vanriel@naenius.com"
+                }
+            ],
+            "time": "2015-02-03 12:10:50"
         },
         {
             "name": "phpspec/php-diff",

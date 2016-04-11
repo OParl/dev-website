@@ -37,8 +37,11 @@ class CreatePapersTable extends Migration
             $table->unsignedInteger('main_file_id')->nullable();
             $table->foreign('main_file_id')->references('id')->on('oparl_files');
 
-            // TODO: auxilary file is n:n
-            // TODO: location is n:n
+            // TODO: auxiliary file is n:n
+
+            $table->unsignedInteger('location_id')->nullable();
+            $table->foreign('location_id')->references('id')->on('oparl_locations');
+
             // TODO: originator_person is n:n
             // TODO: under_direction_of is n:n
             // TODO: originator_organization is n:n

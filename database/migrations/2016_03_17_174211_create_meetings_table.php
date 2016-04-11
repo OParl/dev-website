@@ -25,19 +25,11 @@ class CreateMeetingsTable extends Migration
 
             $table->boolean('cancelled')->nullable();
 
-            $table->dateTime('start');
-            $table->dateTime('end');
-
-            $table->string('room')->nullable();
-            $table->string('street_address')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('locality')->nullable();
+            $table->dateTime('start')->nullable();
+            $table->dateTime('end')->nullable();
 
             $table->unsignedInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('oparl_locations');
-
-            // TODO: organization is 1:n
-            // TODO: participant is 1:n
 
             $table->unsignedInteger('invitation_id')->nullable();
             $table->foreign('invitation_id')->references('id')->on('oparl_files');
@@ -47,9 +39,6 @@ class CreateMeetingsTable extends Migration
 
             $table->unsignedInteger('verbatim_protocol_id')->nullable();
             $table->foreign('verbatim_protocol_id')->references('id')->on('oparl_files');
-
-            // TODO: auxiliaryFile is n:n
-            // TODO: agendaItem is n:1
         });
     }
 

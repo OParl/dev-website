@@ -93,13 +93,42 @@ $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Gene
 });
 
 $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator $faker) {
-    return [
+    $number = $faker->randomNumber(4);
 
+    if ($faker->boolean()) {
+        $romanizer = new Romanizer();
+        $number = $romanizer->formatNumber($number);
+    }
+
+    $results = [
+        'Vertagt',
+        'Unverändert beschlossen',
+        'Abgelehnt',
+    ];
+
+    $start = Carbon::instance($faker->dateTimeThisCentury);
+
+    $start->hour = $faker->numberBetween(9, 17);
+    $start->minute = $faker->randomElement([0, 15, 30, 45]);
+    $start->second = 0;
+
+    return [
+        'number' => $number,
+        'name' => $faker->sentence(),
+        'public' => $faker->boolean(),
+        'result' => $faker->randomElement($results),
+        'resolutionText' => $faker->realText($faker->numberBetween(200, 2000)),
+        'start' => $start,
+        'end' => Carbon::instance($start)->addMinutes($faker->randomElement(range(0, 60, 5)))
     ];
 });
 
 $factory->define(OParl\Server\Model\Consultation::class, function (Faker\Generator $faker) {
+    $roles = ['Anhörung', 'Entscheidung', 'Kenntnisnahme', 'Vorberatung'];
+
     return [
+        'authoritative' => $faker->boolean(),
+        'role' => $faker->randomElement($roles),
     ];
 });
 
@@ -147,8 +176,14 @@ $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $f
     $startDate->minute = $faker->randomElement([0, 15, 30, 45]);
     $startDate->second = 0;
 
-    return [
+    $meetingState = $faker->randomElement(['terminiert', 'eingeladen', 'durchgeführt']);
 
+    return [
+        'name'         => $faker->word,
+        'meetingState' => $meetingState,
+        'cancelled'    => $faker->boolean(),
+        'start'        => $startDate,
+        'end'          => Carbon::instance($startDate)->addHours($faker->numberBetween(1, 5)),
     ];
 });
 

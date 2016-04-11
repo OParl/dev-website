@@ -9,6 +9,10 @@ class ConsultationTransformer extends BaseTransformer
 {
     public function transform(Consultation $consultation)
     {
-        return [];
+        return [
+            'id'      => route('api.v1.consultation.show', $consultation),
+            'type'    => 'http://spec.oparl.org/spezifikation/1.0/#entity-consultation',
+            'keyword' => $consultation->keywords->pluck('human_name'),
+        ];
     }
 }
