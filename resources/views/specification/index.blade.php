@@ -6,7 +6,7 @@
             @include ('specification.toc')
         </div>
         <div class="col-md-9 spec-running-text">
-            <div>
+            <div class="col-md-11">
                 {!! $liveversion->getContent() !!}
 
                 @include ('specification.license')
