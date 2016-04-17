@@ -6,6 +6,7 @@ use Faker\Generator;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use OParl\Server\Model\AgendaItem;
 use OParl\Server\Model\Body;
 use OParl\Server\Model\Consultation;
 use OParl\Server\Model\File;
@@ -130,9 +131,25 @@ class PopulateCommand extends Command
 
                 $meeting->participants()->saveMany($participants);
 
-                $meeting->location()->associate($meetingOrganizations[0]->location);
+                $location = null;
+                if ($meetingOrganizations->count() > 0) {
+                    $location = $meetingOrganizations->first()->location;
+                } else if ($participants->count() > 0) {
+                    $location = $participants->first()->location;
+                } else {
+                    $location = $this->getLocation();
+                }
 
-                // TODO: Agenda Item
+                $meeting->location()->associate($location);
+                
+                $agendaItems = factory(AgendaItem::class, $this->faker->numberBetween(1, 25))->create();
+                if ($agendaItems instanceof AgendaItem) {
+                    $agendaItems = collect([$agendaItems]);
+                }
+
+                $agendaItems->each(function (AgendaItem $agendaItem) use ($meeting) {
+                    $agendaItem->meeting()->associate($meeting);
+                });
 
                 // TODO: Invitation, Protocol, etc.
 

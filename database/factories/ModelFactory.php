@@ -16,26 +16,8 @@ use RomanNumber\Formatter as Romanizer;
 
 $slugify = Slugify::create();
 
-// TODO: Maybe investigate why eloquent sometimes fails to synchronize the db correctly
-if (!function_exists('hash_store')) {
-    function hash_store(...$args)
-    {
-        static $hash_store = [];
-        $argsString = var_export($args, true);
-
-        if (!in_array($argsString, $hash_store)) {
-            array_push($hash_store, md5($argsString));
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $faker) {
-
     return [
         'name'          => 'OParl Demoserver',
         'oparl_version' => '1.0-dev',
@@ -93,7 +75,9 @@ $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Gene
 });
 
 $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator $faker) {
-    $number = $faker->randomNumber(4);
+    do {
+        $number = $faker->randomNumber(3);    
+    } while ($number < 1);
 
     if ($faker->boolean()) {
         $romanizer = new Romanizer();
@@ -117,7 +101,7 @@ $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator
         'name' => $faker->sentence(),
         'public' => $faker->boolean(),
         'result' => $faker->randomElement($results),
-        'resolutionText' => $faker->realText($faker->numberBetween(200, 2000)),
+        'resolution_text' => $faker->realText($faker->numberBetween(200, 2000)),
         'start' => $start,
         'end' => Carbon::instance($start)->addMinutes($faker->randomElement(range(0, 60, 5)))
     ];
@@ -129,12 +113,6 @@ $factory->define(OParl\Server\Model\Consultation::class, function (Faker\Generat
     return [
         'authoritative' => $faker->boolean(),
         'role' => $faker->randomElement($roles),
-    ];
-});
-
-$factory->define(OParl\Server\Model\File::class, function (Faker\Generator $faker) {
-    // TODO: automatic file generation
-    return [
     ];
 });
 
@@ -180,7 +158,7 @@ $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $f
 
     return [
         'name'         => $faker->word,
-        'meetingState' => $meetingState,
+        'meeting_state' => $meetingState,
         'cancelled'    => $faker->boolean(),
         'start'        => $startDate,
         'end'          => Carbon::instance($startDate)->addHours($faker->numberBetween(1, 5)),
@@ -271,12 +249,23 @@ $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $fa
         $genderString = 'other';
     }
 
+    $amountOfTitles = $faker->numberBetween(0, 3);
+    if ($amountOfTitles == 0) {
+        $titles = [];
+    } else {
+        $titles = range(1, $amountOfTitles);
+    }
+
+    $titles = collect($titles)->map(function () use ($gender, $faker) {
+        return ($gender) ? $faker->titleFemale : $faker->titleMale;
+    })->toArray();
+
     return [
         'family_name'     => $faker->lastName,
         'given_name'      => ($gender) ? $faker->firstNameFemale : $faker->firstNameMale,
         'form_of_address' => '', // TODO: form of address
-        'affix'           => ($gender) ? $faker->titleFemale : $faker->titleMale,
-        'title'           => [],
+        'affix'           => '',
+        'title'           => $titles,
         'gender'          => $genderString,
         'life'            => $faker->text,
         'life_source'     => $faker->url,

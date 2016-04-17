@@ -20,6 +20,8 @@ class CreateFilesTable extends Migration
             // oparl.id is not in the db layer
             // type is not in the db layer
 
+            $table->string('storage_file_name'); // NOTE: This is not part of OParl, but of this implementation
+
             $table->string('file_name')->nullable();
             $table->string('name')->nullable();
             $table->string('mime_type')->nullable();
