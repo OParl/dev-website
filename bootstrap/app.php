@@ -11,6 +11,10 @@
 |
 */
 
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
 ini_set('mbstring.mb_http_output', 'utf-8');
 
 $app = new Illuminate\Foundation\Application(
@@ -45,6 +49,18 @@ $app->singleton(
 
 setlocale(LC_ALL, 'de_DE.UTF-8');
 Carbon\Carbon::setLocale('de');
+
+$app->configureMonologUsing(function (Logger $monolog) {
+    $logPath = storage_path('logs/laravel.log');
+    $logStreamHandler = new StreamHandler($logPath, Logger::DEBUG);
+
+    $logFormat = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
+    $formatter = new LineFormatter($logFormat);
+
+    $logStreamHandler->setFormatter($formatter);
+
+    $monolog->pushHandler($logStreamHandler);
+});
 
 /*
 |--------------------------------------------------------------------------
