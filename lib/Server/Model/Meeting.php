@@ -50,7 +50,7 @@ class Meeting extends BaseModel
 
     public function agendaItems()
     {
-        return $this->belongsToMany(AgendaItem::class, 'oparl_meetings_agenda_items', 'meeting_id', 'agenda_item_id');
+        return $this->hasMany(AgendaItem::class);
     }
 
     public function keywords()

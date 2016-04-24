@@ -16,6 +16,19 @@ class MeetingTransformer extends BaseTransformer
         'agendaItem'
     ];
 
+    protected $locationTransformer;
+    protected $fileTransformer;
+    protected $agendaItemTransformer;
+
+    public function __construct($included = false)
+    {
+        parent::__construct($included);
+
+        $this->locationTransformer   = (new LocationTransformer())->setIncluded(true);
+        $this->fileTransformer       = (new FileTransformer())->setIncluded(true);
+        $this->agendaItemTransformer = (new AgendaItemTransformer())->setIncluded(true);
+    }
+
     public function transform(Meeting $meeting)
     {
         return [
@@ -43,31 +56,31 @@ class MeetingTransformer extends BaseTransformer
 
     public function includeLocation(Meeting $meeting)
     {
-        return $this->item($meeting->location, new LocationTransformer(true));
+        return $this->item($meeting->location, $this->locationTransformer);
     }
 
     public function includeInvitation(Meeting $meeting)
     {
-        return $this->item($meeting->invitation, new FileTransformer(true));
+        return $this->item($meeting->invitation, $this->fileTransformer);
     }
 
     public function includeResultsProtocol(Meeting $meeting)
     {
-        return $this->item($meeting->resultsProtocol, new FileTransformer(true));
+        return $this->item($meeting->resultsProtocol, $this->fileTransformer);
     }
 
     public function includeVerbatimProtocol(Meeting $meeting)
     {
-        return $this->item($meeting->verbatimProtocol, new FileTransformer(true));
+        return $this->item($meeting->verbatimProtocol, $this->fileTransformer);
     }
 
     public function includeAuxiliaryFile(Meeting $meeting)
     {
-        return $this->collection($meeting->auxiliaryFiles, new FileTransformer(true));
+        return $this->collection($meeting->auxiliaryFiles, $this->fileTransformer);
     }
 
     public function includeAgendaItem(Meeting $meeting)
     {
-        return $this->collection($meeting->agendaItems, new AgendaItemTransformer(true));
+        return $this->collection($meeting->agendaItems, $this->agendaItemTransformer);
     }
 }
