@@ -70,3 +70,5 @@ Route::get('/_hooks/lock_version_updates', [
     'uses' => 'HooksController@lockVersionUpdates',
     'as'   => 'hooks.lock_vu',
 ]);
+
+Route::get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'demo.dummyfile']);
