@@ -71,6 +71,6 @@ Route::get('/_hooks/lock_version_updates', [
     'as'   => 'hooks.lock_vu',
 ]);
 
-Route::pattern('filename', '[a-z]{3,8}');
+Route::pattern('filename', '[a-z0-9]{3,8}');
 Route::get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
 Route::get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);

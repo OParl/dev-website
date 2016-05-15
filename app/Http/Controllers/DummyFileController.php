@@ -9,7 +9,7 @@ class DummyFileController extends Controller
 
         return response($data, 200, [
             'Content-type'        => 'application/pdf',
-            'Content-disposition' => "attachment; filename={$filename}"
+            'Content-disposition' => "attachment; filename={$filename}.pdf"
         ]);
     }
 
@@ -17,7 +17,7 @@ class DummyFileController extends Controller
     {
         $dataPath = base_path('resources/documents/dummyfile.pdf');
         $data = file_get_contents($dataPath);
-
+        
         return response($data, 200, ['Content-type' => 'application/pdf']);
     }
 }
