@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/laravel-deploy.git",
-                "reference": "434b492aad781b41d1f4c5ee4f740dd190e8fe6e"
+                "reference": "85e216f572b3205cb7af4e5c3d5715640ae67fbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/434b492aad781b41d1f4c5ee4f740dd190e8fe6e",
-                "reference": "434b492aad781b41d1f4c5ee4f740dd190e8fe6e",
+                "url": "https://api.github.com/repos/eFrane/laravel-deploy/zipball/85e216f572b3205cb7af4e5c3d5715640ae67fbe",
+                "reference": "85e216f572b3205cb7af4e5c3d5715640ae67fbe",
                 "shasum": ""
             },
             "require": {
@@ -417,7 +417,7 @@
                 "gulp",
                 "laravel"
             ],
-            "time": "2016-03-29 20:40:16"
+            "time": "2016-05-23 09:37:18"
         },
         {
             "name": "efrane/letterpress",
