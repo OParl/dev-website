@@ -21,7 +21,7 @@ class CreateLegislativeTermsTable extends Migration
             // type is not in the db layer
 
             $table->unsignedInteger('body_id')->nullable();
-            $table->foreign('body_id')->references('id')->on('bodies');
+            $table->foreign('body_id')->references('id')->on('oparl_bodies');
 
             $table->string('name')->nullable();
 

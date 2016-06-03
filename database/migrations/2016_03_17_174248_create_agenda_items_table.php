@@ -28,7 +28,7 @@ class CreateAgendaItemsTable extends Migration
             $table->boolean('public')->nullable();
 
             $table->unsignedInteger('consultation_id')->nullable();
-            $table->foreign('consultation_id')->references('id')->on('oparl_consultations');
+            // foreign key is added later
 
             $table->string('result')->nullable();
             $table->string('resolution_text')->nullable();
@@ -50,6 +50,6 @@ class CreateAgendaItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('oparl_agenda_items');
+        // [Missing]
     }
 }
