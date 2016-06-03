@@ -4,8 +4,7 @@
 
 Hier wird die Entwicklerplattform für [OParl.org](https://oparl.org) entwickelt.
 
-## Mitentwickeln oder selbst hosten
-
+## Setup mit Homestead
 Dieses Programm wird mit Hilfe des [Laravel 5.1](laravel/laravel) Frameworks in PHP 5.5 entwickelt.
 Allgemeine Hinweise zum Aufsetzen einer lokalen Entwicklungsumgebung für Laravelanwendungen findet 
 sich in der [Dokumentation](http://laravel.com/docs/5.1/homestead). 
@@ -17,6 +16,22 @@ Einzig die Variable `APP_KEY` **muss** modifiziert werden.
 Dieser kann manuell ein 32-zeichiger Schlüssel zugewiesen werden.
 Alternativ generiert das `php artisan app:key`-Kommando einen
 zufälligen Schlüssel.
+
+## Manuelles Setup
+
+Vorrausgesetzt wird ein Webserver mit PHP sowie composer, npm und gulp.
+
+Document root ist der `public`-Ordner und die Index-Datei ist `public/index.php`.
+
+Die `.env.example` muss in `.env` kopiert werden und die Standartwerte
+müssen durch die echten Werte ersetzt werden.
+
+```
+composer install
+php artisan setup
+php artisan deploy
+php artisan specification:live
+```
 
 ## Lizenz
 
