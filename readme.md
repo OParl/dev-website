@@ -19,7 +19,7 @@ zufälligen Schlüssel.
 
 ## Manuelles Setup
 
-Vorrausgesetzt wird ein Webserver mit PHP sowie composer, npm und gulp.
+Vorrausgesetzt wird ein System mit PHP > 5.6 sowie composer, npm und gulp.
 
 Document root ist der `public`-Ordner und die Index-Datei ist `public/index.php`.
 
@@ -32,6 +32,8 @@ php artisan setup
 php artisan deploy
 php artisan specification:live
 ```
+
+Ein temporärer Server kann mit `php artisan serve` gestartet werden.
 
 ## Lizenz
 
