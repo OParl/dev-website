@@ -21,10 +21,10 @@ class CreateMembershipsTable extends Migration
             // type is not in the db layer
 
             $table->unsignedInteger('person_id')->nullable();
-            $table->foreign('person_id')->references('id')->on('people');
+            $table->foreign('person_id')->references('id')->on('oparl_people');
 
             $table->unsignedInteger('organization_id')->nullable();
-            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('organization_id')->references('id')->on('oparl_organizations');
 
             $table->string('role')->nullable();
             $table->boolean('voting_right')->nullable();
