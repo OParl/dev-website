@@ -19,12 +19,10 @@ zufälligen Schlüssel.
 
 ## Manuelles Setup
 
-Vorrausgesetzt wird ein System mit PHP > 5.6 sowie composer, npm und gulp.
-
-Document root ist der `public`-Ordner und die Index-Datei ist `public/index.php`.
+Vorrausgesetzt wird ein System mit PHP >= 5.6 sowie composer, npm und gulp.
 
 Die `.env.example` muss in `.env` kopiert werden und die Standartwerte
-müssen durch die echten Werte ersetzt werden.
+müssen durch die korrekten Werte ersetzt werden.
 
 ```
 composer install
@@ -34,6 +32,8 @@ php artisan specification:live
 ```
 
 Ein temporärer Server kann mit `php artisan serve` gestartet werden.
+
+Bei Verwendung eines eigenen Webservers ist Document root der `public`-Ordner und die Index-Datei ist `public/index.php`.
 
 ## Lizenz
 
