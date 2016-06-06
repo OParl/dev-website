@@ -1,43 +1,67 @@
 [![Build Status](https://travis-ci.org/OParl/spec-website.svg?branch=master)](https://travis-ci.org/OParl/spec-website)
 
-# OParl - Spec Webseite
+# OParl - Entwicklerplattform
 
-Hier wird die Entwicklerplattform für [OParl.org](https://oparl.org) entwickelt.
+Dies ist der Code zur [OParl-Entwicklerplattform](http://dev.oparl.org). Die Plattform wird mit dem 
+[Laravel Framework](https://laravel.com) entwickelt.  
 
-## Setup mit Homestead
-Dieses Programm wird mit Hilfe des [Laravel 5.1](laravel/laravel) Frameworks in PHP 5.5 entwickelt.
-Allgemeine Hinweise zum Aufsetzen einer lokalen Entwicklungsumgebung für Laravelanwendungen findet 
-sich in der [Dokumentation](http://laravel.com/docs/5.1/homestead). 
+## Mitentwickeln
 
-Die Umgebungsvariablen in `.env.example` sind die für 
-Homestead funktionierenden Defaultwerte, daher
-reicht es, diese  einfach in eine `.env` zu kopieren. 
-Einzig die Variable `APP_KEY` **muss** modifiziert werden.
-Dieser kann manuell ein 32-zeichiger Schlüssel zugewiesen werden.
-Alternativ generiert das `php artisan app:key`-Kommando einen
-zufälligen Schlüssel.
+### Systemanforderungen
 
-## Manuelles Setup
+- php > 5.6
+- composer
+- node > 6.0
+- npm
+- gulp
+- bower
 
-Vorrausgesetzt wird ein System mit PHP >= 5.6 sowie composer, npm und gulp.
-
-Die `.env.example` muss in `.env` kopiert werden und die Standartwerte
-müssen durch die korrekten Werte ersetzt werden.
+### Setup
 
 ```
+git clone https://github.com/OParl/spec-website.git
 composer install
-php artisan setup
-php artisan deploy
-php artisan specification:live
+cp .env.example .env
+./artisan key:generate
+./artisan deploy --fix-missing
+./artisan setup
 ```
 
-Ein temporärer Server kann mit `php artisan serve` gestartet werden.
+### GitHub Integration
 
-Bei Verwendung eines eigenen Webservers ist Document root der `public`-Ordner und die Index-Datei ist `public/index.php`.
+Das Entwicklerportal ist sowohl über WebHooks als auch durch die API mit GitHub
+integriert. Falls an den Integrationsschnittpunkten Änderungen vorgenommen werden
+müssen, ist GitHub-Administrationszugriff auf ein Klon der 
+[OParl Spezifikation](OParl/spec) notwendig. Weiterhin empfiehlt sich beim Entwickeln
+auf einer lokalen (nicht direkt aus dem Internet erreichbaren) Maschine die Verwendung
+von [ngrok](). Zur Integration sind eine GH Application und ein Webhook notwendig. 
+
+### Entwicklungsserver
+
+Ein temporärer Server kann mit `php artisan serve` gestartet werden. Alternativ ist
+die Verwendung von Laravel Homestead oder Valet als Entwicklungsserver zu empfehlen.
+
+Bei Verwendung eines eigenen Webservers ist Document root der `public`-Ordner und die 
+Index-Datei ist `public/index.php`. Weitere Ordner sollten vom (Virtual-)Host aus nicht
+zugänglich sein.
+
+### Frontend
+
+Bis zum Ende des [Frontend Refactorings](https://github.com/OParl/spec-website/milestones/Frontend%20Refactoring) 
+ist das Frontend noch von Bower zum Laden einiger externer Bibliotheken abhängig. 
+Ab gesehen davon basiert die Frontend Entwicklung im Code Management auf Laravel Elixir.
+Zentrale Komponenten sind mit Vue.js realisiert, Wenn im Frontendcode gearbeitet wird,
+empfiehlt es sich mit
+
+```
+gulp watch
+```
+
+dafür zu sorgen, dass der Code permanent für den Browser kompiliert wird. Es ist dagegen
+nicht notwendig, diese generierten Dateien im Repository zu speichern, da sie während des
+Deployments der Seite automatisch erstellt und aktualisiert werden.
 
 ## Lizenz
 
-Dieses Programm steht unter den Bedingungen der
-[MIT-Lizenz](https://opensource.org/licenses/MIT) zur
-Verfügung.
-
+Dieses Programm steht unter den Bedingungen der [MIT-Lizenz](https://opensource.org/licenses/MIT) 
+zur Verfügung.
