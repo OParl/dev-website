@@ -34,7 +34,7 @@ integriert. Falls an den Integrationsschnittpunkten Änderungen vorgenommen werd
 müssen, ist GitHub-Administrationszugriff auf ein Klon der 
 [OParl Spezifikation](OParl/spec) notwendig. Weiterhin empfiehlt sich beim Entwickeln
 auf einer lokalen (nicht direkt aus dem Internet erreichbaren) Maschine die Verwendung
-von [ngrok](). Zur Integration sind eine GH Application und ein Webhook notwendig. 
+von [ngrok](https://ngrok.com/). Zur Integration sind eine GH Application und ein Webhook notwendig. 
 
 ### Entwicklungsserver
 
