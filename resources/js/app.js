@@ -8,7 +8,8 @@ Prism.hooks.add('wrap', function(env) {
     {
         var url = env.content.replace('"', '');
         url = url.replace("'", '');
-        env.content = "<a href=\"" + url + "\">" + env.content + "</a>";
+        displayURL = env.content.replace(/\?format=html/, '');
+        env.content = "<a href=\"" + url + "\">" + displayURL + "</a>";
     }
 });
 
