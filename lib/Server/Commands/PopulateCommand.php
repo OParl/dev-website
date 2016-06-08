@@ -76,7 +76,6 @@ class PopulateCommand extends Command
             });
 
         $bodies->each(function (Body $body) {
-            // TODO: add people, organizations, memberships, meetings
             $people = $this->getSomePeople($this->faker->randomElement([10, 100, 1000]));
             $body->people()->saveMany($people);
 

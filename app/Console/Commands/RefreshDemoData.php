@@ -18,7 +18,7 @@ class RefreshDemoData extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Refreshes the data for the demo server';
 
     /**
      * Create a new command instance.
@@ -37,6 +37,7 @@ class RefreshDemoData extends Command
      */
     public function handle()
     {
-        //
+        // drop existing data
+        // call populate command
     }
 }
