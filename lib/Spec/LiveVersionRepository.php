@@ -109,6 +109,11 @@ class LiveVersionRepository
         return $this->builder->getNav();
     }
 
+    public function getNavArray()
+    {
+        return $this->builder->getNavArray();
+    }
+
     /**
      * @return static
      **/

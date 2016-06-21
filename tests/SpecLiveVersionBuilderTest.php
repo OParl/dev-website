@@ -36,6 +36,15 @@ class SpecLiveVersionBuilderTest extends TestCase
         $this->assertTrue(is_string($nav));
     }
 
+    public function testGetNavArray()
+    {
+        /** @var LiveVersionBuilder $instance */
+        $instance = app(LiveVersionBuilder::class);
+
+        $navArray = $instance->getNavArray();
+        $this->assertTrue(is_array($navArray));
+    }
+
     public function testGetChapters()
     {
         $instance = app(LiveVersionBuilder::class);
@@ -54,6 +63,7 @@ class SpecLiveVersionBuilderTest extends TestCase
         ], [
             app(Filesystem::class),
             '',
+            false
         ]);
 
         $builderMock->expects($this->once())->method('parseChapters');
@@ -67,25 +77,5 @@ class SpecLiveVersionBuilderTest extends TestCase
         $this->setExpectedException(FileNotFoundException::class);
 
         app(LiveVersionBuilder::class)->load('file_not_found');
-    }
-
-    public function testParseChapters()
-    {
-    }
-
-    public function testParseHTML()
-    {
-    }
-
-    public function testExtractSections()
-    {
-    }
-
-    public function testFixNavHTML()
-    {
-    }
-
-    public function testFixContentHTML()
-    {
     }
 }

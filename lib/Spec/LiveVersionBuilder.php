@@ -48,45 +48,13 @@ class LiveVersionBuilder
      * @param Filesystem $fs
      * @param $liveVersionPath
      */
-    public function __construct(Filesystem $fs, $liveVersionPath)
+    public function __construct(Filesystem $fs, $liveVersionPath, $autoload = true)
     {
         $this->fs = $fs;
 
-        $this->load($liveVersionPath);
-    }
-
-    /**
-     * @return string
-     **/
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @return string
-     **/
-    public function getNav()
-    {
-        return $this->nav;
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     **/
-    public function getChapters()
-    {
-        return $this->chapters;
-    }
-
-    /**
-     * @return string get the raw markdown version of the concatenated chapters
-     **/
-    public function getRaw()
-    {
-        return $this->chapters->reduce(function ($carry, $current) {
-            return $carry.$current;
-        }, '');
+        if ($autoload) {
+            $this->load($liveVersionPath);
+        }
     }
 
     /**
@@ -200,7 +168,8 @@ class LiveVersionBuilder
             $toLanguage = $fromLanguage;
         }
 
-        $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/', '<pre$1><code class="language-'.$toLanguage.'">', $html);
+        $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/',
+            '<pre$1><code class="language-' . $toLanguage . '">', $html);
 
         return $html;
     }
@@ -212,7 +181,7 @@ class LiveVersionBuilder
     {
         return function ($match) use (&$exampleIdentifierCount) {
             $data = [
-                'exampleIdentifier' => 'example-'.$exampleIdentifierCount,
+                'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
                 'exampleTitle'      => $match[1],
                 'exampleCode'       => $match[2],
             ];
@@ -221,5 +190,70 @@ class LiveVersionBuilder
 
             return view('specification.example', $data);
         };
+    }
+
+    /**
+     * @return string
+     **/
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     **/
+    public function getNav()
+    {
+        return $this->nav;
+    }
+
+    public function getNavArray()
+    {
+        $result = [];
+
+        $xml = simplexml_load_string($this->nav);
+
+        foreach ($xml->children() as $li) {
+            $entry = [
+                'href' => strval($li->a['href']),
+                'text' => trim(strval($li->a))
+            ];
+
+            if ($li->ul !== null) {
+                foreach ($li->ul->children() as $subLi) {
+                    $sub = [
+                        'href'   => strval($subLi->a['href']),
+                        'text'   => trim(strval($subLi->a)),
+                        'is_sub' => true,
+                        'parent' => count($result),
+                    ];
+
+                    array_push($result, $sub);
+                }
+            }
+
+            array_push($result, $entry);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     **/
+    public function getChapters()
+    {
+        return $this->chapters;
+    }
+
+    /**
+     * @return string get the raw markdown version of the concatenated chapters
+     **/
+    public function getRaw()
+    {
+        return $this->chapters->reduce(function ($carry, $current) {
+            return $carry . $current;
+        }, '');
     }
 }
