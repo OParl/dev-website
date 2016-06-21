@@ -12,16 +12,21 @@ class SpecificationController extends Controller
      * Show the specification's live copy.
      *
      * @param LiveVersionRepository $liveversion
-     * @param BuildRepository $buildRepository
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveVersionRepository $liveversion, BuildRepository $buildRepository)
+    public function index(LiveVersionRepository $liveversion)
     {
         $title = 'Spezifikation';
-        $builds = $buildRepository->getLatest(15);
+        return view('specification.index', compact('liveversion', 'title'));
+    }
+    
+    public function tableOfContents(LiveVersionRepository $liveversion) {
+        return response()->json($liveversion->getNavArray());   
+    }
 
-        return view('specification.index', compact('liveversion', 'title', 'builds'));
+    public function builds(BuildRepository $build) {
+        return response()->json($build->getLatest(15));
     }
 
     public function imageIndex()

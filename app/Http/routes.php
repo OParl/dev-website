@@ -24,6 +24,9 @@ Route::get('/spezifikation/images/{image}', [
     'as'   => 'specification.image',
 ])->where('image', '[[:print:]]+\.png');
 
+Route::get('/spezifikation/toc.json', 'SpecificationController@tableOfContents');
+Route::get('/spezifikation/builds.json', 'SpecificationController@builds');
+
 // Downloads
 Route::pattern('downloadsExtension', '(docx|txt|pdf|odt|html|epub|zip|tar\.gz|tar\.bz2)');
 Route::pattern('downloadsVersion', '[a-z0-9]{7}');
