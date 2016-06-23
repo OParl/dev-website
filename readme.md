@@ -16,6 +16,10 @@ Dies ist der Code zur [OParl-Entwicklerplattform](http://dev.oparl.org). Die Pla
 - gulp
 - bower
 
+**Zusätzlich auf dem Server/Homestead VM/etc.**
+
+- pandoc
+
 ### Setup
 
 ```
