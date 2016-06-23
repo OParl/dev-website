@@ -15,7 +15,7 @@ Prism.hooks.add('wrap', function(env) {
 
 $(document).ready(function () {
     if (document.location.pathname.match(/downloads/))     setupDownloads();
-    if (document.location.pathname.match(/spezifikation/)) setupLiveCopy();
+    //if (document.location.pathname.match(/spezifikation/)) setupLiveCopy();
 
     $('.tab-content a[data-toggle=tab]').each(function () {
         $(this).on('click', function (event) {
