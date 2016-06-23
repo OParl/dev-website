@@ -17,7 +17,8 @@ elixir(function(mix) {
     mix.styles(
         [
             'prismjs/themes/prism.css',
-            'prismjs/plugins/line-numbers/prism-line-numbers.css'
+            'prismjs/plugins/line-numbers/prism-line-numbers.css',
+            'keen-ui/dist/keen-ui.css'
         ], 'public/css/lib.css', 'node_modules'
     );
 
@@ -26,6 +27,8 @@ elixir(function(mix) {
             'app.js'
         ], 'public/js/app.js', 'resources/js'
     );
+
+    mix.browserify('spec.js', 'public/js/spec.js', 'resources/js');
 
     mix.scripts(
         [
