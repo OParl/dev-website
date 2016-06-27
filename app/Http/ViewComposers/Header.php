@@ -26,11 +26,6 @@ class Header
             'title' => 'Kontakt',
             'url'   => 'https://oparl.org/kontakt/',
         ],
-
-//      [
-//        'title' => 'Demoserver',
-//        'url' => 'http://demoserver.oparl.org/'
-//      ],
     ];
 
     public function compose(View $view)
