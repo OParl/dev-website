@@ -28,7 +28,7 @@ class OrganizationTransformer extends BaseTransformer
             'website'           => $organization->website,
             // location is included
             // TODO: external body
-            'keyword'           => $organization->keywords->pluck('human_name'),
+            'keyword'           => [],//$organization->keywords->pluck('human_name'),
             'created'           => $this->formatDate($organization->created_at),
             'modified'          => $this->formatDate($organization->updated_at),
             'deleted'           => $organization->trashed(),

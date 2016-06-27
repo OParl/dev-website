@@ -36,18 +36,21 @@ $app = new Illuminate\Foundation\Application(
 */
 
 $app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
-);
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
-);
-$app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
 
+$app->singleton(
+    Illuminate\Contracts\Http\Kernel::class,
+    App\Http\Kernel::class
+);
+
+$app->singleton(
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
+);
+
+/*
 $app->configureMonologUsing(function (Logger $monolog) {
     $logPath = storage_path('logs/laravel.log');
     $logStreamHandler = new StreamHandler($logPath, Logger::DEBUG);
@@ -59,6 +62,7 @@ $app->configureMonologUsing(function (Logger $monolog) {
 
     $monolog->pushHandler($logStreamHandler);
 });
+*/
 
 /*
 |--------------------------------------------------------------------------
