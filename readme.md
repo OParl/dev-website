@@ -2,8 +2,8 @@
 
 # OParl - Entwicklerplattform
 
-Dies ist der Code zur [OParl-Entwicklerplattform](http://dev.oparl.org). Die Plattform wird mit dem 
-[Laravel Framework](https://laravel.com) entwickelt.  
+Dies ist der Code zur [OParl-Entwicklerplattform](http://dev.oparl.org).
+Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.  
 
 ## Mitentwickeln
 
@@ -19,11 +19,13 @@ Dies ist der Code zur [OParl-Entwicklerplattform](http://dev.oparl.org). Die Pla
 **Zusätzlich auf dem Server/Homestead VM/etc.**
 
 - pandoc
+- ghostscript
+- imagemagick / convert
 
 ### Setup
 
 ```
-git clone https://github.com/OParl/spec-website.git
+git clone https://github.com/OParl/dev-website.git
 composer install
 cp .env.example .env
 ./artisan key:generate
@@ -35,24 +37,24 @@ cp .env.example .env
 
 Das Entwicklerportal ist sowohl über WebHooks als auch durch die API mit GitHub
 integriert. Falls an den Integrationsschnittpunkten Änderungen vorgenommen werden
-müssen, ist GitHub-Administrationszugriff auf ein Klon der 
+müssen, ist GitHub-Administrationszugriff auf ein Klon der
 [OParl Spezifikation](OParl/spec) notwendig. Weiterhin empfiehlt sich beim Entwickeln
 auf einer lokalen (nicht direkt aus dem Internet erreichbaren) Maschine die Verwendung
-von [ngrok](https://ngrok.com/). Zur Integration sind eine GH Application und ein Webhook notwendig. 
+von [ngrok](https://ngrok.com/). Zur Integration sind eine GH Application und ein Webhook notwendig.
 
 ### Entwicklungsserver
 
 Ein temporärer Server kann mit `php artisan serve` gestartet werden. Alternativ ist
 die Verwendung von Laravel Homestead oder Valet als Entwicklungsserver zu empfehlen.
 
-Bei Verwendung eines eigenen Webservers ist Document root der `public`-Ordner und die 
+Bei Verwendung eines eigenen Webservers ist Document root der `public`-Ordner und die
 Index-Datei ist `public/index.php`. Weitere Ordner sollten vom (Virtual-)Host aus nicht
 zugänglich sein.
 
 ### Frontend
 
-Bis zum Ende des [Frontend Refactorings](https://github.com/OParl/spec-website/milestones/Frontend%20Refactoring) 
-ist das Frontend noch von Bower zum Laden einiger externer Bibliotheken abhängig. 
+Bis zum Ende des [Frontend Refactorings](https://github.com/OParl/spec-website/milestones/Frontend%20Refactoring)
+ist das Frontend noch von Bower zum Laden einiger externer Bibliotheken abhängig.
 Ab gesehen davon basiert die Frontend Entwicklung im Code Management auf Laravel Elixir.
 Zentrale Komponenten sind mit Vue.js realisiert, Wenn im Frontendcode gearbeitet wird,
 empfiehlt es sich mit
@@ -67,5 +69,5 @@ Deployments der Seite automatisch erstellt und aktualisiert werden.
 
 ## Lizenz
 
-Dieses Programm steht unter den Bedingungen der [MIT-Lizenz](https://opensource.org/licenses/MIT) 
+Dieses Programm steht unter den Bedingungen der [MIT-Lizenz](https://opensource.org/licenses/MIT)
 zur Verfügung.
