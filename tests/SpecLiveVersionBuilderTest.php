@@ -54,24 +54,6 @@ class SpecLiveVersionBuilderTest extends TestCase
         $this->assertInstanceOf(Collection::class, $chapters);
     }
 
-    public function testLoad()
-    {
-        /* @var $builderMock LiveVersionBuilder|PHPUnit_Framework_MockObject_MockObject */
-        $builderMock = $this->getMock(LiveVersionBuilder::class, [
-            'parseChapters',
-            'parseHTML',
-        ], [
-            app(Filesystem::class),
-            '',
-            false
-        ]);
-
-        $builderMock->expects($this->once())->method('parseChapters');
-        $builderMock->expects($this->once())->method('parseHTML');
-
-        $builderMock->load(LiveVersionRepository::getLiveVersionPath());
-    }
-
     public function testLoadWithNonExistingHTML()
     {
         $this->setExpectedException(FileNotFoundException::class);
