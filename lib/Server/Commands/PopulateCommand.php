@@ -22,7 +22,8 @@ use OParl\Server\Model\System;
 
 class PopulateCommand extends Command
 {
-    protected $signature = 'server:populate {--refresh : Delete and regenerate all existing data (this includes running any missing db migrations)}';
+    protected $signature = 'server:populate 
+        {--refresh : Delete and regenerate all existing data (this includes running any missing db migrations)}';
     protected $description = '(Re-)populate the database with demo data.';
 
     /**
@@ -117,11 +118,13 @@ class PopulateCommand extends Command
 
                 $meeting->organizations()->saveMany($meetingOrganizations);
                 /* @var $possibleParticipants Collection */
-                $possibleParticipants = collect($meetingOrganizations->map(function(Organization $organization) {
-                    return $organization->people;
-                })->flatten()->map(function(Collection $collection) {
-                    return $collection->all();
-                })->first());
+                $possibleParticipants = collect(
+                    $meetingOrganizations->map(function (Organization $organization) {
+                        return $organization->people;
+                    })->map(function (Collection $collection) {
+                        return $collection->all();
+                    })->first()
+                );
 
                 $participants = $possibleParticipants->random($this->faker->numberBetween(1, $possibleParticipants->count() / 2));
                 if ($participants instanceof Person) {
