@@ -15,6 +15,12 @@ class SetupCommand extends Command
 
         $this->call('down');
 
+        if (!file_exists(base_path('.env'))) {
+          copy(base_path('.env.example'), base_path('.env'));
+        }
+
+        touch(storage_path('database.sqlite'));
+
         $this->call('migrate');
 
         $this->call('specification:live', ['--force']);
