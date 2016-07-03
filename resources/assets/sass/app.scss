@@ -54,6 +54,12 @@ body { position: relative; }
   }
 }
 
+#spec {
+  padding-top: 0;
+  margin-top: 0;
+  background: $brand-primary;
+}
+
 .toc {
   $color : #999;
 
