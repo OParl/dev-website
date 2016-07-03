@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Select from 'modules/select.vue'
+import Vue from 'vue'
+import Select from './modules/select.vue'
 
 var vm = new Vue({
     el: '#spec',
