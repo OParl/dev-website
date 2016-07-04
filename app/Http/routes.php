@@ -22,7 +22,7 @@ Route::get('/spezifikation/images/', ['uses' => 'SpecificationController@imageIn
 Route::get('/spezifikation/images/{image}', [
     'uses' => 'SpecificationController@image',
     'as'   => 'specification.image',
-])->where('image', '[[:print:]]+\.png');
+])->where('image', '[[:print:]]+\.(png|jpg)');
 
 Route::get('/spezifikation/toc.json', 'SpecificationController@tableOfContents');
 Route::get('/spezifikation/builds.json', 'SpecificationController@builds');

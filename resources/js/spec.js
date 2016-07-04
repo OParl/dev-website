@@ -1,10 +1,13 @@
 import Vue from 'vue'
-import Select from './modules/select.vue'
+
+import FDropList from './modules/fdroplist.vue'
+import FSelect from './modules/fselect.vue'
 
 var vm = new Vue({
     el: '#spec',
     components: {
-        Select: Select
+        FSelect: FSelect,
+        FDropList: FDropList
     }
 });
 

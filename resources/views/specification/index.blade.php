@@ -7,13 +7,14 @@
 @section ('content')
     <div class="row" id="spec">
         <div class="col-xs-12 col-md-4">
-            <select label="Suche im Inhaltsverzeichnis" data="toc"></select>
+            <f-drop-list label="Inhaltsverzeichnis" route="{{ url('/spezifikation/toc.json') }}">
+            </f-drop-list>
         </div>
         <div class="col-xs-12 col-md-2 col-md-offset-4">
             <button>Download</button>
         </div>
         <div class="col-xs-12 col-md-2">
-            <select label="Wähle eine andere Version" data="versions"></select>
+            <f-select label="Wähle eine andere Version" data="versions"></f-select>
         </div>
     </div>
     <div class="row">
