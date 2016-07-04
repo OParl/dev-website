@@ -1,13 +1,5 @@
 <template>
-    <div>
-        <input type="text" placeholder="{{ label }}" />
-        <div>
-            <!-- list elements -->
-            <ul>
-
-            </ul>
-        </div>
-    </div>
+    <input type="text" placeholder="{{ label }}" class="form-control" />
 </template>
 
 <script>

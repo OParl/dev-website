@@ -39,8 +39,8 @@
     <body>
         <div class="sr-only">
             <ul>
-                <li><a href="#navigation" class="sr-only-focusable">Direkt zur Navigation</a></li>
                 <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
+                <!-- TODO: insert links to main chapters -->
             </ul>
         </div>
 

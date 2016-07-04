@@ -42,6 +42,7 @@ elixir(function(mix) {
             'prismjs/plugins/line-numbers/prism-line-numbers.js',
 
             'bootstrap-sass/assets/javascripts/bootstrap/transition.js',
+            'bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
             'bootstrap-sass/assets/javascripts/bootstrap/affix.js',
             'bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js',
             'bootstrap-sass/assets/javascripts/bootstrap/modal.js',
