@@ -208,37 +208,6 @@ class LiveVersionBuilder
         return $this->nav;
     }
 
-    public function getNavArray()
-    {
-        $result = [];
-
-        $xml = simplexml_load_string($this->nav);
-
-        foreach ($xml->children() as $li) {
-            $entry = [
-                'href' => strval($li->a['href']),
-                'text' => trim(strval($li->a))
-            ];
-
-            if ($li->ul !== null) {
-                foreach ($li->ul->children() as $subLi) {
-                    $sub = [
-                        'href'   => strval($subLi->a['href']),
-                        'text'   => trim(strval($subLi->a)),
-                        'is_sub' => true,
-                        'parent' => count($result),
-                    ];
-
-                    array_push($result, $sub);
-                }
-            }
-
-            array_push($result, $entry);
-        }
-
-        return $result;
-    }
-
     /**
      * @return \Illuminate\Support\Collection
      **/
