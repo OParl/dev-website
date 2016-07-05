@@ -2,6 +2,7 @@
 
 namespace OParl\Spec;
 
+use Debugbar;
 use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\DomCrawler\Crawler;
@@ -62,6 +63,7 @@ class LiveVersionBuilder
      **/
     public function load($liveVersionPath)
     {
+        \Debugbar::startMeasure('liveversionbuilder.load', 'Prepare live version');
         // NOTE: Find out why filesystem sometimes fails to resolve existing files
         if ($this->fs->exists($liveVersionPath)) {
             $this->html = $this->fs->get($liveVersionPath);
@@ -71,6 +73,7 @@ class LiveVersionBuilder
 
         $this->parseChapters();
         $this->parseHTML();
+        \Debugbar::endMeasure('liveversionbuilder.load');
     }
 
     /**
@@ -94,6 +97,7 @@ class LiveVersionBuilder
      */
     public function parseHTML()
     {
+
         $this->extractSections();
 
         $this->fixNavHTML();
@@ -105,6 +109,7 @@ class LiveVersionBuilder
      */
     public function extractSections()
     {
+        \Debugbar::startMesaser('liveversionbuilder.extractSections', 'Split document');
         $crawler = new Crawler($this->html);
 
         $navElements = $crawler->filter('body > nav');
@@ -115,6 +120,7 @@ class LiveVersionBuilder
         foreach ($content as $domElement) {
             $this->content .= $domElement->ownerDocument->saveHTML($domElement);
         }
+        \Debugbar::endMeasure('liveversionbuilder.extractSections');
     }
 
     /**
@@ -130,6 +136,7 @@ class LiveVersionBuilder
      */
     public function fixContentHTML()
     {
+        \Debugbar::startMeasure('liveversionbuilder.prepareContentHTML', 'Prepare content HTML');
         $html = $this->content;
 
         // fix image urls
@@ -155,6 +162,8 @@ class LiveVersionBuilder
         /* @var $letterpress Letterpress */
         $letterpress = app(Letterpress::class);
         $this->content = $letterpress->typofix($html);
+
+        \Debugbar::endMeasure('liveversionbuilder.prepareContentHTML');
     }
 
     /**

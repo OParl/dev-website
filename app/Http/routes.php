@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', ['uses' => function () {
-    return redirect()->route('specification.index');
-}, 'as' => 'about.index']);
+Route::get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
 
 // Specification
 Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
@@ -24,7 +22,6 @@ Route::get('/spezifikation/images/{image}', [
     'as'   => 'specification.image',
 ])->where('image', '[[:print:]]+\.(png|jpg)');
 
-Route::get('/spezifikation/toc.json', 'SpecificationController@tableOfContents');
 Route::get('/spezifikation/builds.json', 'SpecificationController@builds');
 
 // Downloads
@@ -38,7 +35,7 @@ Route::get('/downloads/latest.{downloadsExtension}', [
 ]);
 Route::get('/spezifikation.{downloadsExtension}', [
     'uses' => 'DownloadsController@latest',
-    'as'   => 'spezifikation.download',
+    'as'   => 'specification.download',
 ]);
 Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
     'uses' => 'DownloadsController@getFile',

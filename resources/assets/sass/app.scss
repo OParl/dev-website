@@ -189,15 +189,18 @@ figcaption {
 }
 
 .dropdown-menu > li {
+  $line-height-base: 2 * $line-height-base;
+
   > .dropdown-menu {
     display:none;
   }
 
   &:hover {
     > .dropdown-menu {
-      display: block;
+      display: inline-block;
       position: relative;
-      right: 0;
+      left: 100%;
+      top: -$line-height-computed * (5 / 3);
     }
   }
 }

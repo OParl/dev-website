@@ -20,10 +20,6 @@ class SpecificationController extends Controller
         $title = 'Spezifikation';
         return view('specification.index', compact('liveversion', 'title'));
     }
-    
-    public function tableOfContents(LiveVersionRepository $liveversion) {
-        return response()->json($liveversion->getNavArray());   
-    }
 
     public function builds(BuildRepository $build) {
         return response()->json($build->getLatest(15));
