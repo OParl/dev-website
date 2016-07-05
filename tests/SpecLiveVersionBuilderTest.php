@@ -36,15 +36,6 @@ class SpecLiveVersionBuilderTest extends TestCase
         $this->assertTrue(is_string($nav));
     }
 
-    public function testGetNavArray()
-    {
-        /** @var LiveVersionBuilder $instance */
-        $instance = app(LiveVersionBuilder::class);
-
-        $navArray = $instance->getNavArray();
-        $this->assertTrue(is_array($navArray));
-    }
-
     public function testGetChapters()
     {
         $instance = app(LiveVersionBuilder::class);
