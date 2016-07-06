@@ -26,7 +26,7 @@ $brand-danger:          #d9534f;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff;
+$body-bg: lighten($brand-primary, 66%);
 //** Global text color on `<body>`.
 $text-color:            $gray-dark;
 
@@ -42,12 +42,17 @@ $link-hover-decoration: underline;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Source Code Sans", Helvetica, Arial, sans-serif;
+//$font-family-sans-serif:  "Source Code Sans", Helvetica, Arial, sans-serif;
+// use system font if available, fall back to source code sans
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont,
+"Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+"Fira Sans", "Droid Sans", "Helvetica Neue", "Source Code Sans",
+sans-serif;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   "Source Code Pro", Monaco, Consolas, "Courier New", monospace;
 
-$font-size-base:          16px;
+$font-size-base:          20px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
@@ -302,14 +307,14 @@ $screen-tablet:              $screen-sm-min;
 
 // Medium screen / desktop
 //** Deprecated `$screen-md` as of v3.0.1
-$screen-md:                  992px;
+$screen-md:                  1024px;
 $screen-md-min:              $screen-md;
 //** Deprecated `$screen-desktop` as of v3.0.1
 $screen-desktop:             $screen-md-min;
 
 // Large screen / wide desktop
 //** Deprecated `$screen-lg` as of v3.0.1
-$screen-lg:                  1200px;
+$screen-lg:                  1400px;
 $screen-lg-min:              $screen-lg;
 //** Deprecated `$screen-lg-desktop` as of v3.0.1
 $screen-lg-desktop:          $screen-lg-min;
