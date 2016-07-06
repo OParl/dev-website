@@ -1,0 +1,1 @@
+{{ url('/api/v1/') }}/&lt;entity&gt;/?[format=&lt;format&gt;][&amp;where=&lt;conditions&gt;][&amp;limit=&lt;limit&gt;]
