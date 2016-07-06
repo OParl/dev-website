@@ -1,17 +1,10 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 
-Vue.use(VueResource)
-
-import FDropList from './modules/fdroplist.vue'
-import FSelect from './modules/fselect.vue'
+Vue.use(VueResource);
 
 var vm = new Vue({
-    el: '#spec',
-    components: {
-        FSelect: FSelect,
-        FDropList: FDropList
-    }
+    el: '#specification-sub-nav'
 });
 
 window.vm = vm;

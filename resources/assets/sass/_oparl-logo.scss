@@ -1,0 +1,15 @@
+@import url(//fonts.googleapis.com/css?family=Dosis);
+
+.text-oparl {
+  font-family: 'Dosis', 'Helvetica Neue', sans-serif;
+  font-weight: 300;
+
+  color: $brand-primary;
+  font-size: 32px;
+
+  vertical-align: center;
+
+  & > a {
+    text-decoration: none;
+  }
+}

@@ -1,7 +1,58 @@
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "variables";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-@import url(//fonts.googleapis.com/css?family=Dosis);
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+
+// Reset and dependencies
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print";
+
+// Core CSS
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/code";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+
+// Components
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/component-animations";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navbar";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pagination";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pager";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/alerts";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/media";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/list-group";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/panels";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/wells";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/close";
+
+// Components w/ JavaScript
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/modals";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tooltip";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
+
+// Utility classes
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
+
+@import "oparl-logo";
+
+@import "fonts";
+
+.sr-only {
+  display: none;
+
+  @media braille {
+    display: block;
+  }
+}
+
 @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro);
 
 body {
@@ -9,8 +60,23 @@ body {
   font-weight: 300;
 }
 
-.marginBottom-0 {
-  margin-bottom: 0;
+header {
+  border-bottom: .15em inset darken($brand-primary, 15%);
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.sub-nav {
+  border-bottom: .15em inset darken($brand-primary, 15%);
+  background:
+    radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 0 0,
+    radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background-color: $brand-primary;
+  background-size:16px 16px;
+  padding: 1.2em 0 0.6em 0;
+  margin-top: -$navbar-margin-bottom;
 }
 
 .navbar-default {
@@ -18,19 +84,6 @@ body {
   text-align: center;
   border: none;
   margin-bottom: 0;
-}
-
-.text-oparl {
-  font-family: 'Dosis', 'Helvetica Neue', sans-serif;
-  font-weight: 300;
-  color: $brand-primary;
-  font-size: 32px;
-  vertical-align: center;
-  padding-right: $navbar-padding-horizontal;
-
-  & > a {
-    text-decoration: none;
-  }
 }
 
 .text-tiny {
@@ -62,12 +115,6 @@ body {
     width: inherit;
     padding-right: 30px;
   }
-}
-
-#spec {
-  background: $brand-primary;
-  padding: 1.2em 0 0.6em 0;
-  margin-top: -$navbar-margin-bottom;
 }
 
 .toc {
@@ -205,5 +252,3 @@ figcaption {
     }
   }
 }
-
-@import '_skin';

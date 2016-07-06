@@ -53,5 +53,9 @@ elixir(function(mix) {
 
     mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/fonts');
 
+    // used zondicons need to copied to public/img/icons
+    mix.copy('resources/assets/zondicons/book-reference.svg', 'public/img/icons/book-reference.svg');
+    mix.copy('resources/assets/zondicons/download.svg', 'public/img/icons/download.svg');
+
     mix.copy('resources/assets/brand/icon/oparl-icon.png', 'public/img/favicon.png');
 });

@@ -1,6 +1,12 @@
 @extends ('base')
 
 @section ('content')
+    <div class="row sub-nav" id="api-subnav">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+            <p class="text-center">Here be api console access</p>
+        </div>
+    </div>
+
     @if ($isError)
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2">

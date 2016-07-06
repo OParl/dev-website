@@ -1,12 +1,12 @@
 @extends ('base')
 
 @section ('content')
-    <div class="row" id="spec">
+    <div class="row sub-nav" id="specification-sub-nav">
         <div class="col-xs-11 col-md-2 col-md-offset-2">
             <div class="dropdown">
                 <button type="button" class="btn btn-default dropdown-toggle"
                         data-toggle="dropdown" aria-hidden="true">
-                    <span class="glyphicon glyphicon-book"></span>
+                    <img src="{{ asset('/img/icons/book-reference.svg') }}" alt="Menüicon">
                     <span class="caret"></span>
                 </button>
                 {!! $liveversion->getNav() !!}
@@ -16,7 +16,7 @@
         @if ($isLoggedIn)
             <div class="col-xs-1 col-md-1 col-md-offset-2">
                 <button class="btn btn-default pull-right">
-                    <span class="glyphicon glyphicon-download-alt"></span>
+                   <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
                 </button>
             </div>
 
@@ -26,7 +26,7 @@
         @else
             <div class="col-xs-1 col-md-1 col-md-offset-5">
                 <button class="btn btn-default pull-right">
-                    <span class="glyphicon glyphicon-download-alt"></span>
+                    <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
                 </button>
             </div>
         @endif
