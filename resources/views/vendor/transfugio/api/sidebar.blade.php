@@ -6,8 +6,4 @@
     <div class="panel-body {{ strtolower($module) }} {{ $collectionClass }}" id="entity-documentation">
         @include ('transfugio::api.schema')
     </div>
-    
-    <div class="panel-footer">
-        Mehr Informationen gibt es unter <a href="//oparl.org/spezifikation/">http://oparl.org/spezifikation/</a>.
-    </div>
 </div>

@@ -7,9 +7,7 @@ Vue.use(VueResource);
 var vm = new Vue({
     el: 'body',
 
-    created() {
+    ready() {
         Helpers.prismURLHelper();
     }
 });
-
-window.vm = vm;
