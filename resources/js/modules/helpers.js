@@ -6,7 +6,7 @@ export default {
             {
                 var url = env.content.replace('"', '');
                 url = url.replace("'", '');
-                displayURL = env.content.replace(/\?format=html/, '');
+                var displayURL = env.content.replace(/\?format=html/, '');
                 env.content = "<a href=\"" + url + "\">" + displayURL + "</a>";
             }
         });

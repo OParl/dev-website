@@ -24,13 +24,8 @@ elixir(function(mix) {
         ], 'public/css/lib.css', 'node_modules'
     );
 
-    mix.scripts(
-        [
-            'app.js'
-        ], 'public/js/app.js', 'resources/js'
-    );
-
-    mix.browserify('spec.js', 'public/js/spec.js', 'resources/js');
+    mix.browserify('spec.js', 'public/js/', 'resources/js');
+    mix.browserify('api.js', 'public/js/', 'resources/js');
 
     mix.scripts(
         [
