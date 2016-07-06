@@ -6006,6 +6006,11 @@
       "from": "sort-keys@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/sort-keys/-/sort-keys-1.1.1.tgz"
     },
+    "source-code-pro": {
+      "version": "2.10.0",
+      "from": "git://github.com/adobe-fonts/source-code-pro.git#release",
+      "resolved": "git://github.com/adobe-fonts/source-code-pro.git#ce820774209b345aa79182060619b706b9f9e6bf"
+    },
     "source-map": {
       "version": "0.5.3",
       "from": "source-map@>=0.5.0 <0.6.0",
@@ -6022,6 +6027,11 @@
           "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.32.tgz"
         }
       }
+    },
+    "source-sans-pro": {
+      "version": "2.20.0",
+      "from": "git://github.com/adobe-fonts/source-sans-pro.git#release",
+      "resolved": "git://github.com/adobe-fonts/source-sans-pro.git#4463d0c33e6567df4da97406642c64028e103630"
     },
     "sparkles": {
       "version": "1.0.0",
