@@ -1,59 +1,12 @@
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "variables";
-
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
-
-// Reset and dependencies
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print";
-
-// Core CSS
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/code";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
-
-// Components
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/component-animations";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navbar";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pagination";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pager";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/alerts";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/media";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/list-group";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/panels";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/wells";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/close";
-
-// Components w/ JavaScript
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/modals";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tooltip";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
-
-// Utility classes
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
-
+@import "bootstrap";
 @import "oparl-logo";
 
 @import "fonts";
 
-.sr-only {
-  display: none;
-
-  @media braille {
-    display: block;
-  }
-}
-
 @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(//fonts.googleapis.com/css?family=Source+Code+Pro);
 
 body {
   position: relative;
@@ -77,6 +30,7 @@ header {
   background-size:16px 16px;
   padding: 1.2em 0 0.6em 0;
   margin-top: -$navbar-margin-bottom;
+  margin-bottom: $navbar-margin-bottom;
 }
 
 .navbar-default {
@@ -107,95 +61,6 @@ header {
     > div {
       max-height: none;
     }
-  }
-}
-
-@media (min-width: $screen-md) {
-  .toc.affix {
-    width: inherit;
-    padding-right: 30px;
-  }
-}
-
-.toc {
-  $color: #999;
-
-  margin-top: 30px;
-  margin-bottom: 20px;
-
-  max-height: 100%;
-
-  &.affix {
-    top: 16px;
-    margin-top: 0;
-    overflow-y: auto;
-  }
-
-  > a:first-of-type {
-    margin-bottom: 1.2em;
-  }
-
-  .nav > li > a {
-    padding: 0;
-  }
-
-  a:not(.btn) {
-    color: $color;
-    text-decoration: none;
-    font-weight: 400;
-
-    font-size: .8em;
-  }
-
-  #toc a.btn {
-    color: $btn-primary-color;
-  }
-
-  nav li {
-    display: inline-block;
-
-    &.active > ul {
-      display: block;
-    }
-  }
-
-  nav .active > a {
-    color: #563d7c;
-    font-weight: 800;
-  }
-
-  .form-inline {
-    padding-bottom: .6em;
-  }
-
-  li > ul > li > a {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    margin-left: 1.2em;
-
-    font-size: .8em;
-  }
-
-  ul, li {
-    list-style: none;
-  }
-
-  nav > ul:last-of-type {
-    margin-bottom: -0.5em;
-  }
-}
-
-.spec-running-text {
-  max-width: 1000px;
-}
-
-footer {
-  border-top: 1px solid #eee;
-  margin-top: 1.2em;
-  margin-bottom: 1.2em;
-
-  small {
-    font-size: 1em;
   }
 }
 
