@@ -51,11 +51,23 @@ elixir(function(mix) {
         ], 'public/js/lib.js', 'node_modules'
     );
 
-    mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/fonts');
-
     // used zondicons need to copied to public/img/icons
     mix.copy('resources/assets/zondicons/book-reference.svg', 'public/img/icons/book-reference.svg');
     mix.copy('resources/assets/zondicons/download.svg', 'public/img/icons/download.svg');
 
     mix.copy('resources/assets/brand/icon/oparl-icon.png', 'public/img/favicon.png');
+
+    // copy source code pro font files
+    mix.copy('node_modules/source-code-pro/EOT/', 'public/fonts/');
+    mix.copy('node_modules/source-code-pro/OTF/', 'public/fonts/');
+    mix.copy('node_modules/source-code-pro/TTF/', 'public/fonts/');
+    mix.copy('node_modules/source-code-pro/WOFF/', 'public/fonts/');
+    mix.copy('node_modules/source-code-pro/WOFF2/', 'public/fonts/');
+
+    // copy source sans pro font files
+    mix.copy('node_modules/source-sans-pro/EOT/', 'public/fonts/');
+    mix.copy('node_modules/source-sans-pro/OTF/', 'public/fonts/');
+    mix.copy('node_modules/source-sans-pro/TTF/', 'public/fonts/');
+    mix.copy('node_modules/source-sans-pro/WOFF/', 'public/fonts/');
+    mix.copy('node_modules/source-sans-pro/WOFF2/', 'public/fonts/');
 });
