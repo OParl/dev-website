@@ -1,7 +1,7 @@
 @extends ('base')
 
 @section ('content')
-    <div class="row sub-nav" id="specification-sub-nav">
+    <div class="row sub-nav fixed-top" id="specification-sub-nav">
         <div class="col-xs-11 col-md-2 col-md-offset-2">
             <div class="dropdown">
                 <button type="button" class="btn btn-default dropdown-toggle"
