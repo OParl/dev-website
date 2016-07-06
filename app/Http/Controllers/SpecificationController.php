@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\LiveVersionRepository;
@@ -15,10 +16,12 @@ class SpecificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveVersionRepository $liveversion)
+    public function index(LiveVersionRepository $liveversion, Guard $guard)
     {
         $title = 'Spezifikation';
-        return view('specification.index', compact('liveversion', 'title'));
+        $isLoggedIn = $guard->check();
+
+        return view('specification.index', compact('liveversion', 'title', 'isLoggedIn'));
     }
 
     public function builds(BuildRepository $build) {
