@@ -27,9 +27,9 @@
                 @include('transfugio::api.schema.format')
 
                 @if ($field->hasDescription())
-                    <div class="text-muted small">
-                        @markdown($field->getDescription())
-                    </div>
+                    <p class="text-muted small">
+                        {{ $field->getDescription() }}
+                    </p>
                 @endif
             </div>
         </div>

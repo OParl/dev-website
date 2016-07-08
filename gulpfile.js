@@ -20,7 +20,7 @@ elixir(function(mix) {
         [
             'prismjs/themes/prism.css',
             'prismjs/plugins/line-numbers/prism-line-numbers.css',
-            'prismjs/themes/prism-twilight.css'
+            'keen-ui/dist/keen-ui.css'
         ], 'public/css/lib.css', 'node_modules'
     );
 
