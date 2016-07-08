@@ -37,12 +37,18 @@ Route::get('/spezifikation.{downloadsExtension}', [
     'uses' => 'DownloadsController@latest',
     'as'   => 'specification.download',
 ]);
+
 Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
     'uses' => 'DownloadsController@getFile',
     'as'   => 'downloads.provide',
 ]);
 
 Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
+
+Route::get('/schema/{version}/{entity}.json', [
+    'uses' => 'SchemaController@getSchema',
+    'as' => 'schema.get'
+])->where('version', '(1.0|latest)')->where('entity', '[A-Z][a-z]+');
 
 // Hooks
 Route::get('/_hooks', function () {
