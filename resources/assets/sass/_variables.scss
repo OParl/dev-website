@@ -26,9 +26,9 @@ $brand-danger:          #d9534f;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg: $gray-dark;
+$body-bg: lighten($brand-primary, 66%);
 //** Global text color on `<body>`.
-$text-color: $gray-lighter;
+$text-color:            $gray-dark;
 
 //** Global textual link color.
 $link-color:            $brand-primary;

@@ -30,18 +30,6 @@ header {
   margin-bottom: $navbar-margin-bottom;
 }
 
-.fixed-top {
-  position: relative;
-  left: 0;
-
-  &.is-scrolled {
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    top: 0;
-  }
-}
-
 .navbar-default {
   background: white;
   text-align: center;
