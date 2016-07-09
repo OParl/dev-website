@@ -4,9 +4,14 @@ namespace OParl\Spec;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class LiveVersionUpdater
 {
+    const STATUS_REPOSITORY_MISSING = -2;
+    const STATUS_COMMAND_FAILED = -1;
+
     protected $gitURL = '';
     protected $path = '';
     protected $fs = null;
@@ -38,6 +43,71 @@ class LiveVersionUpdater
         ];
     }
 
+    /**
+     * @return string
+     **/
+    protected function determineHash()
+    {
+        $exitCode = $this->runCommandInDir(
+            'git show HEAD --format="%H" | head -n1',
+            $this->path,
+            $hash
+        );
+
+        if ($exitCode == self::STATUS_COMMAND_FAILED) {
+            $hash = '<unknown>';
+        } else {
+            $hash = trim($hash);
+        }
+
+        return $hash;
+    }
+
+    /**
+     * @param string $cmd
+     * @param string $dir
+     * @param string $output
+     *
+     * @return int
+     */
+    protected function runCommandInDir($cmd, $dir, &$output = null)
+    {
+        try {
+            $process = new Process($cmd, $dir);
+
+            $process->start();
+            $process->wait();
+
+            $output = $process->getOutput();
+
+            return $process->getExitCode();
+        } catch (ProcessFailedException $e) {
+            return self::STATUS_COMMAND_FAILED;
+        }
+    }
+
+    /**
+     * @return Carbon|null
+     **/
+    protected function determineLastModified()
+    {
+        try {
+            $this->runCommandInDir(
+                'git show HEAD --format="%aD" | head -n1',
+                $this->path,
+                $rfc2822Date
+            );
+
+            $rfc2822Date = trim($rfc2822Date);
+
+            $lastModified = Carbon::createFromFormat(Carbon::RFC2822, $rfc2822Date);
+        } catch (\Exception $e) {
+            $lastModified = null;
+        }
+
+        return $lastModified;
+    }
+
     public function updateRepository($forceClone = false)
     {
         if ($forceClone || !$this->repositoryExists()) {
@@ -47,6 +117,11 @@ class LiveVersionUpdater
         }
 
         return $retVal;
+    }
+
+    public function repositoryExists()
+    {
+        return is_dir($this->path);
     }
 
     /**
@@ -60,7 +135,7 @@ class LiveVersionUpdater
     {
         $gitCommand = sprintf('git clone -q --depth=1 %s %s', $this->gitURL, $this->path);
 
-        $retVal = -1;
+        $retVal = self::STATUS_COMMAND_FAILED;
 
         if (!$dryRun) {
             exec($gitCommand, $output, $retVal);
@@ -71,6 +146,21 @@ class LiveVersionUpdater
         }
 
         return $retVal;
+    }
+
+    public function makeLiveVersion($dryRun = false)
+    {
+        if (!$this->repositoryExists()) {
+            return self::STATUS_REPOSITORY_MISSING;
+        }
+
+        $exitCode = self::STATUS_COMMAND_FAILED;
+
+        if (!$dryRun) {
+            $exitCode = $this->runCommandInDir('make live', $this->path);
+        }
+
+        return $exitCode;
     }
 
     /**
@@ -85,10 +175,10 @@ class LiveVersionUpdater
         $gitCommand = sprintf('git pull -q --rebase origin master');
 
         if (!$this->repositoryExists()) {
-            return -2;
+            return self::STATUS_REPOSITORY_MISSING;
         }
 
-        $retVal = -1;
+        $retVal = self::STATUS_COMMAND_FAILED;
 
         if (!$dryRun) {
             $oldDir = getcwd();
@@ -107,11 +197,6 @@ class LiveVersionUpdater
         return $retVal;
     }
 
-    public function repositoryExists()
-    {
-        return is_dir($this->path);
-    }
-
     public function deleteRepository()
     {
         if (!$this->repositoryExists()) {
@@ -124,7 +209,8 @@ class LiveVersionUpdater
                 $dir = new \RecursiveDirectoryIterator($this->path, \FilesystemIterator::SKIP_DOTS);
                 $last = $this->path;
             } catch (\UnexpectedValueException $e) {
-                $dir = new \RecursiveDirectoryIterator(storage_path("app/{$this->path}"), \FilesystemIterator::SKIP_DOTS);
+                $dir = new \RecursiveDirectoryIterator(storage_path("app/{$this->path}"),
+                    \FilesystemIterator::SKIP_DOTS);
                 $last = storage_path("app/{$this->path}");
             }
 
@@ -149,95 +235,18 @@ class LiveVersionUpdater
         return false;
     }
 
-    public function makeLiveVersion($dryRun = false)
-    {
-        if (!$this->repositoryExists()) {
-            return -2;
-        }
-
-        $retVal = -1;
-
-        if (!$dryRun) {
-            $makeCmd = 'make live';
-
-            $olddir = getcwd();
-
-            chdir($this->path);
-
-            exec($makeCmd, $output, $retVal);
-
-            chdir($olddir);
-        }
-
-        return $retVal;
-    }
-
     public function cleanLiveVersion($dryRun = false)
     {
         if (!$this->repositoryExists()) {
-            return -2;
+            return self::STATUS_REPOSITORY_MISSING;
         }
 
-        $retVal = -1;
+        $exitCode = self::STATUS_COMMAND_FAILED;
 
         if (!$dryRun) {
-            $makeCmd = 'make clean';
-
-            $olddir = getcwd();
-
-            chdir($this->path);
-
-            exec($makeCmd, $output, $retVal);
-
-            chdir($olddir);
+            $exitCode = $this->runCommandInDir('make clean', $this->path);
         }
 
-        return $retVal;
-    }
-
-    /**
-     * @return Carbon|null
-     **/
-    protected function determineLastModified()
-    {
-        try {
-            $lastModifiedCmd = 'git show HEAD --format="%aD" | head -n1';
-
-            $cwd = getcwd();
-            chdir($this->path);
-
-            $rfc2822Date = exec($lastModifiedCmd);
-            $rfc2822Date = trim($rfc2822Date);
-
-            chdir($cwd);
-
-            $lastModified = Carbon::createFromFormat(Carbon::RFC2822, $rfc2822Date);
-        } catch (\Exception $e) {
-            $lastModified = null;
-        }
-
-        return $lastModified;
-    }
-
-    /**
-     * @return string
-     **/
-    protected function determineHash()
-    {
-        try {
-            $hashCmd = 'git show HEAD --format="%H" | head -n1';
-
-            $cwd = getcwd();
-            chdir($this->path);
-
-            $hash = exec($hashCmd);
-            $hash = trim($hash);
-
-            chdir($cwd);
-        } catch (\ErrorException $e) {
-            $hash = '<unknown>';
-        }
-
-        return $hash;
+        return $exitCode;
     }
 }
