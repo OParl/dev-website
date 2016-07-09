@@ -143,6 +143,7 @@ class LiveVersionUpdater
 
         if (!$dryRun && $retVal == 0) {
             $this->makeLiveVersion();
+            $this->extractTableOfContents();
         }
 
         return $retVal;
@@ -192,6 +193,7 @@ class LiveVersionUpdater
 
         if (!$dryRun && $retVal == 0) {
             $this->makeLiveVersion();
+            $this->extractTableOfContents();
         }
 
         return $retVal;
@@ -248,5 +250,25 @@ class LiveVersionUpdater
         }
 
         return $exitCode;
+    }
+
+    public function extractTableOfContents($dryRun = false)
+    {
+        if (!$this->repositoryExists()) {
+            return self::STATUS_REPOSITORY_MISSING;
+        }
+
+        $this->runCommandInDir(
+            'pandoc --from markdown --standalone --table-of-contents --number-sections --to json --toc-depth=2 src/*.md',
+            $this->path,
+            $pandocASTString
+        );
+
+        $pandocAST = json_decode($pandocASTString, true);
+        $tocAST = collect($pandocAST[1])->filter(function ($element) {
+            return $element['t'] == 'Header';
+        });
+
+        $this->fs->put(LiveVersionRepository::getTableOfContentsPath(), $tocAST->toJson());
     }
 }
