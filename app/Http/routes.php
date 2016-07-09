@@ -16,10 +16,9 @@
 /**
  * Route group for dev.oparl.org
  *
- * 
- *
- * Please note that additional routes belonging to this group are defined
- * in config/transfugio.php
+ * This route group contains all the endpoints necessary to navigate through
+ * dev.oparl.org except the api/ section which is loaded in via the
+ * OParl\Server\ServerServiceProvider.
  */
 $router->group(['domain' => config('app.url')], function () use ($router) {
     $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
