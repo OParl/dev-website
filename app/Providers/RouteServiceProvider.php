@@ -25,7 +25,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
+        $router->pattern('downloadsExtension', '(docx|txt|pdf|odt|html|epub|zip|tar\.gz|tar\.bz2)');
+        $router->pattern('downloadsVersion', '[a-z0-9]{7}');
 
         parent::boot($router);
     }

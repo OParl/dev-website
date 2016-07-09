@@ -11,79 +11,123 @@
 |
 */
 
-Route::group(['domain' => config('app.url')], function () {
-    Route::get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
+/* @var Illuminate\Routing\Router $router */
 
-// Specification
-    Route::get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
-    Route::get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
-    Route::get('/spezifikation/images/',
+/**
+ * Route group for dev.oparl.org
+ *
+ * 
+ *
+ * Please note that additional routes belonging to this group are defined
+ * in config/transfugio.php
+ */
+$router->group(['domain' => config('app.url')], function () use ($router) {
+    $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
+
+    // Specification
+    $router->get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
+    $router->get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
+    $router->get('/spezifikation/images/',
         ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
-    Route::get('/spezifikation/images/{image}', [
+    $router->get('/spezifikation/images/{image}', [
         'uses' => 'SpecificationController@image',
         'as'   => 'specification.image',
     ])->where('image', '[[:print:]]+\.(png|jpg)');
 
-    Route::get('/spezifikation/builds.json', 'SpecificationController@builds');
+    $router->get('/spezifikation/builds.json', 'SpecificationController@builds');
 
-// Downloads
-    Route::pattern('downloadsExtension', '(docx|txt|pdf|odt|html|epub|zip|tar\.gz|tar\.bz2)');
-    Route::pattern('downloadsVersion', '[a-z0-9]{7}');
-
-    Route::get('/downloads/latest.{downloadsExtension}', [
+    // Downloads
+    $router->get('/downloads/latest.{downloadsExtension}', [
         'uses' => 'DownloadsController@latest',
         'as'   => 'downloads.latest',
     ]);
-    Route::get('/spezifikation.{downloadsExtension}', [
+
+    $router->get('/spezifikation.{downloadsExtension}', [
         'uses' => 'DownloadsController@latest',
         'as'   => 'specification.download',
     ]);
 
-    Route::get('/downloads/{downloadsVersion}.{downloadsExtension}', [
+    $router->get('/downloads/{downloadsVersion}.{downloadsExtension}', [
         'uses' => 'DownloadsController@getFile',
         'as'   => 'downloads.provide',
     ]);
 
-    Route::post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
+    $router->post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 
-// Hooks
-    Route::get('/_hooks', function () {
+    // Hooks
+    $router->get('/_hooks', function () {
         return redirect()->route('specification.index');
     });
 
-    Route::get('/_hooks/spec_change', function () {
+    $router->get('/_hooks/spec_change', function () {
         return redirect()->route('specification.index');
     });
-    Route::post('/_hooks/spec_change', [
+    $router->post('/_hooks/spec_change', [
         'uses'       => 'HooksController@specChange',
         'as'         => 'hooks.spec',
         'middleware' => ['hooks.github'],
     ]);
 
-    Route::get('/_hooks/add_version', function () {
+    $router->get('/_hooks/add_version', function () {
         return redirect()->route('specification.index');
     });
-    Route::post('/_hooks/add_version', [
+    $router->post('/_hooks/add_version', [
         'uses' => 'HooksController@addVersion',
         'as'   => 'hooks.add',
     ]);
 
-    Route::get('/_hooks/lock_version_updates', [
+    $router->get('/_hooks/lock_version_updates', [
         'uses' => 'HooksController@lockVersionUpdates',
         'as'   => 'hooks.lock_vu',
     ]);
 
-    Route::pattern('filename', '[a-z0-9]{3,8}');
-    Route::get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
-    Route::get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
+    // Dummy file controller for API demo
+    $router->pattern('filename', '[a-z0-9]{3,8}');
+    $router->get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
+    $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
 });
 
-Route::group(['domain' => 'schema.' . config('app.url')], function () {
-    Route::get('/', function () {
+/**
+ * Route group for spec.oparl.org
+ *
+ * This route group provides an easy to remember redirect to the
+ * latest specification version as spec.oparl.org
+ *
+ * Additionally, downloads of any specification version are provided
+ * via spec.oparl.org/{versionhash}.{format}
+ *
+ * and for the latest version at spec.oparl.org/latest.{format}
+ */
+$router->group(['domain' => 'spec.' . config('app.url')], function () use ($router) {
+    $router->any('/', function () {
+        return redirect()->route('specification.index');
+    });
+
+    $router->get('/{downloadsVersion}.{downloadsExtension}', [
+        'uses' => 'DownloadsController@getFile',
+        'as'   => 'downloads.provide',
+    ]);
+
+    $router->get('/latest.{downloadsExtension}', [
+        'uses' => 'DownloadsController@latest',
+        'as'   => 'downloads.latest',
+    ]);
+});
+
+/**
+ * Route group for schema.oparl.org
+ *
+ * This route group defines access to the versioned JSONSchema of the OParl Specification
+ * which is accessible at schema.oparl.org/{version}/{entity}.json
+ *
+ * Direct access to schema.oparl.org is redirected to dev.oparl.org
+ */
+$router->group(['domain' => 'schema.' . config('app.url')], function () use ($router) {
+    $router->get('/', function () {
         return redirect()->route('developers.index');
     });
 
-    Route::get('/{version}/{entity}.json', [
+    $router->get('/{version}/{entity}.json', [
         'uses' => 'SchemaController@getSchema',
         'as'   => 'schema.get',
     ])->where('version', '(1.0|latest)')->where('entity', '[A-Za-z]+');

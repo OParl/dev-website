@@ -1,68 +1,22 @@
 <?php
+/* @var Illuminate\Routing\Router $router */
+$router->group([
+    'domain'     => config('app.url'),
+    'prefix'     => 'api/v1/',
+    'middleware' => ['api.format'],
+], function () use ($router) {
+    $router->get('/', ['uses' => 'RootController@index', 'as' => 'api.index']);
 
-Route::group(['prefix' => 'api/v1/', 'middleware' => ['api.format']], function () {
-    Route::get('/', [
-        'uses' => 'OParl\Server\API\Controllers\RootController@index',
-        'as'   => 'api.index'
-    ]);
-
-    Route::resource('system',
-        'OParl\Server\API\Controllers\SystemController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('body',
-        'OParl\Server\API\Controllers\BodyController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('legislativeterm',
-        'OParl\Server\API\Controllers\LegislativeTermController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('agendaitem',
-        'OParl\Server\API\Controllers\AgendaItemController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('person',
-        'OParl\Server\API\Controllers\PersonController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('meeting',
-        'OParl\Server\API\Controllers\MeetingController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('organization',
-        'OParl\Server\API\Controllers\OrganizationController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('membership',
-        'OParl\Server\API\Controllers\MembershipController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('paper',
-        'OParl\Server\API\Controllers\PaperController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('consultation',
-        'OParl\Server\API\Controllers\ConsultationController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('location',
-        'OParl\Server\API\Controllers\LocationController',
-        ['only' => ['index', 'show']]
-    );
-
-    Route::resource('file',
-        'OParl\Server\API\Controllers\FileController',
-        ['only' => ['index', 'show']]
-    );
+    $router->resource('system', 'SystemController', ['only' => ['index', 'show']]);
+    $router->resource('body', 'BodyController', ['only' => ['index', 'show']]);
+    $router->resource('legislativeterm', 'LegislativeTermController', ['only' => ['index', 'show']]);
+    $router->resource('agendaitem', 'AgendaItemController', ['only' => ['index', 'show']]);
+    $router->resource('person', 'PersonController', ['only' => ['index', 'show']]);
+    $router->resource('meeting', 'MeetingController', ['only' => ['index', 'show']]);
+    $router->resource('organization', 'OrganizationController', ['only' => ['index', 'show']]);
+    $router->resource('membership', 'MembershipController', ['only' => ['index', 'show']]);
+    $router->resource('paper', 'PaperController', ['only' => ['index', 'show']]);
+    $router->resource('consultation', 'ConsultationController', ['only' => ['index', 'show']]);
+    $router->resource('location', 'LocationController', ['only' => ['index', 'show']]);
+    $router->resource('file', 'FileController', ['only' => ['index', 'show']]);
 });
