@@ -35,6 +35,11 @@ header {
   text-align: center;
   border: none;
   margin-bottom: 0;
+
+  li {
+    &:hover { background: $navbar-default-link-active-bg }
+    transition: 0.3s ease-in-out background;
+  }
 }
 
 .text-tiny {
