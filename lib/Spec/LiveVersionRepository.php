@@ -116,7 +116,7 @@ class LiveVersionRepository
 
     public function getTableOfContents()
     {
-        return \Filesystem::get(static::getTableOfContentsPath());
+        return json_decode(\Storage::get(static::getTableOfContentsPath()), true);
     }
 
     /**

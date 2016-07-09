@@ -28,12 +28,12 @@ $router->group(['domain' => config('app.url')], function () use ($router) {
     $router->get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
     $router->get('/spezifikation/images/',
         ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
-    $router->get('/spezifikation/images/{image}', [
-        'uses' => 'SpecificationController@image',
-        'as'   => 'specification.image',
-    ])->where('image', '[[:print:]]+\.(png|jpg)');
+    $router->get('/spezifikation/images/{image}', 'SpecificationController@image')
+        ->name('specification.image')
+        ->where('image', '[[:print:]]+\.(png|jpg)');
 
     $router->get('/spezifikation/builds.json', 'SpecificationController@builds');
+    $router->get('/spezifikation/toc.json', 'SpecificationController@toc');
 
     // Downloads
     $router->get('/downloads/latest.{downloadsExtension}', [

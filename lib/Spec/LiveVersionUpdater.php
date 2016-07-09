@@ -164,6 +164,40 @@ class LiveVersionUpdater
         return $exitCode;
     }
 
+    public function extractTableOfContents($dryRun = false)
+    {
+        if (!$this->repositoryExists()) {
+            return self::STATUS_REPOSITORY_MISSING;
+        }
+
+        $this->runCommandInDir(
+            'pandoc --from markdown --standalone --table-of-contents --number-sections --to json --toc-depth=2 src/*.md',
+            $this->path,
+            $pandocASTString
+        );
+
+        $pandocAST = json_decode($pandocASTString, true);
+
+        $tocAST = collect($pandocAST[1])->filter(function ($element) {
+            return $element['t'] == 'Header';
+        })->map(function ($headerEl) {
+            $header = $headerEl['c'];
+
+            return [
+                'level' => $header[0],
+                'title' => (isset($header[2]['c'])) ? $header[2]['c'] : collect($header[2])
+                    ->filter(function ($titleWord) {
+                        return $titleWord['t'] !== 'Space';
+                    })->map(function ($titleWord) {
+                        return $titleWord['c'];
+                    })->implode(' '),
+                'link'  => $header[1][0],
+            ];
+        });
+
+        $this->fs->put(LiveVersionRepository::getTableOfContentsPath(), $tocAST->toJson());
+    }
+
     /**
      * Rebases spec repository to current HEAD.
      *
@@ -250,25 +284,5 @@ class LiveVersionUpdater
         }
 
         return $exitCode;
-    }
-
-    public function extractTableOfContents($dryRun = false)
-    {
-        if (!$this->repositoryExists()) {
-            return self::STATUS_REPOSITORY_MISSING;
-        }
-
-        $this->runCommandInDir(
-            'pandoc --from markdown --standalone --table-of-contents --number-sections --to json --toc-depth=2 src/*.md',
-            $this->path,
-            $pandocASTString
-        );
-
-        $pandocAST = json_decode($pandocASTString, true);
-        $tocAST = collect($pandocAST[1])->filter(function ($element) {
-            return $element['t'] == 'Header';
-        });
-
-        $this->fs->put(LiveVersionRepository::getTableOfContentsPath(), $tocAST->toJson());
     }
 }
