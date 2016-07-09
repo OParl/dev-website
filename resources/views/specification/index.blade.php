@@ -13,21 +13,35 @@
             </div>
         </div>
 
-        @if ($isLoggedIn)
-            <div class="col-xs-1 col-md-1 col-md-offset-2">
+        @if (!$isLoggedIn)
+            <div class="hidden-xs col-md-4 text-center">
+                <h2 title="git: {{ $liveversion->getHash() }}, {{ $liveversion->getLastModified() }}">
+                    OParl 1.0
+                </h2>
+            </div>
+
+            <div class="col-xs-1 col-md-1 col-md-offset-1">
                 <button class="btn btn-default pull-right">
-                   <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
+                    <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
+                </button>
+            </div>
+        @else
+            {{-- this is a signed in user --}}
+
+            <div class="col-md-2">
+                <h2 title="git: {{ $liveversion->getHash() }}, {{ $liveversion->getLastModified() }}">
+                    OParl 1.0
+                </h2>
+            </div>
+
+            <div class="col-xs-1 col-md-1">
+                <button class="btn btn-default pull-right">
+                    <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
                 </button>
             </div>
 
             <div class="col-xs-12 col-md-3">
                 <f-select label="Wähle eine andere Version" data="versions"></f-select>
-            </div>
-        @else
-            <div class="col-xs-1 col-md-1 col-md-offset-5">
-                <button class="btn btn-default pull-right">
-                    <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
-                </button>
             </div>
         @endif
     </div>

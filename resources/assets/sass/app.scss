@@ -18,6 +18,7 @@ header {
 
 .sub-nav {
   border-bottom: .15em inset darken($brand-primary, 15%);
+
   background:
     radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 0 0,
     radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 8px 8px,
@@ -25,9 +26,19 @@ header {
     radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
   background-color: $brand-primary;
   background-size:16px 16px;
+
   padding: 1.2em 0 0.6em 0;
+
   margin-top: -$navbar-margin-bottom;
   margin-bottom: $navbar-margin-bottom;
+
+  h2 {
+    margin-top: 0;
+    padding-top: 0;
+
+    color: $gray-lighter;
+    text-shadow: 1px 1px 1px $gray-dark;
+  }
 }
 
 .navbar-default {
