@@ -6,33 +6,38 @@ require('laravel-elixir-vueify');
  |--------------------------------------------------------------------------
  | Elixir Asset Management
  |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Less
- | file for our application, as well as publishing vendor resources.
- |
  */
 
 elixir(function(mix) {
+    // public/css/app.css
     mix.sass('app.scss');
 
+    // public/js/spec.js
+    mix.browserify('spec.js', 'public/js/', 'resources/js');
+
+    // public/js/api.js
+    mix.browserify('api.js', 'public/js/', 'resources/js');
+
+    // public/css/lib.css
     mix.styles(
         [
             'prismjs/themes/prism.css',
-            'prismjs/plugins/line-numbers/prism-line-numbers.css'
+            'prismjs/plugins/line-numbers/prism-line-numbers.css',
+
+            'select2/dist/css/select2.css'
         ], 'public/css/lib.css', 'node_modules'
     );
 
-    mix.browserify('spec.js', 'public/js/', 'resources/js');
-    mix.browserify('api.js', 'public/js/', 'resources/js');
-
+    // public/js/lib.js
     mix.scripts(
         [
             'jquery/dist/jquery.js',
 
             'prismjs/prism.js',
+
             'prismjs/components/prism-javascript.js',
             'prismjs/components/prism-sql.js',
+
             'prismjs/plugins/line-numbers/prism-line-numbers.js',
 
             'bootstrap-sass/assets/javascripts/bootstrap/transition.js',
@@ -41,7 +46,9 @@ elixir(function(mix) {
             'bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js',
             'bootstrap-sass/assets/javascripts/bootstrap/modal.js',
             'bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/tab.js'
+            'bootstrap-sass/assets/javascripts/bootstrap/tab.js',
+
+            'select2/dist/js/select2.js'
         ], 'public/js/lib.js', 'node_modules'
     );
 

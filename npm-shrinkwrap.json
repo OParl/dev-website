@@ -37,6 +37,11 @@
       "from": "align-text@>=0.1.3 <0.2.0",
       "resolved": "https://registry.npmjs.org/align-text/-/align-text-0.1.4.tgz"
     },
+    "almond": {
+      "version": "0.3.2",
+      "from": "almond@>=0.3.1 <0.4.0",
+      "resolved": "https://registry.npmjs.org/almond/-/almond-0.3.2.tgz"
+    },
     "alphanum-sort": {
       "version": "1.0.2",
       "from": "alphanum-sort@>=1.0.1 <2.0.0",
@@ -3846,6 +3851,11 @@
       "from": "jquery@2.2.3",
       "resolved": "https://registry.npmjs.org/jquery/-/jquery-2.2.3.tgz"
     },
+    "jquery-mousewheel": {
+      "version": "3.1.13",
+      "from": "jquery-mousewheel@>=3.1.13 <3.2.0",
+      "resolved": "https://registry.npmjs.org/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz"
+    },
     "js-base64": {
       "version": "2.1.9",
       "from": "js-base64@>=2.1.8 <2.2.0",
@@ -5833,6 +5843,11 @@
       "version": "1.1.4",
       "from": "sektor@1.1.4",
       "resolved": "https://registry.npmjs.org/sektor/-/sektor-1.1.4.tgz"
+    },
+    "select2": {
+      "version": "4.0.3",
+      "from": "select2@latest",
+      "resolved": "https://registry.npmjs.org/select2/-/select2-4.0.3.tgz"
     },
     "semver": {
       "version": "4.3.6",

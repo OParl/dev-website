@@ -3,14 +3,7 @@
 @section ('content')
     <div class="row sub-nav fixed-top" id="specification-sub-nav">
         <div class="col-xs-11 col-md-2 col-md-offset-2">
-            <div class="dropdown">
-                <button type="button" class="btn btn-default dropdown-toggle"
-                        data-toggle="dropdown" aria-hidden="true">
-                    <img src="{{ asset('/img/icons/book-reference.svg') }}" alt="Menüicon">
-                    <span class="caret"></span>
-                </button>
-                {!! $liveversion->getNav() !!}
-            </div>
+            <f-select from="{{ route('specification.toc') }}" label="toc"></f-select>
         </div>
 
         @if (!$isLoggedIn)
@@ -21,7 +14,7 @@
             </div>
 
             <div class="col-xs-1 col-md-1 col-md-offset-1">
-                <button class="btn btn-default pull-right">
+                <button class="btn btn-xs btn-default pull-right">
                     <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
                 </button>
             </div>

@@ -33,7 +33,7 @@ $router->group(['domain' => config('app.url')], function () use ($router) {
         ->where('image', '[[:print:]]+\.(png|jpg)');
 
     $router->get('/spezifikation/builds.json', 'SpecificationController@builds');
-    $router->get('/spezifikation/toc.json', 'SpecificationController@toc');
+    $router->get('/spezifikation/toc.json', 'SpecificationController@toc')->name('specification.toc');
 
     // Downloads
     $router->get('/downloads/latest.{downloadsExtension}', [

@@ -32,12 +32,18 @@ header {
   margin-top: -$navbar-margin-bottom;
   margin-bottom: $navbar-margin-bottom;
 
+  .select2-results__option {
+    font-size: $font-size-small !important;
+  }
+
   h2 {
     margin-top: 0;
     padding-top: 0;
 
     color: $gray-lighter;
     text-shadow: 1px 1px 1px $gray-dark;
+
+    font-size: $font-size-h4;
   }
 }
 
