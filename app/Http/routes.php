@@ -104,12 +104,12 @@ $router->group(['domain' => 'spec.' . config('app.url')], function () use ($rout
 
     $router->get('/{downloadsVersion}.{downloadsExtension}', [
         'uses' => 'DownloadsController@getFile',
-        'as'   => 'downloads.provide',
+        'as'   => 'downloads.alternative.provide',
     ]);
 
     $router->get('/latest.{downloadsExtension}', [
         'uses' => 'DownloadsController@latest',
-        'as'   => 'downloads.latest',
+        'as'   => 'downloads.alternative.latest',
     ]);
 });
 

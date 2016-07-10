@@ -14,7 +14,11 @@
             </div>
 
             <div class="col-xs-1 col-md-1 col-md-offset-1">
-                <button class="btn btn-xs btn-default pull-right">
+                <button
+                        class="btn btn-xs btn-default pull-right"
+                        data-toggle="modal"
+                        data-target="#downloadFormatSelectModal"
+                >
                     <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
                 </button>
             </div>
@@ -50,6 +54,8 @@
             {!! $liveversion->getContent() !!}
         </div>
     </div>
+
+    @include('downloads.button_modal')
 @stop
 
 @section ('scripts')

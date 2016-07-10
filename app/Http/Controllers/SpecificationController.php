@@ -17,12 +17,13 @@ class SpecificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveVersionRepository $liveversion, Guard $guard)
+    public function index(LiveVersionRepository $liveversion, Guard $guard, BuildRepository $buildRepository)
     {
         $title = 'Spezifikation';
         $isLoggedIn = $guard->check();
+        $builds = $buildRepository->getAvailable();
 
-        return view('specification.index', compact('liveversion', 'title', 'isLoggedIn'));
+        return view('specification.index', compact('liveversion', 'title', 'isLoggedIn', 'builds'));
     }
 
     public function builds(BuildRepository $build)
