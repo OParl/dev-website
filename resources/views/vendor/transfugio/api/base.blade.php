@@ -7,7 +7,7 @@
 @section ('content')
     <div class="row sub-nav" id="api-subnav">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
-            <p class="text-center">Here be api console access</p>
+            <f-api-console></f-api-console>
         </div>
     </div>
 
