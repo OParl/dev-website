@@ -33,7 +33,6 @@
     @if (isset($paginationCode))
     <div class="row">
         <div class="col-xs-12">
-            <hr />
             <div class="text-center">
                 {!! $paginationCode or '' !!}
             </div>
