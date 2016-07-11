@@ -2,58 +2,68 @@
 
 namespace OParl\Spec;
 
+use Debugbar;
 use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
+/**
+ * Class LiveVersionBuilder
+ *
+ * Prepare the live version for web display
+ *
+ * @package OParl\Spec
+ */
 class LiveVersionBuilder
 {
+    /**
+     * @var Filesystem
+     **/
     protected $fs = null;
 
+    /**
+     * @var string full live version HTML from `make live`
+     **/
     protected $html = '';
 
+    /**
+     * @var string extracted content
+     **/
     protected $content = '';
 
+    /**
+     * @var string extracted navigation
+     **/
     protected $nav = '';
 
     /**
-     * @var \Illuminate\Support\Collection
+     * @var \Illuminate\Support\Collection list of chapters
      */
     protected $chapters = null;
 
-    public function __construct(Filesystem $fs, $liveVersionPath)
+    /**
+     * LiveVersionBuilder constructor.
+     *
+     * @param Filesystem $fs
+     * @param $liveVersionPath
+     */
+    public function __construct(Filesystem $fs, $liveVersionPath, $autoload = true)
     {
         $this->fs = $fs;
 
-        $this->load($liveVersionPath);
+        if ($autoload) {
+            $this->load($liveVersionPath);
+        }
     }
 
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    public function getNav()
-    {
-        return $this->nav;
-    }
-
-    public function getChapters()
-    {
-        return $this->chapters;
-    }
-
-    public function getRaw()
-    {
-        return $this->chapters->reduce(function ($carry, $current) {
-            return $carry.$current;
-        }, '');
-    }
-
+    /**
+     * @param $liveVersionPath
+     **/
     public function load($liveVersionPath)
     {
+        \Debugbar::startMeasure('liveversionbuilder.load', 'Prepare live version');
         // NOTE: Find out why filesystem sometimes fails to resolve existing files
         if ($this->fs->exists($liveVersionPath)) {
             $this->html = $this->fs->get($liveVersionPath);
@@ -63,8 +73,12 @@ class LiveVersionBuilder
 
         $this->parseChapters();
         $this->parseHTML();
+        \Debugbar::endMeasure('liveversionbuilder.load');
     }
 
+    /**
+     * Parse the raw markdown chapters into a collection
+     */
     public function parseChapters()
     {
         $finder = new Finder();
@@ -78,16 +92,24 @@ class LiveVersionBuilder
         });
     }
 
+    /**
+     * Extract and optimize the html sections for web display
+     */
     public function parseHTML()
     {
+
         $this->extractSections();
 
         $this->fixNavHTML();
         $this->fixContentHTML();
     }
 
+    /**
+     *
+     */
     public function extractSections()
     {
+        \Debugbar::startMesaser('liveversionbuilder.extractSections', 'Split document');
         $crawler = new Crawler($this->html);
 
         $navElements = $crawler->filter('body > nav');
@@ -98,15 +120,23 @@ class LiveVersionBuilder
         foreach ($content as $domElement) {
             $this->content .= $domElement->ownerDocument->saveHTML($domElement);
         }
+        \Debugbar::endMeasure('liveversionbuilder.extractSections');
     }
 
+    /**
+     *
+     */
     public function fixNavHTML()
     {
-        $this->nav = str_replace('<ul>', '<ul class="nav">', $this->nav);
+        $this->nav = str_replace('<ul>', '<ul class="dropdown-menu">', $this->nav);
     }
 
+    /**
+     *
+     */
     public function fixContentHTML()
     {
+        \Debugbar::startMeasure('liveversionbuilder.prepareContentHTML', 'Prepare content HTML');
         $html = $this->content;
 
         // fix image urls
@@ -132,6 +162,8 @@ class LiveVersionBuilder
         /* @var $letterpress Letterpress */
         $letterpress = app(Letterpress::class);
         $this->content = $letterpress->typofix($html);
+
+        \Debugbar::endMeasure('liveversionbuilder.prepareContentHTML');
     }
 
     /**
@@ -145,16 +177,20 @@ class LiveVersionBuilder
             $toLanguage = $fromLanguage;
         }
 
-        $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/', '<pre$1><code class="language-'.$toLanguage.'">', $html);
+        $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/',
+            '<pre$1><code class="language-' . $toLanguage . '">', $html);
 
         return $html;
     }
 
+    /**
+     * @return \Closure
+     **/
     protected function transformSchemaCodeExamplesToButtons()
     {
         return function ($match) use (&$exampleIdentifierCount) {
             $data = [
-                'exampleIdentifier' => 'example-'.$exampleIdentifierCount,
+                'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
                 'exampleTitle'      => $match[1],
                 'exampleCode'       => $match[2],
             ];
@@ -163,5 +199,39 @@ class LiveVersionBuilder
 
             return view('specification.example', $data);
         };
+    }
+
+    /**
+     * @return string
+     **/
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     **/
+    public function getNav()
+    {
+        return $this->nav;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     **/
+    public function getChapters()
+    {
+        return $this->chapters;
+    }
+
+    /**
+     * @return string get the raw markdown version of the concatenated chapters
+     **/
+    public function getRaw()
+    {
+        return $this->chapters->reduce(function ($carry, $current) {
+            return $carry . $current;
+        }, '');
     }
 }

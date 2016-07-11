@@ -8,8 +8,8 @@ class Header
 {
     protected $sections = [
         [
-            'title' => 'Über OParl',
-            'url'   => 'https://oparl.org/ueber-oparl/',
+            'routeKey' => 'developers',
+            'title' => 'Entwickler',
         ],
 
         [
@@ -18,14 +18,14 @@ class Header
         ],
 
         [
+            'routeKey' => 'api',
+            'title'    => 'Demo',
+        ],
+
+        [
             'title' => 'Kontakt',
             'url'   => 'https://oparl.org/kontakt/',
         ],
-
-//      [
-//        'title' => 'Demoserver',
-//        'url' => 'http://demoserver.oparl.org/'
-//      ],
     ];
 
     public function compose(View $view)

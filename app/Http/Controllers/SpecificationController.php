@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\LiveVersionRepository;
@@ -12,16 +14,25 @@ class SpecificationController extends Controller
      * Show the specification's live copy.
      *
      * @param LiveVersionRepository $liveversion
-     * @param BuildRepository $buildRepository
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveVersionRepository $liveversion, BuildRepository $buildRepository)
+    public function index(LiveVersionRepository $liveversion, Guard $guard, BuildRepository $buildRepository)
     {
         $title = 'Spezifikation';
-        $builds = $buildRepository->getLatest(15);
+        $isLoggedIn = $guard->check();
+        $builds = $buildRepository->getAvailable();
 
-        return view('specification.index', compact('liveversion', 'title', 'builds'));
+        return view('specification.index', compact('liveversion', 'title', 'isLoggedIn', 'builds'));
+    }
+
+    public function builds(BuildRepository $build)
+    {
+        return response()->json($build->getLatest(15));
+    }
+
+    public function toc(LiveVersionRepository $liveVersionRepository) {
+        return response()->json($liveVersionRepository->getTableOfContents());
     }
 
     public function imageIndex()
@@ -31,7 +42,11 @@ class SpecificationController extends Controller
 
     public function image(Filesystem $fs, $image)
     {
-        $imageData = $fs->get(LiveVersionRepository::getImagesPath($image));
+        try {
+            $imageData = $fs->get(LiveVersionRepository::getImagesPath($image));
+        } catch (FileNotFoundException $e) {
+            return response("{$image} was not found on the server.", 404);
+        }
 
         return response($imageData, 200, ['Content-type' => 'image/png']);
     }

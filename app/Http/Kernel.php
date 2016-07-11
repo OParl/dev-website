@@ -2,7 +2,16 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\ValidateGitHubWebHook;
+use App\Http\Middleware\VerifyCsrfToken;
+use EFrane\Transfugio\Http\APIOutputFormatMiddleware;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
@@ -12,13 +21,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-        'Illuminate\Cookie\Middleware\EncryptCookies',
-        'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-        'Illuminate\Session\Middleware\StartSession',
-        'Illuminate\View\Middleware\ShareErrorsFromSession',
+        CheckForMaintenanceMode::class,
+        EncryptCookies::class,
+        AddQueuedCookiesToResponse::class,
+        StartSession::class,
+        ShareErrorsFromSession::class,
 
-    'App\Http\Middleware\VerifyCsrfToken',
+        VerifyCsrfToken::class
     ];
 
     /**
@@ -27,9 +36,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'       => 'App\Http\Middleware\Authenticate',
-        'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest'      => 'App\Http\Middleware\RedirectIfAuthenticated',
-    'hooks.github'   => 'App\Http\Middleware\ValidateGitHubWebHook',
+        'guest'        => RedirectIfAuthenticated::class,
+        'hooks.github' => ValidateGitHubWebHook::class,
+        'api.format'   => APIOutputFormatMiddleware::class
     ];
 }

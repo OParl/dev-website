@@ -1,29 +1,62 @@
-$font-size-base : 16px;
-$brand-primary : #3498db;
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "variables";
+@import "bootstrap";
+@import "oparl-logo";
 
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "fonts";
 
-@import url(http://fonts.googleapis.com/css?family=Dosis);
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+body {
+  position: relative;
+  font-weight: 300;
+}
 
-body { position: relative; }
+header {
+  border-bottom: .15em inset darken($brand-primary, 15%);
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.sub-nav {
+  border-bottom: .15em inset darken($brand-primary, 15%);
+
+  background:
+    radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 0 0,
+    radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background-color: $brand-primary;
+  background-size:16px 16px;
+
+  padding: 1.2em 0 0.6em 0;
+
+  margin-top: -$navbar-margin-bottom;
+  margin-bottom: $navbar-margin-bottom;
+
+  .select2-results__option {
+    font-size: $font-size-small !important;
+  }
+
+  h2 {
+    margin-top: 0;
+    padding-top: 0;
+
+    color: $gray-lighter;
+    text-shadow: 1px 1px 1px $gray-dark;
+
+    font-size: $font-size-h4;
+  }
+}
 
 .navbar-default {
   background: white;
   text-align: center;
   border: none;
   margin-bottom: 0;
-}
 
-.text-oparl {
-  font-family: 'Dosis', 'Helvetica Neue', sans-serif;
-  font-weight: 300;
-  color: $brand-primary;
-  font-size: 32px;
-  vertical-align: center;
-  padding-right: $navbar-padding-horizontal;
-
-  & > a { text-decoration: none; }
+  li {
+    &:hover { background: $navbar-default-link-active-bg }
+    transition: 0.3s ease-in-out background;
+  }
 }
 
 .text-tiny {
@@ -31,8 +64,8 @@ body { position: relative; }
 }
 
 .nowrap {
-  overflow-x:auto;
-  overflow-y:hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
 }
 
@@ -40,84 +73,14 @@ body { position: relative; }
   border-bottom: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $screen-md) {
   .toc.affix {
     position: static;
 
-    > div { max-height: none; }
+    > div {
+      max-height: none;
+    }
   }
-}
-
-.toc {
-  $color : #999;
-
-  margin-top: 30px;
-  margin-bottom: 20px;
-
-  max-height: 100%;
-  
-  &.affix {
-    width: inherit;
-    padding-right: 30px;
-  }
-
-  &.affix {
-    top: 16px;
-    margin-top: 0;
-    overflow-y: auto;
-  }
-
-  > a:first-of-type {
-    margin-bottom: 1.2em;
-  }
-
-  .nav > li > a { padding: 0; }
-
-  a:not(.btn) {
-    color: $color;
-    text-decoration: none;
-    font-weight: 400;
-
-    font-size: .8em;
-  }
-
-  #toc a.btn {
-    color: $btn-primary-color;
-  }
-
-  nav li {
-    display: inline-block;
-
-    &.active > ul { display: block; }
-  }
-
-  nav .active > a {  color: #563d7c; font-weight: 800; }
-
-  .form-inline { padding-bottom: .6em; }
-
-  li > ul > li > a {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    margin-left: 1.2em;
-
-    font-size: .8em;
-  }
-
-  ul, li {
-    list-style: none;
-  }
-}
-
-.spec-running-text {
-  max-width: 1000px;
-}
-
-footer {
-  border-top: 1px solid #eee;
-  margin-top: 1.2em;
-  margin-bottom: 1.2em;
-
-  small { font-size: 1em; }
 }
 
 p {
@@ -125,12 +88,16 @@ p {
   hyphens: auto;
 }
 
-h1, h2, h3, h4 { & > a { color: inherit; }}
+h1, h2, h3, h4 {
+  & > a {
+    color: inherit;
+  }
+}
 
 a.link-modest {
   color: inherit;
   text-decoration: none;
-  
+
   &:hover, &:active {
     text-decoration: underline;
   }
@@ -153,4 +120,19 @@ figcaption {
   font-variant: small-caps;
 }
 
-@import '_skin';
+.dropdown-menu > li {
+  $line-height-base: 2 * $line-height-base;
+
+  > .dropdown-menu {
+    display:none;
+  }
+
+  &:hover {
+    > .dropdown-menu {
+      display: inline-block;
+      position: relative;
+      left: 100%;
+      top: -$line-height-computed * (5 / 3);
+    }
+  }
+}

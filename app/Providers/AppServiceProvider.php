@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Http\ViewComposers\AdminHeader;
 use App\Http\ViewComposers\Header;
 use App\Http\ViewComposers\NewsArchive;
+use EFrane\Letterpress\Letterpress;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,10 +25,22 @@ class AppServiceProvider extends ServiceProvider
 
         $v->composer('admin.header', AdminHeader::class);
 
-    // add a @markdown(...) directive which formats value to markdown
+        // add a @markdown(...) directive which formats value to markdown
         \Blade::directive('markdown', function ($expr) {
-      return "<?php echo \\Parsedown::instance()->parse({$expr}) ?>";
-    });
+            return "<?php echo \\Parsedown::instance()->parse({$expr}) ?>";
+        });
+
+        \Blade::directive('press', function ($expr) {
+            return<<<LPMARKUP
+<?php
+    \$letterpress = app(EFrane\Letterpress\Letterpress::class);
+    \$markuped = \$letterpress->markdown($expr);
+    \$typofixed = \$letterpress->typofix(\$markuped);
+    
+    echo \$typofixed;
+?>
+LPMARKUP;
+        });
     }
 
     /**

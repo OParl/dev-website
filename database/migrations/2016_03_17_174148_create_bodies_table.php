@@ -15,6 +15,7 @@ class CreateBodiesTable extends Migration
         Schema::create('oparl_bodies', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             // oparl.id is not in the db layer
             // type is not in the db layer
@@ -44,14 +45,9 @@ class CreateBodiesTable extends Migration
             // legislative term is n:1
 
             $table->string('classification')->nullable();
-            $table->string('street_address')->nullable();
-            $table->string('postal_cody')->nullable();
-            $table->string('locality')->nullable();
 
             $table->unsignedInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('oparl_locations');
-
-            $table->json('keyword')->nullable();
         });
     }
 

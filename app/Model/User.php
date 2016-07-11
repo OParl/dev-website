@@ -4,20 +4,17 @@ namespace App\Model;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Model implements AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
+    use Authenticatable, Authorizable, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -32,14 +29,4 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class, 'author_id');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'author_id');
-    }
 }

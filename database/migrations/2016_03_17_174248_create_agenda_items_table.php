@@ -12,9 +12,10 @@ class CreateAgendaItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('agenda_items', function (Blueprint $table) {
+        Schema::create('oparl_agenda_items', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             // oparl.id is not in the db layer
             // type is not in the db layer
@@ -27,10 +28,10 @@ class CreateAgendaItemsTable extends Migration
             $table->boolean('public')->nullable();
 
             $table->unsignedInteger('consultation_id')->nullable();
-            $table->foreign('consultation_id')->references('id')->on('oparl_consultations');
+            // foreign key is added later
 
             $table->string('result')->nullable();
-            $table->string('resolutionText')->nullable();
+            $table->string('resolution_text')->nullable();
 
             $table->unsignedInteger('resolution_file_id')->nullable();
             $table->foreign('resolution_file_id')->references('id')->on('oparl_files');
@@ -39,8 +40,6 @@ class CreateAgendaItemsTable extends Migration
 
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 
@@ -51,6 +50,6 @@ class CreateAgendaItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('agenda_items');
+        // [Missing]
     }
 }

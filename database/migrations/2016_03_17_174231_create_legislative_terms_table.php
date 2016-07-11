@@ -15,20 +15,18 @@ class CreateLegislativeTermsTable extends Migration
         Schema::create('oparl_legislative_terms', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             // oparl.id is not in the db layer
             // type is not in the db layer
 
             $table->unsignedInteger('body_id')->nullable();
-            $table->foreign('body_id')->references('id')->on('bodies');
+            $table->foreign('body_id')->references('id')->on('oparl_bodies');
 
             $table->string('name')->nullable();
-            $table->string('short_name')->nullable();
 
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 

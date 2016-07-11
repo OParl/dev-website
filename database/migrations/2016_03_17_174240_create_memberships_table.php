@@ -15,15 +15,16 @@ class CreateMembershipsTable extends Migration
         Schema::create('oparl_memberships', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             // oparl.id is not in the db layer
             // type is not in the db layer
 
             $table->unsignedInteger('person_id')->nullable();
-            $table->foreign('person_id')->references('id')->on('people');
+            $table->foreign('person_id')->references('id')->on('oparl_people');
 
             $table->unsignedInteger('organization_id')->nullable();
-            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('organization_id')->references('id')->on('oparl_organizations');
 
             $table->string('role')->nullable();
             $table->boolean('voting_right')->nullable();

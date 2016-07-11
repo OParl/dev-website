@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
+        <base href="{{ route('developers.index') }}">
+
         <meta charset="utf-8" />
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,17 +16,18 @@
         <meta property="og:site_name" content="OParl">
         <meta property="og:url" content="{{ url('/') }}">
 
-
         <title>
-        @if (isset($title))
-            {{ $title.' - ' }}OParl.org
-        @else
-            @yield('title')
-        @endif
+            @if (isset($title))
+                {{ $title.' - ' }}OParl.org
+            @else
+                @yield('title')
+            @endif
         </title>
 
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
         <link href="{{ asset('/css/lib.css') }}" rel="stylesheet" />
+
+        @yield('styles')
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -38,8 +41,8 @@
     <body>
         <div class="sr-only">
             <ul>
-                <li><a href="#navigation" class="sr-only-focusable">Direkt zur Navigation</a></li>
                 <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
+                <!-- TODO: insert links to main chapters -->
             </ul>
         </div>
 
@@ -56,11 +59,16 @@
                     </div>
                 </div>
             </div>
+            <footer class="row">
+                <hr />
+
+                <div class="col-md-12">
+                    <img src="{{ asset('img/okf-de-logo.png') }}" alt="Logo der OpenKnowledge Foundation Deutschland"/>
+                </div>
+            </footer>
         </div>
 
-        <!-- Scripts -->
         <script src="{{ asset('/js/lib.js') }}"></script>
-        <script src="{{ asset('/js/app.js') }}"></script>
 
         @yield ('scripts')
     </body>

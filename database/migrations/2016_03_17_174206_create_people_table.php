@@ -21,7 +21,7 @@ class CreatePeopleTable extends Migration
             // type is not in the db layer
 
             $table->unsignedInteger('body_id')->nullable();
-            $table->foreign('body_id')->references('id')->on('bodies');
+            $table->foreign('body_id')->references('id')->on('oparl_bodies');
 
             // name is not in the db layer
 
@@ -29,18 +29,11 @@ class CreatePeopleTable extends Migration
             $table->string('given_name')->nullable();
             $table->string('form_of_address')->nullable();
             $table->string('affix')->nullable();
-
-            // TODO: title is 1:n
-
+            $table->string('title')->nullable();
             $table->string('gender')->nullable();
 
-            // TODO: phone number is 1:n
-            // TODO: email is 1:n
-
-            $table->string('street_address')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('sub_locality')->nullable();
-            $table->string('locality')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
 
             $table->unsignedInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('oparl_locations');
@@ -50,8 +43,6 @@ class CreatePeopleTable extends Migration
 
             $table->string('life')->nullable();
             $table->string('life_source')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 

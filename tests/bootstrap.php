@@ -10,6 +10,12 @@ if (!file_exists('tests/assets')) {
 
 if (!file_exists('tests/assets/spec.git')) {
     exec('git clone --bare https://github.com/OParl/spec.git tests/assets/spec.git');
+} else {
+    $cwd = getcwd();
+
+    chdir('tests/assets/spec.git');
+    exec('git fetch');
+    chdir($cwd);
 }
 
 if (!file_exists('storage/app/live_version')) {

@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use OParl\Spec\Commands\DeleteSpecificationBuildsCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,14 +14,11 @@ class Kernel extends ConsoleKernel
    * @var array
    */
   protected $commands = [
-    Commands\AddUserCommand::class,
-    Commands\RemoveUserCommand::class,
-
     Commands\SetupCommand::class,
   ];
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(\OParl\Spec\Commands\DeleteSpecificationBuildsCommand::class, ['build', 30])->daily();
+        $schedule->command(DeleteSpecificationBuildsCommand::class, ['build', 30])->daily();
     }
 }

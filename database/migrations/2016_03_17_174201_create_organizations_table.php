@@ -21,14 +21,14 @@ class CreateOrganizationsTable extends Migration
             // type is not in the db layer
 
             $table->unsignedInteger('body_id')->nullable();
-            $table->foreign('body_id')->references('id')->on('bodies');
+            $table->foreign('body_id')->references('id')->on('oparl_bodies');
 
             $table->string('name')->nullable();
-            $table->string('shortName')->nullable();
+            $table->string('short_name')->nullable();
 
             // TODO: membership is n:n
             // TODO: meeting is 1:n
-            // TODO: post is n:n
+            $table->json('post')->nullable();
 
             $table->unsignedInteger('sub_organization_of')->nullable();
             $table->foreign('sub_organization_of')->references('id')->on('oparl_organizations');
@@ -50,17 +50,10 @@ class CreateOrganizationsTable extends Migration
 
             $table->string('website')->nullable();
 
-            $table->string('room')->nullable();
-            $table->string('street_address')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('locality')->nullable();
-
             $table->unsignedInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('oparl_locations');
 
             $table->string('external_body')->nullable();
-
-            // TODO: keyword is n:n
         });
     }
 
