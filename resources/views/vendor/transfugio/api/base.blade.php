@@ -1,7 +1,7 @@
 @extends ('base')
 
 @section ('scripts')
-    <script type="text/javascript" href="{{ asset('/js/api.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/api.js') }}"></script>
 @stop
 
 @section ('content')
