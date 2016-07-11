@@ -423,12 +423,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/Transfugio.git",
-                "reference": "c97f23b67d3b879b6615919c8d73af8a904bfc76"
+                "reference": "89fd35c9c848c81410093b93db34afeb0004c356"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/c97f23b67d3b879b6615919c8d73af8a904bfc76",
-                "reference": "c97f23b67d3b879b6615919c8d73af8a904bfc76",
+                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/89fd35c9c848c81410093b93db34afeb0004c356",
+                "reference": "89fd35c9c848c81410093b93db34afeb0004c356",
                 "shasum": ""
             },
             "require": {
@@ -462,20 +462,20 @@
                 }
             ],
             "description": "Fractal based APIs in Laravel.",
-            "time": "2016-06-12 10:10:51"
+            "time": "2016-07-11 17:58:46"
         },
         {
             "name": "embed/embed",
-            "version": "v1.8.3",
+            "version": "v1.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oscarotero/Embed.git",
-                "reference": "0b2425a9f31e6ac700868a31a0ec81d814553762"
+                "reference": "a5ced0d0b3bc1b97f920bb53492ad70cbf1a6161"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oscarotero/Embed/zipball/0b2425a9f31e6ac700868a31a0ec81d814553762",
-                "reference": "0b2425a9f31e6ac700868a31a0ec81d814553762",
+                "url": "https://api.github.com/repos/oscarotero/Embed/zipball/a5ced0d0b3bc1b97f920bb53492ad70cbf1a6161",
+                "reference": "a5ced0d0b3bc1b97f920bb53492ad70cbf1a6161",
                 "shasum": ""
             },
             "require": {
@@ -508,7 +508,7 @@
                 "opengraph",
                 "twitter cards"
             ],
-            "time": "2015-01-22 12:01:19"
+            "time": "2016-07-09 12:10:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2315,23 +2315,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.2",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1,<0.9.4"
+                "mockery/mockery": "~0.9.1"
             },
             "type": "library",
             "extra": {
@@ -2364,7 +2364,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-07-08 11:51:25"
         },
         {
             "name": "symfony/console",

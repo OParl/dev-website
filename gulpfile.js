@@ -37,6 +37,8 @@ elixir(function(mix) {
 
             'prismjs/components/prism-javascript.js',
             'prismjs/components/prism-sql.js',
+            'prismjs/components/prism-php.js',
+            'prismjs/components/prism-python.js',
 
             'prismjs/plugins/line-numbers/prism-line-numbers.js',
 

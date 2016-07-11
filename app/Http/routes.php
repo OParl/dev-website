@@ -20,7 +20,7 @@
  * dev.oparl.org except the api/ section which is loaded in via the
  * OParl\Server\ServerServiceProvider.
  */
-$router->group(['domain' => config('app.url')], function () use ($router) {
+$router->group(['domain' => 'dev.' . config('app.url')], function () use ($router) {
     $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
 
     // Specification
@@ -102,6 +102,10 @@ $router->group(['domain' => 'spec.' . config('app.url')], function () use ($rout
         return redirect()->route('specification.index');
     });
 
+    $router->get('/1.0', function() {
+        return redirect()->route('specification.index');
+    });
+
     $router->get('/{downloadsVersion}.{downloadsExtension}', [
         'uses' => 'DownloadsController@getFile',
         'as'   => 'downloads.alternative.provide',
@@ -126,8 +130,8 @@ $router->group(['domain' => 'schema.' . config('app.url')], function () use ($ro
         return redirect()->route('developers.index');
     });
 
-    $router->get('/{version}/{entity}.json', [
+    $router->get('/1.0/{entity}', [
         'uses' => 'SchemaController@getSchema',
         'as'   => 'schema.get',
-    ])->where('version', '(1.0|latest)')->where('entity', '[A-Za-z]+');
+    ])->where('entity', '[A-Za-z]+');
 });

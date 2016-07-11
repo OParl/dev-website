@@ -8,13 +8,26 @@ use App\Http\Requests;
 
 class SchemaController extends Controller
 {
-    public function getSchema(Filesystem $fs, $version, $entity)
+    public function getSchema(Filesystem $fs, $entity)
     {
-        abort_unless(
-            strcmp($version, '1.0') == 0,
-            404,
-            'The requested schema version was not found on the server.'
-        );
+        if (!in_array(
+            $entity,
+            [
+                'System',
+                'Body',
+                'LegislativeTerm',
+                'Person',
+                'Organization',
+                'Location',
+                'File',
+                'Membership',
+                'Meeting',
+                'Paper',
+                'Consultation'
+            ]
+        )) {
+            abort(404);
+        }
 
         $entityPath = "live_version/schema/{$entity}.json";
 

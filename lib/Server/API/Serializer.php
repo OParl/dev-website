@@ -2,14 +2,15 @@
 
 namespace OParl\Server\API;
 
+use EFrane\Transfugio\Transformers\SanitizedArraySerializer;
 use League\Fractal\Pagination\PaginatorInterface;
-use League\Fractal\Serializer\ArraySerializer;
 
-class Serializer extends ArraySerializer
+class Serializer extends SanitizedArraySerializer
 {
     public function collection($resourceKey, array $data)
     {
-        return [($resourceKey) ? $resourceKey : 'data' => $data];
+        $data = parent::collection($resourceKey, $data);
+        return [($resourceKey) ? $resourceKey : 'data' => $data['data']];
     }
 
     public  function meta(array $meta)
