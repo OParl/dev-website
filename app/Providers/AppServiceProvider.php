@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Http\ViewComposers\AdminHeader;
 use App\Http\ViewComposers\Header;
-use App\Http\ViewComposers\NewsArchive;
+use App\Http\ViewComposers\Piwik;
+
 use EFrane\Letterpress\Letterpress;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,9 +21,7 @@ class AppServiceProvider extends ServiceProvider
         $v = view();
 
         $v->composer('header', Header::class);
-        $v->composer('news.archive', NewsArchive::class);
-
-        $v->composer('admin.header', AdminHeader::class);
+        $v->composer('piwik', Piwik::class);
 
         // add a @markdown(...) directive which formats value to markdown
         \Blade::directive('markdown', function ($expr) {
@@ -36,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
     \$letterpress = app(EFrane\Letterpress\Letterpress::class);
     \$markuped = \$letterpress->markdown($expr);
     \$typofixed = \$letterpress->typofix(\$markuped);
-    
+
     echo \$typofixed;
 ?>
 LPMARKUP;
