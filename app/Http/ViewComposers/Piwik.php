@@ -10,6 +10,6 @@ class Piwik {
     {
         return $view
             ->with('url', config('piwik.url'))
-            ->with('siteid', config('piwik.siteid'));
+            ->with('siteId', config('piwik.siteId'));
     }
 }
