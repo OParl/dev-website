@@ -11,7 +11,7 @@ class ConsultationTransformer extends BaseTransformer
     {
         return [
             'id'      => route('api.v1.consultation.show', $consultation),
-            'type'    => 'http://spec.oparl.org/spezifikation/1.0/#entity-consultation',
+            'type'    => 'https://schema.oparl.org/1.0/Consultation',
             'keyword' => $consultation->keywords->pluck('human_name'),
         ];
     }

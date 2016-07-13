@@ -11,7 +11,7 @@ class LocationTransformer extends BaseTransformer
     {
         $data = [
             'id'            => route('api.v1.location.show', $location),
-            'type'          => 'http://spec.oparl.org/spezifikation/1.0/#entity-location',
+            'type'          => 'https://schema.oparl.org/1.0/Location',
             'description'   => $location->description,
             'geojson'       => $location->geojson,
             'streetAddress' => $location->street_address,

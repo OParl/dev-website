@@ -11,7 +11,7 @@ class FileTransformer extends BaseTransformer
     {
         return [
             'id'      => route('api.v1.file.show', $file),
-            'type'    => 'http://spec.oparl.org/spezifikation/1.0/#entity-file',
+            'type'    => 'https://schema.oparl.org/1.0/File',
             'keyword' => $file->keywords->pluck('human_name'),
         ];
     }

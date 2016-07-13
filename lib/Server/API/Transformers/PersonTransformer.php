@@ -13,7 +13,7 @@ class PersonTransformer extends BaseTransformer
     {
         return [
             'id'            => route('api.v1.person.show', $person),
-            'type'          => 'http://spec.oparl.org/spezifikation/1.0/#entity-person',
+            'type'          => 'https://schema.oparl.org/1.0/Person',
             'body'          => route('api.v1.body.show', $person->body_id),
             'name'          => $person->name,
             'familyName'    => $person->family_name,

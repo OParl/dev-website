@@ -11,8 +11,8 @@ class SystemTransformer extends BaseTransformer
     {
         return [
             'id'                 => route('api.v1.system.show', $system),
-            'type'               => 'http://spec.oparl.org/spezifikation/1.0/#system-entity',
-            'oparlVersion'       => 'http://spec.oparl.org/spezifikation/1.0',
+            'type'               => 'https://schema.oparl.org/1.0/System',
+            'oparlVersion'       => 'https://spec.oparl.org/1.0',
             'name'               => $system->name,
             'body'               => $this->collectionRouteList('api.v1.body.show', $system->bodies),
             'vendor'             => $system->vendor,

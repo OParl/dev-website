@@ -13,7 +13,7 @@ class BodyTransformer extends BaseTransformer
     {
         return [
             'id'                => route('api.v1.body.show', $body),
-            'type'              => 'https://spec.oparl.org/spezifikation/1.0/#body-entity',
+            'type'              => 'https://schema.oparl.org/1.0/Body',
             'system'            => route('api.v1.system.show', $body->system),
             'shortName'         => $body->short_name,
             'name'              => $body->name,

@@ -11,7 +11,7 @@ class AgendaItemTransformer extends BaseTransformer
     {
         return [
             'id'      => route('api.v1.agendaitem.show', $agendaItem->id),
-            'type'    => 'http://spec.oparl.org/spezifikation/1.0/#entity-agendaitem',
+            'type'    => 'https://schema.oparl.org/1.0/AgendaItem',
             'keyword' => $agendaItem->keywords->pluck('human_name'),
         ];
     }

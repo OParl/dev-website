@@ -11,7 +11,7 @@ class PaperTransformer extends BaseTransformer
     {
         return [
             'id'      => route('api.v1.paper.show', $paper),
-            'type'    => 'http://spec.oparl.org/spezifikation/1.0/#entity-paper',
+            'type'    => 'https://schema.oparl.org/1.0/Paper',
             'keyword' => $paper->keywords->pluck('human_name'),
         ];
     }

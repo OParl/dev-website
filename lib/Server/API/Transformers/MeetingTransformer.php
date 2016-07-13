@@ -33,7 +33,7 @@ class MeetingTransformer extends BaseTransformer
     {
         return [
             'id'           => route('api.v1.meeting.index', $meeting),
-            'type'         => 'http://spec.oparl.org/spezifikation/1.0/#entity-meeting',
+            'type'         => 'https://schema.oparl.org/1.0/Meeting',
             'name'         => $meeting->name,
             'meetingState' => $meeting->meeting_state,
             'cancelled'    => $meeting->cancelled,

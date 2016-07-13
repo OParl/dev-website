@@ -13,7 +13,7 @@ class OrganizationTransformer extends BaseTransformer
     {
         return [
             'id'                => route('api.v1.organization.show', $organization),
-            'type'              => 'http://spec.oparl.org/spezifikation/1.0/#entity-organization',
+            'type'              => 'https://schema.oparl.org/1.0/Organization',
             'body'              => route('api.v1.body.show', $organization->body_id),
             'name'              => $organization->name,
             'shortName'         => $organization->short_name,

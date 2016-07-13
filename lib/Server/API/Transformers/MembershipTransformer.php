@@ -11,7 +11,7 @@ class MembershipTransformer extends BaseTransformer
     {
         $data = [
             'id'           => route('api.v1.membership.show', $membership),
-            'type'         => 'http://spec.oparl.org/spezifikation/1.0/#entity-membership',
+            'type'         => 'https://schema.oparl.org/1.0/Membership',
             'organization' => route('api.v1.organization.show', $membership->organization),
             'role'         => $membership->role,
             'votingRight'  => $membership->voting_right,
