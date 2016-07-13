@@ -13,6 +13,7 @@ class SchemaController extends Controller
         if (!in_array(
             $entity,
             [
+                'AgendaItem',
                 'System',
                 'Body',
                 'LegislativeTerm',
@@ -28,6 +29,12 @@ class SchemaController extends Controller
         )) {
             abort(404);
         }
+
+        // rewrite embedded entities
+        if ($entity === 'LegislativeTerm') $entity = 'Body';
+        if ($entity === 'Membership') $entity = 'Organization';
+        if ($entity === 'AgendaItem') $entity = 'Meeting';
+        if ($entity === 'Consultation') $entity = 'Paper';
 
         $entityPath = "live_version/schema/{$entity}.json";
 
