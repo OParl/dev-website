@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
-
 use App\Http\Requests;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 class SchemaController extends Controller
 {
@@ -24,17 +23,29 @@ class SchemaController extends Controller
                 'Membership',
                 'Meeting',
                 'Paper',
-                'Consultation'
+                'Consultation',
             ]
-        )) {
+        )
+        ) {
             abort(404);
         }
 
         // rewrite embedded entities
-        if ($entity === 'LegislativeTerm') $entity = 'Body';
-        if ($entity === 'Membership') $entity = 'Organization';
-        if ($entity === 'AgendaItem') $entity = 'Meeting';
-        if ($entity === 'Consultation') $entity = 'Paper';
+        if ($entity === 'LegislativeTerm') {
+            $entity = 'Body';
+        }
+
+        if ($entity === 'Membership') {
+            $entity = 'Organization';
+        }
+
+        if ($entity === 'AgendaItem') {
+            $entity = 'Meeting';
+        }
+
+        if ($entity === 'Consultation') {
+            $entity = 'Paper';
+        }
 
         $entityPath = "live_version/schema/{$entity}.json";
 
