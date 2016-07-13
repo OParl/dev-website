@@ -8,6 +8,8 @@ use Illuminate\Contracts\View\View;
 class Piwik {
     public function compose(View $view)
     {
-        return $view->with('url', config('piwik.url'))->with('siteid' => config('piwik.siteid'));
+        return $view
+            ->with('url', config('piwik.url'))
+            ->with('siteid', config('piwik.siteid'));
     }
 }

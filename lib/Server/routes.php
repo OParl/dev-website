@@ -1,7 +1,7 @@
 <?php
 /* @var Illuminate\Routing\Router $router */
 $router->group([
-    'domain'     => config('app.url'),
+    'domain'     => 'dev.' . config('app.url'),
     'prefix'     => 'api/v1/',
     'middleware' => ['api.format'],
 ], function () use ($router) {
