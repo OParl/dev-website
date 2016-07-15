@@ -50,7 +50,6 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-/*
 $app->configureMonologUsing(function (Logger $monolog) {
     $logPath = storage_path('logs/laravel.log');
     $logStreamHandler = new StreamHandler($logPath, Logger::DEBUG);
@@ -62,7 +61,6 @@ $app->configureMonologUsing(function (Logger $monolog) {
 
     $monolog->pushHandler($logStreamHandler);
 });
-*/
 
 /*
 |--------------------------------------------------------------------------

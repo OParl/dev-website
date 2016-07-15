@@ -125,6 +125,8 @@ class HooksController extends Controller
                 'success' => true,
             ]);
         } catch (\Exception $e) {
+            \Log::critical($e);
+
             return response()->json([
                 'version'   => $request->input('version'),
                 'success'   => false,
