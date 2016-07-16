@@ -102,22 +102,16 @@ class HooksController extends Controller
             $hash = $request->input('version');
             $build = $buildRepository->getWithHash($hash);
 
-            collect($request->file())->each(function (UploadedFile $file) use ($build) {
-                $ext = $file->getClientOriginalExtension();
+            if (count($request->file()) !== 1) {
+                throw new \BadMethodCallException("Expected a file");
+            }
 
-                if (ends_with($ext, 'gz')) {
-                    $file->move($build->storage_path, $build->tar_gz_filename);
-                }
+            $zipFile = $request->file();
+            if (!ends_with($zipFile->getClientOriginalExtension(), 'zip')) {
+                throw new \BadMethodCallException("Expected a zipfile");
+            }
 
-                if (ends_with($ext, 'bz2')) {
-                    $file->move($build->storage_path, $build->tar_bz_filename);
-                }
-
-                if (ends_with($ext, 'zip')) {
-                    $file->move($build->storage_path, $build->zip_filename);
-                }
-            });
-
+            $zipFile->move($build->storage_path, $build->zip_filename);
             $this->dispatch(new ExtractSpecificationBuildJob($build));
 
             return response()->json([

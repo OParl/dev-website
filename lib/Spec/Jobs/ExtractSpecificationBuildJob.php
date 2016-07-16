@@ -23,7 +23,7 @@ class ExtractSpecificationBuildJob extends SpecificationJob
     public function handle()
     {
         // extract
-        $extractCmd = sprintf('tar -xzf %s out/', $this->build->tar_gz_storage_path);
+        $extractCmd = sprintf('unzip %s', $this->build->tar_gz_storage_path);
 
         $process = new Process($extractCmd);
         $process->setWorkingDirectory($this->build->extracted_files_storage_path);
@@ -33,7 +33,7 @@ class ExtractSpecificationBuildJob extends SpecificationJob
             $process->run();
         } catch (ProcessFailedException $e) {
             $output = $process->getOutput();
-            \Log::error("Specification Build archive extraction failed. Full output follows:\n\n{$output}");
+            \Log::error("Specification archive extraction failed. Full output follows:\n\n{$output}");
         }
 
         // move from out/* to ../
@@ -43,6 +43,11 @@ class ExtractSpecificationBuildJob extends SpecificationJob
         $process->setWorkingDirectory($this->build->extracted_files_storage_path);
         $process->mustRun();
 
-        $process->run();
+        try {
+            $process->run();
+        } catch (ProcessFailedException $e) {
+            $output = $process->getOutput();
+            \Log::error("Moving specification assets failed. Full output follows:\n\n{$output}");
+        }
     }
 }
