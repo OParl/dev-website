@@ -102,11 +102,11 @@ class HooksController extends Controller
             $hash = $request->input('version');
             $build = $buildRepository->getWithHash($hash);
 
-            if (count($request->file()) !== 1) {
+            if (count($request->file('zip')) !== 1) {
                 throw new \BadMethodCallException("Expected a file");
             }
 
-            $zipFile = $request->file();
+            $zipFile = $request->file('zip');
             if (!ends_with($zipFile->getClientOriginalExtension(), 'zip')) {
                 throw new \BadMethodCallException("Expected a zipfile");
             }

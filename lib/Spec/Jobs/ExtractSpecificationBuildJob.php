@@ -23,7 +23,7 @@ class ExtractSpecificationBuildJob extends SpecificationJob
     public function handle()
     {
         // extract
-        $extractCmd = sprintf('unzip %s', $this->build->tar_gz_storage_path);
+        $extractCmd = sprintf('unzip %s', $this->build->zip_storage_path);
 
         $process = new Process($extractCmd);
         $process->setWorkingDirectory($this->build->extracted_files_storage_path);
