@@ -14,7 +14,7 @@
     <p>Die Archive enthalten alle Ausgabeformate.</p>
     <ul>
         <li><a href="{{ route('downloads.provide', [$build->short_hash, 'zip']) }}">Zip</a></li>
-        <li><a href="{{ route('downloads.provide', [$build->short_hash, 'tar.gz']) }}">Gzip</a></li>
-        <li><a href="{{ route('downloads.provide', [$build->short_hash, 'tar.bz2']) }}">Bzip2</a></li>
+        {{--<li><a href="{{ route('downloads.provide', [$build->short_hash, 'tar.gz']) }}">Gzip</a></li>
+        <li><a href="{{ route('downloads.provide', [$build->short_hash, 'tar.bz2']) }}">Bzip2</a></li>--}}
     </ul>
 </div>
