@@ -20,8 +20,10 @@
                         @else
                             <li role="presentation">
                         @endif
-                            @if (isset($section['routeKey']))
+                            @if (isset($section['routeKey']) && !isset($section['params']))
                                 <a href="{{ route($section['routeKey'] . '.index') }}">
+                            @elseif (isset($section['params']))
+                                <a href="{{ route($section['routeKey'], $section['params']) }}">
                             @else
                                 <a href="{{ $section['url'] }}" target="_blank">
                             @endif
