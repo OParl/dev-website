@@ -7,14 +7,14 @@
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
         <meta property="og:locale" content="de_DE">
         <meta property="og:type" content="website">
         <meta property="og:title" content="OParl - Initiative für Offenheit parlamentarischer Informationssysteme">
         <meta property="og:description" content="Initiative für Offenheit parlamentarischer Informationssysteme">
         <meta property="og:site_name" content="OParl">
-        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:url" content="{{ route('developers.index') }}">
 
         <title>
             @if (isset($title))
