@@ -31,8 +31,9 @@ class AppServiceProvider extends ServiceProvider
         \Blade::directive('press', function ($expr) {
             return<<<LPMARKUP
 <?php
+    \$expr = collect(explode("\n", $expr))->map(function (\$line) { return trim(\$line); })->implode("\n");
     \$letterpress = app(EFrane\Letterpress\Letterpress::class);
-    \$markuped = \$letterpress->markdown($expr);
+    \$markuped = \$letterpress->markdown(\$expr);
     \$typofixed = \$letterpress->typofix(\$markuped);
 
     echo \$typofixed;

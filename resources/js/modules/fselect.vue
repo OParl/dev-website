@@ -39,7 +39,7 @@
                             .on('change', function (e) {
                                 var anchor = e.target.selectedOptions[0].value;
                                 document.location.hash = anchor;
-                                $(anchor).scroll();
+                                $(anchor).scroll({ animate: true });
                             });
                 }, 300);
 
