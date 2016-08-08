@@ -23,8 +23,6 @@ elixir(function(mix) {
         [
             'prismjs/themes/prism.css',
             'prismjs/plugins/line-numbers/prism-line-numbers.css',
-
-            'select2/dist/css/select2.css'
         ], 'public/css/lib.css', 'node_modules'
     );
 
@@ -49,8 +47,6 @@ elixir(function(mix) {
             'bootstrap-sass/assets/javascripts/bootstrap/modal.js',
             'bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
             'bootstrap-sass/assets/javascripts/bootstrap/tab.js',
-
-            'select2/dist/js/select2.js'
         ], 'public/js/lib.js', 'node_modules'
     );
 

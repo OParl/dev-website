@@ -14,6 +14,7 @@
 <script>
     import Vue from 'vue'
     import VueResource from 'vue-resource'
+    import vSelect from
 
     Vue.use(VueResource);
 
@@ -40,10 +41,10 @@
                                 var anchor = e.target.selectedOptions[0].value;
                                 document.location.hash = anchor;
                                 $(anchor).scroll({ animate: true });
-                            });
-                }, 300);
 
-                done();
+                                done();
+                            });
+                }, 100);
             });
         }
     }

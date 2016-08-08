@@ -73,16 +73,6 @@ header {
   border-bottom: none;
 }
 
-@media (max-width: $screen-md) {
-  .toc.affix {
-    position: static;
-
-    > div {
-      max-height: none;
-    }
-  }
-}
-
 p {
   text-align: justify;
   hyphens: auto;
@@ -92,6 +82,10 @@ h1, h2, h3, h4 {
   & > a {
     color: inherit;
   }
+}
+
+nav ul {
+  list-style: none;
 }
 
 a.link-modest {
@@ -118,21 +112,4 @@ figure {
 figcaption {
   text-align: center;
   font-variant: small-caps;
-}
-
-.dropdown-menu > li {
-  $line-height-base: 2 * $line-height-base;
-
-  > .dropdown-menu {
-    display:none;
-  }
-
-  &:hover {
-    > .dropdown-menu {
-      display: inline-block;
-      position: relative;
-      left: 100%;
-      top: -$line-height-computed * (5 / 3);
-    }
-  }
 }
