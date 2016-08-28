@@ -1,5 +1,5 @@
 <?php return [
-    'default' => '',
+    'default' => 'demo',
 
     'demo' => [
         'prefix' => 'oparl_',
