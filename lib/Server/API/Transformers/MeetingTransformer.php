@@ -3,6 +3,8 @@
 namespace OParl\Server\API\Transformers;
 
 use EFrane\Transfugio\Transformers\BaseTransformer;
+use OParl\Server\Model\File;
+use OParl\Server\Model\Location;
 use OParl\Server\Model\Meeting;
 
 class MeetingTransformer extends BaseTransformer
@@ -13,7 +15,7 @@ class MeetingTransformer extends BaseTransformer
         'resultsProtocol',
         'verbatimProtocol',
         'auxiliaryFile',
-        'agendaItem'
+        'agendaItem',
     ];
 
     protected $locationTransformer;
@@ -24,8 +26,8 @@ class MeetingTransformer extends BaseTransformer
     {
         parent::__construct($included);
 
-        $this->locationTransformer   = (new LocationTransformer())->setIncluded(true);
-        $this->fileTransformer       = (new FileTransformer())->setIncluded(true);
+        $this->locationTransformer = (new LocationTransformer())->setIncluded(true);
+        $this->fileTransformer = (new FileTransformer())->setIncluded(true);
         $this->agendaItemTransformer = (new AgendaItemTransformer())->setIncluded(true);
     }
 
@@ -56,31 +58,52 @@ class MeetingTransformer extends BaseTransformer
 
     public function includeLocation(Meeting $meeting)
     {
-        return $this->item($meeting->location, $this->locationTransformer);
+        if ($meeting->location instanceof Location) {
+            return $this->item($meeting->location, $this->locationTransformer);
+        }
+
+        return null;
     }
 
     public function includeInvitation(Meeting $meeting)
     {
-        return $this->item($meeting->invitation, $this->fileTransformer);
+        if ($meeting->invitation instanceof File) {
+            return $this->item($meeting->invitation, $this->fileTransformer);
+        }
+
+        return null;
     }
 
     public function includeResultsProtocol(Meeting $meeting)
     {
-        return $this->item($meeting->resultsProtocol, $this->fileTransformer);
+        if ($meeting->resultsProtocol instanceof File) {
+            return $this->item($meeting->resultsProtocol, $this->fileTransformer);
+        }
+
+        return null;
     }
 
     public function includeVerbatimProtocol(Meeting $meeting)
     {
-        return $this->item($meeting->verbatimProtocol, $this->fileTransformer);
+        if ($meeting->verbatimProtocol instanceof File) {
+            return $this->item($meeting->verbatimProtocol, $this->fileTransformer);
+        }
+
+        return null;
     }
 
     public function includeAuxiliaryFile(Meeting $meeting)
     {
+
         return $this->collection($meeting->auxiliaryFiles, $this->fileTransformer);
+
+        //return null;
     }
 
     public function includeAgendaItem(Meeting $meeting)
     {
         return $this->collection($meeting->agendaItems, $this->agendaItemTransformer);
+
+        //return null;
     }
 }

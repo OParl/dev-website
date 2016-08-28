@@ -7,7 +7,7 @@ class OrganizationTest extends TestCase
         $this->route('get', 'api.v1.organization.index');
         $this->assertResponseStatus(200);
 
-        $responseOrganizationCount = count($this->decodeResponseJson()['data']);
+        $responseOrganizationCount = $this->decodeResponseJson()['pagination']['totalElements'];
         $organizationCount = \OParl\Server\Model\Organization::count();
 
         $this->assertEquals($organizationCount, $responseOrganizationCount);
