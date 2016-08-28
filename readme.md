@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/OParl/spec-website.svg?branch=master)](https://travis-ci.org/OParl/spec-website)
+![https://travis-ci.org/OParl/dev-website.svg?branch=master](Travis CI Status: master)
+![https://travis-ci.org/OParl/dev-website.svg?branch=production](Travis CI Status: production)
 
 # OParl - Entwicklerplattform
 
@@ -14,7 +15,6 @@ Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.
 - node > 6.0
 - npm
 - gulp
-- bower
 
 **Zusätzlich auf dem Server/Homestead VM/etc.**
 
@@ -53,8 +53,6 @@ zugänglich sein.
 
 ### Frontend
 
-Bis zum Ende des [Frontend Refactorings](https://github.com/OParl/spec-website/milestones/Frontend%20Refactoring)
-ist das Frontend noch von Bower zum Laden einiger externer Bibliotheken abhängig.
 Ab gesehen davon basiert die Frontend Entwicklung im Code Management auf Laravel Elixir.
 Zentrale Komponenten sind mit Vue.js realisiert, Wenn im Frontendcode gearbeitet wird,
 empfiehlt es sich mit
