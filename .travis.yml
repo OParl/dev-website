@@ -15,6 +15,11 @@ matrix:
     - php: '7.0'
     - php: hhvm
 
+cache:
+  directories:
+    - vendor/
+    - node_modules/
+
 env:
   global:
     - QUEUE_DRIVER=sync
