@@ -5,6 +5,10 @@ namespace OParl\Server\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class BaseModel
+ * @package OParl\Server\Model
+ */
 class BaseModel extends Model
 {
     use SoftDeletes;

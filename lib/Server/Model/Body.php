@@ -2,6 +2,10 @@
 
 namespace OParl\Server\Model;
 
+/**
+ * Class Body
+ * @package OParl\Server\Model
+ */
 class Body extends BaseModel
 {
     protected $dates = ['license_valid_since', 'oparl_since', 'deleted_at'];

@@ -2,6 +2,11 @@
 
 namespace OParl\Server\Model;
 
+/**
+ * Class System
+ *
+ * @package OParl\Server\Model
+ */
 class System extends BaseModel
 {
     public function bodies()
