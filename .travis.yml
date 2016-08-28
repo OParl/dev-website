@@ -26,7 +26,10 @@ install:
 before_script:
   - composer install --prefer-source --no-interaction --no-scripts
   - touch storage/database.sqlite
+  - touch storage/demodata.sqlite
   - php artisan setup --env=local
+  - php artisan migrate --database=oparl_demo
+  - php artisan server:populate
 
 script: vendor/bin/phpunit
 
