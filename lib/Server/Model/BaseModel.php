@@ -13,6 +13,34 @@ class BaseModel extends Model
 {
     use SoftDeletes;
 
+    protected static $modelConfiguration;
+
+    /**
+     * BaseModel constructor.
+     *
+     * @inheritdoc
+     */
+    public function __construct(array $attributes)
+    {
+        parent::__construct($attributes);
+
+        if (!is_array(self::$modelConfiguration)) {
+            self::setModelConfiguration(config('api.default'));
+        }
+
+        $this->setConnection(self::$modelConfiguration['connection']);
+    }
+
+    public static function getModelConfiguration()
+    {
+        return self::$modelConfiguration;
+    }
+
+    public static function setModelConfiguration($key)
+    {
+        self::$modelConfiguration = config('api.' . $key);
+    }
+
     /**
      * Adjust the table name with the global OParl model prefix.
      *
@@ -24,6 +52,6 @@ class BaseModel extends Model
     {
         $table = parent::getTable();
 
-        return 'oparl_'.$table;
+        return self::$modelConfiguration['prefix'] . $table;
     }
 }
