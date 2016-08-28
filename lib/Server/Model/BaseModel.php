@@ -42,7 +42,7 @@ class BaseModel extends Model
     }
 
     /**
-     * Adjust the table name with the global OParl model prefix.
+     * Adjust the table name with the current model prefix.
      *
      * {@inheritdoc}
      *
