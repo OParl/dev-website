@@ -69,4 +69,6 @@ elixir(function(mix) {
     mix.copy('node_modules/source-sans-pro/TTF/', 'public/fonts/');
     mix.copy('node_modules/source-sans-pro/WOFF/', 'public/fonts/');
     mix.copy('node_modules/source-sans-pro/WOFF2/', 'public/fonts/');
+
+    mix.phpUnit();
 });
