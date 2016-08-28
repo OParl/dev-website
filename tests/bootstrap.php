@@ -23,3 +23,5 @@ if (!file_exists('storage/app/live_version')) {
     $updater = app(LiveVersionUpdater::class);
     $updater->updateRepository();
 }
+
+// TODO: automatically migrate/populate the demo-data db?
