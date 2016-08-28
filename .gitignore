@@ -7,7 +7,7 @@
 /public/img
 
 storage/github
-storage/database.sqlite
+storage/*.sqlite
 .php_cs.cache
 .idea
 composer.phar
