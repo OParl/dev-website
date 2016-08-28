@@ -14,6 +14,8 @@ class GH9Test extends TestCase
         $this->route('get', 'api.v1.organization.index', ['where' => 'body:1']);
 
         $this->assertResponseStatus(200);
-        $this->seeJson(["body" => "http://dev.dev-website.dev/api/v1/body/1"]);
+
+        $host = env('APP_URL');
+        $this->seeJson(["body" => "http://dev.{$host}/api/v1/body/1"]);
     }
 }
