@@ -184,7 +184,12 @@ $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generat
     $romanizer = new Romanizer();
 
     $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
-    $shortName = 'O-' . $romanizer->formatNumber($faker->randomNumber(3));
+
+    do {
+        $shortNameNumber = $faker->randomNumber(3);
+    } while ($shortNameNumber < 0);
+
+    $shortName = 'O-' . $romanizer->formatNumber($shortNameNumber);
 
     $organizationTypes = [
         'externes Gremium',
