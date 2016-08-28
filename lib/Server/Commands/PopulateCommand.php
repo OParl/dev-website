@@ -19,6 +19,7 @@ use OParl\Server\Model\Organization;
 use OParl\Server\Model\Paper;
 use OParl\Server\Model\Person;
 use OParl\Server\Model\System;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class PopulateCommand extends Command
 {
@@ -69,11 +70,14 @@ class PopulateCommand extends Command
 
     protected function generateData()
     {
+        $this->line('Creating the system entity.');
         $system = $this->generateSystem();
 
+        $this->line('Creating some bodies');
         $bodies = collect(range(1, $this->faker->numberBetween(3, 9)))
             ->map(function () use ($system) {
-                return $this->generateBodyWithLegislativeTerms($system);
+                $body = $this->generateBodyWithLegislativeTerms($system);
+                return $body;
             });
 
         $bodies->each(function (Body $body) {
@@ -126,7 +130,8 @@ class PopulateCommand extends Command
                     })->first()
                 );
 
-                $participants = $possibleParticipants->random($this->faker->numberBetween(1, $possibleParticipants->count() / 2));
+                $participants = $possibleParticipants->random($this->faker->numberBetween(1,
+                    $possibleParticipants->count() / 2));
                 if ($participants instanceof Person) {
                     $participants = collect([$participants]);
                 }
@@ -136,14 +141,16 @@ class PopulateCommand extends Command
                 $location = null;
                 if ($meetingOrganizations->count() > 0) {
                     $location = $meetingOrganizations->first()->location;
-                } else if ($participants->count() > 0) {
-                    $location = $participants->first()->location;
                 } else {
-                    $location = $this->getLocation();
+                    if ($participants->count() > 0) {
+                        $location = $participants->first()->location;
+                    } else {
+                        $location = $this->getLocation();
+                    }
                 }
 
                 $meeting->location()->associate($location);
-                
+
                 $agendaItems = factory(AgendaItem::class, $this->faker->numberBetween(1, 25))->create();
                 if ($agendaItems instanceof AgendaItem) {
                     $agendaItems = collect([$agendaItems]);
@@ -181,41 +188,32 @@ class PopulateCommand extends Command
         return $body;
     }
 
-    protected function getSomePeople($maxNb = 50)
+    /**
+     * @return Collection
+     **/
+    protected function getSomeLegislativeTerms($maxNb = 5)
     {
-        if ($maxNb < 2) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
+        if ($maxNb < 5) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 5");
         }
 
-        $amount = $this->faker->numberBetween(2, $maxNb);
+        $amount = $this->faker->numberBetween(1, $maxNb);
 
-        /* @var $people Collection */
-        $people = collect();
+        /* @var $legislativeTerms Collection */
+        $legislativeTerms = collect();
 
-        // NOTE: it may be valuable to make it possible to fetch some existing people
-        //       or only existing people with this method too
-        factory(Person::class, $amount)->create()->each(function (
-            Person $person
-        ) use ($people) {
-            $person->keywords()->saveMany($this->getSomeKeywords());
-            $person->location()->associate($this->getLocation());
-
-            $people->push($person);
-        });
-
-        return $people;
-    }
-
-    protected function getSomeOrganizations($maxNb = 2)
-    {
-        if ($maxNb < 2) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
+        $generatedLegislativeTermOrTerms = factory(LegislativeTerm::class, $amount)->create();
+        if ($generatedLegislativeTermOrTerms instanceof Collection) {
+            $generatedLegislativeTermOrTerms->each(function (
+                LegislativeTerm $term
+            ) use ($legislativeTerms) {
+                $legislativeTerms->push($term);
+            });
+        } else {
+            $legislativeTerms->push($generatedLegislativeTermOrTerms);
         }
 
-        $amount = $this->faker->numberBetween(2, $maxNb);
-
-        // TODO: suborganizations?
-        return factory(Organization::class, $amount)->create();
+        return $legislativeTerms;
     }
 
     protected function getSomeKeywords($maxNb = 10)
@@ -259,31 +257,40 @@ class PopulateCommand extends Command
         return $location;
     }
 
-    /**
-     * @return Collection
-     **/
-    protected function getSomeLegislativeTerms($maxNb = 5)
+    protected function getSomePeople($maxNb = 50)
     {
-        if ($maxNb < 5) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 5");
+        if ($maxNb < 2) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
         }
 
-        $amount = $this->faker->numberBetween(1, $maxNb);
+        $amount = $this->faker->numberBetween(2, $maxNb);
 
-        /* @var $legislativeTerms Collection */
-        $legislativeTerms = collect();
+        /* @var $people Collection */
+        $people = collect();
 
-        $generatedLegislativeTermOrTerms = factory(LegislativeTerm::class, $amount)->create();
-        if ($generatedLegislativeTermOrTerms instanceof Collection) {
-            $generatedLegislativeTermOrTerms->each(function (
-                LegislativeTerm $term
-            ) use ($legislativeTerms) {
-                $legislativeTerms->push($term);
-            });
-        } else {
-            $legislativeTerms->push($generatedLegislativeTermOrTerms);
+        // NOTE: it may be valuable to make it possible to fetch some existing people
+        //       or only existing people with this method too
+        factory(Person::class, $amount)->create()->each(function (
+            Person $person
+        ) use ($people) {
+            $person->keywords()->saveMany($this->getSomeKeywords());
+            $person->location()->associate($this->getLocation());
+
+            $people->push($person);
+        });
+
+        return $people;
+    }
+
+    protected function getSomeOrganizations($maxNb = 2)
+    {
+        if ($maxNb < 2) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
         }
 
-        return $legislativeTerms;
+        $amount = $this->faker->numberBetween(2, $maxNb);
+
+        // TODO: suborganizations?
+        return factory(Organization::class, $amount)->create();
     }
 }
