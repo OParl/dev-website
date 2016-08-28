@@ -28,7 +28,7 @@ before_script:
   - touch storage/database.sqlite
   - touch storage/demodata.sqlite
   - php artisan setup --env=local
-  - php artisan migrate --database=oparl_demo
+  - php artisan migrate --database=sqlite_demo
   - php artisan server:populate
 
 script: vendor/bin/phpunit
