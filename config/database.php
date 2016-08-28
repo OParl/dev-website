@@ -46,44 +46,26 @@ return [
 
     'connections' => [
 
+        // main database
         'sqlite' => [
             'driver'   => 'sqlite',
             'database' => storage_path().'/database.sqlite',
             'prefix'   => '',
         ],
 
-        'mysql' => [
-            'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'forge'),
-            'username'  => env('DB_USERNAME', 'forge'),
-            'password'  => env('DB_PASSWORD', ''),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
-        ],
-
-        'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-        ],
-
-        'sqlsrv' => [
-            'driver'   => 'sqlsrv',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+        // oparl api demo data
+        'sqlite_demo' => [
+            'driver'   => 'sqlite',
+            'database' => storage_path().'/demodata.sqlite',
             'prefix'   => '',
         ],
 
+        // oparl api production data
+        'sqlite_prod' => [
+            'driver'   => 'sqlite',
+            'database' => storage_path().'/production.sqlite',
+            'prefix'   => '',
+        ],
     ],
 
     /*
