@@ -7,7 +7,7 @@ class BodyTest extends TestCase
         $this->route('get', 'api.v1.body.index');
         $this->assertResponseStatus(200);
 
-        $responseBodyCount = count($this->decodeResponseJson()['data']);
+        $responseBodyCount = $this->decodeResponseJson()['pagination']['totalElements'];
         $bodyCount = \OParl\Server\Model\Body::count();
 
         $this->assertEquals($bodyCount, $responseBodyCount);
