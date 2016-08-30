@@ -75,9 +75,7 @@ $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Gene
 });
 
 $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator $faker) {
-    do {
-        $number = $faker->randomNumber(3);    
-    } while ($number < 1);
+    $number = $faker->numberBetween(101, 999);
 
     if ($faker->boolean()) {
         $romanizer = new Romanizer();

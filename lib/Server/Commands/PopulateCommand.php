@@ -70,21 +70,19 @@ class PopulateCommand extends Command
 
     protected function generateData()
     {
-        $this->line('Creating the system entity.');
         $system = $this->generateSystem();
 
-        $this->line('Creating some bodies');
-        $bodies = collect(range(1, $this->faker->numberBetween(3, 9)))
+        $bodies = collect(range(1, 3))
             ->map(function () use ($system) {
                 $body = $this->generateBodyWithLegislativeTerms($system);
                 return $body;
             });
 
         $bodies->each(function (Body $body) {
-            $people = $this->getSomePeople($this->faker->randomElement([10, 100, 1000]));
+            $people = $this->getSomePeople($this->faker->randomElement([10, 50, 100, 200]));
             $body->people()->saveMany($people);
 
-            $organizations = $this->getSomeOrganizations($this->faker->randomElement([10, 20, 50]));
+            $organizations = $this->getSomeOrganizations($this->faker->randomElement([1, 5, 10]));
             $organizations->each(function (Organization $organization) use ($body, $people) {
                 $organization->body()->associate($body);
 
@@ -110,11 +108,15 @@ class PopulateCommand extends Command
                 $organization->save();
             });
 
-            $meetings = factory(Meeting::class, $this->faker->numberBetween(10, 100))->create();
+            $meetings = factory(Meeting::class, $this->faker->numberBetween(10, 50))->create();
             $meetings->each(function (Meeting $meeting) use ($organizations) {
                 /* @var $organizations Collection */
-                $meetingOrganizations = $organizations->random($this->faker->numberBetween(1,
-                    $organizations->count() / 2));
+                if ($organizations->count() > 1) {
+                    $meetingOrganizations = $organizations->random($this->faker->numberBetween(1,
+                        $organizations->count() / 2));
+                } else {
+                    $meetingOrganizations = $organizations;
+                }
 
                 if ($meetingOrganizations instanceof Organization) {
                     $meetingOrganizations = collect([$meetingOrganizations]);
@@ -151,7 +153,7 @@ class PopulateCommand extends Command
 
                 $meeting->location()->associate($location);
 
-                $agendaItems = factory(AgendaItem::class, $this->faker->numberBetween(1, 25))->create();
+                $agendaItems = factory(AgendaItem::class, $this->faker->numberBetween(1, 10))->create();
                 if ($agendaItems instanceof AgendaItem) {
                     $agendaItems = collect([$agendaItems]);
                 }
@@ -191,10 +193,10 @@ class PopulateCommand extends Command
     /**
      * @return Collection
      **/
-    protected function getSomeLegislativeTerms($maxNb = 5)
+    protected function getSomeLegislativeTerms($maxNb = 3)
     {
-        if ($maxNb < 5) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 5");
+        if ($maxNb < 1) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 1");
         }
 
         $amount = $this->faker->numberBetween(1, $maxNb);
@@ -216,7 +218,7 @@ class PopulateCommand extends Command
         return $legislativeTerms;
     }
 
-    protected function getSomeKeywords($maxNb = 10)
+    protected function getSomeKeywords($maxNb = 5)
     {
         if ($maxNb < 0) {
             throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 0");
@@ -284,13 +286,20 @@ class PopulateCommand extends Command
 
     protected function getSomeOrganizations($maxNb = 2)
     {
-        if ($maxNb < 2) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
+        if ($maxNb < 1) {
+            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 1");
         }
 
-        $amount = $this->faker->numberBetween(2, $maxNb);
+        $amount = $this->faker->numberBetween(1, $maxNb);
+
+        $organizations = collect();
+        factory(Organization::class, $amount)->create()->each(function (
+            Organization $organization
+        ) use ($organizations) {
+            $organizations->push($organization);
+        });
 
         // TODO: suborganizations?
-        return factory(Organization::class, $amount)->create();
+        return $organizations;
     }
 }
