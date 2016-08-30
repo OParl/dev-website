@@ -24,7 +24,7 @@ $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $fa
 
         'contact_name'  => $faker->name,
         'contact_email' => $faker->email,
-        'website'       => 'http://spec.oparl.org/demo'
+        'website'       => route('api.index')
     ];
 });
 
