@@ -1,5 +1,5 @@
-![https://travis-ci.org/OParl/dev-website.svg?branch=master](Travis CI Status: master)
-![https://travis-ci.org/OParl/dev-website.svg?branch=production](Travis CI Status: production)
+![Travis CI Status: master](https://travis-ci.org/OParl/dev-website.svg?branch=master)
+![Travis CI Status: production](https://travis-ci.org/OParl/dev-website.svg?branch=production)
 
 # OParl - Entwicklerplattform
 
