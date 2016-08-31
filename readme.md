@@ -3,7 +3,7 @@ Production: ![Travis CI Status: production](https://travis-ci.org/OParl/dev-webs
 
 # OParl - Entwicklerplattform
 
-Dies ist der Code zur [OParl-Entwicklerplattform](http://dev.oparl.org).
+Dies ist der Code zur [OParl-Entwicklerplattform](https://dev.oparl.org).
 Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.  
 
 ## Mitentwickeln
