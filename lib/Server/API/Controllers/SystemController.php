@@ -3,12 +3,14 @@
 namespace OParl\Server\API\Controllers;
 
 use EFrane\Transfugio\Http\APIController;
+use EFrane\Transfugio\Http\Method\IndexItemTrait;
 use EFrane\Transfugio\Http\Method\IndexPaginatedTrait;
 use EFrane\Transfugio\Http\Method\ShowItemTrait;
 use OParl\Server\Model\System;
 
 class SystemController extends APIController
 {
-    use IndexPaginatedTrait;
-    use ShowItemTrait;
+    use IndexItemTrait;
+
+    protected $item_id = 1;
 }

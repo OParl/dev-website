@@ -11,7 +11,7 @@ class GH9Test extends TestCase
 
     public function testFetchOrganizationWhereBodyCondition()
     {
-        $this->route('get', 'api.v1.organization.index', ['where' => 'body:1']);
+        $this->route('get', 'api.v1.organization.index', ['where' => encode_where(['body' => '1'])]);
 
         $this->assertResponseStatus(200);
 
