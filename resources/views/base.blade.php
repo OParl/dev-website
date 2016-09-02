@@ -59,13 +59,7 @@
                     </div>
                 </div>
             </div>
-            <footer class="row">
-                <hr />
-
-                <div class="col-md-12">
-                    <img src="{{ asset('img/okf-de-logo.png') }}" alt="Logo der OpenKnowledge Foundation Deutschland"/>
-                </div>
-            </footer>
+            @include ('footer')
         </div>
 
         <script src="{{ asset('/js/lib.js') }}"></script>
