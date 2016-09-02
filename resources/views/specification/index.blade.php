@@ -2,7 +2,7 @@
 
 @section ('content')
     <div>
-        <div class="row sub-nav fixed-top" id="specification-sub-nav">
+        <header class="row sub-nav fixed-top bg-secondary" id="specification-sub-nav">
             @if (!$isLoggedIn)
                 <div class="hidden-xs col-md-8 col-md-offset-2 text-center">
                     <h2 title="git: {{ $liveversion->getHash() }}, {{ $liveversion->getLastModified() }}">
@@ -38,7 +38,7 @@
                     <f-select label="Wähle eine andere Version" data="versions"></f-select>
                 </div>
             @endif
-        </div>
+        </header>
 
         <div class="row">
             {{-- TODO: make this more dynamic --}}

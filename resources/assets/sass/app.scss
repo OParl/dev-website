@@ -12,20 +12,33 @@ body {
 
 header {
   border-bottom: .15em inset darken($brand-primary, 15%);
+
   margin-left: -15px;
   margin-right: -15px;
 }
 
-.sub-nav {
-  border-bottom: .15em inset darken($brand-primary, 15%);
-
-  background:
-    radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 0 0,
-    radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 8px 8px,
-    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+.bg-secondary {
+  background: radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 0 0,
+      radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 8px 8px,
+      radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+      radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
   background-color: $brand-primary;
   background-size:16px 16px;
+}
+
+.separator-lg {
+  @extend .bg-secondary;
+
+  border-top: .15em outset darken($brand-primary, 15%);
+  border-bottom: .15em inset darken($brand-primary, 15%);
+
+  height: 0.9em;
+
+  margin-bottom: 1.2em;
+}
+
+.sub-nav {
+
 
   padding: 1.2em 0 0.6em 0;
 
@@ -112,4 +125,8 @@ figure {
 figcaption {
   text-align: center;
   font-variant: small-caps;
+}
+
+.pb-2 {
+  padding-bottom: 2em;
 }

@@ -18,8 +18,8 @@ class Header
         ],
 
         [
-            'routeKey' => 'api.v1.system.show',
-            'params'   => [1, 'format' => 'html'],
+            'routeKey' => 'api.v1.system.index',
+            'params'   => ['format' => 'html'],
             'title'    => 'Demo',
         ],
 

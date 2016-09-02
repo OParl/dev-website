@@ -1,9 +1,11 @@
 @extends ('base')
 
 @section ('content')
-    <div class="col-xs-12 col-md-8 col-md-offset-2">
-        <h1>Willkommen auf dem OParl-Entwicklerportal!</h1>
-    </div>
+    <header class="row sub-nav fixed-top bg-secondary">
+        <div class="col-xs-12 col-md-offset-2 col-md-8">
+            <h2>OParl Entwicklerportal - Startseite</h2>
+        </div>
+    </header>
 
     <div class="col-xs-12 col-md-4 col-md-offset-2">
         <h2>Was ist OParl?</h2>
