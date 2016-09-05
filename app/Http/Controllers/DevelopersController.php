@@ -18,4 +18,9 @@ class DevelopersController extends Controller
 
         return view('developers.index');
     }
+
+    public function contact()
+    {
+        return view('developers.contact');
+    }
 }
