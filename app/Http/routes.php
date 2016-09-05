@@ -53,6 +53,8 @@ $router->group(['domain' => 'dev.' . config('app.url')], function () use ($route
 
     $router->post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 
+    $router->get('/contact', ['uses' => 'DevelopersController@index', 'as' => 'contact.index']);
+
     // Hooks
     $router->get('/_hooks', function () {
         return redirect()->route('specification.index');

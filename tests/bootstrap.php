@@ -24,4 +24,6 @@ if (!file_exists('storage/app/live_version')) {
     $updater->updateRepository();
 }
 
+PHPUnit_Extensions_Selenium2TestCase::shareSession(true);
+
 // TODO: automatically migrate/populate the demo-data db?
