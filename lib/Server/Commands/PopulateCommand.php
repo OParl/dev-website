@@ -200,6 +200,8 @@ class PopulateCommand extends Command
         }
 
         $amount = $this->faker->numberBetween(1, $maxNb);
+        $progressBar = new ProgressBar($this->output, $amount);
+        $this->info('Creating LegislativeTerm entities');
 
         /* @var $legislativeTerms Collection */
         $legislativeTerms = collect();
@@ -208,12 +210,16 @@ class PopulateCommand extends Command
         if ($generatedLegislativeTermOrTerms instanceof Collection) {
             $generatedLegislativeTermOrTerms->each(function (
                 LegislativeTerm $term
-            ) use ($legislativeTerms) {
+            ) use ($legislativeTerms, $progressBar) {
                 $legislativeTerms->push($term);
+                $progressBar->advance();
             });
         } else {
             $legislativeTerms->push($generatedLegislativeTermOrTerms);
+            $progressBar->advance();
         }
+
+        $this->line('');
 
         return $legislativeTerms;
     }
@@ -267,6 +273,9 @@ class PopulateCommand extends Command
 
         $amount = $this->faker->numberBetween(2, $maxNb);
 
+        $progressBar = new ProgressBar($this->output, $amount);
+        $this->info('Creating People entities');
+
         /* @var $people Collection */
         $people = collect();
 
@@ -274,12 +283,16 @@ class PopulateCommand extends Command
         //       or only existing people with this method too
         factory(Person::class, $amount)->create()->each(function (
             Person $person
-        ) use ($people) {
+        ) use ($people, $progressBar) {
             $person->keywords()->saveMany($this->getSomeKeywords());
             $person->location()->associate($this->getLocation());
 
             $people->push($person);
+
+            $progressBar->advance();
         });
+
+        $this->line('');
 
         return $people;
     }
@@ -292,12 +305,18 @@ class PopulateCommand extends Command
 
         $amount = $this->faker->numberBetween(1, $maxNb);
 
+        $this->info('Creating Organization entities');
+        $progressBar = new ProgressBar($this->output, $amount);
+
         $organizations = collect();
         factory(Organization::class, $amount)->create()->each(function (
             Organization $organization
-        ) use ($organizations) {
+        ) use ($organizations, $progressBar) {
             $organizations->push($organization);
+            $progressBar->advance();
         });
+
+        $this->line('');
 
         // TODO: suborganizations?
         return $organizations;

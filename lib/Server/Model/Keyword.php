@@ -4,6 +4,11 @@ namespace OParl\Server\Model;
 
 use Cocur\Slugify\Slugify;
 
+/**
+ * Class Keyword
+ *
+ * @package OParl\Server\Model
+ */
 class Keyword extends BaseModel
 {
     public function getNameAttribute()

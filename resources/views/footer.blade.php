@@ -5,8 +5,9 @@
     <div class="col-xs-12 col-md-offset-2 col-md-8">
         <ul class="list-inline list-unstyled text-tiny pb-2">
             <li>
-                <a href="https://lists.okfn.org/mailman/listinfo/oparl-tech">OParl Tech Mailingliste</a>
+                <a href="https://lists.okfn.org/mailman/listinfo/oparl-tech">@OParl-Tech</a>
             </li>
+            <li><a href="{{ route('contact.index') }}">Kontakt</a></li>
         </ul>
 
         <div class="pull-left">
