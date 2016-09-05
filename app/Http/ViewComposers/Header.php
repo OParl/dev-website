@@ -25,7 +25,7 @@ class Header
 
         [
             'title' => 'Kontakt',
-            'url'   => 'https://oparl.org/kontakt/',
+            'routeKey' => 'contact',
         ],
     ];
 

@@ -4,13 +4,13 @@
     <script type="text/javascript" src="{{ asset('/js/api.js') }}"></script>
 @stop
 
-@section ('content')
-    <div class="row sub-nav" id="api-subnav">
-        <div class="col-xs-12 col-md-4 col-md-offset-4">
-            <f-api-console></f-api-console>
-        </div>
+@section('subheader')
+    <div class="col-xs-12 col-md-4 col-md-offset-4">
+        <h2>@lang('app.demo.title')</h2>
     </div>
+@stop
 
+@section ('content')
     @if ($isError)
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2">
