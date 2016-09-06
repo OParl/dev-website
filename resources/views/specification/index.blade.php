@@ -1,14 +1,12 @@
 @extends ('base')
 
 @section ('subheader')
-    @if (!$isLoggedIn)
-        <div class="hidden-xs col-md-8 col-md-offset-2 text-center">
-            <h2 title="git: {{ $liveversion->getHash() }}, {{ $liveversion->getLastModified() }}">
-                OParl 1.0
-            </h2>
-        </div>
+    <div class="row--center">
+        <h2 class="row-item--shrink-2" title="git: {{ $liveversion->getHash() }}, {{ $liveversion->getLastModified() }}">
+            OParl 1.0
+        </h2>
 
-        <div class="col-xs-1 col-md-1">
+        <div class="row-item--shrink-2">
             <button
                     class="btn btn-xs btn-default pull-right"
                     data-toggle="modal"
@@ -17,41 +15,19 @@
                 <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
             </button>
         </div>
-    @else
-        {{-- this is a signed in user --}}
-
-        <div class="col-md-2">
-            <h2 title="git: {{ $liveversion->getHash() }}, {{ $liveversion->getLastModified() }}">
-                OParl 1.0
-            </h2>
-        </div>
-
-        <div class="col-xs-1 col-md-1">
-            <button class="btn btn-default pull-right">
-                <img src="{{ asset('/img/icons/download.svg') }}" alt="Downloadicon">
-            </button>
-        </div>
-
-        <div class="col-xs-12 col-md-3">
-            <f-select label="Wähle eine andere Version" data="versions"></f-select>
-        </div>
-    @endif
+    </div>
 @stop
 
 @section ('content')
-    <div class="row">
+    <aside>
         {{-- TODO: make this more dynamic --}}
-        <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-            <nav>
-                {!! $liveversion->getNav() !!}
-            </nav>
-        </div>
-    </div>
+        <nav>
+            {!! $liveversion->getNav() !!}
+        </nav>
+    </aside>
 
-    <div class="row">
-        <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-            {!! $liveversion->getContent() !!}
-        </div>
+    <div>
+        {!! $liveversion->getContent() !!}
     </div>
 
     @include('downloads.button_modal')

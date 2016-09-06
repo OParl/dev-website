@@ -1,0 +1,30 @@
+.row {
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    flex-grow: 1;
+  }
+
+  &--center {
+    justify-content: center;
+  }
+}
+
+.row-item {
+  &--grow-1 {
+    flex-grow: 1;
+  }
+
+  &--shrink-1 {
+    flex-shrink: 1;
+  }
+
+  &--shrink-2 {
+    flex-shrink: 2;
+  }
+
+  &--align-end {
+    align-self: flex-end;
+  }
+}

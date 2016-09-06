@@ -10,16 +10,13 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont,
 "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
 "Fira Sans", "Droid Sans", "Helvetica Neue", "Source Code Sans",
 sans-serif;
+$font-family-monospace:   "Source Code Pro", Monaco, Consolas, "Courier New", monospace;
 
 // TODO: move to modules
 @import 'fonts';
-@import 'oparl-logo';
 
+@import 'modules/_grid.scss';
 @import 'modules/common';
 @import 'modules/header';
 @import 'modules/accessibility';
-
-main {
-  margin: 0 auto;
-  width: 80%;
-}
+@import 'modules/main';

@@ -31,13 +31,12 @@ header {
 
     &:first-of-type {
       font-size: 1.5em;
-      background: linear-gradient(to right, white 66%, $brand-hover);
     }
 
     &:not(:first-of-type) {
       text-align: center;
 
-      6:hover {
+      &:hover {
         background: $brand-hover;
       }
     }

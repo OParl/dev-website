@@ -26,6 +26,20 @@ img {
   padding: 0.3em;
 }
 
+pre, code {
+  font-family: $font-family-monospace;
+}
+
+a {
+  text-decoration: none;
+
+  transition: background .6s ease-in;
+
+  &:hover {
+    background: $brand-hover;
+  }
+}
+
 .pull-left {
   float: left;
 }
@@ -36,23 +50,4 @@ img {
 
 .cf {
   clear: both;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-
-  & > * {
-    flex-grow: 1;
-  }
-}
-
-.row-item {
-  &--grow-1 {
-    flex-grow: 1;
-  }
-
-  &--shrink-1 {
-    flex-shrink: 1;
-  }
 }
