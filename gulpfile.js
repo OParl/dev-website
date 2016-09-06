@@ -39,14 +39,6 @@ elixir(function(mix) {
             'prismjs/components/prism-python.js',
 
             'prismjs/plugins/line-numbers/prism-line-numbers.js',
-
-            'bootstrap-sass/assets/javascripts/bootstrap/transition.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/affix.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/modal.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
-            'bootstrap-sass/assets/javascripts/bootstrap/tab.js',
         ], 'public/js/lib.js', 'node_modules'
     );
 
@@ -55,6 +47,7 @@ elixir(function(mix) {
     mix.copy('resources/assets/zondicons/download.svg', 'public/img/icons/download.svg');
 
     mix.copy('resources/assets/brand/icon/oparl-icon.png', 'public/img/favicon.png');
+    mix.copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/img/logos/oparl.svg');
 
     // copy source code pro font files
     mix.copy('node_modules/source-code-pro/EOT/', 'public/fonts/');

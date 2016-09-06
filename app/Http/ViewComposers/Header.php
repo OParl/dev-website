@@ -9,7 +9,7 @@ class Header
     protected $sections = [
         [
             'routeKey' => 'developers',
-            'title' => 'Entwickler',
+            'title' => 'Übersicht',
         ],
 
         [

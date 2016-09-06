@@ -1,0 +1,13 @@
+.sr-only {
+  display: none;
+}
+
+.sr-only + * {
+  margin-top: 0;
+}
+
+@media speech, braille {
+  .sr-only {
+    display: block;
+  }
+}

@@ -1,132 +1,25 @@
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "variables";
-@import "bootstrap";
-@import "oparl-logo";
+// TODO: move to new config/variables
+$brand-primary: #3498db;
+$brand-success: #5cb85c;
+$brand-info: #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+$brand-hover: lighten($brand-primary, 33%);
 
-@import "fonts";
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont,
+"Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+"Fira Sans", "Droid Sans", "Helvetica Neue", "Source Code Sans",
+sans-serif;
 
-body {
-  position: relative;
-  font-weight: 300;
-}
+// TODO: move to modules
+@import 'fonts';
+@import 'oparl-logo';
 
-header {
-  border-bottom: .15em inset darken($brand-primary, 15%);
+@import 'modules/common';
+@import 'modules/header';
+@import 'modules/accessibility';
 
-  margin-left: -15px;
-  margin-right: -15px;
-}
-
-.bg-secondary {
-  background: radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 0 0,
-      radial-gradient(darken($brand-primary, 15%) 15%, transparent 16%) 8px 8px,
-      radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-      radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-  background-color: $brand-primary;
-  background-size:16px 16px;
-}
-
-.separator-lg {
-  @extend .bg-secondary;
-
-  border-top: .15em outset darken($brand-primary, 15%);
-  border-bottom: .15em inset darken($brand-primary, 15%);
-
-  height: 0.9em;
-
-  margin-bottom: 1.2em;
-}
-
-.sub-nav {
-  border-top: .15em outset darken($brand-primary, 15%);
-
-  padding: 1.2em 0 0.6em 0;
-
-  margin-top: -$navbar-margin-bottom;
-  margin-bottom: $navbar-margin-bottom;
-
-  .select2-results__option {
-    font-size: $font-size-small !important;
-  }
-
-  h2 {
-    margin-top: 0;
-    padding-top: 0;
-
-    color: $gray-lighter;
-    text-shadow: 1px 1px 1px $gray-dark;
-
-    font-size: $font-size-h4;
-  }
-}
-
-.navbar-default {
-  background: white;
-  text-align: center;
-  border: none;
-  margin-bottom: 0;
-
-  li {
-    &:hover { background: $navbar-default-link-active-bg }
-    transition: 0.3s ease-in-out background;
-  }
-}
-
-.text-tiny {
-  font-size: $font-size-base * 0.75;
-}
-
-.nowrap {
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
-
-.page-header {
-  border-bottom: none;
-}
-
-p {
-  text-align: justify;
-  hyphens: auto;
-}
-
-h1, h2, h3, h4 {
-  & > a {
-    color: inherit;
-  }
-}
-
-nav ul {
-  list-style: none;
-}
-
-a.link-modest {
-  color: inherit;
-  text-decoration: none;
-
-  &:hover, &:active {
-    text-decoration: underline;
-  }
-}
-
-a.link-danger {
-  color: $brand-danger;
-  cursor: pointer;
-}
-
-figure {
-  margin: .15em;
-  padding: .15em;
-  border: 1px solid $pre-border-color;
-  border-radius: $border-radius-small;
-}
-
-figcaption {
-  text-align: center;
-  font-variant: small-caps;
-}
-
-.pb-2 {
-  padding-bottom: 2em;
+main {
+  margin: 0 auto;
+  width: 80%;
 }

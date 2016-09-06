@@ -1,9 +1,7 @@
 @extends ('base')
 
 @section ('subheader')
-    <div class="col-xs-12 col-md-offset-2 col-md-8">
-        <h2>OParl Entwicklerportal - Startseite</h2>
-    </div>
+    {{-- TODO: Add wiki base links here (list of implementations, etc.) --}}
 @stop
 
 

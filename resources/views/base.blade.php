@@ -46,20 +46,14 @@
             </ul>
         </div>
 
-        <div class="container-fluid">
-            @include ('header')
+        @include ('header')
 
-            <header class="row sub-nav fixed-top bg-secondary">
-                @yield('subheader')
-            </header>
+        <main>
+            <a name="content">&nbsp;</a>
+            @yield('content')
+        </main>
 
-            <div class="row">
-                <a name="content">&nbsp;</a>
-                @yield('content')
-            </div>
-
-            @include ('footer')
-        </div>
+        @include ('footer')
 
         <script src="{{ asset('/js/lib.js') }}"></script>
 

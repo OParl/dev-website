@@ -1,0 +1,67 @@
+header {
+  width: 100%;
+
+  font-size: 1.4em;
+
+  h1, h2 {
+    color: inherit;
+  }
+
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    transition-property: background;
+    transition-duration: .6s;
+    transition-timing-function: ease-in;
+
+    img {
+      height: 1em;
+    }
+
+    &.active {
+      background: $brand-hover;
+    }
+
+    &:first-of-type {
+      font-size: 1.5em;
+      background: linear-gradient(to right, white 66%, $brand-hover);
+    }
+
+    &:not(:first-of-type) {
+      text-align: center;
+
+      6:hover {
+        background: $brand-hover;
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    padding: 1.3em 1.8em;
+
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.7em;
+  }
+
+  nav + nav {
+    margin-top: 0;
+    min-height: 1em;
+
+    background: $brand-primary;
+    color: white;
+
+    * + * {
+      margin-top: 0;
+      padding: 0 1.2em;
+    }
+  }
+}
