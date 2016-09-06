@@ -1,17 +1,35 @@
 main {
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
 
-  line-height: 1.2em;
+  line-height: 1.4em;
+
+  h1, h2, h3, h4 {
+    margin-top: 0.7em;
+    margin-bottom: 1.4em;
+  }
 
   p {
     text-align: justify;
     text-align-last: left;
+
+    &.left {
+      text-align: left;
+    }
+  }
+
+  ul {
+    padding-left: 1.2em;
   }
 
   img {
     width: 100%;
     height: 100%;
+  }
+
+  pre, code {
+    color: $code-color;
+    font-weight: 400;
   }
 
   td, th {
@@ -24,6 +42,36 @@ main {
   }
 
   tbody tr:nth-of-type(2n+1) {
-    background: #f5f2f0;
+    background: $gray-base;
+  }
+
+  a > sup {
+    color: darken($gray-base, 50%);
+    vertical-align: 0.3em;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  main {
+    width: 75% !important;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  main {
+    width: 50% !important;
+  }
+}
+
+main aside {
+  nav {
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul ul {
+      padding-left: 1.2em;
+    }
   }
 }

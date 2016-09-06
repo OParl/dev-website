@@ -1,7 +1,7 @@
 <header>
     <nav role="navigation">
         <ul class="row">
-            <li class="text-oparl">
+            <li>
                 <img src="{{ asset('img/logos/oparl.svg') }}" alt="OParl Logo">
             </li>
 
@@ -19,14 +19,14 @@
                         @else
                             <a href="{{ $section['url'] }}" target="_blank">
                         @endif
-                                {!! $section['title'] !!}
+                                @lang($section['title'])
                             </a>
 
                     </li>
             @endforeach
         </ul>
     </nav>
-    <nav>
+    <nav class="row row--center">
         @yield('subheader')
     </nav>
 </header>

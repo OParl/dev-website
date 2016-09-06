@@ -1,15 +1,25 @@
-html, body {
+* {
+  box-sizing: border-box;
+  outline: none;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-
-  font-family: $font-family-sans-serif;
-  font-size: 18px;
 }
 
 * + * {
   margin-top: 0.3em;
+}
+
+html, body {
+  width: 100%;
+
+  height: auto !important;
+  height: 100%;
+
+  font-family: $font-family-sans-serif;
+  font-size: 18px;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
@@ -32,6 +42,7 @@ pre, code {
 
 a {
   text-decoration: none;
+  color: $brand-primary;
 
   transition: background .6s ease-in;
 

@@ -9,22 +9,22 @@ class Header
     protected $sections = [
         [
             'routeKey' => 'developers',
-            'title' => 'Übersicht',
+            'title' => 'app.developers.title',
         ],
 
         [
             'routeKey' => 'specification',
-            'title'    => 'Spezifikation',
+            'title'    => 'app.specification.title',
         ],
 
         [
             'routeKey' => 'api.v1.system.index',
             'params'   => ['format' => 'html'],
-            'title'    => 'Demo',
+            'title'    => 'app.demo.title',
         ],
 
         [
-            'title' => 'Kontakt',
+            'title' => 'app.contact.title',
             'routeKey' => 'contact',
         ],
     ];

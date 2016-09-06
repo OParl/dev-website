@@ -6,10 +6,15 @@ $brand-warning: #f0ad4e;
 $brand-danger: #d9534f;
 $brand-hover: lighten($brand-primary, 33%);
 
+$gray-base: #f5f2f0;
+
+$code-color: $brand-danger;
+
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont,
 "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
 "Fira Sans", "Droid Sans", "Helvetica Neue", "Source Code Sans",
 sans-serif;
+
 $font-family-monospace:   "Source Code Pro", Monaco, Consolas, "Courier New", monospace;
 
 // TODO: move to modules

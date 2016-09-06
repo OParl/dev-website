@@ -134,4 +134,10 @@ class LiveVersionRepository
     {
         return $this->loader->getRepositoryStatus()['hash'];
     }
+
+    public function getVersion()
+    {
+        // fixme: actually get this from the builder / git repository
+        return '1.0';
+    }
 }

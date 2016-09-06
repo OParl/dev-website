@@ -1,6 +1,9 @@
+$header-top-header-height: 1.8em;
+$header-top-header-menuitem-font-size: (#{0.4 * $header-top-header-height});
+
 header {
   width: 100%;
-
+  color: $brand-primary;
   font-size: 1.4em;
 
   h1, h2 {
@@ -13,6 +16,7 @@ header {
   }
 
   ul {
+    margin-top: -0.3em;
     list-style: none;
   }
 
@@ -21,20 +25,18 @@ header {
     transition-duration: .6s;
     transition-timing-function: ease-in;
 
-    img {
-      height: 1em;
-    }
-
     &.active {
       background: $brand-hover;
     }
 
-    &:first-of-type {
-      font-size: 1.5em;
+    &:first-of-type img {
+        margin-top: 0.3em;
+        height: $header-top-header-height;
     }
 
     &:not(:first-of-type) {
       text-align: center;
+      border-left: 1px solid $brand-hover;
 
       &:hover {
         background: $brand-hover;
@@ -44,23 +46,20 @@ header {
 
   a {
     display: inline-block;
-    padding: 1.3em 1.8em;
+    padding: 1.3em $header-top-header-height;
 
     text-decoration: none;
+    font-weight: 600;
+    font-size: $header-top-header-menuitem-font-size;
+
     color: inherit;
-    font-size: 0.7em;
   }
 
   nav + nav {
     margin-top: 0;
-    min-height: 1em;
+    min-height: 1.2em;
 
     background: $brand-primary;
     color: white;
-
-    * + * {
-      margin-top: 0;
-      padding: 0 1.2em;
-    }
   }
 }
