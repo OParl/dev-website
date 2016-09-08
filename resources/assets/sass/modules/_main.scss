@@ -5,21 +5,26 @@ main {
   line-height: 1.4em;
 
   h1, h2, h3, h4 {
-    margin-top: 0.7em;
+    margin-top: .7em;
     margin-bottom: 1.4em;
   }
 
   p {
     text-align: justify;
     text-align-last: left;
+    margin-bottom: .7em;
 
     &.left {
       text-align: left;
     }
   }
 
+  strong {
+    font-weight: 600;
+  }
+
   ul {
-    padding-left: 1.2em;
+    padding-left: 1.8em;
   }
 
   img {
@@ -27,13 +32,34 @@ main {
     height: 100%;
   }
 
+  figure {
+    border: 1px solid $brand-primary;
+    margin: .3em;
+
+    & > img {
+      padding: .6em;
+    }
+
+    & > figcaption {
+      border-top: 1px solid $brand-primary;
+      background: $gray-base;
+      font-variant: small-caps;
+      text-align: center;
+    }
+  }
+
   pre, code {
     color: $code-color;
     font-weight: 400;
+    overflow-x: scroll;
   }
 
   td, th {
     padding: .3em .6em;
+  }
+
+  table {
+    width: 100%;
   }
 
   thead {

@@ -1,6 +1,8 @@
 .row {
   display: flex;
   flex-direction: row;
+  align-items: stretch;
+  width: 100%;
 
   & > * {
     flex-grow: 1;
@@ -8,7 +10,8 @@
   }
 
   &--center {
-    justify-content: center;
+    justify-content: space-between;
+    align-content: space-between;
   }
 }
 
@@ -19,6 +22,8 @@
 }
 
 .row-item {
+  align-self: flex-start;
+
   &--grow-1 {
     flex-grow: 1;
   }

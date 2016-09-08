@@ -4,7 +4,6 @@
     {{-- TODO: Add wiki base links here (list of implementations, etc.) --}}
 @stop
 
-
 @section ('content')
     <div class="row">
         <section>

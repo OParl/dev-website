@@ -3,6 +3,15 @@
   outline: none;
   margin: 0;
   padding: 0;
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-spacing: 0;
+  color: black;
+  font-weight: normal;
+  list-style: none outside none;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
 }
 
 * + * {
@@ -12,6 +21,7 @@
 html, body {
   width: 100%;
 
+  // this double declaration fixes a bug in ie8
   height: auto !important;
   height: 100%;
 
@@ -34,6 +44,35 @@ h1, h2, h3, h4 {
 
 img {
   padding: 0.3em;
+}
+
+
+button.zondicon {
+  margin-top: 0;
+  background: $brand-primary;
+
+  > * {
+    margin-top: 0;
+  }
+
+  height: 2em;
+  width: 2em;
+
+  padding: .1em;
+
+  cursor: pointer;
+  //display: inline-block;
+
+  border: 1px ridge darken($brand-primary, 10%);
+
+  object {
+    width: 100%;
+    height: 100%;
+
+    svg {
+      fill: white !important;
+    }
+  }
 }
 
 pre, code {

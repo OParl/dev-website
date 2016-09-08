@@ -15,51 +15,60 @@ header {
     padding: 0;
   }
 
-  ul {
-    margin-top: -0.3em;
-    list-style: none;
-  }
-
-  li {
-    transition-property: background;
-    transition-duration: .6s;
-    transition-timing-function: ease-in;
-
-    &.active {
-      background: $brand-hover;
+  nav:first-of-type {
+    ul {
+      margin-top: -0.3em;
+      list-style: none;
     }
 
-    &:first-of-type img {
-        margin-top: 0.3em;
-        height: $header-top-header-height;
-    }
+    li {
+      transition-property: background;
+      transition-duration: .6s;
+      transition-timing-function: ease-in;
 
-    &:not(:first-of-type) {
-      text-align: center;
-      border-left: 1px solid $brand-hover;
-
-      &:hover {
+      &.active {
         background: $brand-hover;
       }
+
+      &:first-of-type img {
+        margin-top: 0.3em;
+        height: $header-top-header-height;
+      }
+
+      &:not(:first-of-type) {
+        text-align: center;
+        border-left: 1px solid $brand-hover;
+
+        &:hover {
+          background: $brand-hover;
+        }
+      }
     }
-  }
 
-  a {
-    display: inline-block;
-    padding: 1.3em $header-top-header-height;
+    a {
+      display: inline-block;
+      padding: 1.3em $header-top-header-height;
 
-    text-decoration: none;
-    font-weight: 600;
-    font-size: $header-top-header-menuitem-font-size;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: $header-top-header-menuitem-font-size;
 
-    color: inherit;
+      color: inherit;
+    }
   }
 
   nav + nav {
     margin-top: 0;
     min-height: 1.2em;
+    padding-top: .3em;
+    padding-bottom: .3em;
 
-    background: $brand-primary;
+    background: $brand-hover;
     color: white;
+    font-size: 0.7em;
+
+    * {
+      color: white;
+    }
   }
 }

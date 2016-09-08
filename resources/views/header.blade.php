@@ -1,5 +1,5 @@
-<header>
-    <nav role="navigation">
+<header role="navigation">
+    <nav>
         <ul class="row">
             <li>
                 <img src="{{ asset('img/logos/oparl.svg') }}" alt="OParl Logo">
@@ -7,9 +7,9 @@
 
             @foreach ($sections as $section)
                 @if (isset($section['current']) && $section['current'])
-                    <li role="presentation" class="active">
+                    <li class="active">
                 @else
-                    <li role="presentation">
+                    <li>
                 @endif
 
                         @if (isset($section['routeKey']) && !isset($section['params']))
@@ -26,7 +26,9 @@
             @endforeach
         </ul>
     </nav>
-    <nav class="row row--center">
-        @yield('subheader')
+    <nav>
+        <ul class="row row--center">
+            @yield('subheader')
+        </ul>
     </nav>
 </header>
