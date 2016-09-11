@@ -1,6 +1,6 @@
 <template>
     <div class="modal-mask" v-show="show" transition="modal">
-        <div class="modal-wrapper">
+        <div class="modal-wrapper" @click.self="show = false">
             <div class="modal-container">
 
                 <div class="modal-header">

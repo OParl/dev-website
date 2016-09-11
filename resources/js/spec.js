@@ -7,10 +7,8 @@ var vm = new Vue({
     el: 'body',
 
     data: {
-        showDownloadsModal: false
-    },
-
-    methods: {
+        showDownloadsModal: false,
+        showTableOfContents: false,
     },
 
     created() {

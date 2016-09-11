@@ -2,7 +2,7 @@
 
 @section ('subheader')
     <li class="row-item">
-        <button title="@lang('common.table-of-contents')" aria-label="@lang('common.table-of-contents')">
+        <button @click="showTableOfContents = !showTableOfContents" title="@lang('common.table-of-contents')" aria-label="@lang('common.table-of-contents')">
             <i class="fa fa-2x fa-book" aria-hidden="true"></i>
         </button>
     </li>
@@ -15,11 +15,13 @@
             <i class="fa fa-2x fa-download" aria-hidden="true"></i>
         </button>
     </li>
-
-    {{-- TODO: implement navigation as sticky submenu --}}
 @stop
 
 @section ('content')
+    <f-accordion :show.sync="showTableOfContents" :has-trigger="true">
+        <div slot="body">{!! $liveversion->getNav() !!}</div>
+    </f-accordion>
+
     {!! $liveversion->getContent() !!}
 
     <f-modal :show.sync="showDownloadsModal">

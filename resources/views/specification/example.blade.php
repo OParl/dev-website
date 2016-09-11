@@ -1,6 +1,6 @@
 <f-accordion>
     <span slot="title">{{ $exampleTitle }}</span>
-    <div slot="content">{!! $exampleCode !!}</div>
+    <div slot="body">{!! $exampleCode !!}</div>
 </f-accordion>
 
 {{--
