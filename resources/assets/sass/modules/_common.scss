@@ -47,31 +47,19 @@ img {
 }
 
 
-button.zondicon {
-  margin-top: 0;
-  background: $brand-primary;
-
-  > * {
-    margin-top: 0;
-  }
-
-  height: 2em;
-  width: 2em;
-
-  padding: .1em;
+button {
+  padding: .3em;
 
   cursor: pointer;
-  //display: inline-block;
+  display: inline-block;
 
   border: 1px ridge darken($brand-primary, 10%);
+  border-radius: .4em;
 
-  object {
-    width: 100%;
-    height: 100%;
+  transition: .3s all ease;
 
-    svg {
-      fill: white !important;
-    }
+  &:hover {
+    border: 1px inset darken($brand-primary, 10%);
   }
 }
 

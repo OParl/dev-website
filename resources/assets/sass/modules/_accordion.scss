@@ -1,0 +1,17 @@
+.c-accordion {
+  margin-top: .6em;
+  overflow-y: hidden;
+
+  &--header {
+    display: inline;
+  }
+
+  .expand-transition {
+    transition: .6s ease-in-out;
+    transform: translateY(0);
+  }
+
+  .expand-enter, .expand-leave {
+    transform: translateY(-100%);
+  }
+}

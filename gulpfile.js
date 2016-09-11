@@ -42,10 +42,6 @@ elixir(function(mix) {
         ], 'public/js/lib.js', 'node_modules'
     );
 
-    // used zondicons need to copied to public/img/icons
-    mix.copy('resources/assets/zondicons/book-reference.svg', 'public/img/icons/book-reference.svg');
-    mix.copy('resources/assets/zondicons/download.svg', 'public/img/icons/download.svg');
-
     mix.copy('resources/assets/brand/icon/oparl-icon.png', 'public/img/favicon.png');
     mix.copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/img/logos/oparl.svg');
 
@@ -62,6 +58,9 @@ elixir(function(mix) {
     mix.copy('node_modules/source-sans-pro/TTF/', 'public/fonts/');
     mix.copy('node_modules/source-sans-pro/WOFF/', 'public/fonts/');
     mix.copy('node_modules/source-sans-pro/WOFF2/', 'public/fonts/');
+
+    // copy font awesome font files
+    mix.copy('node_modules/font-awesome/fonts/', 'public/fonts/');
 
     mix.phpUnit();
 });

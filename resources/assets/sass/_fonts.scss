@@ -333,3 +333,22 @@
   url('/fonts/SourceSansPro-BlackIt.otf') format('opentype'),
   url('/fonts/SourceSansPro-BlackIt.ttf') format('truetype');
 }
+
+/*!
+ *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+
+@import "../../../node_modules/font-awesome/scss/variables";
+@import "../../../node_modules/font-awesome/scss/mixins";
+@import "../../../node_modules/font-awesome/scss/path";
+@import "../../../node_modules/font-awesome/scss/core";
+@import "../../../node_modules/font-awesome/scss/larger";
+@import "../../../node_modules/font-awesome/scss/fixed-width";
+@import "../../../node_modules/font-awesome/scss/list";
+//@import "../../../node_modules/font-awesome/scss/bordered-pulled";
+//@import "../../../node_modules/font-awesome/scss/animated";
+//@import "../../../node_modules/font-awesome/scss/rotated-flipped";
+@import "../../../node_modules/font-awesome/scss/stacked";
+@import "../../../node_modules/font-awesome/scss/icons";
+@import "../../../node_modules/font-awesome/scss/screen-reader";

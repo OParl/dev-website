@@ -166,7 +166,7 @@ class LiveVersionUpdater
      **/
     public function cloneRepository($dryRun = false)
     {
-        $gitCommand = sprintf('git clone -q --depth=1 %s %s', $this->gitURL, $this->path);
+        $gitCommand = sprintf('git clone -q %s %s', $this->gitURL, $this->path);
 
         $retVal = self::STATUS_COMMAND_FAILED;
 

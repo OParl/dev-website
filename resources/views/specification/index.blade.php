@@ -2,16 +2,17 @@
 
 @section ('subheader')
     <li class="row-item">
-        <button class='zondicon' title="@lang('common.table-of-contents')">
-            @svg('img/icons/book-reference.svg')
+        <button title="@lang('common.table-of-contents')" aria-label="@lang('common.table-of-contents')">
+            <i class="fa fa-2x fa-book" aria-hidden="true"></i>
         </button>
     </li>
     <li class="row-item">
-        <span title="Git: {{ substr($liveversion->getHash(), 0, 6) }}">{{ $liveversion->getVersion() }}</span>
+        <span title="Git: {{ substr($liveversion->getHash(), 0, 6) }}">OParl {{ $liveversion->getVersion() }}</span>
     </li>
     <li class="row-item">
-        <button class='zondicon' @click="showDownloadsModal = true" title="@lang('app.specification.download.title')">
-            @svg('img/icons/download.svg')
+        <button @click="showDownloadsModal = true" title="@lang('app.specification.download.title')"
+            aria-label="@lang('app.specification.download.title')">
+            <i class="fa fa-2x fa-download" aria-hidden="true"></i>
         </button>
     </li>
 
