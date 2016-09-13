@@ -1,3 +1,17 @@
+<f-tab-list>
+    <f-tab title="JSON">
+        <pre><code class="language-javascript">{{ $json }}</code></pre>
+    </f-tab>
+    <f-tab title="Zugriff">
+        @include ('transfugio::api.access')
+    </f-tab>
+    <f-tab title="Parameter">
+        @include ('transfugio::api.parameters')
+    </f-tab>
+</f-tab-list>
+
+{{--
+
 <div class="main">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#json" aria-controls="json" data-toggle="tab">JSON</a></li>
@@ -20,3 +34,5 @@
         </div>
     </div>
 </div>
+
+--}}

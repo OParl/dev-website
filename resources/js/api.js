@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Helpers from './modules/helpers.js'
-import FApiConsole from './modules/fapiconsole.vue'
+
+import FTabList from './modules/ftablist.vue'
+import FTab from './modules/ftab.vue'
 
 Vue.use(VueResource);
 
@@ -13,7 +15,8 @@ var vm = new Vue({
     },
 
     components: {
-        FApiConsole: FApiConsole
+        FTabList,
+        FTab
     }
 });
 
