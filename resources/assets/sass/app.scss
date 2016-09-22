@@ -15,7 +15,9 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont,
 "Fira Sans", "Droid Sans", "Helvetica Neue", "Source Code Sans",
 sans-serif;
 
-$font-family-monospace:   "Source Code Pro", Monaco, Consolas, "Courier New", monospace;
+$font-family-monospace: "Source Code Pro", Monaco, Consolas, "Courier New", monospace;
+
+$transition-hover-bg: .6s background ease-in;
 
 // TODO: move to modules
 @import 'fonts';
@@ -25,5 +27,6 @@ $font-family-monospace:   "Source Code Pro", Monaco, Consolas, "Courier New", mo
 @import 'modules/header';
 @import 'modules/accessibility';
 @import 'modules/modal';
-@import 'modules/_accordion.scss';
+@import 'modules/accordion';
+@import 'modules/tabs';
 @import 'modules/main';

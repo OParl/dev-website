@@ -22,21 +22,17 @@
     @endif
 
     <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="">
             @include('transfugio::api.sidebar')
         </div>
-        <div class="col-xs-12 col-md-8">
+        <div class="row-item--grow-2">
             @include('transfugio::api.main')
         </div>
     </div>
 
     @if (isset($paginationCode))
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="text-center">
-                {!! $paginationCode or '' !!}
-            </div>
-        </div>
+    <div class="row text-center">
+        {!! $paginationCode or '' !!}
     </div>
     @endif
 @stop

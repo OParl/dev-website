@@ -1,17 +1,22 @@
 <template>
     <div class="c-tablist">
-        <ul>
-            <li v-for="tab in tabs">{{ tab.title }}</li>
-        </ul>
+        <nav>
+            <ul>
+                <li v-for="tab in tabs" @click="notify(tab.ident)"
+                    aria-controls="#{{tab.ident}}"
+                    class="{{ activeClass(tab.ident) }}">{{ tab.title }}</li>
+            </ul>
+        </nav>
 
-        <slot></slot>
+        <section>
+            <slot></slot>
+        </section>
     </div>
 
 </template>
 
 <script>
     import FTab from './ftab.vue'
-    import FModal from './fmodal.vue'
 
     export default {
         data() {
@@ -22,13 +27,27 @@
         },
 
         components: {
-            FTab,
-            FModal
+            FTab
         },
 
         events: {
-            'f-tablist:new-tab': function (title) {
-                this.tabs.push({ title: title })
+            'f-tablist:new-tab': function (tabInfo) {
+                this.tabs.push(tabInfo);
+
+                if (this.tabs.length == 1) {
+                    this.isActive = tabInfo.ident;
+                    this.notify(tabInfo.ident);
+                }
+            }
+        },
+
+        methods: {
+            notify(ident)  {
+                this.$broadcast('f-tab:activate', ident);
+                this.$dispatch('f-tab:activate', ident);
+            },
+            activeClass(tab) {
+                return this.isActive === tab.ident ? 'active' : '';
             }
         }
     }

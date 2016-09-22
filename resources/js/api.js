@@ -17,6 +17,12 @@ var vm = new Vue({
     components: {
         FTabList,
         FTab
+    },
+
+    events: {
+        'f-tab:activate': function(ident) {
+            Prism.highlightAll();
+        }
     }
 });
 

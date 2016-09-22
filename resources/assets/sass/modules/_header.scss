@@ -22,9 +22,7 @@ header {
     }
 
     li {
-      transition-property: background;
-      transition-duration: .6s;
-      transition-timing-function: ease-in;
+      transition: $transition-hover-bg;
 
       &.active {
         background: $brand-hover;
