@@ -35,7 +35,7 @@ class BaseModel extends Model
             throw new ConnectionNotFoundException();
         }
 
-        \Log::debug("Setting database connection {$connection} for class ".get_called_class());
+        \Log::debug("Setting database connection {$connection} for class " . get_called_class());
         $this->setConnection($connection);
     }
 
@@ -61,5 +61,10 @@ class BaseModel extends Model
         $table = parent::getTable();
 
         return self::$modelConfiguration['prefix'] . $table;
+    }
+
+    public function getModelName()
+    {
+        return strtolower(class_basename($this));
     }
 }

@@ -2,7 +2,6 @@
 
 namespace OParl\Server\API\Transformers;
 
-use EFrane\Transfugio\Transformers\BaseTransformer;
 use OParl\Server\Model\Body;
 
 class BodyTransformer extends BaseTransformer
@@ -11,9 +10,7 @@ class BodyTransformer extends BaseTransformer
 
     public function transform(Body $body)
     {
-        return [
-            'id'                => route('api.v1.body.show', $body),
-            'type'              => 'https://schema.oparl.org/1.0/Body',
+        return array_merge($this->getDefaultAttributesForEntity($body), [
             'system'            => route('api.v1.system.show', $body->system),
             'shortName'         => $body->short_name,
             'name'              => $body->name,
@@ -33,11 +30,7 @@ class BodyTransformer extends BaseTransformer
             // legislative term is an included object
             'classification'    => $body->classification,
             // location is an included object
-            'keyword'           => $body->keywords->pluck('human_name'),
-            'created'           => $this->formatDate($body->created_at),
-            'modified'          => $this->formatDate($body->updated_at),
-            'deleted'           => $body->trashed(),
-        ];
+        ]);
     }
 
     public function includeLegislativeTerm(Body $body)

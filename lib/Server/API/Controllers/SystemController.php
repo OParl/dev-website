@@ -13,4 +13,8 @@ class SystemController extends APIController
     use IndexItemTrait;
 
     protected $item_id = 1;
+
+    public function show() {
+        return $this->index();
+    }
 }

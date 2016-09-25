@@ -2,7 +2,6 @@
 
 namespace OParl\Server\API\Transformers;
 
-use EFrane\Transfugio\Transformers\BaseTransformer;
 use OParl\Server\Model\File;
 use OParl\Server\Model\Location;
 use OParl\Server\Model\Meeting;
@@ -33,9 +32,7 @@ class MeetingTransformer extends BaseTransformer
 
     public function transform(Meeting $meeting)
     {
-        return [
-            'id'           => route('api.v1.meeting.index', $meeting),
-            'type'         => 'https://schema.oparl.org/1.0/Meeting',
+        return array_merge($this->getDefaultAttributesForEntity($meeting), [
             'name'         => $meeting->name,
             'meetingState' => $meeting->meeting_state,
             'cancelled'    => $meeting->cancelled,
@@ -49,11 +46,7 @@ class MeetingTransformer extends BaseTransformer
             // verbatimProtocol is included
             // auxiliaryFile is included
             // agendaItem is included
-            'keyword'      => $meeting->keywords->pluck('human_name'),
-            'created'      => $this->formatDate($meeting->created_at),
-            'modified'     => $this->formatDate($meeting->updated_at),
-            'deleted'      => $meeting->trashed(),
-        ];
+        ]);
     }
 
     public function includeLocation(Meeting $meeting)

@@ -2,7 +2,6 @@
 
 namespace OParl\Server\API\Transformers;
 
-use EFrane\Transfugio\Transformers\BaseTransformer;
 use OParl\Server\Model\Organization;
 
 class OrganizationTransformer extends BaseTransformer
@@ -11,9 +10,7 @@ class OrganizationTransformer extends BaseTransformer
 
     public function transform(Organization $organization)
     {
-        return [
-            'id'                => route('api.v1.organization.show', $organization),
-            'type'              => 'https://schema.oparl.org/1.0/Organization',
+        return array_merge($this->getDefaultAttributesForEntity($organization), [
             'body'              => route('api.v1.body.show', $organization->body_id),
             'name'              => $organization->name,
             'shortName'         => $organization->short_name,
@@ -28,11 +25,7 @@ class OrganizationTransformer extends BaseTransformer
             'website'           => $organization->website,
             // location is included
             // TODO: external body
-            'keyword'           => [],//$organization->keywords->pluck('human_name'),
-            'created'           => $this->formatDate($organization->created_at),
-            'modified'          => $this->formatDate($organization->updated_at),
-            'deleted'           => $organization->trashed(),
-        ];
+        ]);
     }
 
     public function includeLocation(Organization $organization)

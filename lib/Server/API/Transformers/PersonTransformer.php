@@ -2,7 +2,6 @@
 
 namespace OParl\Server\API\Transformers;
 
-use EFrane\Transfugio\Transformers\BaseTransformer;
 use OParl\Server\Model\Person;
 
 class PersonTransformer extends BaseTransformer
@@ -11,9 +10,7 @@ class PersonTransformer extends BaseTransformer
 
     public function transform(Person $person)
     {
-        return [
-            'id'            => route('api.v1.person.show', $person),
-            'type'          => 'https://schema.oparl.org/1.0/Person',
+        return array_merge($this->getDefaultAttributesForEntity($person), [
             'body'          => route('api.v1.body.show', $person->body_id),
             'name'          => $person->name,
             'familyName'    => $person->family_name,
@@ -28,11 +25,7 @@ class PersonTransformer extends BaseTransformer
             // membership is included
             'life'          => $person->life,
             'lifeSource'    => $person->life_source,
-            'keyword'       => $person->keywords->pluck('human_name'),
-            'created'       => $this->formatDate($person->created_at),
-            'modified'      => $this->formatDate($person->updated_at),
-            'deleted'       => $person->trashed(),
-        ];
+        ]);
     }
 
     public function includeLocation(Person $person)
