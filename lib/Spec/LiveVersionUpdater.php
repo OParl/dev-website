@@ -16,6 +16,8 @@ class LiveVersionUpdater
     protected $path = '';
     protected $fs = null;
 
+    protected $output = '';
+
     public function __construct(Filesystem $fs, $path, $gitURL)
     {
         // make path absolute by assuming it was relative to storage_path('app');
@@ -27,6 +29,35 @@ class LiveVersionUpdater
 
         $this->path = $path;
         $this->gitURL = $gitURL;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGitURL()
+    {
+        return $this->gitURL;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Get the latest command output, will be reset on read
+     *
+     * @return string
+     */
+    public function getOutput()
+    {
+        $output = $this->output;
+        $this->output = '';
+
+        return $output;
     }
 
     /**
@@ -75,10 +106,12 @@ class LiveVersionUpdater
         try {
             $process = new Process($cmd, $dir);
 
-            $process->start();
-            $process->wait();
+            $process->setTimeout(null);
+            $process->setIdleTimeout(null);
+            $process->run();
 
             $output = $process->getOutput();
+            $this->output = $output;
 
             return $process->getExitCode();
         } catch (ProcessFailedException $e) {
@@ -138,7 +171,7 @@ class LiveVersionUpdater
         $retVal = self::STATUS_COMMAND_FAILED;
 
         if (!$dryRun) {
-            exec($gitCommand, $output, $retVal);
+            $retVal = $this->runCommandInDir($gitCommand, base_path());
         }
 
         if (!$dryRun && $retVal == 0) {
