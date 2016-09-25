@@ -174,7 +174,7 @@ class LiveVersionUpdater
             $retVal = $this->runCommandInDir($gitCommand, base_path());
         }
 
-        if (!$dryRun && $retVal == 0) {
+        if (!$dryRun && $retVal >= 0) {
             $this->makeLiveVersion();
             $this->extractTableOfContents();
         }
@@ -249,16 +249,10 @@ class LiveVersionUpdater
         $retVal = self::STATUS_COMMAND_FAILED;
 
         if (!$dryRun) {
-            $oldDir = getcwd();
-
-            chdir($this->path);
-
-            exec($gitCommand, $output, $retVal);
-
-            chdir($oldDir);
+            $retVal = $this->runCommandInDir('git pull -q --rebase', $this->path);
         }
 
-        if (!$dryRun && $retVal == 0) {
+        if (!$dryRun && $retVal >= 0) {
             $this->makeLiveVersion();
             $this->extractTableOfContents();
         }
