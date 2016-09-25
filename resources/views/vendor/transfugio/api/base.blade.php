@@ -5,9 +5,6 @@
 @stop
 
 @section('subheader')
-    <div class="col-xs-12 col-md-4 col-md-offset-4">
-        <h2>@lang('app.demo.title')</h2>
-    </div>
 @stop
 
 @section ('content')
