@@ -145,7 +145,16 @@ class LiveVersionBuilder
         // fix image tags
         $html = str_replace('<img ', '<img class="img-responsive"', $html);
 
-        // TODO: link oparl:<entity> to #schema-<entity>
+        $specificationBaseRoute = route('specification.index');
+
+        // footnotes
+        $html = str_replace('href="#', 'href="' . $specificationBaseRoute . '#', $html);
+
+        // link oparl:<entity> to #schema-<entity>
+        $html = preg_replace_callback('/oparl:([A-Za-z]+)/', function ($matches) use ($specificationBaseRoute) {
+            $hash = strtolower($matches[1]);
+            return "<a href=\"{$specificationBaseRoute}#entity-{$hash}\">{$matches[0]}</a>";
+        }, $html);
 
         // fix code tags for prism
         $html = $this->fixCodeTag($html, 'json', 'javascript');
