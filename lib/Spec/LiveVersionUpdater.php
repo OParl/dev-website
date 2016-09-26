@@ -240,8 +240,6 @@ class LiveVersionUpdater
      **/
     public function rebaseRepository($dryRun = false)
     {
-        $gitCommand = sprintf('git pull -q --rebase origin master');
-
         if (!$this->repositoryExists()) {
             return self::STATUS_REPOSITORY_MISSING;
         }
