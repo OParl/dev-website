@@ -145,8 +145,7 @@ class LiveVersionBuilder
         // fix image tags
         $html = str_replace('<img ', '<img class="img-responsive"', $html);
 
-        // fix table tags
-        $html = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $html);
+        // TODO: link oparl:<entity> to #schema-<entity>
 
         // fix code tags for prism
         $html = $this->fixCodeTag($html, 'json', 'javascript');
