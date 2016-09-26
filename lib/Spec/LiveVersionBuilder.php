@@ -128,7 +128,7 @@ class LiveVersionBuilder
      */
     public function fixNavHTML()
     {
-        $this->nav = str_replace('<ul>', '<ul class="">', $this->nav);
+        $this->nav = str_replace('href="#', 'href="' . route('specification.index') . '#', $this->nav);
     }
 
     /**
