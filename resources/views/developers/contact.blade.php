@@ -13,10 +13,28 @@
 
             <ul>
                 <li>
-                    <a href="https://lists.okfn.org/mailman/listinfo/oparl-tech">@OParl-Tech</a>
+                    <i class="fa fa-github" aria-hidden="true"></i>
+                    <a href="https://github.com/OParl">GitHub</a>
+                    <p>
+                        @lang('app.contact.github')
+                    </p>
                 </li>
 
-                <li><a href="{{ route('contact.index') }}">Kontakt</a></li>
+                <li>
+                    <i class="fa fa-mail-reply" aria-hidden="true"></i>
+                    <a href="https://lists.okfn.org/mailman/listinfo/oparl-tech">@OParl-Tech</a>
+                    <p>
+                        @lang('app.contact.mailinglist')
+                    </p>
+                </li>
+
+                <li>
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                    <a href="{{ route('contact.index') }}">@lang('app.contact.form_info')</a>
+                    <p>
+                        @lang('app.contact.form')
+                    </p>
+                </li>
             </ul>
         </div>
     </div>
