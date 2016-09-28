@@ -11,7 +11,7 @@ class SystemTransformer extends BaseTransformer
         return array_merge($this->getDefaultAttributesForEntity($system), [
             'oparlVersion'       => 'https://spec.oparl.org/1.0',
             'name'               => $system->name,
-            'body'               => $this->collectionRouteList('api.v1.body.show', $system->bodies),
+            'body'               => route_where('api.v1.body.index', ['system' => $system->id]),
             'vendor'             => $system->vendor,
             'product'            => $system->product,
             'otherOparlVersions' => [],
