@@ -17,6 +17,7 @@ class SpecServiceProvider extends IlluminateServiceProvider
         // make sure the container transparently handles the repositories as singletons
         $this->app->bind(LiveVersionRepository::class, LiveVersionRepository::class, true);
         $this->app->bind(BuildRepository::class, BuildRepository::class, true);
+        $this->app->bind(SchemaRepository::class, SchemaRepository::class, true);
 
         $this->app->bind(LiveVersionUpdater::class, function () {
             $fs = app(Filesystem::class);

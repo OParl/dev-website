@@ -30,29 +30,14 @@ class SchemaController extends Controller
             abort(404);
         }
 
-        // rewrite embedded entities
-        if ($entity === 'LegislativeTerm') {
-            $entity = 'Body';
-        }
-
-        if ($entity === 'Membership') {
-            $entity = 'Organization';
-        }
-
-        if ($entity === 'AgendaItem') {
-            $entity = 'Meeting';
-        }
-
-        if ($entity === 'Consultation') {
-            $entity = 'Paper';
-        }
-
         $entityPath = "live_version/schema/{$entity}.json";
 
         if (!$fs->exists($entityPath)) {
-            abort(404, 'The requested schema was not found on this server');
+            abort(404, 'The requested schema was not found on this server. Please check if you requested the correct schema version.');
         }
 
-        return response()->json(json_decode($fs->get($entityPath), true));
+        $loadedEntity = json_decode($fs->get($entityPath), true);
+
+        return response()->json($loadedEntity);
     }
 }

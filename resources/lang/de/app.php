@@ -5,11 +5,12 @@
         . 'OParl-Produkten findet in den Projekten unserer GitHub-Organisation statt.',
     'contact.mailinglist' => 'OParl-Tech ist die Mailingliste auf der technische Neuheiten und '
         . 'Anfragen besprochen werden, die keinen Platz auf GitHub haben.',
-    'contact.form.info'   => 'Kontaktformular',
-    'contact.form'        => 'Für allgemeine Anfragen oder Anfragen, die ihre gewerbliche Nutzung von OParl betreffen '
-        . 'nutzen sie bitte unser Kontaktformular.',
+    'contact.form_info'   => 'Kontaktformular',
+    'contact.form'        => 'Für allgemeine Anfragen oder Anfragen, die Ihre gewerbliche Nutzung von OParl betreffen '
+        . 'nutzen Sie bitte unser Kontaktformular.',
 
     'developers.title'             => 'Übersicht',
+
     'developers.about-oparl.title' => 'Was ist OParl?',
     'developers.about-oparl.text'  => 'OParl ist ein seit Juni 2016 veröffentlichter Standard zur maschinenlesbaren Ausgabe von Daten aus sogenannten parlamentarischen Informationssystemen.',
     'developers.about-dev.title'   => 'Was finde ich hier?',
@@ -18,6 +19,7 @@
     'demo.title' => 'API Demo',
 
     'specification.title'                  => 'Spezifikation',
+
     'specification.download.title'         => 'Spezifikation herunterladen',
     'specification.download.select.title'  => 'Bitte wählen Sie ein Downloadformat aus',
     'specification.download.formatinfo'    => 'Wir stellen die Downloads der Spezifikation in verschiedenen Formaten zur Verfügung. Bitte wählen Sie unten das von Ihnen gewünschte aus.',

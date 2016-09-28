@@ -1,7 +1,7 @@
 @extends ('base')
 
 @section ('subheader')
-    <h2>@lang('app.contact.title')</h2>
+
 @stop
 
 @section ('content')
@@ -11,7 +11,7 @@
                 @lang('app.contact.info')
             </p>
 
-            <ul>
+            <ul class="list-unstyled">
                 <li>
                     <i class="fa fa-github" aria-hidden="true"></i>
                     <a href="https://github.com/OParl">GitHub</a>
@@ -21,7 +21,7 @@
                 </li>
 
                 <li>
-                    <i class="fa fa-mail-reply" aria-hidden="true"></i>
+                    <i class="fa fa-sticky-note" aria-hidden="true"></i>
                     <a href="https://lists.okfn.org/mailman/listinfo/oparl-tech">@OParl-Tech</a>
                     <p>
                         @lang('app.contact.mailinglist')

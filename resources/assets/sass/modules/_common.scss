@@ -78,6 +78,12 @@ a {
   }
 }
 
+ol, ul {
+  &.list-unstyled {
+    list-style-type: none;
+  }
+}
+
 .pull-left {
   float: left;
 }
