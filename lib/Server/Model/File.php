@@ -8,7 +8,7 @@ class File extends BaseModel
 {
     public static function boot()
     {
-        File::deleting(function (File $file, Filesystem $filesystem) {
+        self::deleting(function (File $file, Filesystem $filesystem) {
             $filesystem->delete($file->storage_filename);
         });
     }

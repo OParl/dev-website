@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Server\Exceptions\ConnectionNotFoundException;
 
 /**
- * Class BaseModel
- * @package OParl\Server\Model
+ * Class BaseModel.
  */
 class BaseModel extends Model
 {
@@ -19,7 +18,7 @@ class BaseModel extends Model
     /**
      * BaseModel constructor.
      *
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(array $attributes = [])
     {
@@ -35,7 +34,7 @@ class BaseModel extends Model
             throw new ConnectionNotFoundException();
         }
 
-        \Log::debug("Setting database connection {$connection} for class " . get_called_class());
+        \Log::debug("Setting database connection {$connection} for class ".get_called_class());
         $this->setConnection($connection);
     }
 
@@ -46,7 +45,7 @@ class BaseModel extends Model
 
     public static function setModelConfiguration($key)
     {
-        self::$modelConfiguration = config('api.' . $key);
+        self::$modelConfiguration = config('api.'.$key);
     }
 
     /**
@@ -60,7 +59,7 @@ class BaseModel extends Model
     {
         $table = parent::getTable();
 
-        return self::$modelConfiguration['prefix'] . $table;
+        return self::$modelConfiguration['prefix'].$table;
     }
 
     public function getModelName()

@@ -13,7 +13,7 @@ class ConsultationTransformer extends BaseTransformer
             'agendaItem'    => route('api.v1.agendaitem.show', $consultation->agendaItem),
             'meeting'       => route('api.v1.meeting.show', $consultation->meeting),
             'organization'  => $this->collectionRouteList('api.v1.organization.show', $consultation->organizations),
-            'authoritative' => (boolean)$consultation->authoritative,
+            'authoritative' => (bool) $consultation->authoritative,
             'role'          => $consultation->role,
         ]);
 

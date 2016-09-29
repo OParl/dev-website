@@ -20,17 +20,17 @@ class UpdateAvailableSpecificationVersionsJob extends SpecificationJob
         $commits = $gh->repo()->commits()->all($this->user, $this->repo, []);
 
         collect($commits)->each(function (array $commit) use ($dispatcher) {
-      $hash = $commit['sha'];
-      $commitMessage = $commit['commit']['message'];
-      $createdAt = new Carbon($commit['commit']['committer']['date']);
-      $humanVersion = explode("\n", $commitMessage)[0];
+            $hash = $commit['sha'];
+            $commitMessage = $commit['commit']['message'];
+            $createdAt = new Carbon($commit['commit']['committer']['date']);
+            $humanVersion = explode("\n", $commitMessage)[0];
 
-      SpecificationBuild::firstOrCreate([
+            SpecificationBuild::firstOrCreate([
         'commit_message' => $commitMessage,
         'human_version'  => $humanVersion,
         'created_at'     => $createdAt,
         'hash'           => $hash,
       ]);
-    });
+        });
     }
 }

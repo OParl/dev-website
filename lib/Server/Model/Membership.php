@@ -14,15 +14,18 @@ class Membership extends BaseModel
         'voting_right' => 'boolean',
     ];
 
-    public function person() {
+    public function person()
+    {
         return $this->belongsTo(Person::class);
     }
 
-    public function organization() {
+    public function organization()
+    {
         return $this->belongsTo(Organization::class);
     }
 
-    public function keywords() {
+    public function keywords()
+    {
         return $this->belongsToMany(Keyword::class, 'oparl_keywords_memberships', 'membership_id', 'keyword_id');
     }
 }

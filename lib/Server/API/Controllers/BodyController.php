@@ -7,7 +7,6 @@ use EFrane\Transfugio\Http\Method\IndexPaginatedTrait;
 use EFrane\Transfugio\Http\Method\ShowItemTrait;
 use EFrane\Transfugio\Query\QueryService;
 use EFrane\Transfugio\Query\ValueExpression;
-use OParl\Server\Model\Body;
 
 class BodyController extends APIController
 {

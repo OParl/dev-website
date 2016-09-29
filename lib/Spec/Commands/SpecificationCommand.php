@@ -3,7 +3,6 @@
 namespace OParl\Spec\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 abstract class SpecificationCommand extends Command

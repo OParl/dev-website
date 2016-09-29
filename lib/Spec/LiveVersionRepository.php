@@ -30,10 +30,10 @@ class LiveVersionRepository
 
     protected static function getPath($path, $realpath = false)
     {
-        $path = self::PATH . $path;
+        $path = self::PATH.$path;
 
         if ($realpath) {
-            return storage_path('app/' . $path);
+            return storage_path('app/'.$path);
         } else {
             return $path;
         }
@@ -52,7 +52,7 @@ class LiveVersionRepository
      **/
     public static function getImagesPath($path = '', $realpath = false)
     {
-        $path = '/src/images/' . $path;
+        $path = '/src/images/'.$path;
 
         return static::getPath($path, $realpath);
     }
@@ -62,7 +62,7 @@ class LiveVersionRepository
      **/
     public static function getSchemaPath($path = '', $realpath = false)
     {
-        $path = '/schema/' . $path;
+        $path = '/schema/'.$path;
 
         return static::getPath($path, $realpath);
     }
@@ -72,7 +72,7 @@ class LiveVersionRepository
      **/
     public static function getExamplesPath($path = '', $realpath = false)
     {
-        $path = '/examples/' . $path;
+        $path = '/examples/'.$path;
 
         return static::getPath($path, $realpath);
     }

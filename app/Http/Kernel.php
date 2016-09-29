@@ -27,7 +27,7 @@ class Kernel extends HttpKernel
         StartSession::class,
         ShareErrorsFromSession::class,
 
-        VerifyCsrfToken::class
+        VerifyCsrfToken::class,
     ];
 
     /**
@@ -38,6 +38,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'guest'        => RedirectIfAuthenticated::class,
         'hooks.github' => ValidateGitHubWebHook::class,
-        'api.format'   => APIOutputFormatMiddleware::class
+        'api.format'   => APIOutputFormatMiddleware::class,
     ];
 }

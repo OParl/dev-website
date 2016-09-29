@@ -15,7 +15,7 @@ class LocationTransformer extends BaseTransformer
             'room'          => $location->room,
             'postalCode'    => $location->postal_code,
             'subLocality'   => $location->sub_locality,
-            'locality'      => $location->locality
+            'locality'      => $location->locality,
         ]);
 
         if ($this->isIncluded()) {

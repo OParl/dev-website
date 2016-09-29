@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 
 class RootController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return redirect()->route('api.v1.system.index', ['format' => 'html']);
     }
 }

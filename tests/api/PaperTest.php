@@ -18,9 +18,9 @@ class PaperTest extends TestCase
         $this->route('get', 'api.v1.paper.show', [0]);
         $this->assertResponseStatus(404);
         $this->seeJson([
-            "error" => [
-                "message" => "The requested item in `Paper` does not exist.",
-                "status"  => 404,
+            'error' => [
+                'message' => 'The requested item in `Paper` does not exist.',
+                'status'  => 404,
             ],
         ]);
     }

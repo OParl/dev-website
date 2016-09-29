@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use App\Http\ViewComposers\Header;
 use App\Http\ViewComposers\Piwik;
-
-use EFrane\Letterpress\Letterpress;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

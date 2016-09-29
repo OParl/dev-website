@@ -1,13 +1,15 @@
-<?php return [
+<?php
+
+return [
     'default' => 'demo',
 
     'demo' => [
-        'prefix' => 'oparl_',
+        'prefix'     => 'oparl_',
         'connection' => 'sqlite_demo',
     ],
 
     'prod' => [
-        'prefix' => '',
+        'prefix'     => '',
         'connection' => 'sqlite_prod',
     ],
 ];

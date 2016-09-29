@@ -11,7 +11,6 @@ use OParl\Spec\BuildRepository;
 use OParl\Spec\Jobs\ExtractSpecificationBuildJob;
 use OParl\Spec\Jobs\UpdateAvailableSpecificationVersionsJob;
 use OParl\Spec\Jobs\UpdateLiveVersionJob;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Hooks Controller.
@@ -103,12 +102,12 @@ class HooksController extends Controller
             $build = $buildRepository->getWithHash($hash);
 
             if (count($request->file('zip')) !== 1) {
-                throw new \BadMethodCallException("Expected a file");
+                throw new \BadMethodCallException('Expected a file');
             }
 
             $zipFile = $request->file('zip');
             if (!ends_with($zipFile->getClientOriginalExtension(), 'zip')) {
-                throw new \BadMethodCallException("Expected a zipfile");
+                throw new \BadMethodCallException('Expected a zipfile');
             }
 
             $zipFile->move($build->storage_path, $build->zip_filename);

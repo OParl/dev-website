@@ -1,11 +1,11 @@
 <?php
 
-
 namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
 
-class Piwik {
+class Piwik
+{
     public function compose(View $view)
     {
         return $view
