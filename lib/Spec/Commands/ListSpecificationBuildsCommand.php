@@ -14,14 +14,14 @@ class ListSpecificationBuildsCommand extends SpecificationCommand
     {
         $builds = $repository->getLatest(30, false)
       ->map(function (SpecificationBuild $build) {
-      return [
+          return [
         'id'        => $build->id,
         'message'   => $build->human_version,
-        'avail'     => ($build->is_available)  ? 'YES' : 'NO',
-        'queried'   => ($build->queried)     ? 'YES' : 'NO',
+        'avail'     => ($build->is_available) ? 'YES' : 'NO',
+        'queried'   => ($build->queried) ? 'YES' : 'NO',
         'displayed' => ($build->displayed) ? 'YES' : 'NO',
       ];
-    });
+      });
 
         $this->table(['ID', 'Version Text', 'Available', 'Queried', 'Displayed'], $builds);
     }

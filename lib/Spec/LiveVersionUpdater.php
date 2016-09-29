@@ -48,7 +48,7 @@ class LiveVersionUpdater
     }
 
     /**
-     * Get the latest command output, will be reset on read
+     * Get the latest command output, will be reset on read.
      *
      * @return string
      */

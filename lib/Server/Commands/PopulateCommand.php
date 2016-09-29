@@ -75,6 +75,7 @@ class PopulateCommand extends Command
         $bodies = collect(range(1, 3))
             ->map(function () use ($system) {
                 $body = $this->generateBodyWithLegislativeTerms($system);
+
                 return $body;
             });
 
@@ -163,7 +164,6 @@ class PopulateCommand extends Command
                 });
 
                 // TODO: Invitation, Protocol, etc.
-
             });
         });
     }
@@ -196,7 +196,7 @@ class PopulateCommand extends Command
     protected function getSomeLegislativeTerms($maxNb = 3)
     {
         if ($maxNb < 1) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 1");
+            throw new \InvalidArgumentException('$maxNb must be greater than or equal to 1');
         }
 
         $amount = $this->faker->numberBetween(1, $maxNb);
@@ -227,7 +227,7 @@ class PopulateCommand extends Command
     protected function getSomeKeywords($maxNb = 5)
     {
         if ($maxNb < 0) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 0");
+            throw new \InvalidArgumentException('$maxNb must be greater than or equal to 0');
         }
 
         // FIXME: keywords are so broken
@@ -268,7 +268,7 @@ class PopulateCommand extends Command
     protected function getSomePeople($maxNb = 50)
     {
         if ($maxNb < 2) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 2");
+            throw new \InvalidArgumentException('$maxNb must be greater than or equal to 2');
         }
 
         $amount = $this->faker->numberBetween(2, $maxNb);
@@ -300,7 +300,7 @@ class PopulateCommand extends Command
     protected function getSomeOrganizations($maxNb = 2)
     {
         if ($maxNb < 1) {
-            throw new \InvalidArgumentException("\$maxNb must be greater than or equal to 1");
+            throw new \InvalidArgumentException('$maxNb must be greater than or equal to 1');
         }
 
         $amount = $this->faker->numberBetween(1, $maxNb);

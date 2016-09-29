@@ -6,13 +6,13 @@ class Organization extends BaseModel
 {
     protected $casts = [
         'external_body' => 'array',
-        'post'          => 'array'
+        'post'          => 'array',
     ];
 
     protected $dates = [
         'start_date',
         'end_date',
-        'deleted_at'
+        'deleted_at',
     ];
 
     public function body()

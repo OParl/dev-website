@@ -1,13 +1,15 @@
-<?php return [
+<?php
+
+return [
     'contact.title'       => 'Kontakt',
     'contact.info'        => 'Zur Kontaktaufnahme mit den OParl-Entwicklern gibt es verschiedene Möglichkeiten:',
     'contact.github'      => 'Die Diskussion über die Weiterentwicklung von OParl und das Melden von Fehlern von '
-        . 'OParl-Produkten findet in den Projekten unserer GitHub-Organisation statt.',
+        .'OParl-Produkten findet in den Projekten unserer GitHub-Organisation statt.',
     'contact.mailinglist' => 'OParl-Tech ist die Mailingliste auf der technische Neuheiten und '
-        . 'Anfragen besprochen werden, die keinen Platz auf GitHub haben.',
+        .'Anfragen besprochen werden, die keinen Platz auf GitHub haben.',
     'contact.form_info'   => 'Kontaktformular',
     'contact.form'        => 'Für allgemeine Anfragen oder Anfragen, die Ihre gewerbliche Nutzung von OParl betreffen '
-        . 'nutzen Sie bitte unser Kontaktformular.',
+        .'nutzen Sie bitte unser Kontaktformular.',
 
     'developers.title'             => 'Übersicht',
 

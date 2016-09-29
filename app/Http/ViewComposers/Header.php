@@ -9,7 +9,7 @@ class Header
     protected $sections = [
         [
             'routeKey' => 'developers',
-            'title' => 'app.developers.title',
+            'title'    => 'app.developers.title',
         ],
 
         [
@@ -24,7 +24,7 @@ class Header
         ],
 
         [
-            'title' => 'app.contact.title',
+            'title'    => 'app.contact.title',
             'routeKey' => 'contact',
         ],
     ];

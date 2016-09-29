@@ -3,9 +3,7 @@
 namespace OParl\Server\Model;
 
 /**
- * Class System
- *
- * @package OParl\Server\Model
+ * Class System.
  */
 class System extends BaseModel
 {

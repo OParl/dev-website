@@ -14,7 +14,8 @@ class Consultation extends BaseModel
         return $this->belongsTo(AgendaItem::class);
     }
 
-    public function meeting() {
+    public function meeting()
+    {
         return $this->belongsTo(Meeting::class);
     }
 

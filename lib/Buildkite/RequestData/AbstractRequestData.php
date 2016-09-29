@@ -81,8 +81,8 @@ class AbstractRequestData implements \ArrayAccess
     public function toArray()
     {
         return collect($this)->filter(function ($item) {
-      return !is_null($item);
-    })->toArray();
+            return !is_null($item);
+        })->toArray();
     }
 
     public function toJson()

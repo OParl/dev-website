@@ -25,7 +25,8 @@ class Meeting extends BaseModel
         return $this->belongsToMany(Person::class, 'oparl_meetings_participants', 'meeting_id', 'participant_id');
     }
 
-    public function location() {
+    public function location()
+    {
         return $this->belongsTo(Location::class);
     }
 

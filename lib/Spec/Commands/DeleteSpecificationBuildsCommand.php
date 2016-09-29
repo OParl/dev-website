@@ -26,7 +26,7 @@ class DeleteSpecificationBuildsCommand extends SpecificationCommand
      * Delete SpecificationBuild(s).
      *
      * @param BuildRepository $buildRepository
-     * @param Filesystem $fs
+     * @param Filesystem      $fs
      **/
     protected function deleteBuilds(BuildRepository $buildRepository, Filesystem $fs)
     {
@@ -42,6 +42,7 @@ class DeleteSpecificationBuildsCommand extends SpecificationCommand
                 $date = Carbon::createFromFormat('yyyy-mm-dd', $method);
             } catch (\Exception $e) {
                 $this->error('Failed to parse date, please adhere to the format yyyy-mm-dd');
+
                 return;
             }
 

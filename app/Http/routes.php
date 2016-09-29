@@ -14,13 +14,13 @@
 /* @var Illuminate\Routing\Router $router */
 
 /**
- * Route group for dev.oparl.org
+ * Route group for dev.oparl.org.
  *
  * This route group contains all the endpoints necessary to navigate through
  * dev.oparl.org except the api/ section which is loaded in via the
  * OParl\Server\ServerServiceProvider.
  */
-$router->group(['domain' => 'dev.' . config('app.url')], function () use ($router) {
+$router->group(['domain' => 'dev.'.config('app.url')], function () use ($router) {
     $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
 
     // Specification
@@ -88,7 +88,7 @@ $router->group(['domain' => 'dev.' . config('app.url')], function () use ($route
     $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
 });
 
-/**
+/*
  * Route group for spec.oparl.org
  *
  * This route group provides an easy to remember redirect to the
@@ -99,12 +99,12 @@ $router->group(['domain' => 'dev.' . config('app.url')], function () use ($route
  *
  * and for the latest version at spec.oparl.org/latest.{format}
  */
-$router->group(['domain' => 'spec.' . config('app.url')], function () use ($router) {
+$router->group(['domain' => 'spec.'.config('app.url')], function () use ($router) {
     $router->any('/', function () {
         return redirect()->route('specification.index');
     });
 
-    $router->get('/1.0', function() {
+    $router->get('/1.0', function () {
         return redirect()->route('specification.index');
     });
 
@@ -119,7 +119,7 @@ $router->group(['domain' => 'spec.' . config('app.url')], function () use ($rout
     ]);
 });
 
-/**
+/*
  * Route group for schema.oparl.org
  *
  * This route group defines access to the versioned JSONSchema of the OParl Specification
@@ -127,7 +127,7 @@ $router->group(['domain' => 'spec.' . config('app.url')], function () use ($rout
  *
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
-$router->group(['domain' => 'schema.' . config('app.url')], function () use ($router) {
+$router->group(['domain' => 'schema.'.config('app.url')], function () use ($router) {
     $router->get('/', function () {
         return redirect()->route('developers.index');
     });

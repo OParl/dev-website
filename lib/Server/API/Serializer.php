@@ -10,10 +10,11 @@ class Serializer extends SanitizedArraySerializer
     public function collection($resourceKey, array $data)
     {
         $data = parent::collection($resourceKey, $data);
+
         return [($resourceKey) ? $resourceKey : 'data' => $data['data']];
     }
 
-    public  function meta(array $meta)
+    public function meta(array $meta)
     {
         if (!empty($meta)) {
             return $meta[0];

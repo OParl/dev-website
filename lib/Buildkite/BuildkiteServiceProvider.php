@@ -16,7 +16,7 @@ class BuildkiteServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('Buildkite', function () {
-      return new Buildkite(config('services.buildkite.access_token'));
-    });
+            return new Buildkite(config('services.buildkite.access_token'));
+        });
     }
 }

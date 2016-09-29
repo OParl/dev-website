@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'itemsPerPage'   => 100,
     'rootURL'        => 'api/v1/',
     'modelNamespace' => 'OParl\\Server\\Model\\',

@@ -14,8 +14,8 @@ class SystemTest extends TestCase
         $this->route('get', 'api.v1.system.index');
 
         $this->assertTrue(is_string($this->decodeResponseJson()['body']));
-
     }
+
 /*
     public function testStructureIsValid()
     {

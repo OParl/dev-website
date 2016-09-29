@@ -24,7 +24,7 @@ $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $fa
 
         'contact_name'  => $faker->name,
         'contact_email' => $faker->email,
-        'website'       => route('api.index')
+        'website'       => route('api.index'),
     ];
 });
 
@@ -70,7 +70,7 @@ $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Gene
         'name' => sprintf('%s. Wahlperiode', $romanizer->formatNumber($faker->numberBetween(10, 60))),
 
         'start_date' => $startDate,
-        'end_date'   => Carbon::instance($startDate)->addYears($faker->numberBetween(1, 5))
+        'end_date'   => Carbon::instance($startDate)->addYears($faker->numberBetween(1, 5)),
     ];
 });
 
@@ -95,13 +95,13 @@ $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator
     $start->second = 0;
 
     return [
-        'number' => $number,
-        'name' => $faker->sentence(),
-        'public' => $faker->boolean(),
-        'result' => $faker->randomElement($results),
+        'number'          => $number,
+        'name'            => $faker->sentence(),
+        'public'          => $faker->boolean(),
+        'result'          => $faker->randomElement($results),
         'resolution_text' => $faker->realText($faker->numberBetween(200, 2000)),
-        'start' => $start,
-        'end' => Carbon::instance($start)->addMinutes($faker->randomElement(range(0, 60, 5)))
+        'start'           => $start,
+        'end'             => Carbon::instance($start)->addMinutes($faker->randomElement(range(0, 60, 5))),
     ];
 });
 
@@ -110,7 +110,7 @@ $factory->define(OParl\Server\Model\Consultation::class, function (Faker\Generat
 
     return [
         'authoritative' => $faker->boolean(),
-        'role' => $faker->randomElement($roles),
+        'role'          => $faker->randomElement($roles),
     ];
 });
 
@@ -129,8 +129,8 @@ $factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $
         'type'        => 'point',
         'coordinates' => [
             $faker->latitude,
-            $faker->longitude
-        ]
+            $faker->longitude,
+        ],
     ]);
 
     $postalCode = sprintf('%05d', $faker->numberBetween(10000, 17000) - 1000);
@@ -145,7 +145,6 @@ $factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $
 });
 
 $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $faker) {
-
     $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
     $startDate->hour = $faker->numberBetween(9, 17);
@@ -155,11 +154,11 @@ $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $f
     $meetingState = $faker->randomElement(['terminiert', 'eingeladen', 'durchgeführt']);
 
     return [
-        'name'         => $faker->word,
+        'name'          => $faker->word,
         'meeting_state' => $meetingState,
-        'cancelled'    => $faker->boolean(),
-        'start'        => $startDate,
-        'end'          => Carbon::instance($startDate)->addHours($faker->numberBetween(1, 5)),
+        'cancelled'     => $faker->boolean(),
+        'start'         => $startDate,
+        'end'           => Carbon::instance($startDate)->addHours($faker->numberBetween(1, 5)),
     ];
 });
 
@@ -187,7 +186,7 @@ $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generat
         $shortNameNumber = $faker->randomNumber(3);
     } while ($shortNameNumber < 0);
 
-    $shortName = 'O-' . $romanizer->formatNumber($shortNameNumber);
+    $shortName = 'O-'.$romanizer->formatNumber($shortNameNumber);
 
     $organizationTypes = [
         'externes Gremium',
@@ -208,7 +207,7 @@ $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generat
         'Verwaltungsrat',
         'Kommission',
         'Fraktion',
-        'Partei'
+        'Partei',
     ]);
 
     $startDate = Carbon::instance($faker->dateTimeThisDecade);

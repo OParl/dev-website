@@ -62,20 +62,20 @@ abstract class AbstractClient
 
         foreach ($arguments as $argument => $value) {
             if (is_null($value)
-      ||  strlen($value) == 0
-      ||  count($value) == 0) {
+      || strlen($value) == 0
+      || count($value) == 0) {
                 continue;
             }
 
             if (is_array($value)) {
                 collect($value)->map(function ($val, $key) use ($argument) {
-          return [
+                    return [
             sprintf('%s[%s]', $argument, $key),
             urlencode($val),
           ];
-        })->each(function ($encoded) use ($request) {
-          $request->getQuery()->add($encoded[0], $encoded[1]);
-        });
+                })->each(function ($encoded) use ($request) {
+                    $request->getQuery()->add($encoded[0], $encoded[1]);
+                });
             } else {
                 $request->getQuery()->add($argument, $value);
             }

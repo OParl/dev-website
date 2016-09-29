@@ -7,12 +7,13 @@ class Person extends BaseModel
     protected $casts = [
         'title' => 'array',
         'phone' => 'array',
-        'email' => 'array'
+        'email' => 'array',
     ];
 
     public function getNameAttribute()
     {
         $title = implode(' ', $this->title);
+
         return implode(' ', [$this->form_of_address, $title, $this->affix, $this->given_name, $this->family_name]);
     }
 

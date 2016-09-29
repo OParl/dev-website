@@ -19,9 +19,9 @@ class FileTest extends TestCase
         $this->route('get', 'api.v1.file.show', [1]);
         $this->assertResponseStatus(404);
         $this->seeJson([
-            "error" => [
-                "message" => "The requested item in `File` does not exist.",
-                "status"  => 404,
+            'error' => [
+                'message' => 'The requested item in `File` does not exist.',
+                'status'  => 404,
             ],
         ]);
     }
@@ -31,9 +31,9 @@ class FileTest extends TestCase
         $this->route('get', 'api.v1.file.show', [0]);
         $this->assertResponseStatus(404);
         $this->seeJson([
-            "error" => [
-                "message" => "The requested item in `File` does not exist.",
-                "status"  => 404,
+            'error' => [
+                'message' => 'The requested item in `File` does not exist.',
+                'status'  => 404,
             ],
         ]);
     }

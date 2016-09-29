@@ -48,8 +48,6 @@ class CreateFilesTable extends Migration
             // TODO: meeting is n:n
             // TODO: agenda_item is n:n
             // TODO: paper is n:n
-
-            
         });
     }
 

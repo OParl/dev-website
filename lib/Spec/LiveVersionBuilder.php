@@ -2,7 +2,6 @@
 
 namespace OParl\Spec;
 
-use Debugbar;
 use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\DomCrawler\Crawler;
@@ -10,11 +9,9 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**
- * Class LiveVersionBuilder
+ * Class LiveVersionBuilder.
  *
  * Prepare the live version for web display
- *
- * @package OParl\Spec
  */
 class LiveVersionBuilder
 {
@@ -77,7 +74,7 @@ class LiveVersionBuilder
     }
 
     /**
-     * Parse the raw markdown chapters into a collection
+     * Parse the raw markdown chapters into a collection.
      */
     public function parseChapters()
     {
@@ -93,20 +90,17 @@ class LiveVersionBuilder
     }
 
     /**
-     * Extract and optimize the html sections for web display
+     * Extract and optimize the html sections for web display.
      */
     public function parseHTML()
     {
-
         $this->extractSections();
 
         $this->fixNavHTML();
         $this->fixContentHTML();
     }
 
-    /**
-     *
-     */
+
     public function extractSections()
     {
         \Debugbar::startMesaser('liveversionbuilder.extractSections', 'Split document');
@@ -123,17 +117,13 @@ class LiveVersionBuilder
         \Debugbar::endMeasure('liveversionbuilder.extractSections');
     }
 
-    /**
-     *
-     */
+
     public function fixNavHTML()
     {
-        $this->nav = str_replace('href="#', 'href="' . route('specification.index') . '#', $this->nav);
+        $this->nav = str_replace('href="#', 'href="'.route('specification.index').'#', $this->nav);
     }
 
-    /**
-     *
-     */
+
     public function fixContentHTML()
     {
         \Debugbar::startMeasure('liveversionbuilder.prepareContentHTML', 'Prepare content HTML');
@@ -148,11 +138,12 @@ class LiveVersionBuilder
         $specificationBaseRoute = route('specification.index');
 
         // footnotes
-        $html = str_replace('href="#', 'href="' . $specificationBaseRoute . '#', $html);
+        $html = str_replace('href="#', 'href="'.$specificationBaseRoute.'#', $html);
 
         // link oparl:<entity> to #schema-<entity>
         $html = preg_replace_callback('/oparl:([A-Za-z]+)/', function ($matches) use ($specificationBaseRoute) {
             $hash = strtolower($matches[1]);
+
             return "<a href=\"{$specificationBaseRoute}#entity-{$hash}\">{$matches[0]}</a>";
         }, $html);
 
@@ -185,8 +176,8 @@ class LiveVersionBuilder
             $toLanguage = $fromLanguage;
         }
 
-        $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/',
-            '<pre$1><code class="language-' . $toLanguage . '">', $html);
+        $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/',
+            '<pre$1><code class="language-'.$toLanguage.'">', $html);
 
         return $html;
     }
@@ -198,7 +189,7 @@ class LiveVersionBuilder
     {
         return function ($match) use (&$exampleIdentifierCount) {
             $data = [
-                'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
+                'exampleIdentifier' => 'example-'.$exampleIdentifierCount,
                 'exampleTitle'      => $match[1],
                 'exampleCode'       => $match[2],
             ];
@@ -239,7 +230,7 @@ class LiveVersionBuilder
     public function getRaw()
     {
         return $this->chapters->reduce(function ($carry, $current) {
-            return $carry . $current;
+            return $carry.$current;
         }, '');
     }
 }

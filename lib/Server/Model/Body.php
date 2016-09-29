@@ -3,15 +3,14 @@
 namespace OParl\Server\Model;
 
 /**
- * Class Body
- * @package OParl\Server\Model
+ * Class Body.
  */
 class Body extends BaseModel
 {
     protected $dates = ['license_valid_since', 'oparl_since', 'deleted_at'];
-    
+
     protected $casts = [
-        'equivalent_body' => 'array'
+        'equivalent_body' => 'array',
     ];
 
     public function legislativeTerms()
@@ -19,15 +18,18 @@ class Body extends BaseModel
         return $this->hasMany(LegislativeTerm::class, 'body_id', 'id');
     }
 
-    public function location() {
+    public function location()
+    {
         return $this->belongsTo(Location::class);
     }
 
-    public function people() {
+    public function people()
+    {
         return $this->hasMany(Person::class, 'body_id', 'id');
     }
 
-    public function organizations() {
+    public function organizations()
+    {
         return $this->hasMany(Organization::class, 'body_id', 'id');
     }
 

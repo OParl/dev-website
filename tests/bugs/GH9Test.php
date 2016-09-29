@@ -16,6 +16,6 @@ class GH9Test extends TestCase
         $this->assertResponseStatus(200);
 
         $host = env('APP_URL');
-        $this->seeJson(["body" => "http://dev.{$host}/api/v1/body/1"]);
+        $this->seeJson(['body' => "http://dev.{$host}/api/v1/body/1"]);
     }
 }

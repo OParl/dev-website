@@ -54,8 +54,6 @@ class MeetingTransformer extends BaseTransformer
         if ($meeting->location instanceof Location) {
             return $this->item($meeting->location, $this->locationTransformer);
         }
-
-        return null;
     }
 
     public function includeInvitation(Meeting $meeting)
@@ -63,8 +61,6 @@ class MeetingTransformer extends BaseTransformer
         if ($meeting->invitation instanceof File) {
             return $this->item($meeting->invitation, $this->fileTransformer);
         }
-
-        return null;
     }
 
     public function includeResultsProtocol(Meeting $meeting)
@@ -72,8 +68,6 @@ class MeetingTransformer extends BaseTransformer
         if ($meeting->resultsProtocol instanceof File) {
             return $this->item($meeting->resultsProtocol, $this->fileTransformer);
         }
-
-        return null;
     }
 
     public function includeVerbatimProtocol(Meeting $meeting)
@@ -81,13 +75,10 @@ class MeetingTransformer extends BaseTransformer
         if ($meeting->verbatimProtocol instanceof File) {
             return $this->item($meeting->verbatimProtocol, $this->fileTransformer);
         }
-
-        return null;
     }
 
     public function includeAuxiliaryFile(Meeting $meeting)
     {
-
         return $this->collection($meeting->auxiliaryFiles, $this->fileTransformer);
 
         //return null;

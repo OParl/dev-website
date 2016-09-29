@@ -31,7 +31,8 @@ class SpecificationController extends Controller
         return response()->json($build->getLatest(15));
     }
 
-    public function toc(LiveVersionRepository $liveVersionRepository) {
+    public function toc(LiveVersionRepository $liveVersionRepository)
+    {
         return response()->json($liveVersionRepository->getTableOfContents());
     }
 
