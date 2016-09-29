@@ -9,12 +9,12 @@ class SystemTest extends TestCase
         $this->seeJson(['name' => 'OParl Demoserver']);
     }
 
-    public function testHasAtLeastOneBody()
+    public function testHasBodies()
     {
         $this->route('get', 'api.v1.system.index');
 
-        $this->assertTrue(is_array($this->decodeResponseJson()['body']));
-        $this->assertTrue(count($this->decodeResponseJson()['body']) >= 1);
+        $this->assertTrue(is_string($this->decodeResponseJson()['body']));
+
     }
 /*
     public function testStructureIsValid()

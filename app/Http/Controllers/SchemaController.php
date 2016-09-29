@@ -30,14 +30,46 @@ class SchemaController extends Controller
             abort(404);
         }
 
-        $entityPath = "live_version/schema/{$entity}.json";
-
-        if (!$fs->exists($entityPath)) {
-            abort(404, 'The requested schema was not found on this server. Please check if you requested the correct schema version.');
+        if ($entity === 'LegislativeTerm') {
+            return $this->load($fs, 'LegislativeTerm', 'Body');
         }
 
-        $loadedEntity = json_decode($fs->get($entityPath), true);
+        if ($entity === 'Membership') {
+            return $this->load($fs, 'Membership', 'Organization');
+        }
 
-        return response()->json($loadedEntity);
+        if ($entity === 'AgendaItem') {
+            return $this->load($fs, 'AgendaItem', 'Meeting');
+        }
+
+        if ($entity === 'Consultation') {
+            return $this->load($fs, 'Consultation', 'Paper');
+        }
+
+        return $this->load($fs, $entity);
+    }
+
+    // TODO: extract loading to SchemaRepository
+    protected function load(Filesystem $fs, $entity, $parentEntity = '')
+    {
+        $entityToLoad = $entity;
+        $hasParent = strlen($parentEntity) > 0;
+
+        if ($hasParent) {
+            $entityToLoad = $parentEntity;
+        }
+        $entityPath = "live_version/schema/{$entityToLoad}.json";
+
+        if ($fs->exists($entityPath)) {
+            $loadedEntity = json_decode($fs->get($entityPath), true);
+
+            if ($hasParent) {
+                $loadedEntity = $loadedEntity['properties'][lcfirst($entity)];
+            }
+
+            return response()->json($loadedEntity);
+        } else {
+            return abort(404, 'Entity not found.');
+        }
     }
 }
