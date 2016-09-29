@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 class SchemaController extends Controller
