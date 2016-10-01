@@ -8,15 +8,14 @@ return [
     'contact.mailinglist' => 'OParl-Tech ist die Mailingliste auf der technische Neuheiten und '
         .'Anfragen besprochen werden, die keinen Platz auf GitHub haben.',
     'contact.form_info'   => 'Kontaktformular',
-    'contact.form'        => 'Für allgemeine Anfragen oder Anfragen, die Ihre gewerbliche Nutzung von OParl betreffen '
-        .'nutzen Sie bitte unser Kontaktformular.',
+    'contact.form'        => 'Für allgemeine Anfragen oder Anfragen, die Ihre gewerbliche Nutzung von OParl betreffen nutzen Sie bitte unser Kontaktformular.',
 
     'developers.title'             => 'Übersicht',
 
     'developers.about-oparl.title' => 'Was ist OParl?',
     'developers.about-oparl.text'  => 'OParl ist ein seit Juni 2016 veröffentlichter Standard zur maschinenlesbaren Ausgabe von Daten aus sogenannten parlamentarischen Informationssystemen.',
     'developers.about-dev.title'   => 'Was finde ich hier?',
-    'developers.about-dev.text'    => 'Das OParl-Entwicklerportal ist die zentrale Schnittstelle zwischen OParl-Implentiereren, OParl-Bereitstellern und OParl-Nutzern. Hier finden Sie technische Informationen zur Schnittstelle und weiterführendes Material zu deren Einsatz und Verwendbarkeit für verschiedene Zwecke.',
+    'developers.about-dev.text'    => 'Das OParl-Entwicklerportal ist die zentrale Anlaufstelle zwischen OParl-Implentiereren, OParl-Bereitstellern und OParl-Nutzern. Hier finden Sie technische Informationen zur Schnittstelle und weiterführendes Material zu deren Einsatz und Verwendbarkeit für verschiedene Zwecke.',
 
     'demo.title' => 'API Demo',
 
