@@ -1,8 +1,8 @@
 <template>
     <div class="c-accordion">
         <div class="c-accordion--header" @click="show = !show" v-if="!hasTrigger">
-            <i class="fa {{ caret }}"></i>
             <slot name="title"></slot>
+            <i class="fa {{ caret }}"></i>
         </div>
         <div class="c-accordion--body" v-show="show" transition="expand">
             <slot name="body"></slot>
@@ -12,6 +12,8 @@
 
 <script>
     export default {
+        name: 'FAccordion',
+
         props: {
             show: {
                 type: Boolean,

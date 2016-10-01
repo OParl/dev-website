@@ -10,21 +10,17 @@
 @section ('content')
     @if ($isError)
         <div class="row">
-            <div class="col-xs-8 col-xs-offset-2">
-                <div class="alert alert-danger">
-                    Whoops! Something went terribly wrong here!
-                </div>
+            <div class="alert alert-danger">
+                Whoops! Something went terribly wrong here!
             </div>
         </div>
     @endif
 
-    <div class="row">
-        <div class="">
-            @include('transfugio::api.sidebar')
-        </div>
-        <div class="row-item--grow-2">
-            @include('transfugio::api.main')
-        </div>
+    <div>
+        @include('transfugio::api.sidebar')
+    </div>
+    <div>
+        @include('transfugio::api.main')
     </div>
 
     @if (isset($paginationCode))

@@ -10,9 +10,11 @@
   .expand-transition {
     transition: .6s ease-in-out;
     transform: translateY(0);
+    z-index: auto;
   }
 
   .expand-enter, .expand-leave {
+    z-index: -1000;
     transform: translateY(-100%);
   }
 }

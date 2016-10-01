@@ -1,5 +1,4 @@
 var elixir = require('laravel-elixir');
-
 require('laravel-elixir-vueify');
 
 /*
@@ -29,8 +28,6 @@ elixir(function(mix) {
     // public/js/lib.js
     mix.scripts(
         [
-            'jquery/dist/jquery.js',
-
             'prismjs/prism.js',
 
             'prismjs/components/prism-javascript.js',
