@@ -5,8 +5,9 @@
 </p>
 
 <f-accordion>
-    <span slot="title">Eigenschaften</span>
+    <span slot="title">Mehr&hellip;</span>
     <div slot="body">
+        <h4 >Eigenschaften</h4>
         <dl class="properties">
             @foreach ($documentation->getFields() as $field)
                 <dt>
@@ -39,7 +40,7 @@
             @endforeach
         </dl>
 
-        <div class="well well-sm small hidden-xs">
+        <div class="small">
             <h4 class="text-muted">Legende</h4>
             <ul class="list-unstyled">
                 <li class="text-danger">Zwingende Eigenschaft</li>
