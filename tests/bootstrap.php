@@ -1,28 +1,6 @@
 <?php
 
-use OParl\Spec\LiveVersionUpdater;
-
 include __DIR__.'/../bootstrap/autoload.php';
-
-if (!file_exists('tests/assets')) {
-    mkdir('tests/assets', 0777, true);
-}
-
-if (!file_exists('tests/assets/spec.git')) {
-    exec('git clone --bare https://github.com/OParl/spec.git tests/assets/spec.git');
-} else {
-    $cwd = getcwd();
-
-    chdir('tests/assets/spec.git');
-    exec('git fetch');
-    chdir($cwd);
-}
-
-if (!file_exists('storage/app/live_version')) {
-    /* @var $updater LiveVersionUpdater */
-    $updater = app(LiveVersionUpdater::class);
-    $updater->updateRepository();
-}
 
 PHPUnit_Extensions_Selenium2TestCase::shareSession(true);
 

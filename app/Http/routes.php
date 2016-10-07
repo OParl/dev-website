@@ -32,9 +32,6 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->name('specification.image')
         ->where('image', '[[:print:]]+\.(png|jpg)');
 
-    $router->get('/spezifikation/builds.json', 'SpecificationController@builds');
-    $router->get('/spezifikation/toc.json', 'SpecificationController@toc')->name('specification.toc');
-
     // Downloads
     $router->get('/downloads/latest.{downloadsExtension}', [
         'uses' => 'DownloadsController@latest',
