@@ -46,4 +46,14 @@ class SpecificationController extends Controller
     {
         return response($livecopy->getRaw(), 200, ['Content-type' => 'text/plain']);
     }
+
+    public function redirectToIndex()
+    {
+        return redirect()->route('specification.index');
+    }
+
+    public function redirectToVersion($version)
+    {
+        return $this->redirectToIndex();
+    }
 }

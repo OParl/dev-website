@@ -19,4 +19,9 @@ class DevelopersController extends Controller
     {
         return view('developers.contact');
     }
+
+    public function redirectToIndex()
+    {
+        return redirect()->route('developers.index');
+    }
 }

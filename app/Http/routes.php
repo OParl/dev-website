@@ -52,7 +52,8 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 
-    
+    $router->get('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index']);
+    $router->get('/_/gh/notify', ['uses' => 'Hooks\GitHubHooksController@notify', 'as' => 'hooks.gh.notify']);
 
     // Dummy file controller for API demo
     $router->pattern('filename', '[a-z0-9]{3,8}');
@@ -72,13 +73,9 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
  * and for the latest version at spec.oparl.org/latest.{format}
  */
 $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router) {
-    $router->any('/', function () {
-        return redirect()->route('specification.index');
-    });
+    $router->any('/')->uses('SpecificationController@redirectToIndex');
 
-    $router->get('/1.0', function () {
-        return redirect()->route('specification.index');
-    });
+    $router->get('/1.0')->uses('SpecificationController@redirectToVersion')->where('version', '1.0');
 
     $router->get('/{downloadsVersion}.{downloadsExtension}', [
         'uses' => 'DownloadsController@getFile',
@@ -100,9 +97,7 @@ $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
 $router->group(['domain' => 'schema.'.config('app.url')], function () use ($router) {
-    $router->get('/', function () {
-        return redirect()->route('developers.index');
-    });
+    $router->get('/')->uses('DevelopersController@redirectToIndex');
 
     $router->get('/1.0/{entity}', [
         'uses' => 'SchemaController@getSchema',
