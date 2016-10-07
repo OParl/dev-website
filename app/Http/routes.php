@@ -52,32 +52,7 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 
-    // Hooks
-    $router->get('/_hooks', function () {
-        return redirect()->route('specification.index');
-    });
-
-    $router->get('/_hooks/spec_change', function () {
-        return redirect()->route('specification.index');
-    });
-    $router->post('/_hooks/spec_change', [
-        'uses'       => 'HooksController@specChange',
-        'as'         => 'hooks.spec',
-        'middleware' => ['hooks.github'],
-    ]);
-
-    $router->get('/_hooks/add_version', function () {
-        return redirect()->route('specification.index');
-    });
-    $router->post('/_hooks/add_version', [
-        'uses' => 'HooksController@addVersion',
-        'as'   => 'hooks.add',
-    ]);
-
-    $router->get('/_hooks/lock_version_updates', [
-        'uses' => 'HooksController@lockVersionUpdates',
-        'as'   => 'hooks.lock_vu',
-    ]);
+    
 
     // Dummy file controller for API demo
     $router->pattern('filename', '[a-z0-9]{3,8}');
