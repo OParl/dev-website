@@ -11,5 +11,10 @@ namespace App\Jobs;
 
 class GitHubPushJob extends Job
 {
+    protected $repository;
 
+    public function __construct($repository)
+    {
+        $this->repository = $repository;
+    }
 }

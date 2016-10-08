@@ -53,7 +53,8 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 
     $router->get('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index']);
-    $router->get('/_/gh/notify', ['uses' => 'Hooks\GitHubHooksController@notify', 'as' => 'hooks.gh.notify']);
+    $router->get('/_/gh/push/{repository}', ['uses' => 'Hooks\GitHubHooksController@push', 'as' => 'hooks.gh.push'])
+        ->where('repository', '[A-za-z.]+');
 
     // Dummy file controller for API demo
     $router->pattern('filename', '[a-z0-9]{3,8}');

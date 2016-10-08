@@ -46,4 +46,9 @@ return [
         ],
     ],
 
+    'repositories' => [
+        'OParl/spec',
+        'OParl/dev-website',
+        'OParl/liboparl'
+    ]
 ];
