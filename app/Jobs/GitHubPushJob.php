@@ -8,6 +8,7 @@
 
 namespace App\Jobs;
 
+use GrahamCampbell\GitHub\GitHubManager;
 
 class GitHubPushJob extends Job
 {
@@ -16,5 +17,10 @@ class GitHubPushJob extends Job
     public function __construct($repository)
     {
         $this->repository = $repository;
+    }
+
+    public function handle(GitHubManager $gh)
+    {
+
     }
 }

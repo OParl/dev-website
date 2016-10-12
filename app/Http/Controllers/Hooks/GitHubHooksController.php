@@ -17,16 +17,21 @@ class GitHubHooksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(ValidateGitHubWebHook::class);
+        $this->middleware(ValidateGitHubWebHook::class, ['except' => 'index']);
     }
 
     public function index()
     {
-        abort(400);
+        return abort(400);
     }
 
     public function push(Request $request, $repository)
     {
+        $allowedRepositories = collect(config('github.repositories'));
+        if (!$allowedRepositories->contains($repository)) {
+            return abort(400);
+        }
+
         $ghEvent = $request->header('x-github-event');
 
         switch ($ghEvent) {
@@ -34,8 +39,9 @@ class GitHubHooksController extends Controller
                 // update jobs are only necessary on PR merges
                 $json = json_decode($request->input('payload'), true);
 
-                if ($json['action'] == 'closed' && $json['merged']) {
+                if ($json['action'] === 'closed' && $json['merged']) {
                     $this->dispatch(new GitHubPushJob($repository));
+
                     return response()->json(['result' => 'Success.']);
                 }
 
@@ -43,8 +49,8 @@ class GitHubHooksController extends Controller
 
             case 'push':
                 $this->dispatch(new GitHubPushJob($repository));
+
                 return response()->json(['result' => 'Success.']);
-                break;
 
             case 'ping':
             default:

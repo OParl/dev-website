@@ -53,8 +53,10 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 
     $router->get('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index']);
-    $router->get('/_/gh/push/{repository}', ['uses' => 'Hooks\GitHubHooksController@push', 'as' => 'hooks.gh.push'])
-        ->where('repository', '[A-za-z.]+');
+    $router->post('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index.post']);
+    $router->get('/_/gh/push/[a-zA-Z.]+', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.push.get']);
+    $router->post('/_/gh/push/{repository}', ['uses' => 'Hooks\GitHubHooksController@push', 'as' => 'hooks.gh.push'])
+        ->where('repository', '[a-z-]+');
 
     // Dummy file controller for API demo
     $router->pattern('filename', '[a-z0-9]{3,8}');

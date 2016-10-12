@@ -26,11 +26,11 @@ class UpdateAvailableSpecificationVersionsJob extends SpecificationJob
             $humanVersion = explode("\n", $commitMessage)[0];
 
             SpecificationBuild::firstOrCreate([
-        'commit_message' => $commitMessage,
-        'human_version'  => $humanVersion,
-        'created_at'     => $createdAt,
-        'hash'           => $hash,
-      ]);
+                'commit_message' => $commitMessage,
+                'human_version'  => $humanVersion,
+                'created_at'     => $createdAt,
+                'hash'           => $hash,
+            ]);
         });
     }
 }
