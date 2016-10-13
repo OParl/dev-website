@@ -8,19 +8,57 @@
 
 namespace App\Jobs;
 
-use GrahamCampbell\GitHub\GitHubManager;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use OParl\Spec\LiveVersionUpdater;
 
+/**
+ * GitHubPushJob
+ *
+ * This is just a meta job which dispatches the actual update
+ * job required for a given repository. Hook handling from GH
+ * is done this way to ensure as quick a reply to the Hookshoot
+ * bot as possible.
+ *
+ * @package App\Jobs
+ */
 class GitHubPushJob extends Job
 {
-    protected $repository;
+    use DispatchesJobs;
 
-    public function __construct($repository)
+    /**
+     * @var string
+     */
+    protected $repository = '';
+
+    /**
+     * @var array json decoded hook payload
+     */
+    protected $payload = [];
+
+    public function __construct($repository, array $payload)
     {
         $this->repository = $repository;
+        $this->payload = $payload;
     }
 
-    public function handle(GitHubManager $gh)
+    public function handle()
     {
+        $this->dispatch(new StoreRepositoryStatusJob($this->repository, $this->payload));
 
+        switch ($this->repository) {
+            case 'spec':
+                $this->dispatchNow(new LiveVersionUpdateJob($this->payload));
+                break;
+
+            case 'dev-website':
+                break;
+
+            case 'liboparl':
+                break;
+
+            default:
+                \Log::error("Cannot process push job for " . $this->repository);
+                break;
+        }
     }
 }

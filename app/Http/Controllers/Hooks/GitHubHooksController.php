@@ -33,14 +33,15 @@ class GitHubHooksController extends Controller
         }
 
         $ghEvent = $request->header('x-github-event');
+        $payload = json_decode($request->input('payload'), true);
 
         switch ($ghEvent) {
             case 'pull_request':
                 // update jobs are only necessary on PR merges
-                $json = json_decode($request->input('payload'), true);
 
-                if ($json['action'] === 'closed' && $json['merged']) {
-                    $this->dispatch(new GitHubPushJob($repository));
+
+                if ($payload['action'] === 'closed' && $payload['merged']) {
+                    $this->dispatch(new GitHubPushJob($repository, $payload));
 
                     return response()->json(['result' => 'Success.']);
                 }
@@ -48,7 +49,7 @@ class GitHubHooksController extends Controller
                 return response()->json(['result' => 'No merge happened. Nothing to do.']);
 
             case 'push':
-                $this->dispatch(new GitHubPushJob($repository));
+                $this->dispatch(new GitHubPushJob($repository, $payload));
 
                 return response()->json(['result' => 'Success.']);
 
