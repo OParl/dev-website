@@ -78,9 +78,11 @@ a {
   }
 }
 
-ol, ul {
-  &.list-unstyled {
-    list-style-type: none;
+ol.list-unstyled, ul.list-unstyled {
+  padding-left: 0;
+
+  & > li {
+    list-style: none;
   }
 }
 
