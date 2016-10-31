@@ -2,6 +2,7 @@
 
 namespace EFrane\HubSync;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 /**
@@ -15,7 +16,15 @@ use Symfony\Component\Process\Process;
  */
 class Repository
 {
-    protected $storagePath;
+    /**
+     * @var string
+     */
+    protected $path = '';
+
+    /**
+     * @var string
+     */
+    protected $absolutePath = '';
 
     /**
      * @var string
@@ -25,12 +34,9 @@ class Repository
     /**
      * @var string
      */
-    protected $path = '';
-
-    /**
-     * @var string
-     */
     protected $remoteURI = '';
+
+    protected $fs = null;
 
     /**
      * Repository constructor
@@ -38,12 +44,19 @@ class Repository
      * @param $localName string
      * @param $remoteURI string
      */
-    public function __construct($localName, $remoteURI)
+    public function __construct(Filesystem $fs, $localName, $remoteURI)
     {
+        $this->fs = $fs;
+
         $this->localName = $localName;
         $this->remoteURI = $remoteURI;
 
-        $this->storagePath = "hub_sync/{$this->localName}";
+        $this->path = "hub_sync/{$this->localName}";
+        $this->absolutePath = "app/{$this->path}";
+
+        if (!$fs->exists('hub_sync')) {
+            $fs->makeDirectory('hub_sync');
+        }
     }
 
     /**
@@ -51,21 +64,14 @@ class Repository
      */
     public function update()
     {
-        $repositoryPath = "$this->storagePath/repo";
-        $absoluteRepositoryPath = storage_path($repositoryPath);
-
-        if (!is_dir($absoluteRepositoryPath)) {
-            mkdir($absoluteRepositoryPath, 0777, true);
-        }
-
-        if (!file_exists("{$absoluteRepositoryPath}/.git/HEAD")) {
+        if (!$this->fs->exists("{$this->path}/.git/HEAD")) {
             $cmd = sprintf(
                 'git clone -q --recursive --recurse-submodules %s %s',
                 $this->remoteURI,
-                $absoluteRepositoryPath
+                $this->absolutePath
             );
         } else {
-            $cmd = sprintf('git -C %s pull -q --autostash --rebase', $absoluteRepositoryPath);
+            $cmd = sprintf('git -C %s pull -q --autostash --rebase', $this->absolutePath);
         }
 
         $process = new Process($cmd);
