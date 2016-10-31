@@ -39,7 +39,8 @@
       "OParl\\Spec\\": "lib/Spec/",
       "OParl\\Server\\": "lib/Server",
       "EFrane\\Akismet\\": "lib/Akismet/",
-      "EFrane\\Buildkite\\": "lib/Buildkite/"
+      "EFrane\\Buildkite\\": "lib/Buildkite/",
+      "EFrane\\HubSync\\": "lib/HubSync/src"
     }
   },
   "autoload-dev": {
