@@ -8,6 +8,7 @@
 
 namespace App\Jobs;
 
+use EFrane\HubSync\Repository;
 
 class LiveVersionUpdateJob extends Job
 {
@@ -23,6 +24,7 @@ class LiveVersionUpdateJob extends Job
 
     public function handle()
     {
-
+        $hubSync = new Repository('oparl_spec', 'https://github.com/OParl/spec.git');
+        $hubSync->update();
     }
 }

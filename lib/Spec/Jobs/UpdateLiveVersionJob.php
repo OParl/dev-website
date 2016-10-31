@@ -2,7 +2,7 @@
 
 namespace OParl\Spec\Jobs;
 
-use OParl\Spec\LiveVersionUpdater;
+use EFrane\HubSync\Repository;
 
 class UpdateLiveVersionJob extends SpecificationJob
 {
@@ -13,13 +13,14 @@ class UpdateLiveVersionJob extends SpecificationJob
         $this->forceRefresh = $forceRefresh;
     }
 
-  /**
-   * Execute the job.
-   *
-   * @return void
-   */
-  public function handle(LiveVersionUpdater $updater)
-  {
-      $updater->updateRepository($this->forceRefresh);
-  }
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $hubSync = new Repository('oparl_spec', 'https://github.com/OParl/spec.git');
+        $hubSync->update();
+    }
 }

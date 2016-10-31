@@ -9,7 +9,6 @@
 namespace App\Jobs;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use OParl\Spec\LiveVersionUpdater;
 
 /**
  * GitHubPushJob
@@ -48,12 +47,14 @@ class GitHubPushJob extends Job
         switch ($this->repository) {
             case 'spec':
                 $this->dispatchNow(new LiveVersionUpdateJob($this->payload));
+                // TODO: request new buildables from CI
                 break;
 
             case 'dev-website':
                 break;
 
             case 'liboparl':
+                // TODO: request new buildables from CI
                 break;
 
             default:
