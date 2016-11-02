@@ -52,7 +52,7 @@ class Repository
         $this->remoteURI = $remoteURI;
 
         $this->path = "hub_sync/{$this->localName}";
-        $this->absolutePath = "app/{$this->path}";
+        $this->absolutePath = storage_path("app/{$this->path}");
 
         if (!$fs->exists('hub_sync')) {
             $fs->makeDirectory('hub_sync');
@@ -81,5 +81,43 @@ class Repository
         $process->wait();
 
         return $process->getExitCode() == 0;
+    }
+
+    public function clean()
+    {
+        $this->fs->deleteDirectory($this->path);
+        $this->fs->delete($this->path);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbsolutePath()
+    {
+        return $this->absolutePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocalName()
+    {
+        return $this->localName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRemoteURI()
+    {
+        return $this->remoteURI;
     }
 }
