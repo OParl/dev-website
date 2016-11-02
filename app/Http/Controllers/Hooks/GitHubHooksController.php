@@ -28,6 +28,7 @@ class GitHubHooksController extends Controller
     public function push(Request $request, $repository)
     {
         $allowedRepositories = collect(config('github.repositories'));
+
         if (!$allowedRepositories->contains($repository)) {
             return abort(400);
         }

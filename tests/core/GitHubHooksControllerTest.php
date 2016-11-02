@@ -38,7 +38,11 @@ class GitHubHooksControllerTest extends \TestCase
     public function testPushDispatchesJob()
     {
         $this->expectsJobs(\App\Jobs\GitHubPushJob::class);
-        $this->post(route('hooks.gh.push', ['spec']), [], ['x-github-event' => 'push']);
+        $this->post(
+            route('hooks.gh.push', ['spec']),
+            ['payload' => json_encode(['action' => 'closed'])],
+            ['x-github-event' => 'push']
+        );
 
         $this->assertResponseOk();
     }
