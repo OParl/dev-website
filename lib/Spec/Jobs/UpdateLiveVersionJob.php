@@ -3,6 +3,7 @@
 namespace OParl\Spec\Jobs;
 
 use EFrane\HubSync\Repository;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 class UpdateLiveVersionJob extends SpecificationJob
 {
@@ -18,9 +19,9 @@ class UpdateLiveVersionJob extends SpecificationJob
      *
      * @return void
      */
-    public function handle()
+    public function handle(Filesystem $fs)
     {
-        $hubSync = new Repository('oparl_spec', 'https://github.com/OParl/spec.git');
+        $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
         $hubSync->update();
     }
 }

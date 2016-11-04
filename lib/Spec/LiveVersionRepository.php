@@ -10,7 +10,7 @@ class LiveVersionRepository
     /**
      * @const string Livecopy storage path inside the app/storage directory
      */
-    const PATH = 'live_version';
+    const PATH = 'hub_sync/oparl_spec/';
 
     /**
      * @var LiveVersionUpdater

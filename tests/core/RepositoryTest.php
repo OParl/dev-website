@@ -36,6 +36,7 @@ class RepositoryTest extends TestCase
 
     public function testGetAbsolutePath()
     {
+        $this->assertStringStartsWith('/', $this->repo->getAbsolutePath());
         $this->assertStringEndsWith('storage/app/hub_sync/' . $this->localName, $this->repo->getAbsolutePath());
     }
 

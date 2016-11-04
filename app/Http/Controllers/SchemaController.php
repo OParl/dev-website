@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use OParl\Spec\LiveVersionRepository;
 
 class SchemaController extends Controller
 {
@@ -57,7 +58,7 @@ class SchemaController extends Controller
         if ($hasParent) {
             $entityToLoad = $parentEntity;
         }
-        $entityPath = "live_version/schema/{$entityToLoad}.json";
+        $entityPath = LiveVersionRepository::getSchemaPath("{$entityToLoad}.json");
 
         if ($fs->exists($entityPath)) {
             $loadedEntity = json_decode($fs->get($entityPath), true);

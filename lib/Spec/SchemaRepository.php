@@ -31,7 +31,7 @@ class SchemaRepository
     public function getEntityForVersion($entityName, $version = 'latest')
     {
         if ($version === 'latest') {
-            $entityPath = "live_version/schema/{$entityName}.json";
+            $entityPath = LiveVersionRepository::getSchemaPath() . "/{$entityName}.json";
 
             if (!$this->fs->exists($entityPath)) {
                 throw new SpecificationException("Entity {$entityName} was not found.");

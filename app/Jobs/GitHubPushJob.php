@@ -47,7 +47,6 @@ class GitHubPushJob extends Job
         switch ($this->repository) {
             case 'spec':
                 $this->dispatchNow(new LiveVersionUpdateJob($this->payload));
-                // TODO: request new buildables from CI
                 break;
 
             case 'dev-website':

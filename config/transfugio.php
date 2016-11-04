@@ -27,6 +27,6 @@ return [
 
     'web' => [
         'documentationType' => 'JSONSchema',
-        'documentationRoot' => '/storage/app/live_version/schema/',
+        'documentationRoot' => '/storage/app/hub_sync/oparl_spec/schema/',
     ],
 ];
