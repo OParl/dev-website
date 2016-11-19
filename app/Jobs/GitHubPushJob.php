@@ -9,6 +9,7 @@
 namespace App\Jobs;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use OParl\Spec\Jobs\SpecificationBuildJob;
 
 /**
  * GitHubPushJob
@@ -46,7 +47,7 @@ class GitHubPushJob extends Job
 
         switch ($this->repository) {
             case 'spec':
-                $this->dispatchNow(new LiveVersionUpdateJob($this->payload));
+                $this->dispatchNow(new SpecificationBuildJob($this->payload));
                 break;
 
             case 'dev-website':

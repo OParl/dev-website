@@ -120,4 +120,15 @@ class Repository
     {
         return $this->remoteURI;
     }
+
+    public function getCurrentTreeish()
+    {
+        $revParseCmd = sprintf('git -C %s rev-parse --abbrev-ref HEAD', $this->getAbsolutePath());
+        $process = new Process($revParseCmd);
+
+        $process->start();
+        $process->wait();
+
+        return trim($process->getOutput());
+    }
 }
