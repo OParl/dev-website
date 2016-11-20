@@ -4,6 +4,7 @@ namespace OParl\Spec;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
+use OParl\Spec\Commands\UpdateSpecificationCommand;
 
 class SpecServiceProvider extends IlluminateServiceProvider
 {
@@ -14,6 +15,8 @@ class SpecServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-
+        $this->commands([
+           UpdateSpecificationCommand::class
+        ]);
     }
 }
