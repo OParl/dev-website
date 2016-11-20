@@ -23,8 +23,7 @@ class SetupCommand extends Command
 
         $this->call('migrate');
 
-        $this->call('specification:live', ['--force']);
-        $this->call('specification:update');
+        $this->call('oparl:update:specification');
 
         $this->call('optimize');
 
