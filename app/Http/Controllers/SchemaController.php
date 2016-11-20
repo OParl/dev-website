@@ -58,7 +58,7 @@ class SchemaController extends Controller
         if ($hasParent) {
             $entityToLoad = $parentEntity;
         }
-        $entityPath = LiveVersionRepository::getSchemaPath("{$entityToLoad}.json");
+        $entityPath = "hub_sync/oparl_spec/schema/{$entityToLoad}.json";
 
         if ($fs->exists($entityPath)) {
             $loadedEntity = json_decode($fs->get($entityPath), true);
