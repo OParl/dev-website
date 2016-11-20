@@ -51,6 +51,11 @@ class SpecificationBuildJob extends Job
             $this->runSynchronousJob($path, $checkoutCmd);
         }
 
+        // remove current html
+        if ($fs->exists($hubSync->getPath() . '/out/live.html')) {
+            $fs->delete($hubSync->getPath() . '/out/live.html');
+        }
+
         $dockerCmd = "docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make live";
 
         if (!$this->runSynchronousJob($path, $dockerCmd)) {
