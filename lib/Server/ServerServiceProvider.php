@@ -20,7 +20,9 @@ class ServerServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->commands(PopulateCommand::class);
-        $this->commands(ResetCommand::class);
+        $this->commands([
+            PopulateCommand::class,
+            ResetCommand::class,
+        ]);
     }
 }
