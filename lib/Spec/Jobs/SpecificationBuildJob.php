@@ -57,7 +57,20 @@ class SpecificationBuildJob extends Job
             \Log::error("Creating live version html failed");
         }
 
-        $fs->move($hubSync->getPath() . '/out/live.html', 'live.html');
+        // move html
+        $fs->makeDirectory('live');
+        $fs->put('live/live.html', $fs->get($hubSync->getPath() . '/out/live.html'));
+
+        // reset and copy images
+        $fs->delete($fs->files('live/images/'));
+        $fs->deleteDirectory('live/images');
+        $fs->makeDirectory('live/images');
+
+        collect($fs->files($hubSync->getPath() . '/src/images'))->filter(function ($filename) {
+            return ends_with($filename, '.png');
+        })->map(function ($filename) use ($fs) {
+            $fs->put('live/images/' . basename($filename), $fs->get($filename));
+        });
     }
 
     /*
