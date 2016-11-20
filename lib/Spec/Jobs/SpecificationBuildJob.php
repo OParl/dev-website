@@ -9,16 +9,32 @@ use Symfony\Component\Process\Process;
 
 class SpecificationBuildJob extends Job
 {
+    /**
+     * @var array GH Push Hook Payload
+     */
     protected $payload = [];
+
+    /**
+     * @var string treeish of the synced repository
+     */
     protected $treeish = 'master';
 
-    public function __construct($payload, $committish = 'master')
+    /**
+     * SpecificationBuildJob constructor.
+     *
+     * @param array $payload GH Push Hook Payload
+     * @param string $treeish treeish of the synced repository
+     */
+    public function __construct(array $payload, $treeish = 'master')
     {
         $this->payload = $payload;
 
-        $this->treeish = str_replace([',;\n'], '', $committish);
+        $this->treeish = str_replace([',;\n'], '', $treeish);
     }
 
+    /**
+     * @param Filesystem $fs
+     */
     public function handle(Filesystem $fs)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
@@ -40,6 +56,8 @@ class SpecificationBuildJob extends Job
         if (!$this->runSynchronousJob($path, $dockerCmd)) {
             \Log::error("Creating live version html failed");
         }
+
+        $fs->move($hubSync->getPath() . '/out/live.html', 'live.html');
     }
 
     /*
@@ -54,6 +72,10 @@ class SpecificationBuildJob extends Job
     */
 
     /**
+     * Run a Symfony\Process synchronously
+     *
+     * Requires a working directory.
+     *
      * @param $path
      * @param $cmd
      *
