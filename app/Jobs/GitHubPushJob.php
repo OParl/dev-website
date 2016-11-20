@@ -51,10 +51,11 @@ class GitHubPushJob extends Job
                 break;
 
             case 'dev-website':
+                // TODO: subtree-split lib/Server to OParl/php-reference-server
                 break;
 
             case 'liboparl':
-                // TODO: request new buildables from CI
+                // TODO: request new buildables from CI?
                 break;
 
             default:
