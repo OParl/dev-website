@@ -8,15 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use OParl\Server\Model\AgendaItem;
 use OParl\Server\Model\Body;
-use OParl\Server\Model\Consultation;
-use OParl\Server\Model\File;
 use OParl\Server\Model\Keyword;
 use OParl\Server\Model\LegislativeTerm;
 use OParl\Server\Model\Location;
 use OParl\Server\Model\Meeting;
 use OParl\Server\Model\Membership;
 use OParl\Server\Model\Organization;
-use OParl\Server\Model\Paper;
 use OParl\Server\Model\Person;
 use OParl\Server\Model\System;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -39,8 +36,7 @@ class PopulateCommand extends Command
         Model::unguard();
 
         if ($this->option('refresh')) {
-            $this->info('Removing all existing demoserver data...');
-            $this->truncate();
+            $this->call('server:reset');
         }
 
         $this->info('Populating the demoserver db...');
@@ -50,22 +46,6 @@ class PopulateCommand extends Command
         Model::reguard();
 
         return 0;
-    }
-
-    protected function truncate()
-    {
-        System::truncate();
-        Body::truncate();
-        LegislativeTerm::truncate();
-        Person::truncate();
-        Organization::truncate();
-        Membership::truncate();
-        Meeting::truncate();
-        Consultation::truncate();
-        Paper::truncate();
-        Location::truncate();
-        File::truncate();
-        Keyword::truncate();
     }
 
     protected function generateData()
