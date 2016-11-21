@@ -36,6 +36,7 @@ class SpecificationLiveVersionBuildJob extends Job
 
     /**
      * @param Filesystem $fs
+     * @param Log $log
      */
     public function handle(Filesystem $fs, Log $log)
     {
