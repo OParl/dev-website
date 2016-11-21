@@ -2,9 +2,9 @@
 
 namespace OParl\Spec\Commands;
 
-
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
 
 class UpdateDownloadablesCommand extends Command
 {
@@ -18,6 +18,6 @@ class UpdateDownloadablesCommand extends Command
     public function handle()
     {
         $this->info('Updating downloadables');
-        $this->dispatch(new UpdateDownloadablesCommand());
+        $this->dispatch(new SpecificationDownloadsBuildJob());
     }
 }

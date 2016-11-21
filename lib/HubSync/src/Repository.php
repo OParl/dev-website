@@ -92,9 +92,9 @@ class Repository
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath($file = '')
     {
-        return $this->path;
+        return (strlen($file) === 0) ? $this->path : $this->path . '/' . $file;
     }
 
     /**
@@ -124,6 +124,18 @@ class Repository
     public function getCurrentTreeish()
     {
         $revParseCmd = sprintf('git -C %s rev-parse --abbrev-ref HEAD', $this->getAbsolutePath());
+        $process = new Process($revParseCmd);
+
+        $process->start();
+        $process->wait();
+
+        return trim($process->getOutput());
+    }
+
+    public function getCurrentHead()
+    {
+        $revParseCmd = sprintf('git -C %s rev-parse --short HEAD', $this->getAbsolutePath());
+
         $process = new Process($revParseCmd);
 
         $process->start();

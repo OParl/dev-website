@@ -23,13 +23,54 @@ class SpecificationDownloadsBuildJob
             \Log::error("Git pull failed");
         }
 
-        $dockerCmd = "docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make clean archives";
+        $currentHead = $hubSync->getCurrentHead();
+
+        $dockerCmd = sprintf(
+            'docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make VERSION=%s clean archives',
+            $currentHead
+        );
 
         if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
-            \Log::error("Updating the downloadables failed");
+            \Log::error('Updating the downloadables failed');
         }
 
-        // TODO: move archives and downloadables to persistent locations
-        
+        $downloadsPath = 'downloads/' . $currentHead;
+
+        if (!$fs->exists($downloadsPath)) {
+            $fs->makeDirectory($downloadsPath);
+        }
+
+        $downloadableFormats = [
+            'pdf',
+            'html',
+            'epub',
+            'odt',
+            'docx',
+            'txt',
+        ];
+
+        collect($downloadableFormats)->map(function ($format) use ($currentHead) {
+            return 'OParl-' . $currentHead . '.' .$format;
+        })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
+            $fs->copy(
+                $hubSync->getPath('out/' . $filename),
+                $downloadsPath . '/' . $filename
+            );
+        });
+
+        $downloadableArchives = [
+            'zip',
+            'tar.gz',
+            'tar.bz2'
+        ];
+
+        collect($downloadableArchives)->map(function ($format) use ($currentHead) {
+            return 'OParl-' . $currentHead . '.' .$format;
+        })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
+            $fs->copy(
+                $hubSync->getPath('archives/' . $filename),
+                $downloadsPath . '/' . $filename
+            );
+        });
     }
 }
