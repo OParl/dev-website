@@ -10,7 +10,7 @@ namespace OParl\Spec\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use OParl\Spec\Jobs\SpecificationBuildJob;
+use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 
 /**
  * Class UpdateSpecificationCommand
@@ -25,6 +25,7 @@ class UpdateSpecificationCommand extends Command
 
     public function handle()
     {
-        $this->dispatch(new SpecificationBuildJob([]));
+        $this->info('Updating specification');
+        $this->dispatch(new SpecificationLiveVersionBuildJob([]));
     }
 }
