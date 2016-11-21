@@ -5,6 +5,7 @@ namespace OParl\Spec\Jobs;
 use App\Jobs\Job;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Logging\Log;
 
 class SpecificationLiveVersionBuildJob extends Job
 {
@@ -36,12 +37,12 @@ class SpecificationLiveVersionBuildJob extends Job
     /**
      * @param Filesystem $fs
      */
-    public function handle(Filesystem $fs)
+    public function handle(Filesystem $fs, Log $log)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
 
         if (!$hubSync->update()) {
-            \Log::error("Git pull failed");
+            $log->error("Git pull failed");
         }
 
         $path = $hubSync->getAbsolutePath();
@@ -60,7 +61,7 @@ class SpecificationLiveVersionBuildJob extends Job
         $dockerCmd = "docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make live";
 
         if (!$this->runSynchronousJob($path, $dockerCmd)) {
-            \Log::error("Creating live version html failed");
+            $log->error("Creating live version html failed");
         }
 
         // move html

@@ -10,17 +10,18 @@ namespace OParl\Spec\Jobs;
 
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Logging\Log;
 
 class SpecificationDownloadsBuildJob
 {
     use SynchronousProcess;
 
-    public function handle(Filesystem $fs)
+    public function handle(Filesystem $fs, Log $log)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
 
         if (!$hubSync->update()) {
-            \Log::error("Git pull failed");
+            $log->error("Git pull failed");
         }
 
         $currentHead = $hubSync->getCurrentHead();
@@ -31,7 +32,7 @@ class SpecificationDownloadsBuildJob
         );
 
         if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
-            \Log::error('Updating the downloadables failed');
+            $log->error('Updating the downloadables failed');
         }
 
         $downloadsPath = 'downloads/' . $currentHead;
