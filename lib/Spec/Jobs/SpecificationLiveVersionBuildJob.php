@@ -5,10 +5,11 @@ namespace OParl\Spec\Jobs;
 use App\Jobs\Job;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
 
-class SpecificationBuildJob extends Job
+class SpecificationLiveVersionBuildJob extends Job
 {
+    use SynchronousProcess;
+
     /**
      * @var array GH Push Hook Payload
      */
@@ -76,39 +77,6 @@ class SpecificationBuildJob extends Job
         })->map(function ($filename) use ($fs) {
             $fs->put('live/images/' . basename($filename), $fs->get($filename));
         });
-    }
-
-    /*
-    public function updateDownloadables(Filesystem $fs, $path)
-    {
-        $dockerCmd = "docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make clean archives";
-
-        if (!$this->runDockerJob($path, $dockerCmd)) {
-            \Log::error("Updating the downloadables failed");
-        }
-    }
-    */
-
-    /**
-     * Run a Symfony\Process synchronously
-     *
-     * Requires a working directory.
-     *
-     * @param $path
-     * @param $cmd
-     *
-     * @return bool
-     */
-    protected function runSynchronousJob($path, $cmd)
-    {
-        $process = new Process($cmd, $path);
-
-        \Log::info('Running ' . $process->getCommandLine() . ' in ' . $process->getWorkingDirectory());
-
-        $process->start();
-        $process->wait();
-
-        return $process->getExitCode() == 0;
     }
 }
 
