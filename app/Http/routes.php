@@ -41,11 +41,11 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
         ->where('version', '[a-z0-9]{5,32}');
-
+/*
     $router->get('/spezifikation.{format}', [
         'uses' => 'DownloadsController@specification',
         'as'   => 'downloads.specification',
-    ]);
+    ]);*/
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 

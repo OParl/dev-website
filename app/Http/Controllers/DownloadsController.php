@@ -28,13 +28,16 @@ class DownloadsController extends Controller
         ]);
 
         abort_if($validator->fails(), 403);
+
+        $download = $specificationDownloadRepository->getLatest();
+
+        if (strcmp($version, 'latest') !== 0) {
+            $download = $specificationDownloadRepository->getVersion($version);
+        }
+
+        abort_if(is_null($download), 404);
+
         try {
-            $download = $specificationDownloadRepository->getLatest();
-
-            if (strcmp($version, 'latest') !== 0) {
-                $download = $specificationDownloadRepository->getVersion($version);
-            }
-
             $file = $download->getFileForExtension($format);
             return response()->download($file->getInfo()->getRealPath());
         } catch (FileNotFoundException $e) {
