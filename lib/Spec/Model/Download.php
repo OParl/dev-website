@@ -29,6 +29,9 @@ class Download
         $this->filename = $filename;
     }
 
+    /**
+     * @return \SplFileInfo
+     */
     public function getInfo()
     {
         return new \SplFileInfo(storage_path("app/{$this->filename}"));

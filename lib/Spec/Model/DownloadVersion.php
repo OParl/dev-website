@@ -55,16 +55,21 @@ class DownloadVersion
         return $this->files;
     }
 
+    /**
+     * @param $extension
+     * @return Download
+     * @throws FileNotFoundException
+     */
     public function getFileForExtension($extension)
     {
         $file = $this->files->filter(function (Download $file) use ($extension) {
             return ends_with($file->getFilename(), $extension);
         });
 
-        if (is_null($file)) {
+        if ($file->count() !== 1) {
             throw new FileNotFoundException("No file found for extension {$extension}");
         }
 
-        return $file;
+        return $file->first();
     }
 }

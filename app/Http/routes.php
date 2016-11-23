@@ -33,20 +33,18 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->where('image', '[[:print:]]+\.(png|jpg)');
 
     // Downloads
-    $router->get('/downloads/')->name('downloads.index')->uses('DownloadsController@index');
-    $router->get('/downloads/latest.{downloadsExtension}')->name('downloads.latest')->uses('DownloadsController@latest');
+    $router->get('/downloads/')
+        ->name('downloads.index')
+        ->uses('DownloadsController@index');
 
-    $router->get('/spezifikation.{downloadsExtension}', [
-        'uses' => 'DownloadsController@latest',
-        'as'   => 'specification.download',
+    $router->get('/downloads/latest.{format}')
+        ->name('downloads.latest')
+        ->uses('DownloadsController@specification');
+
+    $router->get('/spezifikation.{format}', [
+        'uses' => 'DownloadsController@specification',
+        'as'   => 'downloads.specification',
     ]);
-
-    $router->get('/downloads/{downloadsVersion}.{downloadsExtension}', [
-        'uses' => 'DownloadsController@getFile',
-        'as'   => 'downloads.provide',
-    ]);
-
-    $router->post('/downloads', ['uses' => 'DownloadsController@selectVersion', 'as' => 'downloads.select']);
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 
@@ -78,14 +76,9 @@ $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router
 
     $router->get('/1.0')->uses('SpecificationController@redirectToVersion')->where('version', '1.0');
 
-    $router->get('/{downloadsVersion}.{downloadsExtension}', [
-        'uses' => 'DownloadsController@getFile',
-        'as'   => 'downloads.alternative.provide',
-    ]);
-
-    $router->get('/latest.{downloadsExtension}', [
-        'uses' => 'DownloadsController@latest',
-        'as'   => 'downloads.alternative.latest',
+    $router->get('/latest.{format}', [
+        'uses' => 'DownloadsController@specification',
+        'as'   => 'downloads.specification.alternative',
     ]);
 });
 

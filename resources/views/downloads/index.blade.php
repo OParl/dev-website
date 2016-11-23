@@ -16,7 +16,7 @@
 
                 <ul>
                     <li>
-                        <a href="">
+                        <a href="{{ route('downloads.latest', ['pdf']) }}">
                             @lang('app.specification.download.format.pdf')
                         </a>
                     </li>
