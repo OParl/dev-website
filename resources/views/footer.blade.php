@@ -10,3 +10,8 @@
         </div>
     </div>
 </footer>
+{{--
+
+<div class="row small">
+    @press(trans('app.footer.disclaimer'))
+</div>--}}
