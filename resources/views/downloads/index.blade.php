@@ -15,12 +15,36 @@
                 <h3>@lang('app.specification.download.singlefile')</h3>
 
                 <ul>
-                    <li><a href="">@lang('app.specification.download.format.pdf')</a></li>
-                    <li><a href="">@lang('app.specification.download.format.epub')</a></li>
-                    <li><a href="">@lang('app.specification.download.format.html')</a></li>
-                    <li><a href="">@lang('app.specification.download.format.docx')</a></li>
-                    <li><a href="">@lang('app.specification.download.format.odt')</a></li>
-                    <li><a href="">@lang('app.specification.download.format.txt')</a></li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.pdf')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.epub')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.html')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.docx')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.odt')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.txt')
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -28,9 +52,21 @@
                 <h3>@lang('app.specification.download.archives')</h3>
                 <p>@lang('app.specification.download.archives-info')</p>
                 <ul>
-                    <li><a href="">@lang('app.specification.download.format.zip')</a></li>
-                    <li><a href="">@lang('app.specification.download.format.targz')</a></li>
-                    <li><a href="">@lang('app.specification.download.format.tarbz2')</a></li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.zip')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.targz')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            @lang('app.specification.download.format.tarbz2')
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -55,8 +91,16 @@
             <h3>@lang('app.downloads.liboparl.packages')</h3>
 
             <ul>
-                <li><a href="">@lang('app.downloads.liboparl.format.debian_zip')</a></li>
-                <li><a href="">@lang('app.downloads.liboparl.format.macos_zip')</a></li>
+                <li>
+                    <a href="">
+                        @lang('app.downloads.liboparl.format.debian_zip')
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        @lang('app.downloads.liboparl.format.macos_zip')
+                    </a>
+                </li>
                 <li>@press(trans('app.downloads.liboparl.format.macos_brew'))</li>
             </ul>
         </div>
