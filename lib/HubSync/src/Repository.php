@@ -143,4 +143,16 @@ class Repository
 
         return trim($process->getOutput());
     }
+
+    public function getUniqueRevision($revision)
+    {
+        $revParseCmd = sprintf('git -C %s rev-parse --short %s', $this->getAbsolutePath(), $revision);
+
+        $process = new Process($revParseCmd);
+
+        $process->start();
+        $process->wait();
+
+        return trim($process->getOutput());
+    }
 }

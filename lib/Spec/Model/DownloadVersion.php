@@ -19,6 +19,8 @@ class DownloadVersion
 
     protected $path = '';
 
+    protected $version = '';
+
     /**
      * @var Collection $files available files for the identifier and version
      */
@@ -28,6 +30,7 @@ class DownloadVersion
     {
         $this->fs = $fs;
         $this->path = "downloads/{$identifier}/{$version}";
+        $this->version = $version;
 
         if (!$fs->exists($this->path)) {
             throw new FileNotFoundException("No downloads available for identifier {$identifier}");
@@ -37,6 +40,22 @@ class DownloadVersion
             ->map(function ($filename) use ($fs) {
                 return new Download($fs, $filename);
             });
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param $version
+     * @return bool
+     */
+    public function isVersion($version) {
+        return strcmp($this->version, $version) === 0;
     }
 
     /**

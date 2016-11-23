@@ -8,10 +8,19 @@
 
 namespace OParl\Spec\Repositories;
 
+use EFrane\HubSync\Repository;
+
 class SpecificationDownloadRepository extends DownloadRepository
 {
     protected function getIdentifier()
     {
         return 'specification';
+    }
+
+    public function getVersion($version)
+    {
+        // TODO: generalize this, maybe make a repository decorator for specialized repositories
+        $hubSync = new Repository($this->fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
+        return parent::getVersion($hubSync->getUniqueRevision($version));
     }
 }

@@ -8,7 +8,6 @@
 
 namespace OParl\Spec\Repositories;
 
-
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use OParl\Spec\Model\DownloadVersion;
@@ -18,6 +17,8 @@ abstract class DownloadRepository
     /** @var Collection */
     protected $versions = null;
 
+    protected $fs = null;
+
     /**
      * @return string
      */
@@ -25,6 +26,8 @@ abstract class DownloadRepository
 
     public function __construct(Filesystem $fs)
     {
+        $this->fs = $fs;
+
         $this->versions = collect($fs->directories("downloads/{$this->getIdentifier()}"))
             ->map(function ($version) use ($fs) {
                 $version = explode('/', $version)[2];
@@ -47,6 +50,13 @@ abstract class DownloadRepository
     public function getLatest()
     {
         return $this->versions->first();
+    }
+
+    public function getVersion($version)
+    {
+        return $this->versions->filter(function (DownloadVersion $downloadVersion) use ($version) {
+            return $downloadVersion->isVersion($version);
+        })->first();
     }
 
     /**
