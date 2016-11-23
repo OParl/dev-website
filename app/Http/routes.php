@@ -33,10 +33,8 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->where('image', '[[:print:]]+\.(png|jpg)');
 
     // Downloads
-    $router->get('/downloads/latest.{downloadsExtension}', [
-        'uses' => 'DownloadsController@latest',
-        'as'   => 'downloads.latest',
-    ]);
+    $router->get('/downloads/')->name('downloads.index')->uses('DownloadsController@index');
+    $router->get('/downloads/latest.{downloadsExtension}')->name('downloads.latest')->uses('DownloadsController@latest');
 
     $router->get('/spezifikation.{downloadsExtension}', [
         'uses' => 'DownloadsController@latest',

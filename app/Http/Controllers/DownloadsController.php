@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VersionSelectRequest;
 use OParl\Spec\BuildRepository;
+use OParl\Spec\Repositories\SpecificationDownloadRepository;
 
 class DownloadsController extends Controller
 {
-    public function index(BuildRepository $buildRepository)
+    public function index(SpecificationDownloadRepository $specificationDownloadRepository)
     {
         return view('downloads.index', [
-            'builds' => $buildRepository->getLatest(15),
             'title'  => 'Downloads',
+            'latestSpecificationDownload' => $specificationDownloadRepository->getLatest()
         ]);
     }
 
