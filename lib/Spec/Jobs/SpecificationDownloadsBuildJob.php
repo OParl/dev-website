@@ -16,7 +16,26 @@ class SpecificationDownloadsBuildJob
 {
     use SynchronousProcess;
 
+    /**
+     * @param Filesystem $fs
+     * @param Log $log
+     */
     public function handle(Filesystem $fs, Log $log)
+    {
+        list($hubSync, $currentHead) = $this->updateRepository($fs, $log);
+
+        $downloadsPath = $this->createDownloadsDirectory($fs, $currentHead);
+
+        $this->provideDownloadableFiles($fs, $currentHead, $hubSync, $downloadsPath);
+        $this->provideDownloadableArchives($fs, $currentHead, $hubSync, $downloadsPath);
+    }
+
+    /**
+     * @param Filesystem $fs
+     * @param Log $log
+     * @return array
+     */
+    public function updateRepository(Filesystem $fs, Log $log)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
 
@@ -33,14 +52,36 @@ class SpecificationDownloadsBuildJob
 
         if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
             $log->error('Updating the downloadables failed');
+            return [$hubSync, $currentHead];
         }
 
-        $downloadsPath = 'downloads/' . $currentHead;
+        return [$hubSync, $currentHead];
+    }
+
+    /**
+     * @param Filesystem $fs
+     * @param $currentHead
+     * @return string
+     */
+    public function createDownloadsDirectory(Filesystem $fs, $currentHead)
+    {
+        $downloadsPath = 'downloads/specification/' . $currentHead;
 
         if (!$fs->exists($downloadsPath)) {
             $fs->makeDirectory($downloadsPath);
+            return $downloadsPath;
         }
+        return $downloadsPath;
+    }
 
+    /**
+     * @param Filesystem $fs
+     * @param $currentHead
+     * @param $hubSync
+     * @param $downloadsPath
+     */
+    public function provideDownloadableFiles(Filesystem $fs, $currentHead, $hubSync, $downloadsPath)
+    {
         $downloadableFormats = [
             'pdf',
             'html',
@@ -51,22 +92,31 @@ class SpecificationDownloadsBuildJob
         ];
 
         collect($downloadableFormats)->map(function ($format) use ($currentHead) {
-            return 'OParl-' . $currentHead . '.' .$format;
+            return 'OParl-' . $currentHead . '.' . $format;
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
             $fs->copy(
                 $hubSync->getPath('out/' . $filename),
                 $downloadsPath . '/' . $filename
             );
         });
+    }
 
+    /**
+     * @param Filesystem $fs
+     * @param $currentHead
+     * @param $hubSync
+     * @param $downloadsPath
+     */
+    public function provideDownloadableArchives(Filesystem $fs, $currentHead, $hubSync, $downloadsPath)
+    {
         $downloadableArchives = [
             'zip',
             'tar.gz',
-            'tar.bz2'
+            'tar.bz2',
         ];
 
         collect($downloadableArchives)->map(function ($format) use ($currentHead) {
-            return 'OParl-' . $currentHead . '.' .$format;
+            return 'OParl-' . $currentHead . '.' . $format;
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
             $fs->copy(
                 $hubSync->getPath('archives/' . $filename),

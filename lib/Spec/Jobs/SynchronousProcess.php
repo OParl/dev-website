@@ -27,8 +27,6 @@ trait SynchronousProcess
     {
         $process = new Process($cmd, $path);
 
-        \Log::info('Running ' . $process->getCommandLine() . ' in ' . $process->getWorkingDirectory());
-
         $process->start();
         $process->wait();
 
