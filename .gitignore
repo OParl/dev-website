@@ -12,6 +12,7 @@ storage/*.sqlite
 .php_cs.cache
 .idea
 composer.phar
+npm-debug.log
 
 tests/assets/spec.git
 
