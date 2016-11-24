@@ -7,6 +7,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\LiveVersionRepository;
+use OParl\Spec\Model\LiveView;
 
 class SpecificationController extends Controller
 {
@@ -17,13 +18,11 @@ class SpecificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveVersionRepository $liveversion, Guard $guard, BuildRepository $buildRepository)
+    public function index(LiveView $liveView)
     {
         $title = 'Spezifikation';
-        $isLoggedIn = $guard->check();
-        $builds = $buildRepository->getAvailable();
 
-        return view('specification.index', compact('liveversion', 'title', 'isLoggedIn', 'builds'));
+        return view('specification.index', compact('title', 'liveView'));
     }
 
     public function imageIndex()

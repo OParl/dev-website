@@ -7,7 +7,8 @@
         </button>
     </li>
     <li class="row-item">
-        <span title="Git: {{ substr($liveversion->getHash(), 0, 6) }}">OParl {{ $liveversion->getVersion() }}</span>
+        {{--<span title="Git: {{ substr($liveversion->getHash(), 0, 6) }}">OParl {{ $liveversion->getVersion() }}</span>--}}
+        <span>OParl</span>
     </li>
     <li class="row-item">
         <button @click="showDownloadsModal = true" title="@lang('app.specification.download.title')"
@@ -19,10 +20,10 @@
 
 @section ('content')
     <f-accordion :show.sync="showTableOfContents" :has-trigger="true">
-        <div slot="body">{!! $liveversion->getNav() !!}</div>
+        <div slot="body">{!! $liveView->getTableOfContents() !!}</div>
     </f-accordion>
 
-    {!! $liveversion->getContent() !!}
+    {!! $liveView->getBody() !!}
 
     <f-modal :show.sync="showDownloadsModal">
         <h3 slot="header">@lang('app.specification.download.select.title')</h3>

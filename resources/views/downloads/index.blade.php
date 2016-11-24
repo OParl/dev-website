@@ -1,7 +1,7 @@
 @extends ('base')
 
 @section('subheader')
-    <li><a href="{{ route('downloads.index') }}">@lang('app.downloads.title')</a></li>
+    <li class="row-item"><a href="{{ route('downloads.index') }}">@lang('app.downloads.title')</a></li>
 @stop
 
 @section ('content')

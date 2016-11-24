@@ -79,6 +79,11 @@ class SpecificationLiveVersionBuildJob extends Job
         })->map(function ($filename) use ($fs) {
             $fs->put('live/images/' . basename($filename), $fs->get($filename));
         });
+
+        $fs->put('live/version.json', json_encode([
+            'hash' => $hubSync->getCurrentHead(),
+            'official' => $hubSync->getCurrentTreeish(),
+        ]));
     }
 }
 
