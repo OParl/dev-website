@@ -34,6 +34,7 @@ before_install:
   - cd specbuilder
   - wget https://cdn.rawgit.com/eFrane/oparl-containers/master/specbuilder/Dockerfile
   - docker build -t oparl/specbuilder:1.0 -t oparl/specbuilder:latest .
+  - cd ..
 
 before_script:
   - composer install --prefer-source --no-interaction --no-scripts
