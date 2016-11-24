@@ -44,4 +44,14 @@ class DownloadsController extends Controller
             abort(404);
         }
     }
+
+    public function stableSpecification($format)
+    {
+        return redirect()->route('downloads.specification', ['1.0', $format]);
+    }
+
+    public function latestSpecification($format)
+    {
+        return redirect()->route('downloads.specification', ['latest', $format]);
+    }
 }

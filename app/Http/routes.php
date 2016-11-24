@@ -67,20 +67,15 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
  * This route group provides an easy to remember redirect to the
  * latest specification version as spec.oparl.org
  *
- * Additionally, downloads of any specification version are provided
- * via spec.oparl.org/{versionhash}.{format}
- *
- * and for the latest version at spec.oparl.org/latest.{format}
+ * Additionally, short links to downloads of the stable and
+ * the latest unstable specification versions are provided.
  */
 $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router) {
     $router->any('/')->uses('SpecificationController@redirectToIndex');
-
     $router->get('/1.0')->uses('SpecificationController@redirectToVersion')->where('version', '1.0');
 
-    $router->get('/latest.{format}', [
-        'uses' => 'DownloadsController@specification',
-        'as'   => 'downloads.specification.alternative',
-    ]);
+    $router->get('/1.0.{format}')->uses('DownloadsController@stableSpecification');
+    $router->get('/latest.{format}')->uses('DownloadsController@latestSpecification');
 });
 
 /*
