@@ -19,14 +19,21 @@ cache:
   directories:
     - vendor/
     - node_modules/
+    - specbuilder/
+
+services:
+  - docker
 
 env:
   global:
     - QUEUE_DRIVER=sync
 
-install:
-  - wget https://github.com/jgm/pandoc/releases/download/1.15.1/pandoc-1.15.1-1-amd64.deb
-  - sudo dpkg -i pandoc-1.15.1-1-amd64.deb
+before_install:
+  # Prepare the docker container for the spec builder
+  - mkdir -p specbuilder
+  - cd specbuilder
+  - wget https://cdn.rawgit.com/eFrane/oparl-containers/master/specbuilder/Dockerfile
+  - docker build -t oparl/specbuilder:1.0 -t oparl/specbuilder:latest .
 
 before_script:
   - composer install --prefer-source --no-interaction --no-scripts
