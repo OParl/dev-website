@@ -13,6 +13,7 @@
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\SyslogHandler;
 use Monolog\Logger;
 
 ini_set('mbstring.mb_http_output', 'utf-8');
@@ -50,16 +51,25 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-$app->configureMonologUsing(function (Logger $monolog) {
-    $logPath = storage_path('logs/laravel.log');
-    $logStreamHandler = new StreamHandler($logPath, Logger::DEBUG);
+$app->configureMonologUsing(function (Logger $monolog) use ($app) {
+    if ($app->environment('local')) {
+        $logPath = storage_path('logs/laravel.log');
+        $logStreamHandler = new StreamHandler($logPath, Logger::DEBUG);
 
-    $logFormat = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
-    $formatter = new LineFormatter($logFormat);
+        $logFormat = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
+        $formatter = new LineFormatter($logFormat);
 
-    $logStreamHandler->setFormatter($formatter);
+        $logStreamHandler->setFormatter($formatter);
 
-    $monolog->pushHandler($logStreamHandler);
+        $monolog->pushHandler($logStreamHandler);
+    } else {
+        // Log to syslog on production systems, only log events of level warning or higher
+        $syslog    = new SyslogHandler('dev.oparl.org', LOG_USER, Logger::WARNING);
+        $formatter = new LineFormatter('%channel%.%level_name%: %message% %extra%');
+
+        $syslog->setFormatter($formatter);
+        $monolog->pushHandler($syslog);
+    }
 });
 
 /*
