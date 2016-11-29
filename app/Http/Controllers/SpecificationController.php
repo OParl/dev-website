@@ -8,6 +8,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\BuildRepository;
 use OParl\Spec\LiveVersionRepository;
 use OParl\Spec\Model\LiveView;
+use OParl\Spec\Repositories\DownloadRepository;
 
 class SpecificationController extends Controller
 {
@@ -30,10 +31,10 @@ class SpecificationController extends Controller
         abort(404);
     }
 
-    public function image(Filesystem $fs, $image)
+    public function image(LiveView $liveView, $image)
     {
         try {
-            $imageData = $fs->get(LiveVersionRepository::getImagesPath($image));
+            $imageData = $liveView->getImage($image);
         } catch (FileNotFoundException $e) {
             return response("{$image} was not found on the server.", 404, ['Content-type' => 'text/plain']);
         }
@@ -41,9 +42,9 @@ class SpecificationController extends Controller
         return response($imageData, 200, ['Content-type' => 'image/png']);
     }
 
-    public function raw(LiveVersionRepository $livecopy)
+    public function raw(DownloadRepository $downloadRepository)
     {
-        return response($livecopy->getRaw(), 200, ['Content-type' => 'text/plain']);
+        return response($downloadRepository->getLatest()->getFileForExtension('txt'), 200, ['Content-type' => 'text/plain']);
     }
 
     public function redirectToIndex()

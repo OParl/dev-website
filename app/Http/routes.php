@@ -28,9 +28,9 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
     $router->get('/spezifikation/images/',
         ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
-    $router->get('/spezifikation/images/{image}', 'SpecificationController@image')
+    $router->get('/spezifikation/images/{image}.png', 'SpecificationController@image')
         ->name('specification.image')
-        ->where('image', '[[:print:]]+\.(png|jpg)');
+        ->where('image', '[a-zA-Z0-9-._]+');
 
     // Downloads
     $router->get('/downloads/')
@@ -41,11 +41,6 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
         ->where('version', '[a-z0-9]{5,32}');
-/*
-    $router->get('/spezifikation.{format}', [
-        'uses' => 'DownloadsController@specification',
-        'as'   => 'downloads.specification',
-    ]);*/
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 
