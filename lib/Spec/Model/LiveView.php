@@ -51,7 +51,14 @@ class LiveView
         $this->tableOfContents = $crawler->filter('body > nav')->html();
 
         $content = $crawler->filterXPath('//body/*[not(self::nav)]');
+
+        $skipElements = 1;
         foreach ($content as $domElement) {
+            if ($skipElements) {
+                $skipElements--;
+                continue;
+            }
+
             $this->body .= $domElement->ownerDocument->saveHTML($domElement);
         }
 
@@ -60,6 +67,7 @@ class LiveView
         $this->body = preg_replace('/"(.?)(src\/images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
 
         // rewrite examples
+
         // rewrite footnotes
 
     }
