@@ -10,6 +10,7 @@ namespace OParl\Spec\Model;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Masterminds\HTML5;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Represents a live view of the specification
@@ -22,7 +23,7 @@ class LiveView
 {
     protected $fs = null;
     protected $originalHTML = '';
-    protected $originalDOM  = null;
+    protected $originalDOM = null;
     protected $versionInformation = [];
 
     protected $body = '';
@@ -41,6 +42,28 @@ class LiveView
         $this->parse();
     }
 
+    protected function parse()
+    {
+        // split into table of contents and body
+
+        $crawler = new Crawler($this->originalHTML);
+
+        $this->tableOfContents = $crawler->filter('body > nav')->html();
+
+        $content = $crawler->filterXPath('//body/*[not(self::nav)]');
+        foreach ($content as $domElement) {
+            $this->body .= $domElement->ownerDocument->saveHTML($domElement);
+        }
+
+        // rewrite image urls
+
+        $this->body = preg_replace('/"(.?)(src\/images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
+
+        // rewrite examples
+        // rewrite footnotes
+
+    }
+
     public function getBody()
     {
         return $this->body;
@@ -56,11 +79,16 @@ class LiveView
         return $this->versionInformation;
     }
 
-    protected function parse()
+    public function getImage($imagePath)
     {
-        // split into table of contents and body
-        // rewrite image urls
-        // rewrite examples
-        // rewrite footnotes
+        $path = "live/images/{$imagePath}.png";
+
+        $data = null;
+
+        if ($this->fs->exists($path)) {
+            $data = $this->fs->get($path);
+        }
+
+        return $data;
     }
 }
