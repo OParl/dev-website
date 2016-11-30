@@ -2,7 +2,7 @@
 
 class RepositoryTest extends TestCase
 {
-    protected $remoteURI = 'https://github.com/octocat/Hello-World.git';
+    protected $remoteURI = 'tests/assets/test.git';
 
     protected $localName = 'test';
 
