@@ -22,7 +22,9 @@ $transition-hover-bg: .6s background ease-in;
 // TODO: move to modules
 @import 'fonts';
 
-@import 'modules/_grid.scss';
+@import '../../../node_modules/flexboxgrid/dist/flexboxgrid';
+
+//@import 'modules/_grid.scss';
 @import 'modules/common';
 @import 'modules/header';
 @import 'modules/accessibility';
