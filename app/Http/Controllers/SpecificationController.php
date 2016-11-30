@@ -42,9 +42,9 @@ class SpecificationController extends Controller
         return response($imageData, 200, ['Content-type' => 'image/png']);
     }
 
-    public function raw(DownloadRepository $downloadRepository)
+    public function raw(LiveView $liveView)
     {
-        return response($downloadRepository->getLatest()->getFileForExtension('txt'), 200, ['Content-type' => 'text/plain']);
+        return response($liveView->getRaw(), 200, ['Content-type' => 'text/plain']);
     }
 
     public function redirectToIndex()
@@ -54,6 +54,7 @@ class SpecificationController extends Controller
 
     public function redirectToVersion($version)
     {
+        // TODO: implement multiple live view versions
         return $this->redirectToIndex();
     }
 }

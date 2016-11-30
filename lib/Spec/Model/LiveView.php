@@ -121,7 +121,7 @@ class LiveView
                 'exampleTitle'      => $match[1],
                 'exampleCode'       => $match[2],
             ];
-            
+
             $exampleIdentifierCount++;
             return view('specification.example', $data);
         };
@@ -153,5 +153,10 @@ class LiveView
         }
 
         return $data;
+    }
+
+    public function getRaw()
+    {
+        return $this->fs->get('live/raw.md');
     }
 }

@@ -74,11 +74,22 @@ class SpecificationLiveVersionBuildJob extends Job
         $fs->deleteDirectory('live/images');
         $fs->makeDirectory('live/images');
 
-        collect($fs->files($hubSync->getPath() . '/src/images'))->filter(function ($filename) {
+        collect($fs->files($hubSync->getPath('/src/images')))->filter(function ($filename) {
             return ends_with($filename, '.png');
         })->map(function ($filename) use ($fs) {
             $fs->put('live/images/' . basename($filename), $fs->get($filename));
         });
+
+        // provide concatenated markdown version
+        $raw = collect($fs->files($hubSync->getPath('/src')))->filter(function ($filename) {
+            return ends_with($filename, '.md');
+        })->map(function ($filename) use ($fs) {
+            return $fs->get($filename);
+        })->reduce(function ($carry, $current) {
+            return $carry . $current;
+        }, '');
+
+        $fs->put('live/raw.md', $raw);
 
         $fs->put('live/version.json', json_encode([
             'hash' => $hubSync->getCurrentHead(),
