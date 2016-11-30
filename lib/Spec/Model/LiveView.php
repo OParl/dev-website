@@ -70,7 +70,8 @@ class LiveView
         // fix image tags
         $this->body = str_replace('<img ', '<img class="img-responsive"', $this->body);
         // fix table tags
-        $this->body = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $this->body);
+        $this->body = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">',
+            $this->body);
         // fix code tags for prism
 
         $this->body = $this->fixCodeTag($this->body, 'json', 'javascript');
@@ -102,7 +103,7 @@ class LiveView
         if ($toLanguage == '') {
             $toLanguage = $fromLanguage;
         }
-        
+
         $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/',
             '<pre$1><code class="language-' . $toLanguage . '">', $html);
 
@@ -120,6 +121,7 @@ class LiveView
                 'exampleTitle'      => $match[1],
                 'exampleCode'       => $match[2],
             ];
+            
             $exampleIdentifierCount++;
             return view('specification.example', $data);
         };
