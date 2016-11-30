@@ -8,6 +8,7 @@
 
 namespace OParl\Spec\Model;
 
+use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Masterminds\HTML5;
 use Symfony\Component\DomCrawler\Crawler;
@@ -66,10 +67,62 @@ class LiveView
 
         $this->body = preg_replace('/"(.?)(src\/images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
 
-        // rewrite examples
+        // fix image tags
+        $this->body = str_replace('<img ', '<img class="img-responsive"', $this->body);
+        // fix table tags
+        $this->body = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">', $this->body);
+        // fix code tags for prism
+
+        $this->body = $this->fixCodeTag($this->body, 'json', 'javascript');
+
+        $this->body = $this->fixCodeTag($this->body, 'sql');
+        // wrap examples into closed-by-default accordions
+
+        $exampleIdentifierCount = 1;
+        $this->body = preg_replace_callback(
+            '#<p><strong>(Beispiel.*?)</strong></p>\n(<pre(?:.*?)</pre>)#s',
+            $this->transformSchemaCodeExamplesToButtons(), $this->body
+        );
+
+        /* @var $letterpress Letterpress */
+        $letterpress = app(Letterpress::class);
+        $this->body = $letterpress->typofix($this->body);
 
         // rewrite footnotes
 
+    }
+
+    /**
+     * @param $html
+     *
+     * @return mixed
+     **/
+    protected function fixCodeTag(&$html, $fromLanguage, $toLanguage = '')
+    {
+        if ($toLanguage == '') {
+            $toLanguage = $fromLanguage;
+        }
+        
+        $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/',
+            '<pre$1><code class="language-' . $toLanguage . '">', $html);
+
+        return $html;
+    }
+
+    /**
+     * @return \Closure
+     **/
+    protected function transformSchemaCodeExamplesToButtons()
+    {
+        return function ($match) use (&$exampleIdentifierCount) {
+            $data = [
+                'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
+                'exampleTitle'      => $match[1],
+                'exampleCode'       => $match[2],
+            ];
+            $exampleIdentifierCount++;
+            return view('specification.example', $data);
+        };
     }
 
     public function getBody()
