@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import './directives.js'
+
 import Helpers from './modules/helpers.js'
 import FModal from './modules/fmodal.vue'
 import FAccordion from './modules/faccordion.vue'

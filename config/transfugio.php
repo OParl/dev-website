@@ -26,6 +26,8 @@ return [
     ],
 
     'web' => [
+        'documentationEnabled' => true, // Toggle the auto-documentation feature
+
         'documentationType' => 'JSONSchema',
         'documentationRoot' => '/storage/app/hub_sync/oparl_spec/schema/',
     ],

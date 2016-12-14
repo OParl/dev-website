@@ -1,16 +1,14 @@
 @extends ('base')
 
 @section ('subheader')
-    <li class="row-item">
-        <button @click="showTableOfContents = !showTableOfContents" title="@lang('common.table-of-contents')" aria-label="@lang('common.table-of-contents')">
-            <i class="fa fa-2x fa-book" aria-hidden="true"></i>
-        </button>
-    </li>
-    <li class="row-item">
+    <li class="col-xs-10">
         {{--<span title="Git: {{ substr($liveversion->getHash(), 0, 6) }}">OParl {{ $liveversion->getVersion() }}</span>--}}
-        <span>OParl</span>
+        &nbsp;
     </li>
-    <li class="row-item">
+    <li class="col-xs-2">
+        <button @click="showTableOfContents = !showTableOfContents" title="@lang('common.table-of-contents')" aria-label="@lang('common.table-of-contents')">
+        <i class="fa fa-2x fa-book" aria-hidden="true"></i>
+        </button>
         <button @click="showDownloadsModal = true" title="@lang('app.specification.download.title')"
             aria-label="@lang('app.specification.download.title')">
             <i class="fa fa-2x fa-download" aria-hidden="true"></i>

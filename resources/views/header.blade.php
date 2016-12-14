@@ -1,15 +1,15 @@
 <header role="navigation">
     <nav>
         <ul class="row">
-            <li>
+            <li class="col-xs-12 col-sm-4">
                 <img src="{{ asset('img/logos/oparl.svg') }}" alt="OParl Logo">
             </li>
 
             @foreach ($sections as $section)
                 @if (isset($section['current']) && $section['current'])
-                    <li class="active">
+                    <li class="col-xs-12 col-sm-2 active">
                 @else
-                    <li>
+                    <li class="col-xs-12 col-sm-2">
                 @endif
 
                         @if (isset($section['routeKey']) && !isset($section['params']))
@@ -26,8 +26,8 @@
             @endforeach
         </ul>
     </nav>
-    <nav>
-        <ul class="row row--center">
+    <nav v-fixed.top>
+        <ul class="row center-xs">
             @yield('subheader')
 
             {{-- TODO: implement subheader stickyness --}}

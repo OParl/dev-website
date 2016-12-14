@@ -1,20 +1,20 @@
 @extends ('base')
 
 @section ('subheader')
-    <li class="row-item"><a href="{{ route('downloads.index') }}">@lang('app.downloads.title')</a></li>
+    <li class="col-xs-12"><a href="{{ route('downloads.index') }}">@lang('app.downloads.title')</a></li>
     {{-- TODO: Add wiki base links here (list of implementations, etc.) --}}
 @stop
 
 @section ('content')
     <section class="row">
-        <h2 class="row-item--shrink-1">@lang('app.developers.about-oparl.title')</h2>
-        <div class="row-item">
+        <h2 class="col-xs-12 col-md-3">@lang('app.developers.about-oparl.title')</h2>
+        <div class="col-xs-12 col-md-9">
             <p>@press(trans('app.developers.about-oparl.text'))</p>
         </div>
     </section>
     <section class="row">
-        <h2 class="row-item--shrink-1">@lang('app.developers.about-dev.title')</h2>
-        <div class="row-item">
+        <h2 class="col-xs-12 col-md-3">@lang('app.developers.about-dev.title')</h2>
+        <div class="col-xs-12 col-md-9">
             <p>@press(trans('app.developers.about-dev.text'))</p>
             <p>@lang('app.developers.demo')</p>
             <p>@lang('app.developers.liboparl')</p>
@@ -23,9 +23,13 @@
         </div>
     </section>
     <section class="row">
-        <h2 class="row-item--shrink-1">@lang('app.developers.validator.title')</h2>
-        <div class="row-item">
+        <h2 class="col-xs-12 col-md-3">@lang('app.developers.validator.title')</h2>
+        <div class="col-xs-12 col-md-9">
             <p>@lang('app.developers.validator.info-text')</p>
         </div>
     </section>
+@stop
+
+@section ('scripts')
+    <script type="text/javascript" src="{{ asset('js/developers.js') }}"></script>
 @stop

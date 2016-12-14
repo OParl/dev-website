@@ -11,6 +11,9 @@ elixir(function(mix) {
     // public/css/app.css
     mix.sass('app.scss');
 
+    // public/js/developers.js
+    mix.browserify('developers.js', 'public/js/', 'resources/js');
+
     // public/js/spec.js
     mix.browserify('spec.js', 'public/js/', 'resources/js');
 
