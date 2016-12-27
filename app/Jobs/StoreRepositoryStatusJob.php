@@ -8,7 +8,7 @@
 
 namespace App\Jobs;
 
-use App\RepositoryStatus;
+use App\Model\RepositoryStatus;
 
 class StoreRepositoryStatusJob extends Job
 {
