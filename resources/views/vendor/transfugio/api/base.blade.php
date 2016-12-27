@@ -8,7 +8,7 @@
 @stop
 
 @section ('content')
-    @if ($isError)
+    @if (isset($isError) && $isError)
         <div class="row">
             <div class="alert alert-danger">
                 Whoops! Something went terribly wrong here!
