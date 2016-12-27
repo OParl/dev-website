@@ -43,7 +43,8 @@ class GitHubPushJob extends Job
 
     public function handle()
     {
-        $this->dispatch(new StoreRepositoryStatusJob($this->repository, $this->payload));
+        // fixme: there is an error with the repository status model
+        //$this->dispatch(new StoreRepositoryStatusJob($this->repository, $this->payload));
 
         switch ($this->repository) {
             case 'spec':
