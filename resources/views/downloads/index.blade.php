@@ -26,6 +26,7 @@
         </div>
     </section>
 
+    {{--
     <section>
         <h2>@lang('app.downloads.liboparl.title')</h2>
         @press(trans('app.downloads.liboparl.description'))
@@ -59,4 +60,5 @@
             </ul>
         </div>
     </section>
+    --}}
 @stop
