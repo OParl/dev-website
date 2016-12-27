@@ -13,16 +13,11 @@ use App\Http\Middleware\ValidateGitHubWebHook;
 use App\Jobs\GitHubPushJob;
 use Illuminate\Http\Request;
 
-class GitHubHooksController extends Controller
+class GitHubHooksController extends HooksController
 {
     public function __construct()
     {
         $this->middleware(ValidateGitHubWebHook::class, ['except' => 'index']);
-    }
-
-    public function index()
-    {
-        return abort(400);
     }
 
     public function push(Request $request, $repository)
