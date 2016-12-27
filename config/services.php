@@ -37,7 +37,7 @@ return [
 
     // buildkite service config for efrane/buildkite
     'buildkite' => [
-        'project'      => env('BUILDKITE_PROJECT'),
+        'project'      => env('BUILDKITE_PROJECT', ''),
         'access_token' => env('BUILDKITE_ACCESS_TOKEN', ''),
     ],
 
