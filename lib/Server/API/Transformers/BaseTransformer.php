@@ -17,7 +17,7 @@ class BaseTransformer extends TransfugioBaseTransformer
             'id'      => route("api.v1.{$entityName}.show", $entity),
             'type'    => "https://schema.oparl.org/1.0/{$EntityName}",
             'web'     => route("api.v1.{$entityName}.show", $entity, ['format' => 'html']),
-            'trashed' => $entity->trashed(),
+            'deleted' => $entity->trashed(),
         ];
 
         $defaultIncluded = [
