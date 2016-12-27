@@ -7,7 +7,7 @@ Vue.directive('fixed', {
     }
 });
 
-var vm = new Vue({
+const vm = new Vue({
     el: 'body'
 });
 
