@@ -8,16 +8,14 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 class VerifyCsrfToken extends BaseVerifier
 {
     protected $except = [
-    '_hooks/*',
-        'admin/posts/slug',
-    'admin/comments/status',
-  ];
+        '_/*',
+    ];
 
     /**
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      */
