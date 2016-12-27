@@ -11,7 +11,7 @@ class BaseTransformer extends TransfugioBaseTransformer
     protected function getDefaultAttributesForEntity(BaseModel $entity)
     {
         $entityName = $entity->getModelName();
-        $EntityName = ucfirst($entityName);
+        $EntityName = ucfirst(class_basename($entity));
 
         $default = [
             'id'      => route("api.v1.{$entityName}.show", $entity),
