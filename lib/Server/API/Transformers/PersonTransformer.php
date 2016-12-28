@@ -35,6 +35,6 @@ class PersonTransformer extends BaseTransformer
 
     public function includeMembership(Person $person)
     {
-        return $this->collection($person->memberships, new MembershipTransformer(true));
+        return $this->collection($person->memberships, new MembershipTransformer(true), 'included');
     }
 }

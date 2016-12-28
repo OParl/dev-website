@@ -35,11 +35,11 @@ class BodyTransformer extends BaseTransformer
 
     public function includeLegislativeTerm(Body $body)
     {
-        return $this->collection($body->legislativeTerms, new LegislativeTermTransformer(true));
+        return $this->collection($body->legislativeTerms, new LegislativeTermTransformer(true), 'included');
     }
 
     public function includeLocation(Body $body)
     {
-        return $this->item($body->location, new LocationTransformer(true));
+        return $this->item($body->location, new LocationTransformer(true), 'included');
     }
 }

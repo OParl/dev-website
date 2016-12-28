@@ -79,15 +79,11 @@ class MeetingTransformer extends BaseTransformer
 
     public function includeAuxiliaryFile(Meeting $meeting)
     {
-        return $this->collection($meeting->auxiliaryFiles, $this->fileTransformer);
-
-        //return null;
+        return $this->collection($meeting->auxiliaryFiles, $this->fileTransformer, 'included');
     }
 
     public function includeAgendaItem(Meeting $meeting)
     {
-        return $this->collection($meeting->agendaItems, $this->agendaItemTransformer);
-
-        //return null;
+        return $this->collection($meeting->agendaItems, $this->agendaItemTransformer, 'included');
     }
 }

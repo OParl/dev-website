@@ -11,8 +11,8 @@ class Serializer extends SanitizedArraySerializer
     {
         $data = parent::collection($resourceKey, $data);
 
-        if (isset($data['data'][0])) {
-            return $data['data'];
+        if ($resourceKey === 'included') {
+            return $data['included'];
         }
 
         return ['data' => $data['data']];
