@@ -51,14 +51,16 @@ class MeetingTransformer extends BaseTransformer
 
     public function includeLocation(Meeting $meeting)
     {
-        if ($meeting->location instanceof Location) {
-            return $this->item($meeting->location, $this->locationTransformer);
+        if (!$meeting->location) {
+            return null;
         }
+
+        return $this->item($meeting->location, $this->locationTransformer);
     }
 
     public function includeInvitation(Meeting $meeting)
     {
-        if ($meeting->invitation instanceof File) {
+        if (!$meeting->invitation instanceof File) {
             return $this->item($meeting->invitation, $this->fileTransformer);
         }
     }

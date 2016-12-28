@@ -30,6 +30,10 @@ class OrganizationTransformer extends BaseTransformer
 
     public function includeLocation(Organization $organization)
     {
+        if (!$organization->location) {
+            return null;
+        }
+
         return $this->item($organization->location, new LocationTransformer(true));
     }
 }

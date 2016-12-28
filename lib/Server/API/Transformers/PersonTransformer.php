@@ -30,6 +30,10 @@ class PersonTransformer extends BaseTransformer
 
     public function includeLocation(Person $person)
     {
+        if (!$person->location) {
+            return null;
+        }
+
         return $this->item($person->location, new LocationTransformer(true));
     }
 
