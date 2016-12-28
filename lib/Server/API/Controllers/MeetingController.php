@@ -15,7 +15,11 @@ class MeetingController extends APIController
 
     protected function queryBody(QueryService &$query, ValueExpression $valueExpression)
     {
-        $query->where('body_id', $valueExpression->getExpression(), $valueExpression->getValue());
+        $expr = $valueExpression->getExpression();
+        $value = $valueExpression->getValue();
+
+        // body is body of organization of any meeting
+
     }
 
     protected function queryOrganization(QueryService &$query, ValueExpression $valueExpression)

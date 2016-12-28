@@ -34,7 +34,6 @@ class BaseModel extends Model
             throw new ConnectionNotFoundException();
         }
 
-        \Log::debug("Setting database connection {$connection} for class ".get_called_class());
         $this->setConnection($connection);
     }
 

@@ -40,4 +40,9 @@ class Organization extends BaseModel
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function meetings()
+    {
+        return $this->belongsToMany(Meeting::class, 'oparl_meetings_organizations');
+    }
 }

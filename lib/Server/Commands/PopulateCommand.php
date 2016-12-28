@@ -6,10 +6,11 @@ use Faker\Generator;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use OParl\Server\Model\AgendaItem;
 use OParl\Server\Model\Body;
-use OParl\Server\Model\Keyword;
 use OParl\Server\Model\LegislativeTerm;
 use OParl\Server\Model\Location;
+use OParl\Server\Model\Meeting;
 use OParl\Server\Model\Membership;
 use OParl\Server\Model\Organization;
 use OParl\Server\Model\Paper;
@@ -33,6 +34,7 @@ class PopulateCommand extends Command
         $this->faker = $faker;
 
         Model::unguard();
+        \DB::connection()->disableQueryLog();
 
         if ($this->option('refresh')) {
             $this->call('server:reset');
@@ -42,6 +44,7 @@ class PopulateCommand extends Command
 
         $this->generateData();
 
+        \DB::connection()->enableQueryLog();
         Model::reguard();
 
         return 0;
@@ -53,26 +56,44 @@ class PopulateCommand extends Command
         $system = factory(System::class, 1)->create();
 
         $amounts = [
-            'body'            => $this->faker->numberBetween(3, 5),
-            'paper'           => 250,
-
-            // all following are defined per body
-
-            'organisation'    => $this->faker->numberBetween(2, 10),
-            'legislativeTerm' => $this->faker->numberBetween(1, 10),
-            'meeting'         => $this->faker->numberBetween(10, 25),
-            'people'          => $this->faker->numberBetween(20, 100),
-            'member'          => $this->faker->numberBetween(5, 20),
+            'body'  => 3,
+            'paper' => 250,
         ];
 
+        // all following are defined per body
+        $amountsDynamic = [
+            'legislativeTerm' => [1, 10],
+            'people'          => [20, 100],
+
+            'organisation'         => [4, 12],
+            'member'               => [5, 20],
+            'meeting'              => [10, 25],
+            'meeting.orgas'        => [1, 4],
+            'meeting.items'        => [1, 20],
+            'meeting.participants' => [1, 5],
+        ];
+
+        /* Paper */
         $this->info('Creating Paper entities');
         $progressBar = new ProgressBar($this->output, $amounts['paper']);
-        collect(factory(Paper::class, $amounts['paper'])->create())->each(function ($paper) use ($progressBar) {
+        factory(Paper::class, $amounts['paper'])->create()->each(function () use ($progressBar) {
             $progressBar->advance();
         });
         $this->line('');
 
-        collect(factory(Body::class, $amounts['body'])->create())->map(function ($body) use ($system, $amounts) {
+        collect(factory(Body::class, $amounts['body'])->create())->map(function (Body $body) use (
+            $system,
+            $amounts,
+            $amountsDynamic
+        ) {
+            $this->line("\n\n\tFilling Body " . $body->id);
+
+            $amounts = collect($amountsDynamic)->map(function ($minmax) {
+                list($min, $max) = $minmax;
+
+                return $this->faker->numberBetween($min, $max);
+            })->merge($amounts)->toArray();
+
             /* @var System $system */
             $system->bodies()->save($body);
 
@@ -86,11 +107,11 @@ class PopulateCommand extends Command
                 $body->location()->associate($this->getLocation());
             }
 
-            /* People */
+            /* Person */
             $body->people()->saveMany($this->getSomePeople($amounts['people']));
             $this->line('');
 
-            /* Organisation */
+            /* Organisation + Membership */
             $orgas = $this->getSomeOrganizations($amounts['organisation']);
             $orgas->each(function (Organization $orga) use ($body, $amounts) {
                 $orga->people()->saveMany($body->people->random($amounts['member']));
@@ -100,6 +121,8 @@ class PopulateCommand extends Command
                     $membership = factory(Membership::class)->create();
                     $membership->organization()->associate($orga);
                     $membership->person()->associate($person);
+
+                    $membership->save();
                 });
 
                 if ($this->faker->boolean()) {
@@ -109,73 +132,57 @@ class PopulateCommand extends Command
                 if ($this->faker->boolean()) {
                     $orga->keywords()->saveMany($this->getSomeKeywords());
                 }
+
+                $orga->save();
             });
 
             $body->organizations()->saveMany($orgas);
+            $body->save();
+            $this->line('');
+
+            $orgas = null;
+
+            /* Meeting */
+            $this->info('Creating Meeting entities');
+            $progressBar = new ProgressBar($this->output, $amounts['meeting']);
+            factory(Meeting::class, $amounts['meeting'])->create()->each(function (Meeting $meeting) use (
+                $progressBar,
+                $amounts,
+                $body
+            ) {
+                $meetingOrgas = $body->organizations->random($amounts['meeting.orgas']);
+                try {
+                    $meeting->organizations()->saveMany($meetingOrgas);
+                } catch (\Exception $e) {
+                    $meeting->organizations()->save($meetingOrgas);
+                }
+
+                // participants
+                /* @var Collection $allMembers */
+                $participants = $meeting->organizations->map(function ($orga) {
+                    return $orga->people;
+                })->flatten()->random($amounts['meeting.participants']);
+
+                try {
+                    $meeting->participants()->saveMany($participants);
+                } catch (\Exception $e) {
+                    $meeting->participants()->save($participants);
+                }
+
+                /* AgendaItem */
+                $meeting->agendaItems()->saveMany(factory(AgendaItem::class, $amounts['meeting.items']));
+
+                if ($this->faker->boolean()) {
+                    $meeting->location()->associate($this->getLocation());
+                }
+
+                $progressBar->advance();
+            });
 
             $this->line('');
+
+            $body->save();
         });
-
-
-
-//
-//            $meetings = factory(Meeting::class, $this->faker->numberBetween(10, 50))->create();
-//            $meetings->each(function (Meeting $meeting) use ($organizations) {
-//                /* @var $organizations Collection */
-//                if ($organizations->count() > 1) {
-//                    $meetingOrganizations = $organizations->random($this->faker->numberBetween(1,
-//                        $organizations->count() / 2));
-//                } else {
-//                    $meetingOrganizations = $organizations;
-//                }
-//
-//                if ($meetingOrganizations instanceof Organization) {
-//                    $meetingOrganizations = collect([$meetingOrganizations]);
-//                }
-//
-//                $meeting->organizations()->saveMany($meetingOrganizations);
-//                /* @var $possibleParticipants Collection */
-//                $possibleParticipants = collect(
-//                    $meetingOrganizations->map(function (Organization $organization) {
-//                        return $organization->people;
-//                    })->map(function (Collection $collection) {
-//                        return $collection->all();
-//                    })->first()
-//                );
-//
-//                $participants = $possibleParticipants->random($this->faker->numberBetween(1,
-//                    $possibleParticipants->count() / 2));
-//                if ($participants instanceof Person) {
-//                    $participants = collect([$participants]);
-//                }
-//
-//                $meeting->participants()->saveMany($participants);
-//
-//                $location = null;
-//                if ($meetingOrganizations->count() > 0) {
-//                    $location = $meetingOrganizations->first()->location;
-//                } else {
-//                    if ($participants->count() > 0) {
-//                        $location = $participants->first()->location;
-//                    } else {
-//                        $location = $this->getLocation();
-//                    }
-//                }
-//
-//                $meeting->location()->associate($location);
-//
-//                $agendaItems = factory(AgendaItem::class, $this->faker->numberBetween(1, 10))->create();
-//                if ($agendaItems instanceof AgendaItem) {
-//                    $agendaItems = collect([$agendaItems]);
-//                }
-//
-//                $agendaItems->each(function (AgendaItem $agendaItem) use ($meeting) {
-//                    $agendaItem->meeting()->associate($meeting);
-//                });
-//
-//                // TODO: Invitation, Protocol, etc.
-//            });
-//        });
     }
 
     /**
@@ -214,20 +221,20 @@ class PopulateCommand extends Command
         // FIXME: keywords are so broken
         return collect();
 
-        $amount = $this->faker->numberBetween(0, $maxNb);
-
-        if ($amount == 0) {
-            return collect();
-        }
-
-        $currentKeywordCount = Keyword::all()->count();
-        if ($currentKeywordCount < $amount) {
-            factory(Keyword::class, $amount - $currentKeywordCount)->create();
-        }
-
-        $keywordOrKeywords = Keyword::all()->random($amount);
-
-        return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
+//        $amount = $this->faker->numberBetween(0, $maxNb);
+//
+//        if ($amount == 0) {
+//            return collect();
+//        }
+//
+//        $currentKeywordCount = Keyword::all()->count();
+//        if ($currentKeywordCount < $amount) {
+//            factory(Keyword::class, $amount - $currentKeywordCount)->create();
+//        }
+//
+//        $keywordOrKeywords = Keyword::all()->random($amount);
+//
+//        return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
     }
 
     protected function getLocation()
@@ -270,19 +277,11 @@ class PopulateCommand extends Command
             $progressBar->advance();
         });
 
-        $this->line('');
-
         return $people;
     }
 
-    protected function getSomeOrganizations($maxNb = 2)
+    protected function getSomeOrganizations($amount)
     {
-        if ($maxNb < 1) {
-            throw new \InvalidArgumentException('$maxNb must be greater than or equal to 1');
-        }
-
-        $amount = $this->faker->numberBetween(1, $maxNb);
-
         $this->info('Creating Organization entities');
         $progressBar = new ProgressBar($this->output, $amount);
 
@@ -293,8 +292,6 @@ class PopulateCommand extends Command
             $organizations->push($organization);
             $progressBar->advance();
         });
-
-        $this->line('');
 
         // TODO: suborganizations?
         return $organizations;
