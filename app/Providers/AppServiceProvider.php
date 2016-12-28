@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Http\ViewComposers\Header;
 use App\Http\ViewComposers\Piwik;
+use Faker\Factory;
+use Faker\Generator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -51,5 +53,8 @@ LPMARKUP;
      */
     public function register()
     {
+        $this->app->singleton(Generator::class, function () {
+           return Factory::create('de_DE');
+        });
     }
 }
