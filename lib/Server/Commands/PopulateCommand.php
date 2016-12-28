@@ -10,6 +10,7 @@ use OParl\Server\Model\Body;
 use OParl\Server\Model\Keyword;
 use OParl\Server\Model\LegislativeTerm;
 use OParl\Server\Model\Location;
+use OParl\Server\Model\Membership;
 use OParl\Server\Model\Organization;
 use OParl\Server\Model\Paper;
 use OParl\Server\Model\Person;
@@ -91,41 +92,32 @@ class PopulateCommand extends Command
 
             /* Organisation */
             $orgas = $this->getSomeOrganizations($amounts['organisation']);
-            $orgas->each(function ($orga) use ($body, $amounts) {
+            $orgas->each(function (Organization $orga) use ($body, $amounts) {
                 $orga->people()->saveMany($body->people->random($amounts['member']));
+
+                $orga->people->each(function ($person) use ($orga) {
+                    /* @var Membership $membership */
+                    $membership = factory(Membership::class)->create();
+                    $membership->organization()->associate($orga);
+                    $membership->person()->associate($person);
+                });
+
+                if ($this->faker->boolean()) {
+                    $orga->location()->associate($this->getLocation());
+                }
+
+                if ($this->faker->boolean()) {
+                    $orga->keywords()->saveMany($this->getSomeKeywords());
+                }
             });
+
             $body->organizations()->saveMany($orgas);
 
             $this->line('');
         });
 
 
-//
-//            $organizations = $this->getSomeOrganizations($this->faker->randomElement([1, 5, 10]));
-//            $organizations->each(function (Organization $organization) use ($body, $people) {
-//                $organization->body()->associate($body);
-//
-//                $people->random($this->faker->numberBetween(2, $people->count()))->each(function (
-//                    Person $person
-//                ) use (
-//                    $organization
-//                ) {
-//                    /* @var $membership Membership */
-//                    $membership = factory(Membership::class)->create();
-//
-//                    $membership->person()->associate($person);
-//                    $membership->organization()->associate($organization);
-//
-//                    $membership->keywords()->saveMany($this->getSomeKeywords());
-//
-//                    $membership->save();
-//                });
-//
-//                $organization->keywords()->saveMany($this->getSomeKeywords());
-//                $organization->location()->associate($this->getLocation());
-//
-//                $organization->save();
-//            });
+
 //
 //            $meetings = factory(Meeting::class, $this->faker->numberBetween(10, 50))->create();
 //            $meetings->each(function (Meeting $meeting) use ($organizations) {
