@@ -28,8 +28,14 @@ $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $fa
     ];
 });
 
-$factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $faker) {
-    $name = ucfirst(implode(' ', $faker->words(7)));
+$factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $faker) use ($slugify) {
+    $names = [
+        'Bezirksamt',
+        'Kommunalverwaltung',
+        'Rathaus',
+    ];
+
+    $name = $faker->randomElement($names) . ' ' . ($faker->optional() ? $faker->city : $faker->country);
 
     $equivalentBody = collect(
         range(0, $faker->numberBetween(0, 5)))
@@ -37,10 +43,13 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
             return $faker->url;
         })->toArray();
 
+    $url = $faker->url;
+    $contactName = $faker->name;
+
     return [
         'name'                => $name,
         'short_name'          => $faker->colorName,
-        'website'             => $faker->url,
+        'website'             => $url,
         'license'             => 'CC-BY-SA 3.0',
         'license_valid_since' => $faker->dateTimeBetween('-1 year'),
         'oparl_since'         => Carbon::createFromDate(2016, 1, 1),
@@ -50,8 +59,8 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
 
         'equivalent_body' => $equivalentBody,
 
-        'contact_email' => $faker->email,
-        'contact_name'  => $faker->name,
+        'contact_email' => $slugify->slugify($contactName) . '@' . parse_url($url, PHP_URL_HOST),
+        'contact_name'  => $contactName,
 
         'classification' => $faker->word,
     ];
@@ -186,7 +195,7 @@ $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generat
         $shortNameNumber = $faker->randomNumber(3);
     } while ($shortNameNumber < 0);
 
-    $shortName = 'O-'.$romanizer->formatNumber($shortNameNumber);
+    $shortName = 'O-' . $romanizer->formatNumber($shortNameNumber);
 
     $organizationTypes = [
         'externes Gremium',

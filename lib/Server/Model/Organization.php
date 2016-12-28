@@ -27,6 +27,7 @@ class Organization extends BaseModel
 
     public function members()
     {
+        // FIXME: This relation is broken
         return $this->hasMany(Membership::class, 'organization_id', 'id');
     }
 
