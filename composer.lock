@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f324d56629cba159e95f3cda35737cb",
-    "content-hash": "b633fd6a0952c48e04d4881f129f4dd3",
+    "hash": "4a06ed36e65ed97fc43a4416d72ab3c6",
+    "content-hash": "ac2cd699d840c199d0247910a107e00a",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2177,6 +2177,46 @@
                 }
             ],
             "time": "2015-02-03 12:10:50"
+        },
+        {
+            "name": "piwik/piwik-php-tracker",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/piwik/piwik-php-tracker.git",
+                "reference": "eb4df1e223d4b377d06785c9b5fb3723d16d4465"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/piwik/piwik-php-tracker/zipball/eb4df1e223d4b377d06785c9b5fb3723d16d4465",
+                "reference": "eb4df1e223d4b377d06785c9b5fb3723d16d4465",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "The Piwik Team",
+                    "email": "hello@piwik.org",
+                    "homepage": "http://piwik.org/the-piwik-team/"
+                }
+            ],
+            "description": "PHP Client for Piwik Analytics Tracking API",
+            "homepage": "http://piwik.org",
+            "keywords": [
+                "analytics",
+                "piwik",
+                "tracker"
+            ],
+            "time": "2016-07-13 05:26:45"
         },
         {
             "name": "predis/predis",

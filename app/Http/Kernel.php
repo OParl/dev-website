@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\TrackAPICall;
 use App\Http\Middleware\ValidateGitHubWebHook;
 use App\Http\Middleware\VerifyCsrfToken;
 use EFrane\Transfugio\Http\APIOutputFormatMiddleware;
@@ -39,5 +40,6 @@ class Kernel extends HttpKernel
         'guest'        => RedirectIfAuthenticated::class,
         'hooks.github' => ValidateGitHubWebHook::class,
         'api.format'   => APIOutputFormatMiddleware::class,
+        'api.piwik'    => TrackAPICall::class,
     ];
 }

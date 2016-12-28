@@ -4,7 +4,7 @@
 $router->group([
     'domain'     => 'dev.'.config('app.url'),
     'prefix'     => 'api/v1/',
-    'middleware' => ['api.format'],
+    'middleware' => ['api.format', 'api.piwik'],
 ], function () use ($router) {
     $router->get('/', ['uses' => 'RootController@index', 'as' => 'api.index']);
 
