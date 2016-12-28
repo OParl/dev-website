@@ -40,6 +40,10 @@ class BodyTransformer extends BaseTransformer
 
     public function includeLocation(Body $body)
     {
-        return $this->item($body->location, new LocationTransformer(true), 'included');
+        if ($body->location) {
+            return $this->item($body->location, new LocationTransformer(true));
+        }
+
+        return null;
     }
 }
