@@ -96,8 +96,8 @@ class SpecificationLiveVersionBuildJob extends Job
             'official' => $hubSync->getCurrentTreeish(),
         ]));
 
-        $message = ":white-check-mark: Updated live version to <https://github.com/OParl/spec/commit/%s|%s>";
-        \Slack::send(sprintf($message, $hubSync->getCurrentTreeish(), $hubSync->getCurrentTreeish()));
+        $message = ":white_check_mark: Updated live version to <https://github.com/OParl/spec/commit/%s|%s>";
+        \Slack::send(sprintf($message, $hubSync->getCurrentHead(), $hubSync->getCurrentHead()));
     }
 }
 
