@@ -18,6 +18,6 @@ class LegislativeTermTransformer extends BaseTransformer
             $data['body'] = route('api.v1.body.show', $legislativeTerm->body_id);
         }
 
-        return $data;
+        return remove_empty_keys($data);
     }
 }

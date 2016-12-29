@@ -10,7 +10,7 @@ class PersonTransformer extends BaseTransformer
 
     public function transform(Person $person)
     {
-        return array_merge($this->getDefaultAttributesForEntity($person), [
+        return remove_empty_keys(array_merge($this->getDefaultAttributesForEntity($person), [
             'body'          => route('api.v1.body.show', $person->body_id),
             'name'          => $person->name,
             'familyName'    => $person->family_name,
@@ -25,7 +25,7 @@ class PersonTransformer extends BaseTransformer
             // membership is included
             'life'          => $person->life,
             'lifeSource'    => $person->life_source,
-        ]);
+        ]));
     }
 
     public function includeLocation(Person $person)

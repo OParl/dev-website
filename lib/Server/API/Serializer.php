@@ -40,21 +40,23 @@ class Serializer extends SanitizedArraySerializer
 
         $totalPages = ceil($paginator->getTotal() / $paginator->getPerPage());
 
-        return [[
-            'pagination' => [
-                'totalElements'   => (int) $paginator->getTotal(),
-                'elementsPerPage' => (int) $paginator->getPerPage(),
-                'totalPages'      => (int) $totalPages,
-                'currentPage'     => (int) $paginator->getCurrentPage(),
-            ],
+        return [
+            [
+                'pagination' => [
+                    'totalElements'   => (int)$paginator->getTotal(),
+                    'elementsPerPage' => (int)$paginator->getPerPage(),
+                    'totalPages'      => (int)$totalPages,
+                    'currentPage'     => (int)$paginator->getCurrentPage(),
+                ],
 
-            'links' => [
-                'first' => $paginator->getUrl(1),
-                'prev'  => $paginator->getUrl($paginator->getCurrentPage() - 1),
-                'self'  => $paginator->getUrl($paginator->getCurrentPage()),
-                'next'  => ($paginator->getCurrentPage() + 1 >= $paginator->getLastPage()) ? null : $nextPage,
-                'last'  => $paginator->getUrl($totalPages),
+                'links' => [
+                    'first' => $paginator->getUrl(1),
+                    'prev'  => $paginator->getUrl($paginator->getCurrentPage() - 1),
+                    'self'  => $paginator->getUrl($paginator->getCurrentPage()),
+                    'next'  => ($paginator->getCurrentPage() + 1 >= $paginator->getLastPage()) ? null : $nextPage,
+                    'last'  => $paginator->getUrl($totalPages),
+                ],
             ],
-        ]];
+        ];
     }
 }

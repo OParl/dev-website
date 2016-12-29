@@ -21,6 +21,6 @@ class MembershipTransformer extends BaseTransformer
             $data['person'] = route('api.v1.person.show', $membership->person);
         }
 
-        return $data;
+        return remove_empty_keys($data);
     }
 }
