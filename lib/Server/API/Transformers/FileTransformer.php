@@ -8,9 +8,11 @@ class FileTransformer extends BaseTransformer
 {
     public function transform(File $file)
     {
-        return array_merge($this->getDefaultAttributesForEntity($file), [
+        $data = array_merge($this->getDefaultAttributesForEntity($file), [
             'keyword' => $file->keywords->pluck('human_name'),
-            
+
         ]);
+
+        return $this->cleanupData($data, $file);
     }
 }

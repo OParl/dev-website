@@ -2,6 +2,8 @@
 
 namespace OParl\Server\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 /**
  * Class Body.
  */

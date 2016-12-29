@@ -18,6 +18,8 @@ class BaseTransformer extends TransfugioBaseTransformer
             'type'    => "https://schema.oparl.org/1.0/{$EntityName}",
             'web'     => route("api.v1.{$entityName}.show", $entity, ['format' => 'html']),
             'deleted' => $entity->trashed() ? true : false,
+            'created'  => $this->formatDateTime($entity->created_at),
+            'modified' => $this->formatDateTime($entity->updated_at),
         ];
 
         $defaultIncluded = [
@@ -33,5 +35,16 @@ class BaseTransformer extends TransfugioBaseTransformer
         $attributes = ($this->isIncluded()) ? array_merge($default, $defaultIncluded) : $default;
 
         return $attributes;
+    }
+
+    public function cleanupData(array $attributes, BaseModel $entity)
+    {
+        if ($entity->trashed()) {
+            $attributes = array_only($attributes, ['id', 'type', 'created', 'modified', 'deleted']);
+            $attributes['modified'] = $this->formatDateTime($entity->deleted_at);
+            $this->setDefaultIncludes([]);
+        }
+
+        return remove_empty_keys($attributes);
     }
 }

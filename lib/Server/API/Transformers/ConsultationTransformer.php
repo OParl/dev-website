@@ -8,7 +8,7 @@ class ConsultationTransformer extends BaseTransformer
 {
     public function transform(Consultation $consultation)
     {
-        $transformed = array_merge($this->getDefaultAttributesForEntity($consultation), [
+        $data = array_merge($this->getDefaultAttributesForEntity($consultation), [
             'paper'         => ($this->isIncluded()) ? route('api.v1.paper.show', $consultation->paper) : null,
             'agendaItem'    => route('api.v1.agendaitem.show', $consultation->agendaItem),
             'meeting'       => route('api.v1.meeting.show', $consultation->meeting),
@@ -17,6 +17,6 @@ class ConsultationTransformer extends BaseTransformer
             'role'          => $consultation->role,
         ]);
 
-        return $transformed;
+        return $this->cleanupData($data, $consultation);
     }
 }

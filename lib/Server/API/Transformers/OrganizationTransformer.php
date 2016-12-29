@@ -10,7 +10,7 @@ class OrganizationTransformer extends BaseTransformer
 
     public function transform(Organization $organization)
     {
-        return array_merge($this->getDefaultAttributesForEntity($organization), [
+        $data = array_merge($this->getDefaultAttributesForEntity($organization), [
             'body'              => route('api.v1.body.show', $organization->body_id),
             'name'              => $organization->name,
             'shortName'         => $organization->short_name,
@@ -26,6 +26,8 @@ class OrganizationTransformer extends BaseTransformer
             // location is included
             // TODO: external body
         ]);
+
+        return $this->cleanupData($data, $organization);
     }
 
     public function includeLocation(Organization $organization)

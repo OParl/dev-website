@@ -8,10 +8,12 @@ class PaperTransformer extends BaseTransformer
 {
     public function transform(Paper $paper)
     {
-        return array_merge($this->getDefaultAttributesForEntity($paper), [
+        $data = array_merge($this->getDefaultAttributesForEntity($paper), [
             // TODO: Paper attributes
             'date' => $this->formatDate($paper->date),
 
         ]);
+
+        return $this->cleanupData($data, $paper);
     }
 }

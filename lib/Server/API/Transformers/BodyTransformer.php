@@ -10,7 +10,7 @@ class BodyTransformer extends BaseTransformer
 
     public function transform(Body $body)
     {
-        return array_merge($this->getDefaultAttributesForEntity($body), [
+        $data = array_merge($this->getDefaultAttributesForEntity($body), [
             'system'            => route('api.v1.system.show', $body->system),
             'shortName'         => $body->short_name,
             'name'              => $body->name,
@@ -31,6 +31,8 @@ class BodyTransformer extends BaseTransformer
             'classification'    => $body->classification,
             // location is an included object
         ]);
+
+        return $this->cleanupData($data, $body);
     }
 
     public function includeLegislativeTerm(Body $body)

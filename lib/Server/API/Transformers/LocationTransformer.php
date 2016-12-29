@@ -28,6 +28,6 @@ class LocationTransformer extends BaseTransformer
             ]);
         }
 
-        return $data;
+        return $this->cleanupData($data, $location);
     }
 }

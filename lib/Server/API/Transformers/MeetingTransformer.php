@@ -31,7 +31,7 @@ class MeetingTransformer extends BaseTransformer
 
     public function transform(Meeting $meeting)
     {
-        return array_merge($this->getDefaultAttributesForEntity($meeting), [
+        $data = array_merge($this->getDefaultAttributesForEntity($meeting), [
             'name'         => $meeting->name,
             'meetingState' => $meeting->meeting_state,
             'cancelled'    => $meeting->cancelled,
@@ -46,6 +46,8 @@ class MeetingTransformer extends BaseTransformer
             // auxiliaryFile is included
             // agendaItem is included
         ]);
+
+        return $this->cleanupData($data, $meeting);
     }
 
     public function includeLocation(Meeting $meeting)
