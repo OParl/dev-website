@@ -6,7 +6,7 @@ use OParl\Server\Model\Person;
 
 class PersonTransformer extends BaseTransformer
 {
-    protected $defaultIncludes = ['location', 'membership'];
+    protected $defaultIncludes = ['membership'];
 
     public function transform(Person $person)
     {
@@ -20,7 +20,7 @@ class PersonTransformer extends BaseTransformer
             'gender'        => $person->gender,
             'phone'         => $person->phone,
             'email'         => $person->email,
-            // location is included
+            'location'      => ($person->location) ? route('api.v1.location.show', $person->location) : null,
             'status'        => $person->status,
             // membership is included
             'life'          => $person->life,
