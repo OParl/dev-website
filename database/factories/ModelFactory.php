@@ -50,7 +50,7 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
         'name'                => $name,
         'short_name'          => $faker->colorName,
         'website'             => $url,
-        'license'             => 'CC-BY-SA 3.0',
+        'license'             => 'https://creativecommons.org/licenses/by/4.0/',
         'license_valid_since' => $faker->dateTimeBetween('-1 year'),
         'oparl_since'         => Carbon::createFromDate(2016, 1, 1),
 
@@ -75,12 +75,18 @@ $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Gene
     $startDate->minute = 0;
     $startDate->second = 0;
 
-    return [
+    $data = [
         'name' => sprintf('%s. Wahlperiode', $romanizer->formatNumber($faker->numberBetween(10, 60))),
 
         'start_date' => $startDate,
         'end_date'   => Carbon::instance($startDate)->addYears($faker->numberBetween(1, 5)),
     ];
+
+    if ($faker->boolean()) {
+        $data['license'] = $faker->url;
+    }
+
+    return $data;
 });
 
 $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator $faker) {

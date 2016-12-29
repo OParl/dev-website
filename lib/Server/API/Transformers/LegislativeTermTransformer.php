@@ -12,6 +12,7 @@ class LegislativeTermTransformer extends BaseTransformer
             'name'      => $legislativeTerm->name,
             'startDate' => $this->formatDate($legislativeTerm->start_date),
             'endDate'   => $this->formatDate($legislativeTerm->end_date),
+            'license'   => $legislativeTerm->license,
         ]);
 
         if (!$this->isIncluded()) {
