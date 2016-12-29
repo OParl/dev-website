@@ -19,7 +19,6 @@ class SpecificationDownloadRepository extends DownloadRepository
 
     public function getVersion($version)
     {
-        // TODO: generalize this, maybe make a repository decorator for specialized repositories
         $hubSync = new Repository($this->fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
         return parent::getVersion($hubSync->getUniqueRevision($version));
     }

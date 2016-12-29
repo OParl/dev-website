@@ -29,7 +29,7 @@ class DownloadsController extends Controller
 
         abort_if($validator->fails(), 403);
 
-        $download = $specificationDownloadRepository->getLatest();
+        $download = $specificationDownloadRepository->getVersion('master');
 
         if (strcmp($version, 'latest') !== 0) {
             $download = $specificationDownloadRepository->getVersion($version);
@@ -42,12 +42,13 @@ class DownloadsController extends Controller
             return response()->download($file->getInfo()->getRealPath());
         } catch (FileNotFoundException $e) {
             abort(404);
+            return null;
         }
     }
 
     public function stableSpecification($format)
     {
-        return redirect()->route('downloads.specification', ['1.0', $format]);
+        return redirect()->route('downloads.specification', ['v1.0.3', $format]);
     }
 
     public function latestSpecification($format)

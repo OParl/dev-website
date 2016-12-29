@@ -16,6 +16,13 @@ class SpecificationDownloadsBuildJob
 {
     use SynchronousProcess;
 
+    protected $treeish = '';
+
+    public function __construct($treeish = 'master')
+    {
+        $this->treeish = $treeish;
+    }
+
     /**
      * @param Filesystem $fs
      * @param Log $log
@@ -43,19 +50,19 @@ class SpecificationDownloadsBuildJob
             $log->error("Git pull failed");
         }
 
-        $currentHead = $hubSync->getCurrentHead();
+        $version = $hubSync->getUniqueRevision($this->treeish);
 
         $dockerCmd = sprintf(
             'docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make VERSION=%s clean archives',
-            $currentHead
+            $version
         );
 
         if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
             $log->error('Updating the downloadables failed');
-            return [$hubSync, $currentHead];
+            return [$hubSync, $version];
         }
 
-        return [$hubSync, $currentHead];
+        return [$hubSync, $version];
     }
 
     /**

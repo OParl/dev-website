@@ -10,7 +10,7 @@ class UpdateDownloadablesCommand extends Command
 {
     use DispatchesJobs;
 
-    protected $name = 'oparl:update:downloadables';
+    protected $signature = 'oparl:update:downloadables {treeish?}';
     protected $description = "Force-update the site's downloads";
 
     // TODO: allow for only spec or only liboparl
@@ -18,6 +18,13 @@ class UpdateDownloadablesCommand extends Command
     public function handle()
     {
         $this->info('Updating downloadables');
-        $this->dispatch(new SpecificationDownloadsBuildJob());
+
+        $treeish = $this->argument('treeish');
+
+        if (is_null($treeish)) {
+            $treeish = 'master';
+        }
+
+        $this->dispatch(new SpecificationDownloadsBuildJob($treeish));
     }
 }

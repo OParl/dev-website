@@ -37,10 +37,14 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->name('downloads.index')
         ->uses('DownloadsController@index');
 
+    $router->get('/downloads/spezifikation-stable.{format}')
+        ->name('downloads.specification.stable')
+        ->uses('DownloadsController@stableSpecification');
+
     $router->get('/downloads/spezifikation-{version}.{format}')
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
-        ->where('version', '[a-z0-9]{5,32}');
+        ->where('version', '[a-z0-9.]{5,32}');
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
 
