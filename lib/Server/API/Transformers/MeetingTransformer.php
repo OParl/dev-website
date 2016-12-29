@@ -35,8 +35,8 @@ class MeetingTransformer extends BaseTransformer
             'name'         => $meeting->name,
             'meetingState' => $meeting->meeting_state,
             'cancelled'    => $meeting->cancelled,
-            'start'        => $this->formatDate($meeting->start),
-            'end'          => $this->formatDate($meeting->end),
+            'start'        => $this->formatDateTime($meeting->start),
+            'end'          => $this->formatDateTime($meeting->end),
             // location is included
             'organization' => $this->collectionRouteList('api.v1.organization.show', $meeting->organizations),
             'participant'  => $this->collectionRouteList('api.v1.person.show', $meeting->participants),

@@ -21,8 +21,8 @@ class BaseTransformer extends TransfugioBaseTransformer
         ];
 
         $defaultIncluded = [
-            'created'  => $this->formatDate($entity->created_at),
-            'modified' => $this->formatDate($entity->updated_at),
+            'created'  => $this->formatDateTime($entity->created_at),
+            'modified' => $this->formatDateTime($entity->updated_at),
         ];
 
         // TODO: should system get an optional keyword property?

@@ -20,8 +20,8 @@ class AgendaItemTransformer extends BaseTransformer
             // resolutionFile is included
             // auxiliaryFile is included
 
-            'start' => $this->formatDate($agendaItem->updated_at),
-            'end'   => $this->formatDate($agendaItem->updated_at),
+            'start' => $this->formatDateTime($agendaItem->updated_at),
+            'end'   => $this->formatDateTime($agendaItem->updated_at),
         ]);
     }
 }
