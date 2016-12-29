@@ -12,9 +12,10 @@ return [
         'classPattern' => '[:modelName]Transformer',
 
         'formatHelpers' => [
-            'email' => 'EFrane\Transfugio\Transformers\Formatter\EMailURI',
-            'date'  => 'EFrane\Transfugio\Transformers\Formatter\DateISO8601',
-            'url'   => 'EFrane\Transfugio\Transformers\Formatter\HttpURI',
+            'email'    => 'EFrane\Transfugio\Transformers\Formatter\EMailURI',
+            'date'     => 'EFrane\Transfugio\Transformers\Formatter\DateISO8601',
+            'datetime' => 'EFrane\Transfugio\Transformers\Formatter\DateTimeISO8601',
+            'url'      => 'EFrane\Transfugio\Transformers\Formatter\HttpURI',
         ],
 
         'recursionLimit' => 2,
