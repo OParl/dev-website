@@ -44,6 +44,7 @@ elixir(function(mix) {
 
     mix.copy('resources/assets/brand/icon/oparl-icon.png', 'public/img/favicon.png');
     mix.copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/img/logos/oparl.svg');
+    mix.copy('resources/assets/img/oparl-icon-dev-slackbot.png', 'public/img/oparl-icon-dev-slackbot.png');
 
     // copy source code pro font files
     mix.copy('node_modules/source-code-pro/EOT/', 'public/fonts/');

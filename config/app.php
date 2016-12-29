@@ -161,6 +161,7 @@ return [
         EFrane\Letterpress\Providers\LaravelServiceProvider::class,
         EFrane\Transfugio\TransfugioServiceProvider::class,
         GrahamCampbell\GitHub\GitHubServiceProvider::class,
+        Maknz\Slack\Laravel\ServiceProvider::class,
 
         OParl\Spec\SpecServiceProvider::class,
         OParl\Server\ServerServiceProvider::class,
@@ -214,6 +215,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Slack' => Maknz\Slack\Laravel\Facade::class,
     ],
 
 ];
