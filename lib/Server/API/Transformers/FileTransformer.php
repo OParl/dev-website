@@ -8,9 +8,9 @@ class FileTransformer extends BaseTransformer
 {
     public function transform(File $file)
     {
-        return remove_empty_keys(array_merge($this->getDefaultAttributesForEntity($file), [
+        return array_merge($this->getDefaultAttributesForEntity($file), [
             'keyword' => $file->keywords->pluck('human_name'),
-
-        ]));
+            
+        ]);
     }
 }

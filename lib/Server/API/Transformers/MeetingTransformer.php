@@ -31,7 +31,7 @@ class MeetingTransformer extends BaseTransformer
 
     public function transform(Meeting $meeting)
     {
-        return remove_empty_keys(array_merge($this->getDefaultAttributesForEntity($meeting), [
+        return array_merge($this->getDefaultAttributesForEntity($meeting), [
             'name'         => $meeting->name,
             'meetingState' => $meeting->meeting_state,
             'cancelled'    => $meeting->cancelled,
@@ -45,7 +45,7 @@ class MeetingTransformer extends BaseTransformer
             // verbatimProtocol is included
             // auxiliaryFile is included
             // agendaItem is included
-        ]));
+        ]);
     }
 
     public function includeLocation(Meeting $meeting)

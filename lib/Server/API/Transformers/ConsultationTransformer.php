@@ -17,6 +17,6 @@ class ConsultationTransformer extends BaseTransformer
             'role'          => $consultation->role,
         ]);
 
-        return remove_empty_keys($transformed);
+        return $transformed;
     }
 }

@@ -28,6 +28,6 @@ class LocationTransformer extends BaseTransformer
             ]);
         }
 
-        return remove_empty_keys($data);
+        return $data;
     }
 }

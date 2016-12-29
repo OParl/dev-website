@@ -8,7 +8,7 @@ class SystemTransformer extends BaseTransformer
 {
     public function transform(System $system)
     {
-        return remove_empty_keys(array_merge($this->getDefaultAttributesForEntity($system), [
+        return array_merge($this->getDefaultAttributesForEntity($system), [
             'oparlVersion'       => 'https://spec.oparl.org/1.0',
             'name'               => $system->name,
             'body'               => route_where('api.v1.body.index', ['system' => $system->id]),
@@ -19,6 +19,6 @@ class SystemTransformer extends BaseTransformer
             'contactEmail'       => $system->contact_email,
             'website'            => $system->website,
             'deleted'            => false,
-        ]));
+        ]);
     }
 }
