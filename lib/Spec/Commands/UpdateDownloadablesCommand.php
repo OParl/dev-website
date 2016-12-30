@@ -2,7 +2,6 @@
 
 namespace OParl\Spec\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
 
@@ -19,11 +18,7 @@ class UpdateDownloadablesCommand extends Command
     {
         $this->info('Updating downloadables');
 
-        $treeish = $this->argument('treeish');
-
-        if (is_null($treeish)) {
-            $treeish = 'master';
-        }
+        $treeish = $this->getTreeishOrMaster();
 
         $this->dispatch(new SpecificationDownloadsBuildJob($treeish));
     }

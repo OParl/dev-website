@@ -8,7 +8,6 @@
 
 namespace OParl\Spec\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 
@@ -20,12 +19,15 @@ class UpdateSpecificationCommand extends Command
 {
     use DispatchesJobs;
 
-    protected $name = 'oparl:update:specification';
+    protected $name = 'oparl:update:specification {treeish?}';
     protected $description = "Force-update the specifications' HTML and assets";
 
     public function handle()
     {
         $this->info('Updating specification');
-        $this->dispatch(new SpecificationLiveVersionBuildJob([]));
+
+        $treeish = $this->getTreeishOrMaster();
+
+        $this->dispatch(new SpecificationLiveVersionBuildJob([], $treeish));
     }
 }

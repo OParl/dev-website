@@ -2,8 +2,6 @@
 
 namespace OParl\Spec\Jobs;
 
-use App\Jobs\Job;
-use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
@@ -40,12 +38,7 @@ class SpecificationLiveVersionBuildJob extends Job
      */
     public function handle(Filesystem $fs, Log $log)
     {
-        $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
-
-        if (!$hubSync->update()) {
-            $log->error("Git pull failed");
-        }
-
+        $hubSync = $this->getUpdatedHubSync($fs, $log);
         $path = $hubSync->getAbsolutePath();
 
         if ($this->treeish !== $hubSync->getCurrentTreeish() && is_string($this->treeish)) {
@@ -92,7 +85,7 @@ class SpecificationLiveVersionBuildJob extends Job
         $fs->put('live/raw.md', $raw);
 
         $fs->put('live/version.json', json_encode([
-            'hash' => $hubSync->getCurrentHead(),
+            'hash'     => $hubSync->getCurrentHead(),
             'official' => $hubSync->getCurrentTreeish(),
         ]));
 

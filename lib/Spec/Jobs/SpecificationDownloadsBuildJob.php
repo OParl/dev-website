@@ -12,7 +12,7 @@ use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
-class SpecificationDownloadsBuildJob
+class SpecificationDownloadsBuildJob extends Job
 {
     use SynchronousProcess;
 
@@ -47,12 +47,7 @@ class SpecificationDownloadsBuildJob
      */
     public function updateRepository(Filesystem $fs, Log $log)
     {
-        $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
-
-        if (!$hubSync->update()) {
-            $log->error("Git pull failed");
-        }
-
+        $hubSync = $this->getUpdatedHubSync($fs, $log);
         $version = $hubSync->getUniqueRevision($this->treeish);
 
         $dockerCmd = sprintf(
@@ -81,6 +76,7 @@ class SpecificationDownloadsBuildJob
             $fs->makeDirectory($downloadsPath);
             return $downloadsPath;
         }
+
         return $downloadsPath;
     }
 
