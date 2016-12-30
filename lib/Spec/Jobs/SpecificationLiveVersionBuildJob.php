@@ -7,17 +7,10 @@ use Illuminate\Contracts\Logging\Log;
 
 class SpecificationLiveVersionBuildJob extends Job
 {
-    use SynchronousProcess;
-
     /**
      * @var array GH Push Hook Payload
      */
     protected $payload = [];
-
-    /**
-     * @var string treeish of the synced repository
-     */
-    protected $treeish = 'master';
 
     /**
      * SpecificationBuildJob constructor.
@@ -41,11 +34,7 @@ class SpecificationLiveVersionBuildJob extends Job
         $hubSync = $this->getUpdatedHubSync($fs, $log);
         $path = $hubSync->getAbsolutePath();
 
-        if ($this->treeish !== $hubSync->getCurrentTreeish() && is_string($this->treeish)) {
-            $checkoutCmd = "git checkout {$this->treeish}";
-
-            $this->runSynchronousJob($path, $checkoutCmd);
-        }
+        $this->checkoutHubSyncToTreeish($hubSync);
 
         // remove current html
         if ($fs->exists($hubSync->getPath() . '/out/live.html')) {

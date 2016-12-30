@@ -14,10 +14,6 @@ use Illuminate\Contracts\Logging\Log;
 
 class SpecificationDownloadsBuildJob extends Job
 {
-    use SynchronousProcess;
-
-    protected $treeish = '';
-
     public function __construct($treeish = 'master')
     {
         $this->treeish = $treeish;
@@ -48,6 +44,7 @@ class SpecificationDownloadsBuildJob extends Job
     public function updateRepository(Filesystem $fs, Log $log)
     {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
+        $this->checkoutHubSyncToTreeish($hubSync);
         $version = $hubSync->getUniqueRevision($this->treeish);
 
         $dockerCmd = sprintf(

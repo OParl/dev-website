@@ -4,6 +4,7 @@ namespace OParl\Spec;
 
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use OParl\Spec\Commands\UpdateDownloadablesCommand;
+use OParl\Spec\Commands\UpdateSchemaCommand;
 use OParl\Spec\Commands\UpdateSpecificationCommand;
 
 class SpecServiceProvider extends IlluminateServiceProvider
@@ -18,6 +19,7 @@ class SpecServiceProvider extends IlluminateServiceProvider
         $this->commands([
             UpdateDownloadablesCommand::class,
             UpdateSpecificationCommand::class,
+            UpdateSchemaCommand::class,
         ]);
     }
 }

@@ -19,7 +19,7 @@ class UpdateSpecificationCommand extends Command
 {
     use DispatchesJobs;
 
-    protected $name = 'oparl:update:specification {treeish?}';
+    protected $signature = 'oparl:update:specification {treeish?}';
     protected $description = "Force-update the specifications' HTML and assets";
 
     public function handle()
