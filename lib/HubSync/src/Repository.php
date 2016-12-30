@@ -155,12 +155,4 @@ class Repository
 
         return trim($process->getOutput());
     }
-
-    /**
-     * Return a SemVer parseable list of versions
-     **/
-    public function getVersions()
-    {
-        
-    }
 }
