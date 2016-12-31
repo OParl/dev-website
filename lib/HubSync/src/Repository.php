@@ -16,6 +16,8 @@ use Symfony\Component\Process\Process;
  */
 class Repository
 {
+    use \EFrane\HubSync\Process;
+
     /**
      * @var string
      */
@@ -124,35 +126,18 @@ class Repository
     public function getCurrentTreeish()
     {
         $revParseCmd = sprintf('git -C %s rev-parse --abbrev-ref HEAD', $this->getAbsolutePath());
-        $process = new Process($revParseCmd);
-
-        $process->start();
-        $process->wait();
-
-        return trim($process->getOutput());
+        return $this->synchronousProcess($revParseCmd);
     }
 
     public function getCurrentHead()
     {
         $revParseCmd = sprintf('git -C %s rev-parse --short HEAD', $this->getAbsolutePath());
-
-        $process = new Process($revParseCmd);
-
-        $process->start();
-        $process->wait();
-
-        return trim($process->getOutput());
+        return $this->synchronousProcess($revParseCmd);
     }
 
     public function getUniqueRevision($revision)
     {
         $revParseCmd = sprintf('git -C %s rev-parse --short %s', $this->getAbsolutePath(), $revision);
-
-        $process = new Process($revParseCmd);
-
-        $process->start();
-        $process->wait();
-
-        return trim($process->getOutput());
+        return $this->synchronousProcess($revParseCmd);
     }
 }
