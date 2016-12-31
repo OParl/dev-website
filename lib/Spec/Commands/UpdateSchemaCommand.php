@@ -9,15 +9,24 @@ class UpdateSchemaCommand extends Command
 {
     use DispatchesJobs;
 
-    protected $signature = 'oparl:update:schema {treeish?}';
+    protected $signature = 'oparl:update:schema {constraint?}';
     protected $description = "Force-update the schema assets";
 
     public function handle()
     {
         $this->info('Updating schema assets');
 
-        $treeish = $this->getTreeishOrMaster();
+        $constraint = $this->argument('constraint');
+        if (is_null($constraint)) {
+            $constraint = 'master';
+        }
 
-        $this->dispatch(new SpecificationSchemaBuildJob($treeish));
+        if ((strcmp($constraint, 'master') !== 0) && !starts_with($constraint, '~')) {
+            $this->error('Constraint must be specified as ~<major>.<minor>');
+            return 1;
+        }
+
+        $this->dispatch(new SpecificationSchemaBuildJob($constraint));
+        return 0;
     }
 }
