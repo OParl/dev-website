@@ -131,8 +131,7 @@ class Repository
 
     public function getCurrentHead()
     {
-        $revParseCmd = sprintf('git -C %s rev-parse --short HEAD', $this->getAbsolutePath());
-        return $this->synchronousProcess($revParseCmd);
+        return $this->getUniqueRevision('HEAD');
     }
 
     public function getUniqueRevision($revision)
