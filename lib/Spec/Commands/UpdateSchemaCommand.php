@@ -14,8 +14,6 @@ class UpdateSchemaCommand extends Command
 
     public function handle()
     {
-        $this->info('Updating schema assets');
-
         $constraint = $this->argument('constraint');
         if (is_null($constraint)) {
             $constraint = 'master';
@@ -25,6 +23,8 @@ class UpdateSchemaCommand extends Command
             $this->error('Constraint must be specified as ~<major>.<minor>');
             return 1;
         }
+
+        $this->info('Updating schema assets for constraint "' . $constraint .'"');
 
         $this->dispatch(new SpecificationSchemaBuildJob($constraint));
         return 0;

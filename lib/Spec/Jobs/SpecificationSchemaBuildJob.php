@@ -43,19 +43,6 @@ class SpecificationSchemaBuildJob extends Job
 
             $fs->copy($file, $filename);
         });
-        /**
-         * Schema files are stored under app/schema
-         *
-         * Sub directory naming is as follows:
-         *
-         * - master contains the schema/ contents of the current master branch HEAD
-         * - <major>.<minor> contain the latest tagged version of the schema/ contents
-         * - patch and lower version denominators are assigned to their corresponding minor
-         * TODO: make a command that fetches all currently required schema files (master HEAD, published minors)
-         */
-
-        // TODO: adjust schema controller to query from there
-
     }
 
     public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
