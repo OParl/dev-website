@@ -2,6 +2,7 @@
 
 namespace OParl\Spec\Jobs;
 
+use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
@@ -25,6 +26,33 @@ class SpecificationSchemaBuildJob extends Job
 
     public function handle(Filesystem $fs, Log $log)
     {
+        try {
+            $hubSync = $this->doSchemaUpdate($fs, $log);
+            \Slack::send(":white_check_mark: Updated schema assets for {$this->constraint} to {$hubSync->getCurrentHead()}");
+        } catch (\Exception $e) {
+            \Slack::send(":sos: Schema assets update for {$this->constraint} to {$hubSync->getCurrentHead()} failed!");
+        }
+    }
+
+    public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
+    {
+        $schemaPath = 'schema/' . $authoritativeVersion;
+
+        if (!$fs->exists($schemaPath)) {
+            $fs->makeDirectory($schemaPath);
+            return $schemaPath;
+        }
+
+        return $schemaPath;
+    }
+
+    /**
+     * @param Filesystem $fs
+     * @param Log $log
+     * @return Repository
+     */
+    public function doSchemaUpdate(Filesystem $fs, Log $log)
+    {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
         $versions = RepositoryVersions::forRepository($hubSync);
         $this->treeish = $versions->getLatestMatchingConstraint($this->constraint);
@@ -43,17 +71,7 @@ class SpecificationSchemaBuildJob extends Job
 
             $fs->copy($file, $filename);
         });
-    }
 
-    public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
-    {
-        $schemaPath = 'schema/' . $authoritativeVersion;
-
-        if (!$fs->exists($schemaPath)) {
-            $fs->makeDirectory($schemaPath);
-            return $schemaPath;
-        }
-
-        return $schemaPath;
+        return $hubSync;
     }
 }
