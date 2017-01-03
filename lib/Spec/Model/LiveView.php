@@ -89,8 +89,9 @@ class LiveView
         $letterpress = app(Letterpress::class);
         $this->body = $letterpress->typofix($this->body);
 
-        // rewrite footnotes
+        // TODO: rewrite footnotes
 
+        // TODO: fix table of contents links
     }
 
     /**
