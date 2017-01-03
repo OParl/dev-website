@@ -3,73 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\LiveVersionRepository;
 
 class SchemaController extends Controller
 {
-    public function getSchema(Filesystem $fs, $entity)
+    public function getSchema(Filesystem $fs, $version, $entity)
     {
-        if (!in_array(
-            $entity,
-            [
-                'AgendaItem',
-                'System',
-                'Body',
-                'LegislativeTerm',
-                'Person',
-                'Organization',
-                'Location',
-                'File',
-                'Membership',
-                'Meeting',
-                'Paper',
-                'Consultation',
-            ]
-        )
-        ) {
-            abort(404);
-        }
-
-        if ($entity === 'LegislativeTerm') {
-            return $this->load($fs, 'LegislativeTerm', 'Body');
-        }
-
-        if ($entity === 'Membership') {
-            return $this->load($fs, 'Membership', 'Organization');
-        }
-
-        if ($entity === 'AgendaItem') {
-            return $this->load($fs, 'AgendaItem', 'Meeting');
-        }
-
-        if ($entity === 'Consultation') {
-            return $this->load($fs, 'Consultation', 'Paper');
-        }
-
-        return $this->load($fs, $entity);
-    }
-
-    // TODO: extract loading to SchemaRepository
-    protected function load(Filesystem $fs, $entity, $parentEntity = '')
-    {
-        $entityToLoad = $entity;
-        $hasParent = strlen($parentEntity) > 0;
-
-        if ($hasParent) {
-            $entityToLoad = $parentEntity;
-        }
-        $entityPath = "hub_sync/oparl_spec/schema/{$entityToLoad}.json";
-
-        if ($fs->exists($entityPath)) {
-            $loadedEntity = json_decode($fs->get($entityPath), true);
-
-            if ($hasParent) {
-                $loadedEntity = $loadedEntity['properties'][lcfirst($entity)];
+        // embedded: LegislativeTerm, Membership, AgendaItem, Consultation
+        try {
+            // TODO: remove this check once 1.1 is released
+            if ($version === '1.1') {
+                $version = 'master';
             }
 
-            return response()->json($loadedEntity);
-        } else {
-            return abort(404, 'Entity not found.');
+            $loadEntity = $entity;
+
+            if ($version === '1.0' && $entity === 'LegislativeTerm') {
+                $loadEntity = 'Body';
+            }
+
+            if ($version === '1.0' && $entity === 'Membership') {
+                $loadEntity = 'Organization';
+            }
+
+            if ($version === '1.0' && $entity === 'AgendaItem') {
+                $loadEntity = 'Meeting';
+            }
+
+            if ($version === '1.0' && $entity === 'Consultation') {
+                $loadEntity = 'Paper';
+            }
+
+            $schema = $fs->get("schema/{$version}/$loadEntity.json");
+            $schema = json_decode($schema, true);
+
+            if ($entity !== $loadEntity) {
+                $schema = $schema['properties'][lcfirst($entity)];
+            }
+
+            return response()->json(
+                $schema,
+                200,
+                [],
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+            );
+        } catch (\Exception $e) {
+            return response('File not found.', 404, ['Content-type' => 'text/plain']);
         }
     }
 }
