@@ -67,9 +67,9 @@ class PopulateCommand extends Command
 
             'organisation'         => [4, 12],
             'member'               => [5, 20],
-            'meeting'              => [10, 25],
+            'meeting'              => [8, 15],
             'meeting.orgas'        => [1, 4],
-            'meeting.items'        => [1, 20],
+            'meeting.items'        => [1, 10],
             'meeting.participants' => [1, 5],
         ];
 
@@ -170,7 +170,12 @@ class PopulateCommand extends Command
                 }
 
                 /* AgendaItem */
-                $meeting->agendaItems()->saveMany(factory(AgendaItem::class, $amounts['meeting.items']));
+                $agendaItems = factory(AgendaItem::class, $amounts['meeting.items']);
+                try {
+                    $meeting->agendaItems()->saveMany($agendaItems);
+                } catch (\Exception $e) {
+                    $meeting->agendaItems()->save($agendaItems);
+                }
 
                 if ($this->faker->boolean()) {
                     $meeting->location()->associate($this->getLocation());
@@ -178,6 +183,12 @@ class PopulateCommand extends Command
 
                 $progressBar->advance();
             });
+
+            $meetings = null;
+
+            // TODO: connect papers
+            // TODO: consulations
+            // TODO: files
 
             $this->line('');
 
