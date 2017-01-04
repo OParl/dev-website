@@ -28,8 +28,7 @@ class SetupCommand extends Command
         $this->call('migrate');
         $this->call('migrate --database=sqlite_demo');
 
-        $this->call('oparl:update:specification');
-        $this->call('oparl:update:downloadables');
+        $this->call('oparl:init');
 
         $this->call('optimize');
 
