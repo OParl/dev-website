@@ -73,26 +73,14 @@ class PopulateCommand extends Command
             'meeting.participants' => [1, 5],
         ];
 
-        /* Paper */
-        $this->info('Creating Paper entities');
-        $progressBar = new ProgressBar($this->output, $amounts['paper']);
-        factory(Paper::class, $amounts['paper'])->create()->each(function () use ($progressBar) {
-            $progressBar->advance();
-        });
-        $this->line('');
-
         collect(factory(Body::class, $amounts['body'])->create())->map(function (Body $body) use (
             $system,
             $amounts,
             $amountsDynamic
         ) {
-            $this->line("\n\n\tFilling Body " . $body->id);
+            $this->line("\nCreating base data for Body " . $body->id . "\n");
 
-            $amounts = collect($amountsDynamic)->map(function ($minmax) {
-                list($min, $max) = $minmax;
-
-                return $this->faker->numberBetween($min, $max);
-            })->merge($amounts)->toArray();
+            $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
             /* @var System $system */
             $system->bodies()->save($body);
@@ -142,50 +130,6 @@ class PopulateCommand extends Command
 
             $orgas = null;
 
-            /* Meeting */
-            $this->info('Creating Meeting entities');
-            $progressBar = new ProgressBar($this->output, $amounts['meeting']);
-            factory(Meeting::class, $amounts['meeting'])->create()->each(function (Meeting $meeting) use (
-                $progressBar,
-                $amounts,
-                $body
-            ) {
-                $meetingOrgas = $body->organizations->random($amounts['meeting.orgas']);
-                try {
-                    $meeting->organizations()->saveMany($meetingOrgas);
-                } catch (\Exception $e) {
-                    $meeting->organizations()->save($meetingOrgas);
-                }
-
-                // participants
-                /* @var Collection $allMembers */
-                $participants = $meeting->organizations->map(function ($orga) {
-                    return $orga->people;
-                })->flatten()->random($amounts['meeting.participants']);
-
-                try {
-                    $meeting->participants()->saveMany($participants);
-                } catch (\Exception $e) {
-                    $meeting->participants()->save($participants);
-                }
-
-                /* AgendaItem */
-                $agendaItems = factory(AgendaItem::class, $amounts['meeting.items']);
-                try {
-                    $meeting->agendaItems()->saveMany($agendaItems);
-                } catch (\Exception $e) {
-                    $meeting->agendaItems()->save($agendaItems);
-                }
-
-                if ($this->faker->boolean()) {
-                    $meeting->location()->associate($this->getLocation());
-                }
-
-                $progressBar->advance();
-            });
-
-            $meetings = null;
-
             // TODO: connect papers
             // TODO: consulations
             // TODO: files
@@ -194,6 +138,105 @@ class PopulateCommand extends Command
 
             $body->save();
         });
+
+        /* Paper */
+        $this->info('Creating Paper entities');
+        $progressBar = new ProgressBar($this->output, $amounts['paper']);
+        factory(Paper::class, $amounts['paper'])->create()->each(function () use ($progressBar) {
+            $progressBar->advance();
+        });
+        $this->line('');
+
+        /* Meeting */
+        foreach (Body::pluck('id') as $body) {
+            $this->info('Creating Meeting entities for body ' . $body);
+            $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
+            $progressBar = new ProgressBar($this->output, $amounts['meeting']);
+
+            factory(Meeting::class, $amounts['meeting'])->create()->each(function (Meeting $meeting) use (
+                $progressBar,
+                $amounts,
+                $body
+            ) {
+                $body = Body::find($body);
+
+                $meetingOrgas = $body->organizations->random($amounts['meeting.orgas']);
+                try {
+                    $meeting->organizations()->saveMany($meetingOrgas);
+                } catch (\Exception $e) {
+                    $meeting->organizations()->save($meetingOrgas);
+                }
+
+                $progressBar->advance();
+            });
+
+            $this->line('');
+        }
+
+        $this->info('Adding participants to Meetings');
+        $progressBar = new ProgressBar($this->output, Meeting::all()->count());
+        foreach (Meeting::pluck('id') as $meeting) {
+            $meeting = Meeting::find($meeting);
+            $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
+
+            // FIXME: This is a horribly inefficient block of code
+            /* @var Collection $allMembers */
+            $participants = $meeting->organizations->map(function ($orga) {
+                return $orga->people;
+            })->flatten()->random($amounts['meeting.participants']);
+
+
+            try {
+                $meeting->participants()->saveMany($participants);
+            } catch (\Exception $e) {
+                $meeting->participants()->save($participants);
+            }
+
+            $progressBar->advance();
+        }
+
+        $this->line('');
+
+        $this->info('Adding AgendaItems to Meetings');
+        $progressBar = new ProgressBar($this->output, Meeting::all()->count());
+        foreach (Meeting::pluck('id') as $meeting) {
+            $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
+            $meeting = Meeting::find($meeting);
+
+            /* AgendaItem */
+            $agendaItems = factory(AgendaItem::class, $amounts['meeting.items']);
+            try {
+                $meeting->agendaItems()->saveMany($agendaItems);
+            } catch (\Exception $e) {
+                $meeting->agendaItems()->save($agendaItems);
+            }
+
+            if ($this->faker->boolean()) {
+                $meeting->location()->associate($this->getLocation());
+            }
+
+            $agendaItems = null;
+
+            $progressBar->advance();
+        }
+
+        $this->line('');
+    }
+
+    /**
+     * @param $amountsDynamic
+     * @param $amounts
+     * @return array
+     */
+    protected function updateDynamicAmounts($amountsDynamic, $amounts)
+    {
+        $amounts = collect($amountsDynamic)->map(function ($minmax) {
+            list($min, $max) = $minmax;
+
+            return $this->faker->numberBetween($min, $max);
+        })->merge($amounts)->toArray();
+
+        return $amounts;
     }
 
     /**
