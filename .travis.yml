@@ -12,6 +12,7 @@ cache:
     - vendor/
     - node_modules/
     - specbuilder/
+    - /var/lib/docker/graph
 
 services:
   - docker
