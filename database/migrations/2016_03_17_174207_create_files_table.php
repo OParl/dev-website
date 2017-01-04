@@ -32,22 +32,13 @@ class CreateFilesTable extends Migration
             $table->string('sha1_checksum')->nullable();
             $table->string('text')->nullable();
 
-            // TODO: access_url is dynamic
-            // TODO: download_url is dynamic
-
             $table->string('external_service_url')->nullable();
 
             $table->unsignedInteger('master_file_id')->nullable();
             $table->foreign('master_file_id')->references('id')->on('oparl_files');
 
-            // TODO: derivative_file is n:n
-
             $table->string('license')->nullable();
             $table->string('file_license')->nullable();
-
-            // TODO: meeting is n:n
-            // TODO: agenda_item is n:n
-            // TODO: paper is n:n
         });
     }
 
