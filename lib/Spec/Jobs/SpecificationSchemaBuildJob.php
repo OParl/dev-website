@@ -28,22 +28,17 @@ class SpecificationSchemaBuildJob extends Job
     {
         try {
             $hubSync = $this->doSchemaUpdate($fs, $log);
-            \Slack::send(":white_check_mark: Updated schema assets for {$this->constraint} to {$hubSync->getCurrentHead()}");
+            $this->notifySlack(
+                ":white_check_mark: Updated schema assets for %s to %s",
+                $this->constraint,
+                $hubSync->getCurrentHead()
+            );
         } catch (\Exception $e) {
-            \Slack::send(":sos: Schema assets update for {$this->constraint} to {$hubSync->getCurrentHead()} failed!");
+            $this->notifySlack(
+                ":sos: Schema assets update for %s failed!",
+                $this->constraint
+            );
         }
-    }
-
-    public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
-    {
-        $schemaPath = 'schema/' . $authoritativeVersion;
-
-        if (!$fs->exists($schemaPath)) {
-            $fs->makeDirectory($schemaPath);
-            return $schemaPath;
-        }
-
-        return $schemaPath;
     }
 
     /**
@@ -73,5 +68,17 @@ class SpecificationSchemaBuildJob extends Job
         });
 
         return $hubSync;
+    }
+
+    public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
+    {
+        $schemaPath = 'schema/' . $authoritativeVersion;
+
+        if (!$fs->exists($schemaPath)) {
+            $fs->makeDirectory($schemaPath);
+            return $schemaPath;
+        }
+
+        return $schemaPath;
     }
 }

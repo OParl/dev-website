@@ -79,7 +79,7 @@ class SpecificationLiveVersionBuildJob extends Job
         ]));
 
         $message = ":white_check_mark: Updated live version to <https://github.com/OParl/spec/commit/%s|%s>";
-        \Slack::send(sprintf($message, $hubSync->getCurrentHead(), $hubSync->getCurrentHead()));
+        $this->notifySlack($message, $hubSync->getCurrentHead(), $hubSync->getCurrentHead());
     }
 }
 

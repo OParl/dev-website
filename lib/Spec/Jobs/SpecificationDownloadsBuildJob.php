@@ -33,7 +33,7 @@ class SpecificationDownloadsBuildJob extends Job
         $this->provideDownloadableArchives($fs, $currentHead, $hubSync, $downloadsPath);
 
         $message = ":white_check_mark: Updated specification downloads to <https://github.com/OParl/spec/commit/%s|%s>";
-        \Slack::send(sprintf($message, $currentHead, $currentHead));
+        $this->notifySlack($message, $currentHead, $currentHead);
     }
 
     /**

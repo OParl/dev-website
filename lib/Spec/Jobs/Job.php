@@ -56,4 +56,15 @@ class Job extends \App\Jobs\Job
             $this->runSynchronousJob($hubSync->getAbsolutePath(), $checkoutCmd);
         }
     }
+
+    public function notifySlack($message) {
+        $args = func_get_args();
+        array_shift($args);
+
+        $message = vsprintf($message, $args);
+
+        if (! app()->environment('testing')) {
+            \Slack::send($message);
+        }
+    }
 }
