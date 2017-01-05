@@ -177,7 +177,9 @@ class PopulateCommand extends Command
                 try {
                     $meeting->organizations()->saveMany($meetingOrgas);
                 } catch (\Exception $e) {
-                    $meeting->organizations()->save($meetingOrgas);
+                    if ($meetingOrgas instanceof Organization) {
+                        $meeting->organizations()->save($meetingOrgas);
+                    }
                 }
 
                 if ($this->faker->boolean()) {
