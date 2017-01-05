@@ -28,19 +28,9 @@ class ResetCommand extends Command
 
     public function handle()
     {
-        $this->info('Removing all existing server data...');
-
-        System::truncate();
-        Body::truncate();
-        LegislativeTerm::truncate();
-        Person::truncate();
-        Organization::truncate();
-        Membership::truncate();
-        Meeting::truncate();
-        Consultation::truncate();
-        Paper::truncate();
-        Location::truncate();
-        File::truncate();
-        Keyword::truncate();
+        $this->info('Reset demoserver database...');
+        unlink(config('database.connections.sqlite_demo.database'));
+        touch(config('database.connections.sqlite_demo.database'));
+        $this->call('migrate', ['--database' => 'sqlite_demo']);
     }
 }
