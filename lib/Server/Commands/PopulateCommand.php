@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use OParl\Server\Model\AgendaItem;
 use OParl\Server\Model\Body;
+use OParl\Server\Model\File;
 use OParl\Server\Model\Keyword;
 use OParl\Server\Model\LegislativeTerm;
 use OParl\Server\Model\Location;
@@ -34,8 +35,8 @@ class PopulateCommand extends Command
     {
         $this->faker = $faker;
 
-        Model::unguard();
         \DB::connection()->disableQueryLog();
+        Model::unguard();
 
         if ($this->option('refresh')) {
             $this->call('server:reset');
@@ -45,8 +46,8 @@ class PopulateCommand extends Command
 
         $this->generateData();
 
-        \DB::connection()->enableQueryLog();
         Model::reguard();
+        \DB::connection()->enableQueryLog();
 
         return 0;
     }
@@ -59,6 +60,7 @@ class PopulateCommand extends Command
         $amounts = [
             'body'  => 3,
             'paper' => 250,
+            'file'  => 200,
         ];
 
         // all following are defined per body
@@ -69,7 +71,7 @@ class PopulateCommand extends Command
             'organisation'         => [4, 12],
             'member'               => [5, 20],
             'meeting'              => [8, 15],
-            'meeting.orgas'        => [1, 4],
+            'meeting.orgas'        => [1, 3],
             'meeting.items'        => [1, 10],
             'meeting.participants' => [1, 5],
         ];
@@ -140,53 +142,63 @@ class PopulateCommand extends Command
             $body->save();
         });
 
+        /* File */
+        $this->info('Creating File entities');
+        $progressBar = new ProgressBar($this->output, $amounts['file']);
+        factory(File::class, $amounts['file'])->create()->each(function () use ($progressBar) {
+            $progressBar->advance();
+        });
+        $this->line('');
+
         /* Paper */
         $this->info('Creating Paper entities');
         $progressBar = new ProgressBar($this->output, $amounts['paper']);
-        factory(Paper::class, $amounts['paper'])->create()->each(function () use ($progressBar) {
+        factory(Paper::class, $amounts['paper'])->create()->each(function ($paper) use ($progressBar) {
+            /* @var Paper $paper */
+            $paper->mainFile()->associate(File::all()->random());
+
             $progressBar->advance();
         });
         $this->line('');
 
         /* Meeting */
-        foreach (Body::pluck('id') as $body) {
-            $this->info('Creating Meeting entities for body ' . $body);
-            $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
-            $progressBar = new ProgressBar($this->output, $amounts['meeting']);
+        foreach (Body::all() as $body) {
+            $this->info('Creating Meeting entities for body ' . $body->id);
+            $meetingAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
+            $progressBar = new ProgressBar($this->output, $meetingAmounts['meeting']);
 
-            factory(Meeting::class, $amounts['meeting'])->create()->each(function (Meeting $meeting) use (
-                $progressBar,
-                $amounts,
-                $body
-            ) {
-                $body = Body::find($body);
+            $meetings = factory(Meeting::class, $meetingAmounts['meeting'])->create();
 
-                $meetingOrgas = $body->organizations->random($amounts['meeting.orgas']);
+            foreach ($meetings as $meeting) {
+                $meetingInnerAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
+                $meetingOrgas = $body->organizations->random($meetingInnerAmounts['meeting.orgas']);
+
+                /* @var Meeting $meeting */
                 try {
                     $meeting->organizations()->saveMany($meetingOrgas);
                 } catch (\Exception $e) {
                     $meeting->organizations()->save($meetingOrgas);
                 }
 
+                if ($this->faker->boolean()) {
+                    $meeting->location()->associate($this->getLocation());
+                }
+
                 $progressBar->advance();
-            });
+            };
 
             $this->line('');
         }
 
         $this->info('Adding participants to Meetings');
         $progressBar = new ProgressBar($this->output, Meeting::all()->count());
-        foreach (Meeting::pluck('id') as $meeting) {
-            /* @var Meeting $meeting */
-            $meeting = Meeting::find($meeting);
+        foreach (Meeting::all() as $meeting) {
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
-            // FIXME: This is a horribly inefficient block of code
             /* @var Collection $allMembers */
             $participants = $meeting->organizations->map(function ($orga) {
                 return $orga->people;
             })->flatten()->random($amounts['meeting.participants']);
-
 
             try {
                 $meeting->participants()->saveMany($participants);
@@ -201,20 +213,15 @@ class PopulateCommand extends Command
 
         $this->info('Adding AgendaItems to Meetings');
         $progressBar = new ProgressBar($this->output, Meeting::all()->count());
-        foreach (Meeting::pluck('id') as $meeting) {
+        foreach (Meeting::all() as $meeting) {
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
-            $meeting = Meeting::find($meeting);
 
             /* AgendaItem */
-            $agendaItems = factory(AgendaItem::class, $amounts['meeting.items']);
+            $agendaItems = factory(AgendaItem::class, $amounts['meeting.items'])->create();
             try {
                 $meeting->agendaItems()->saveMany($agendaItems);
             } catch (\Exception $e) {
                 $meeting->agendaItems()->save($agendaItems);
-            }
-
-            if ($this->faker->boolean()) {
-                $meeting->location()->associate($this->getLocation());
             }
 
             $agendaItems = null;

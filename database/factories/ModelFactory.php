@@ -288,3 +288,15 @@ $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $fa
         'life_source'     => $faker->url,
     ];
 });
+
+$factory->define(OParl\Server\Model\File::class, function (Faker\Generator $faker) {
+    $fileName = base_path('resources/documents/dummyfile.pdf');
+    $sha1 = sha1_file($fileName);
+
+    return [
+        'storage_file_name' => $fileName,
+        'mime_type' => 'application/pdf',
+        'sha1_checksum' => $sha1,
+        'text' => $faker->realText(800),
+    ];
+});
