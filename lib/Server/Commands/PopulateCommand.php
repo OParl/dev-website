@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use OParl\Server\Model\AgendaItem;
 use OParl\Server\Model\Body;
+use OParl\Server\Model\Keyword;
 use OParl\Server\Model\LegislativeTerm;
 use OParl\Server\Model\Location;
 use OParl\Server\Model\Meeting;
@@ -176,6 +177,7 @@ class PopulateCommand extends Command
         $this->info('Adding participants to Meetings');
         $progressBar = new ProgressBar($this->output, Meeting::all()->count());
         foreach (Meeting::pluck('id') as $meeting) {
+            /* @var Meeting $meeting */
             $meeting = Meeting::find($meeting);
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
@@ -272,23 +274,20 @@ class PopulateCommand extends Command
             throw new \InvalidArgumentException('$maxNb must be greater than or equal to 0');
         }
 
-        // FIXME: keywords are so broken
-        return collect();
+        $amount = $this->faker->numberBetween(0, $maxNb);
 
-//        $amount = $this->faker->numberBetween(0, $maxNb);
-//
-//        if ($amount == 0) {
-//            return collect();
-//        }
-//
-//        $currentKeywordCount = Keyword::all()->count();
-//        if ($currentKeywordCount < $amount) {
-//            factory(Keyword::class, $amount - $currentKeywordCount)->create();
-//        }
-//
-//        $keywordOrKeywords = Keyword::all()->random($amount);
-//
-//        return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
+        if ($amount == 0) {
+            return collect();
+        }
+
+        $currentKeywordCount = Keyword::all()->count();
+        if ($currentKeywordCount < $amount) {
+            factory(Keyword::class, $amount)->create();
+        }
+
+        $keywordOrKeywords = Keyword::all()->random($amount);
+
+        return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
     }
 
     protected function getLocation()
