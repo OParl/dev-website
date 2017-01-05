@@ -60,11 +60,7 @@ class SpecificationSchemaBuildJob extends Job
         collect($fs->files($hubSync->getPath('schema/')))->each(function ($file) use ($fs, $dirname) {
             $filename = $dirname . '/' . basename($file);
 
-            if ($fs->exists($filename)) {
-                $fs->delete($filename);
-            }
-
-            $fs->copy($file, $filename);
+            $fs->put($filename, $fs->get($file));
         });
 
         return $hubSync;
