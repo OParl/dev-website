@@ -42,14 +42,16 @@ class SchemaTest extends TestCase
      * @dataProvider schemaNames
      * @param string $name entity name
      */
-    public function testTypeFor1_0($name)
+    public function testType_1_1($name)
     {
-        $this->route('get', 'schema.get', ['1.0', $name]);
+        $this->route('get', 'schema.get', ['1.1', $name]);
 
-        $typeName = strtolower($name);
-        $regex = preg_quote("https://schema.oparl.org/1.0/{$typeName}", '/');
+        $regex = preg_quote("https://schema.oparl.org/1.1/{$name}", '/');
+        $regex = sprintf('^%s$', $regex);
 
-        $this->assertContains($regex, $this->response->getContent());
+        $schema = json_decode($this->response->getContent(), true);
+
+        $this->assertEquals($regex, $schema['properties']['type']['pattern']);
     }
 
     /**
