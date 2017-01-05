@@ -13,26 +13,6 @@ class Job extends \App\Jobs\Job
      */
     protected $treeish = 'master';
 
-    /**
-     * Run a Symfony\Process synchronously
-     *
-     * Requires a working directory.
-     *
-     * @param $path
-     * @param $cmd
-     *
-     * @return bool
-     */
-    protected function runSynchronousJob($path, $cmd)
-    {
-        $process = new Process($cmd, $path);
-
-        $process->start();
-        $process->wait();
-
-        return $process->getExitCode() == 0;
-    }
-
     public function getUpdatedHubSync(Filesystem $fs, Log $log)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
@@ -57,13 +37,38 @@ class Job extends \App\Jobs\Job
         }
     }
 
-    public function notifySlack($message) {
+    /**
+     * Run a Symfony\Process synchronously
+     *
+     * Requires a working directory.
+     *
+     * @param $path
+     * @param $cmd
+     *
+     * @return bool
+     */
+    protected function runSynchronousJob($path, $cmd)
+    {
+        $process = new Process($cmd, $path);
+
+        $process->start();
+        $process->wait();
+
+        return $process->getExitCode() == 0;
+    }
+
+    public function notifySlack($message)
+    {
+        if (!config('slack.enabled')) {
+            return;
+        }
+
         $args = func_get_args();
         array_shift($args);
 
         $message = vsprintf($message, $args);
 
-        if (! app()->environment('testing')) {
+        if (!app()->environment('testing')) {
             \Slack::send($message);
         }
     }
