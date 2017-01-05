@@ -15,10 +15,13 @@ class File extends BaseModel
 
     public static function boot()
     {
+        parent::boot();
+
         // TODO: think about handling of stored files
 //        self::deleting(function (File $file, Filesystem $filesystem) {
 //            $filesystem->delete($file->storage_filename);
 //        });
+
     }
 
     public function keywords()
