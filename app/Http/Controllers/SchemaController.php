@@ -22,7 +22,7 @@ class SchemaController extends Controller
             }
 
             if ($version === '1.0' && $entity === 'Membership') {
-                $loadEntity = 'Organization';
+                $loadEntity = 'Person';
             }
 
             if ($version === '1.0' && $entity === 'AgendaItem') {
