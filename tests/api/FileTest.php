@@ -15,7 +15,6 @@ class FileTest extends TestCase
 
     public function testShow()
     {
-        // @fixme: Adjust this test to work with actual files which are not present yet
         $this->route('get', 'api.v1.file.show', [1]);
         $this->assertResponseStatus(200);
 
