@@ -52,7 +52,7 @@ $app->singleton(
 );
 
 $app->configureMonologUsing(function (Logger $monolog) use ($app) {
-    if ($app->environment('local')) {
+    if ($app->environment('local') || $app->environment('testing')) {
         $logPath = storage_path('logs/laravel.log');
         $logStreamHandler = new StreamHandler($logPath, Logger::DEBUG);
 
