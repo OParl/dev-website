@@ -170,7 +170,9 @@ class PopulateCommand extends Command
                 $meetingInnerAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
                 $meetingOrgas = $body->organizations->random($meetingInnerAmounts['meeting.orgas']);
 
-                dd($meetingOrgas);
+                if (is_bool($meetingOrgas)) {
+                    dd($meetingOrgas);
+                }
 
                 /* @var Meeting $meeting */
                 try {
