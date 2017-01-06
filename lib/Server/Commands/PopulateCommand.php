@@ -167,19 +167,13 @@ class PopulateCommand extends Command
             $meetings = factory(Meeting::class, $meetingAmounts['meeting'])->create();
 
             foreach ($meetings as $meeting) {
-                $meetingInnerAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
-                $meetingOrgas = $body->organizations->random($meetingInnerAmounts['meeting.orgas']);
-
-                if (is_bool($meetingOrgas)) {
-                    dd($meetingOrgas);
-                }
-
                 /* @var Meeting $meeting */
-                try {
-                    $meeting->organizations()->saveMany($meetingOrgas);
-                } catch (\Exception $e) {
-                    $meeting->organizations()->save($meetingOrgas);
-                }
+                $meetingInnerAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
+                $body->organizations
+                    ->random($meetingInnerAmounts['meeting.orgas'])
+                    ->each(function (Organization $organization) use ($meeting) {
+                        $meeting->organizations()->save($organization);
+                    });
 
                 if ($this->faker->boolean()) {
                     $meeting->location()->associate($this->getLocation());
