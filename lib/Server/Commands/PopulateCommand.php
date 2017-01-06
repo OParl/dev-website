@@ -133,10 +133,6 @@ class PopulateCommand extends Command
 
             $orgas = null;
 
-            // TODO: connect papers
-            // TODO: consulations
-            // TODO: files
-
             $this->line('');
 
             $body->save();
@@ -164,6 +160,7 @@ class PopulateCommand extends Command
         /* Meeting */
         foreach (Body::all() as $body) {
             $this->info('Creating Meeting entities for body ' . $body->id);
+
             $meetingAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
             $progressBar = new ProgressBar($this->output, $meetingAmounts['meeting']);
 
@@ -175,7 +172,9 @@ class PopulateCommand extends Command
 
                 /* @var Meeting $meeting */
                 try {
-                    $meeting->organizations()->saveMany($meetingOrgas);
+                    if ($meetingOrgas instanceof Collection) {
+                        $meeting->organizations()->saveMany($meetingOrgas);
+                    }
                 } catch (\Exception $e) {
                     if ($meetingOrgas instanceof Organization) {
                         $meeting->organizations()->save($meetingOrgas);
