@@ -170,15 +170,13 @@ class PopulateCommand extends Command
                 $meetingInnerAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
                 $meetingOrgas = $body->organizations->random($meetingInnerAmounts['meeting.orgas']);
 
+                dd($meetingOrgas);
+
                 /* @var Meeting $meeting */
                 try {
-                    if ($meetingOrgas instanceof Collection) {
-                        $meeting->organizations()->saveMany($meetingOrgas);
-                    }
+                    $meeting->organizations()->saveMany($meetingOrgas);
                 } catch (\Exception $e) {
-                    if ($meetingOrgas instanceof Organization) {
-                        $meeting->organizations()->save($meetingOrgas);
-                    }
+                    $meeting->organizations()->save($meetingOrgas);
                 }
 
                 if ($this->faker->boolean()) {
