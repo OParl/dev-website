@@ -31,14 +31,12 @@ before_install:
 before_script:
   - composer install --prefer-source --no-interaction --no-scripts
   - touch storage/database.sqlite
-  - touch storage/demodata.sqlite
   - cp .env.example .env
   - sed -i -e 's/local/testing/' .env
   - php artisan key:generate
   - php artisan migrate
-  - php artisan migrate --database=sqlite_demo
   - php artisan oparl:init
-  - php artisan server:populate
+  - php artisan server:populate --refresh
 
 script: vendor/bin/phpunit
 
