@@ -130,9 +130,11 @@ $factory->define(OParl\Server\Model\Consultation::class, function (Faker\Generat
 });
 
 $factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $faker) use ($slugify) {
+    $existingHumanNames = Keyword::all()->pluck('human_name');
+
     do {
         $humanName = $faker->word;
-    } while (Keyword::whereHumanName($humanName)->exists());
+    } while ($existingHumanNames->has($humanName));
 
     return [
         'human_name' => $humanName,
