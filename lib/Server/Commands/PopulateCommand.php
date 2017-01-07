@@ -190,16 +190,14 @@ class PopulateCommand extends Command
         foreach (Meeting::all() as $meeting) {
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
-            /* @var Collection $allMembers */
-            $participants = $meeting->organizations->map(function ($orga) {
-                return $orga->people;
-            })->flatten()->random($amounts['meeting.participants']);
-
-            try {
-                $meeting->participants()->saveMany($participants);
-            } catch (\Exception $e) {
-                $meeting->participants()->save($participants);
-            }
+            $meeting->organizations
+                ->map(function ($orga) {
+                    return $orga->people;
+                })->flatten()
+                ->random($amounts['meeting.participants'])
+                ->each(function (Person $person) use ($meeting) {
+                    $meeting->participants()->save($person);
+                });
 
             $progressBar->advance();
         }
@@ -212,14 +210,11 @@ class PopulateCommand extends Command
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
             /* AgendaItem */
-            $agendaItems = factory(AgendaItem::class, $amounts['meeting.items'])->create();
-            try {
-                $meeting->agendaItems()->saveMany($agendaItems);
-            } catch (\Exception $e) {
-                $meeting->agendaItems()->save($agendaItems);
-            }
-
-            $agendaItems = null;
+            factory(AgendaItem::class, $amounts['meeting.items'])
+                ->create()
+                ->each(function (AgendaItem $item) use ($meeting) {
+                    $meeting->agendaItems()->save($item);
+                });
 
             $progressBar->advance();
         }
