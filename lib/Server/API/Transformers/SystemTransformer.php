@@ -9,7 +9,7 @@ class SystemTransformer extends BaseTransformer
     public function transform(System $system)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($system), [
-            'oparlVersion'       => 'https://spec.oparl.org/1.0',
+            'oparlVersion'       => 'https://schema.oparl.org/1.0/',
             'name'               => $system->name,
             'body'               => route_where('api.v1.body.index', ['system' => $system->id]),
             'vendor'             => $system->vendor,
