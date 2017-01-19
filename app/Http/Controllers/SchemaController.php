@@ -8,11 +8,11 @@ class SchemaController extends Controller
 {
     public function listSchemaVersion(Filesystem $fs, $version)
     {
-        $json = collect($fs->files("schema/{$version}"))->map(function ($file) use ($version) {
+        $files = collect($fs->files("schema/{$version}"))->map(function ($file) use ($version) {
             return route('schema.get', [$version, basename($file, '.json')]);
-        })->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        });
 
-        return response()->json($json);
+        return response()->json($files, 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     public function getSchema(Filesystem $fs, $version, $entity)
