@@ -88,11 +88,16 @@ $router->group(['domain' => 'spec.' . config('app.url')], function () use ($rout
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
 $router->group(['domain' => 'schema.' . config('app.url')], function () use ($router) {
+    $router->pattern('version', '(1\.0|1\.1|master)');
+
     $router->get('/')->uses('DevelopersController@redirectToIndex');
+
+    $router->get('/{version}/')
+        ->name('schema.list')
+        ->uses('SchemaController@listSchemaVersion');
 
     $router->get('/{version}/{entity}')
         ->name('schema.get')
         ->uses('SchemaController@getSchema')
-        ->where('version', '(1\.0|1\.1|master)')
         ->where('entity', '[A-Za-z]+');
 });

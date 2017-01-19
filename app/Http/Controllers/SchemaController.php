@@ -6,6 +6,15 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 
 class SchemaController extends Controller
 {
+    public function listSchemaVersion(Filesystem $fs, $version)
+    {
+        $json = collect($fs->files("schema/{$version}"))->map(function ($file) use ($version) {
+            return route('schema.get', [$version, basename($file, '.json')]);
+        })->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        return response()->json($json);
+    }
+
     public function getSchema(Filesystem $fs, $version, $entity)
     {
         // embedded: LegislativeTerm, Membership, AgendaItem, Consultation
