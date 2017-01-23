@@ -17,6 +17,7 @@ class SystemTransformer extends BaseTransformer
             'otherOparlVersions' => [],
             'contactName'        => $system->contact_name,
             'contactEmail'       => $system->contact_email,
+            'license'            => 'https://creativecommons.org/licenses/by-sa/4.0/',
             'website'            => $system->website,
             'deleted'            => false,
         ]);
