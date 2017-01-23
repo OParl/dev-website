@@ -41,20 +41,24 @@ class Serializer extends SanitizedArraySerializer
         $totalPages = ceil($paginator->getTotal() / $paginator->getPerPage());
 
         return [[
-            'pagination' => [
+            'pagination' => collect([
                 'totalElements'   => (int) $paginator->getTotal(),
                 'elementsPerPage' => (int) $paginator->getPerPage(),
                 'totalPages'      => (int) $totalPages,
                 'currentPage'     => (int) $paginator->getCurrentPage(),
-            ],
+            ])->filter(function ($element) {
+                return !is_null($element);
+            })->toArray(),
 
-            'links' => [
+            'links' => collect([
                 'first' => $paginator->getUrl(1),
                 'prev'  => $paginator->getUrl($paginator->getCurrentPage() - 1),
                 'self'  => $paginator->getUrl($paginator->getCurrentPage()),
-                'next'  => ($paginator->getCurrentPage() + 1 >= $paginator->getLastPage()) ? null : $nextPage,
+                'next'  => ($paginator->getCurrentPage() === $paginator->getLastPage()) ? null : $nextPage,
                 'last'  => $paginator->getUrl($totalPages),
-            ],
+            ])->filter(function ($element) {
+                return !is_null($element);
+            })->toArray(),
         ]];
     }
 }
