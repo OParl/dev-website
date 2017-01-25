@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaperRelatedPapers extends Migration
+class CreatePapersSuperordinatedPapers extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreatePaperRelatedPapers extends Migration
      */
     public function up()
     {
-        Schema::create('oparl_papers_related_papers', function (Blueprint $table) {
+        Schema::create('oparl_papers_superordinated_papers', function (Blueprint $table) {
             $table->unsignedInteger('paper_id');
             $table->foreign('paper_id')->references('id')->on('oparl_papers');
 
-            $table->unsignedInteger('related_paper_id');
-            $table->foreign('related_paper_id')->references('id')->on('oparl_papers');
+            $table->unsignedInteger('superordinated_paper_id');
+            $table->foreign('superordinated_paper_id')->references('id')->on('oparl_papers');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatePaperRelatedPapers extends Migration
      */
     public function down()
     {
-        \Schema::drop('oparl_papers_related_papers');
+        \Schema::drop('oparl_papers_superordinated_papers');
     }
 }
