@@ -54,7 +54,7 @@ class Serializer extends SanitizedArraySerializer
                 'first' => $paginator->getUrl(1),
                 'prev'  => $paginator->getUrl($paginator->getCurrentPage() - 1),
                 'self'  => $paginator->getUrl($paginator->getCurrentPage()),
-                'next'  => ($paginator->getCurrentPage() === $paginator->getLastPage()) ? null : $nextPage,
+                'next'  => ($paginator->getCurrentPage() >= $paginator->getLastPage()) ? null : $nextPage,
                 'last'  => $paginator->getUrl($totalPages),
             ])->filter(function ($element) {
                 return !is_null($element);
