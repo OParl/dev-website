@@ -256,7 +256,15 @@ $factory->define(OParl\Server\Model\Paper::class, function (Faker\Generator $fak
         'name'           => $faker->sentence,
         'reference'      => $faker->word,
         'published_date' => $faker->dateTimeThisDecade,
-        'paper_type'     => $faker->word,
+        'paper_type'     => $faker->randomElement([
+            'Beschluss',
+            'Plan',
+            'Verordnung',
+            'Vorschlag',
+            'Eingabe',
+            'Protokoll',
+            'Kurzprotokoll'
+        ]),
     ];
 });
 
