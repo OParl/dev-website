@@ -33,6 +33,11 @@ class Paper extends BaseModel
             'superordinated_paper_id');
     }
 
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class, 'oparl_papers_locations', 'paper_id', 'location_id');
+    }
+
     public function keywords()
     {
         return $this->belongsToMany(Keyword::class, 'oparl_keywords_papers', 'paper_id', 'keyword_id');
