@@ -43,7 +43,7 @@ class Paper extends BaseModel
         return $this->hasMany(Consultation::class);
     }
 
-    public function auxiliaryFile()
+    public function auxiliaryFiles()
     {
         return $this->belongsToMany(File::class, 'oparl_papers_auxiliary_files', 'paper_id', 'file_id');
     }
