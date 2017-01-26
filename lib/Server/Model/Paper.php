@@ -38,6 +38,31 @@ class Paper extends BaseModel
         return $this->belongsToMany(Location::class, 'oparl_papers_locations', 'paper_id', 'location_id');
     }
 
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class);
+    }
+
+    public function auxiliaryFile()
+    {
+        return $this->belongsToMany(File::class, 'oparl_papers_auxiliary_files', 'paper_id', 'file_id');
+    }
+
+    public function originatorPeople()
+    {
+        return $this->belongsToMany(Person::class, 'oparl_papers_originator_people', 'paper_id', 'person_id');
+    }
+
+    public function originatorOrganizations()
+    {
+        return $this->belongsToMany(Organization::class, 'oparl_papers_originator_organizations', 'paper_id', 'organization_id');
+    }
+
+    public function underDirectionOfOrganizations()
+    {
+        return $this->belongsToMany(Organization::class, 'oparl_papers_under_direction_of_organizations', 'paper_id', 'organization_id');
+    }
+
     public function keywords()
     {
         return $this->belongsToMany(Keyword::class, 'oparl_keywords_papers', 'paper_id', 'keyword_id');
