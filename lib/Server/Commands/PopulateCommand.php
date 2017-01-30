@@ -220,6 +220,8 @@ class PopulateCommand extends Command
         }
 
         $this->line('');
+
+        // TODO: add consultations to agenda items and papers to consultations
     }
 
     /**
