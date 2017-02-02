@@ -91,7 +91,9 @@ class LiveView
 
         // TODO: rewrite footnotes
 
-        // TODO: fix table of contents links
+        // fix nav links
+        $route = route('specification.index');
+        $this->tableOfContents = str_replace('href="#', "href=\"{$route}/#", $this->tableOfContents);
     }
 
     /**
