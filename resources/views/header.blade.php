@@ -26,7 +26,7 @@
             @endforeach
         </ul>
     </nav>
-    <nav v-fixed.top>
+    <nav>
         <ul class="row center-xs">
             @yield('subheader')
 
