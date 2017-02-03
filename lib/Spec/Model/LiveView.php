@@ -89,10 +89,14 @@ class LiveView
         $letterpress = app(Letterpress::class);
         $this->body = $letterpress->typofix($this->body);
 
-        // TODO: rewrite footnotes
+        // route for the following link rewrites
+        $route = route('specification.index');
+
+        // fix footnote links
+        $this->body = str_replace('class="footnotes"', 'class="c-footnotes"', $this->body);
+        $this->body = preg_replace('/#fn(ref)?\d/', "{$route}/$0", $this->body);
 
         // fix nav links
-        $route = route('specification.index');
         $this->tableOfContents = str_replace('href="#', "href=\"{$route}/#", $this->tableOfContents);
     }
 
