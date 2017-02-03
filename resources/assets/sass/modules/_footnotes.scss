@@ -1,0 +1,16 @@
+.c-footnotes {
+  font-size: smaller;
+
+  hr {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid $brand-primary;
+    margin: 1.4em 0;
+  }
+
+  & > ol > li {
+    list-style: decimal-leading-zero;
+    list-style-position: outside;
+    margin-left: 1.8em;
+  }
+}
