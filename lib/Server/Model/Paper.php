@@ -16,6 +16,11 @@ class Paper extends BaseModel
         return $this->belongsTo(File::class, 'main_file_id');
     }
 
+    public function auxiliaryFiles()
+    {
+        return $this->belongsToMany(File::class, 'oparl_papers_auxiliary_files', 'paper_id', 'auxiliary_file_id');
+    }
+
     public function relatedPapers()
     {
         return $this->belongsToMany(Paper::class, 'oparl_papers_related_papers', 'paper_id', 'related_paper_id');
@@ -41,11 +46,6 @@ class Paper extends BaseModel
     public function consultations()
     {
         return $this->hasMany(Consultation::class);
-    }
-
-    public function auxiliaryFiles()
-    {
-        return $this->belongsToMany(File::class, 'oparl_papers_auxiliary_files', 'paper_id', 'file_id');
     }
 
     public function originatorPeople()
