@@ -41,7 +41,7 @@ class SpecificationLiveVersionBuildJob extends Job
             $fs->delete($hubSync->getPath() . '/out/live.html');
         }
 
-        $dockerCmd = "docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make live";
+        $dockerCmd = "docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest make live";
 
         if (!$this->runSynchronousJob($path, $dockerCmd)) {
             $log->error("Creating live version html failed");

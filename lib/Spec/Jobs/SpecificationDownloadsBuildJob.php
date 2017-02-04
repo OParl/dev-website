@@ -48,7 +48,7 @@ class SpecificationDownloadsBuildJob extends Job
         $version = $hubSync->getUniqueRevision($this->treeish);
 
         $dockerCmd = sprintf(
-            'docker run --rm -v $(pwd):/spec -w /spec oparl/specbuilder:latest make VERSION=%s clean archives',
+            'docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest make VERSION=%s clean archives',
             $version
         );
 
