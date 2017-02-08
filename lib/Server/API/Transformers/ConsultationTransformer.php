@@ -12,7 +12,7 @@ class ConsultationTransformer extends BaseTransformer
             'paper'         => ($this->isIncluded()) ? route('api.v1.paper.show', $consultation->paper) : null,
             'agendaItem'    => route('api.v1.agendaitem.show', $consultation->agendaItem),
             'meeting'       => route('api.v1.meeting.show', $consultation->meeting),
-            'organization'  => $this->collectionRouteList('api.v1.organization.show', $consultation->organizations),
+            'organization'  => ($consultation->organizations) ? $this->collectionRouteList('api.v1.organization.show', $consultation->organizations) : null,
             'authoritative' => (bool) $consultation->authoritative,
             'role'          => $consultation->role,
         ]);
