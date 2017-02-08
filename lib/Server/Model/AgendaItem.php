@@ -13,4 +13,9 @@ class AgendaItem extends BaseModel
     {
         return $this->belongsToMany(Keyword::class, 'oparl_keywords_agenda_items', 'agenda_item_id', 'keyword_id');
     }
+
+    public function consultation()
+    {
+        return $this->hasOne(Consultation::class);
+    }
 }

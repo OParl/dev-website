@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use OParl\Server\Model\AgendaItem;
 use OParl\Server\Model\Body;
+use OParl\Server\Model\Consultation;
 use OParl\Server\Model\File;
 use OParl\Server\Model\Keyword;
 use OParl\Server\Model\LegislativeTerm;
@@ -213,6 +214,11 @@ class PopulateCommand extends Command
             factory(AgendaItem::class, $amounts['meeting.items'])
                 ->create()
                 ->each(function (AgendaItem $item) use ($meeting) {
+                    $consultation = factory(Consultation::class)->create();
+                    $consultation->meeting()->associate($meeting);
+                    $item->consultation()->save($consultation);
+                    $consultation->agendaItem()->associate($item);
+
                     $meeting->agendaItems()->save($item);
                 });
 

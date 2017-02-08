@@ -24,6 +24,8 @@ class RelationAgendaItemsConsultation extends Migration
      */
     public function down()
     {
-        Schema::drop('oparl_agenda_items');
+        Schema::table('oparl_agenda_items', function (Blueprint $table) {
+            $table->dropForeign('consultation_id');
+        });
     }
 }
