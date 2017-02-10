@@ -210,14 +210,26 @@ class PopulateCommand extends Command
         foreach (Meeting::all() as $meeting) {
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
+            $meetingOrgas = $meeting->organizations;
+
             /* AgendaItem */
             factory(AgendaItem::class, $amounts['meeting.items'])
                 ->create()
-                ->each(function (AgendaItem $item) use ($meeting) {
+                ->each(function (AgendaItem $item) use ($meeting, $meetingOrgas) {
+                    /* @var Consultation $consultation */
                     $consultation = factory(Consultation::class)->create();
                     $consultation->meeting()->associate($meeting);
                     $item->consultation()->save($consultation);
                     $consultation->agendaItem()->associate($item);
+
+                    $numberOfConsultationOrgas = $this->faker->numberBetween(1, $meetingOrgas->count());
+                    $consultationOrgas = $meetingOrgas->random($numberOfConsultationOrgas);
+
+                    if ($consultationOrgas instanceof Organization) {
+                        $consultation->organizations()->save($consultationOrgas);
+                    } else {
+                        $consultation->organizations()->saveMany($consultationOrgas);
+                    }
 
                     $meeting->agendaItems()->save($item);
                 });
@@ -227,7 +239,16 @@ class PopulateCommand extends Command
 
         $this->line('');
 
-        // TODO: add consultations to agenda items and papers to consultations
+        $this->info('Adding Papers to Consultations');
+        $progressBar = new ProgressBar($this->output, Consultation::count());
+        foreach (Consultation::all() as $consultation) {
+            /* @var Consultation $consultation */
+            $consultation->paper()->associate(Paper::all()->random());
+
+            $progressBar->advance();
+        }
+
+        $this->line('');
     }
 
     /**

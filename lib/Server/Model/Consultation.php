@@ -23,4 +23,9 @@ class Consultation extends BaseModel
     {
         return $this->belongsToMany(Keyword::class, 'oparl_keywords_consultations', 'consultation_id', 'keyword_id');
     }
+
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class, 'oparl_consultations_organizations', 'consultation_id', 'organization_id');
+    }
 }

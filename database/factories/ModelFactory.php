@@ -133,7 +133,7 @@ $factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $f
     $existingHumanNames = Keyword::all()->pluck('human_name');
 
     do {
-        $humanName = $faker->word;
+        $humanName = $faker->words($faker->numberBetween(1, 3), true);
     } while ($existingHumanNames->has($humanName));
 
     return [
@@ -200,7 +200,7 @@ $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generat
     $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
 
     do {
-        $shortNameNumber = $faker->randomNumber(3);
+        $shortNameNumber = $faker->numberBetween(100, 999);
     } while ($shortNameNumber < 0);
 
     $shortName = 'O-' . $romanizer->formatNumber($shortNameNumber);
