@@ -13,7 +13,7 @@ return [
     'developers.about-oparl.title' => 'Was ist OParl?',
     'developers.about-oparl.text'  => 'OParl ist ein seit Juni 2016 veröffentlichter Standard zur maschinenlesbaren Ausgabe von Daten aus sogenannten parlamentarischen Informationssystemen.',
     'developers.about-dev.title'   => 'Was finde ich hier?',
-    'developers.about-dev.text'    => 'Das OParl-Entwicklerportal ist die zentrale Anlaufstelle zwischen OParl-Implementiereren, OParl-Bereitstellern und OParl-Nutzern. Hier finden Sie technische Informationen zur Schnittstelle und weiterführendes Material zu deren Einsatz und Verwendbarkeit für verschiedene Zwecke.',
+    'developers.about-dev.text'    => 'Das OParl-Entwicklerportal ist die zentrale Anlaufstelle zwischen OParl-Implementierern, OParl-Bereitstellern und OParl-Nutzern. Hier finden Sie technische Informationen zur Schnittstelle und weiterführendes Material zu deren Einsatz und Verwendbarkeit für verschiedene Zwecke.',
 
     'developers.demo'           => 'Einen OParl-Endpunkt der vollständig aus generierten Daten gespeist wird und somit ideal zum Testen und Demonstrieren ihrer Anwendung geeignet ist',
     'developers.liboparl'       => 'liboparl - Die Standardbibliothek, um Anwendungen auf Basis von OParl-konformen Systemen zu entwickeln',
