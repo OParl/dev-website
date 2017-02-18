@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(DeleteSpecificationBuildsCommand::class, ['build', 30])->daily();
+        // TODO: Re-add a cleanup command for outdated spec builds
+        //$schedule->command(DeleteSpecificationBuildsCommand::class, ['build', 30])->daily();
     }
 }
