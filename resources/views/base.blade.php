@@ -25,7 +25,6 @@
         </title>
 
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
-        <link href="{{ asset('/css/lib.css') }}" rel="stylesheet" />
 
         @yield('styles')
 
@@ -40,7 +39,7 @@
         <div class="sr-only">
             <ul>
                 <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
-                <!-- TODO: insert links to main chapters -->
+                {{-- TODO: insert links to main chapters --}}
             </ul>
         </div>
 
