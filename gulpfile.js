@@ -1,67 +1,75 @@
-var elixir = require('laravel-elixir');
-require('laravel-elixir-vueify');
+let gulp = require('gulp');
 
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- */
+let babelify   = require('babelify');
+let browserify = require('browserify');
+let concat     = require('gulp-concat');
+let cssmin     = require('gulp-clean-css');
+let rename     = require("gulp-rename");
+let sass       = require('gulp-sass');
+let source     = require('vinyl-source-stream');
+let uglify     = require('gulp-uglify');
+let util       = require('gulp-util');
+let vueify     = require('vueify');
 
-elixir(function(mix) {
-    // public/css/app.css
-    mix.sass('app.scss');
+let config = {
+    production: !!util.env.production
+};
 
-    // public/js/developers.js
-    mix.browserify('developers.js', 'public/js/', 'resources/js');
+let script = function (src, dest = '') {
+    if (dest.length === 0) {
+        src_parts = src.split('/');
+        dest = src_parts.pop();
+    }
 
-    // public/js/spec.js
-    mix.browserify('spec.js', 'public/js/', 'resources/js');
+    const m_browserify = browserify({
+        debug: !config.production,
+        cache: {},
+        packageCache: {},
+        fullPaths: true,
+    });
 
-    // public/js/api.js
-    mix.browserify('api.js', 'public/js/', 'resources/js');
+    return m_browserify
+        .add(src)
+        .transform(babelify.configure({
+            presets: [require('babel-preset-es2015')]
+        }))
+        .transform(vueify)
+        .bundle()
+        .on('error', function (e) {
+            console.log(e);
+        })
+        .pipe(source(dest))
+};
 
-    // public/css/lib.css
-    mix.styles(
-        [
-            'prismjs/themes/prism.css',
-            'prismjs/plugins/line-numbers/prism-line-numbers.css',
-        ], 'public/css/lib.css', 'node_modules'
-    );
+gulp.task('default', ['scripts', 'styles']);
 
-    // public/js/lib.js
-    mix.scripts(
-        [
-            'prismjs/prism.js',
+gulp.task('scripts-developers', function () {
+    return script('./resources/js/developers.js')
+        .pipe(gulp.dest('./public/js'));
+});
 
-            'prismjs/components/prism-javascript.js',
-            'prismjs/components/prism-sql.js',
-            'prismjs/components/prism-php.js',
-            'prismjs/components/prism-python.js',
+gulp.task('scripts-spec', function () {
+    return script('./resources/js/spec.js')
+        .pipe(gulp.dest('./public/js'));
+});
 
-            'prismjs/plugins/line-numbers/prism-line-numbers.js',
-        ], 'public/js/lib.js', 'node_modules'
-    );
+gulp.task('scripts', ['scripts-developers', 'scripts-spec']);
 
-    mix.copy('resources/assets/brand/icon/oparl-icon.png', 'public/img/favicon.png');
-    mix.copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/img/logos/oparl.svg');
-    mix.copy('resources/assets/img/oparl-icon-dev-slackbot.png', 'public/img/oparl-icon-dev-slackbot.png');
+gulp.task('styles', function () {
+    return gulp.src('./resources/assets/sass/*.scss')
+        .pipe(sass())
+        .pipe(config.production ? cssmin() : util.noop())
+        .pipe(config.production ? rename({
+                'suffix': '.min'
+            }) : util.noop())
+        .pipe(gulp.dest('./public/css'));
+});
 
-    // copy source code pro font files
-    mix.copy('node_modules/source-code-pro/EOT/', 'public/fonts/');
-    mix.copy('node_modules/source-code-pro/OTF/', 'public/fonts/');
-    mix.copy('node_modules/source-code-pro/TTF/', 'public/fonts/');
-    mix.copy('node_modules/source-code-pro/WOFF/', 'public/fonts/');
-    mix.copy('node_modules/source-code-pro/WOFF2/', 'public/fonts/');
+gulp.task('copy', function () {
 
-    // copy source sans pro font files
-    mix.copy('node_modules/source-sans-pro/EOT/', 'public/fonts/');
-    mix.copy('node_modules/source-sans-pro/OTF/', 'public/fonts/');
-    mix.copy('node_modules/source-sans-pro/TTF/', 'public/fonts/');
-    mix.copy('node_modules/source-sans-pro/WOFF/', 'public/fonts/');
-    mix.copy('node_modules/source-sans-pro/WOFF2/', 'public/fonts/');
+});
 
-    // copy font awesome font files
-    mix.copy('node_modules/font-awesome/fonts/', 'public/fonts/');
-
-    mix.phpUnit();
+gulp.task('watch', function () {
+    gulp.watch('./resources/assets/sass/**/*.scss', ['styles']);
+    gulp.watch('./resources/js/**/*.js', ['scripts']);
 });

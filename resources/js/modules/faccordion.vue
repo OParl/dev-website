@@ -2,7 +2,7 @@
     <div class="c-accordion">
         <div class="c-accordion--header" @click="show = !show" v-if="!hasTrigger">
             <slot name="title"></slot>
-            <i class="fa {{ caret }}"></i>
+            <i class="fa" :class="caret"></i>
         </div>
         <div class="c-accordion--body" v-show="show" transition="expand">
             <slot name="body"></slot>
