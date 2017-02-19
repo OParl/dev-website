@@ -41,7 +41,12 @@ let script = function (src, dest = '') {
         .pipe(source(dest))
 };
 
-gulp.task('default', ['scripts', 'styles']);
+gulp.task('default', ['scripts', 'styles', 'fonts', 'logos']);
+
+gulp.task('watch', function () {
+    gulp.watch('./resources/assets/sass/**/*.scss', ['styles']);
+    gulp.watch('./resources/js/**/*.js', ['scripts']);
+});
 
 gulp.task('scripts-developers', function () {
     return script('./resources/js/developers.js')
@@ -65,11 +70,6 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('copy', function () {
+gulp.task('fonts', []);
 
-});
-
-gulp.task('watch', function () {
-    gulp.watch('./resources/assets/sass/**/*.scss', ['styles']);
-    gulp.watch('./resources/js/**/*.js', ['scripts']);
-});
+gulp.task('logos', []);
