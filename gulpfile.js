@@ -38,7 +38,7 @@ let script = function (src, dest = '') {
         .on('error', function (e) {
             console.log(e);
         })
-        .pipe(source(dest))
+        .pipe(source(dest));
         // TODO: uglify on production
         //.pipe((config.production) ? uglify() : util.noop())
 };
