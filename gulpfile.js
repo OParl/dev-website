@@ -132,13 +132,21 @@ gulp.task('images', function() {
             './public/img/logos',
             'oparl-slackbot.png'
         ],
+        [
+            './resources/assets/img/cfg.svg',
+            './public/img/logos'
+        ],
+        [
+            './resources/assets/img/okf.svg',
+            './public/img/logos'
+        ],
     ];
 
     for (const i in images) {
         let image = images[i];
 
         gulp.src(image[0])
-            .pipe(rename(image[2]))
+            .pipe((image.length == 3) ? rename(image[2]) : util.noop())
             .pipe(gulp.dest(image[1], {
                 overwrite: false
             }));
