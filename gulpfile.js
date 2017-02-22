@@ -2,6 +2,7 @@ let gulp = require('gulp');
 
 let babelify   = require('babelify');
 let browserify = require('browserify');
+let buffer     = require('vinyl-buffer');
 let concat     = require('gulp-concat');
 let cssmin     = require('gulp-clean-css');
 let rename     = require("gulp-rename");
@@ -38,9 +39,9 @@ let script = function (src, dest = '') {
         .on('error', function (e) {
             console.log(e);
         })
-        .pipe(source(dest));
-        // TODO: uglify on production
-        //.pipe((config.production) ? uglify() : util.noop())
+        .pipe(source(dest))
+        .pipe(buffer())
+        .pipe((config.production) ? uglify() : util.noop())
 };
 
 let font_src = function (src, formats = ['eot', 'otf', 'ttf', 'woff', 'woff2']) {
