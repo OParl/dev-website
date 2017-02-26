@@ -27,6 +27,7 @@ return [
     */
 
     'default' => env('DB_DEFAULT', 'sqlite'),
+    'demo_default' => env('DB_DEMO_DEFAULT', 'sqlite_demo');
 
     /*
     |--------------------------------------------------------------------------
@@ -60,11 +61,20 @@ return [
             'prefix'   => '',
         ],
 
-        // oparl api production data
-        'sqlite_prod' => [
-            'driver'   => 'sqlite',
-            'database' => storage_path().'/production.sqlite',
-            'prefix'   => '',
+        'prod_main' => [
+            'driver' => 'mysql',
+            'host'     => env('DB_HOST'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD')
+        ],
+
+        'prod_demo' => [
+            'driver' => 'mysql',
+            'host'     => env('DB_DEMO_HOST'),
+            'database' => env('DB_DEMO_DATABASE'),
+            'username' => env('DB_DEMO_USERNAME'),
+            'password' => env('DB_DEMO_PASSWORD')
         ],
     ],
 
