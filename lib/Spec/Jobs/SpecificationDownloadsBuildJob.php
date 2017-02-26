@@ -23,12 +23,16 @@ class SpecificationDownloadsBuildJob extends Job
         list($hubSync, $currentHead) = $this->updateRepository($fs, $log);
 
         $downloadsPath = $this->createDownloadsDirectory($fs, $currentHead);
+        try {
+            $this->provideDownloadableFiles($fs, $currentHead, $hubSync, $downloadsPath);
+            $this->provideDownloadableArchives($fs, $currentHead, $hubSync, $downloadsPath);
 
-        $this->provideDownloadableFiles($fs, $currentHead, $hubSync, $downloadsPath);
-        $this->provideDownloadableArchives($fs, $currentHead, $hubSync, $downloadsPath);
-
-        $message = ":white_check_mark: Updated specification downloads to <https://github.com/OParl/spec/commit/%s|%s>";
-        $this->notifySlack($message, $currentHead, $currentHead);
+            $message = ":white_check_mark: Updated specification downloads to <https://github.com/OParl/spec/commit/%s|%s>";
+            $this->notifySlack($message, $currentHead, $currentHead);
+        } catch (\Exception $e) {
+            $message = ":sos: Updating the downloads for %s failed!";
+            $this->notifySlack($message, $this->treeish);
+        }
     }
 
     /**

@@ -14,7 +14,7 @@ class SpecificationSchemaBuildJob extends Job
         try {
             $hubSync = $this->doSchemaUpdate($fs, $log);
             $this->notifySlack(
-                ":white_check_mark: Updated schema assets for %s to %s",
+                ":white_check_mark: Updated schema assets for %s to <https://github.com/OParl/spec/commit/%s|%s>",
                 $this->treeish,
                 $hubSync->getCurrentHead()
             );
