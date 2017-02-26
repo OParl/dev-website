@@ -5,11 +5,11 @@ return [
 
     'demo' => [
         'prefix'     => 'oparl_',
-        'connection' => 'db.connection.demo_default',
+        'connection' => 'demo_default',
     ],
 
     'prod' => [
         'prefix'     => 'oparl_',
-        'connection' => 'sqlite_prod',
+        'connection' => 'prod_demo',
     ],
 ];
