@@ -18,7 +18,7 @@ class LocationTransformer extends BaseTransformer
             'locality'      => $location->locality,
         ]);
 
-        if ($this->isIncluded()) {
+        if (!$this->isIncluded()) {
             $data = array_merge($data, [
                 'body'         => $this->collectionRouteList('api.v1.body.show', $location->bodies),
                 'organization' => $this->collectionRouteList('api.v1.organization.show', $location->organizations),
