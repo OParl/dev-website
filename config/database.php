@@ -27,7 +27,7 @@ return [
     */
 
     'default' => env('DB_DEFAULT', 'sqlite'),
-    'demo_default' => env('DB_DEMO_DEFAULT', 'sqlite_demo');
+    'demo_default' => env('DB_DEMO_DEFAULT', 'sqlite_demo'),
 
     /*
     |--------------------------------------------------------------------------
