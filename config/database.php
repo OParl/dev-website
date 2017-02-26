@@ -67,7 +67,7 @@ return [
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
-            'collation' => 'utf-8',
+            'collation' => 'utf8_unicode_ci',
         ],
 
         'prod_demo' => [
@@ -76,7 +76,7 @@ return [
             'database' => env('DB_DEMO_DATABASE'),
             'username' => env('DB_DEMO_USERNAME'),
             'password' => env('DB_DEMO_PASSWORD'),
-            'collation' => 'utf-8',
+            'collation' => 'utf8_unicode_ci',
         ],
     ],
 
