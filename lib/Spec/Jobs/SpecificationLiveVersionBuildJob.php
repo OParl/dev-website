@@ -20,6 +20,8 @@ class SpecificationLiveVersionBuildJob extends Job
      */
     public function __construct(array $payload, $treeish = 'master')
     {
+        parent::__construct();
+
         $this->payload = $payload;
 
         $this->treeish = str_replace([',;\n'], '', $treeish);
@@ -41,7 +43,7 @@ class SpecificationLiveVersionBuildJob extends Job
             $fs->delete($hubSync->getPath() . '/out/live.html');
         }
 
-        $dockerCmd = "docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest make live";
+        $dockerCmd = $this->prepareCommand('make live');
 
         if (!$this->runSynchronousJob($path, $dockerCmd)) {
             $log->error("Creating live version html failed");

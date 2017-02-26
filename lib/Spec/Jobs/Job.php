@@ -13,6 +13,14 @@ class Job extends \App\Jobs\Job
      */
     protected $treeish = 'master';
 
+    protected $buildMode = 'docker';
+
+    public function __construct($treeish = 'master')
+    {
+        $this->treeish = $treeish;
+        $this->buildMode = env('OPARL_BUILD_MODE', 'native'); # TODO: move this into a configuration variable
+    }
+
     public function getUpdatedHubSync(Filesystem $fs, Log $log)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
@@ -71,5 +79,18 @@ class Job extends \App\Jobs\Job
         if (!app()->environment('testing')) {
             \Slack::send($message);
         }
+    }
+
+    public function prepareCommand($cmd)
+    {
+        if ($this->buildMode === 'docker') {
+            return sprintf('docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest %s', $cmd);
+        }
+
+        if ($this->buildMode === 'native') {
+            return $cmd;
+        }
+
+        throw new \LogicException("Unsupported build mode: {$this->buildMode}");
     }
 }

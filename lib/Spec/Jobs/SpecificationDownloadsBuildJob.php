@@ -14,11 +14,6 @@ use Illuminate\Contracts\Logging\Log;
 
 class SpecificationDownloadsBuildJob extends Job
 {
-    public function __construct($treeish = 'master')
-    {
-        $this->treeish = $treeish;
-    }
-
     /**
      * @param Filesystem $fs
      * @param Log $log
@@ -47,10 +42,7 @@ class SpecificationDownloadsBuildJob extends Job
         $this->checkoutHubSyncToTreeish($hubSync);
         $version = $hubSync->getUniqueRevision($this->treeish);
 
-        $dockerCmd = sprintf(
-            'docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest make VERSION=%s clean archives',
-            $version
-        );
+        $dockerCmd = $this->prepareCommand(sprintf('make VERSION=%s clean archives', $version));
 
         if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
             $log->error('Updating the downloadables failed');
