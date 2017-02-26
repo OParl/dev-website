@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.js'
 import './directives.js'
 
 import Helpers from './modules/helpers.js'
@@ -14,7 +14,7 @@ var vm = new Vue({
     },
 
     created() {
-        Helpers.prismURLHelper();
+        //Helpers.prismURLHelper();
     },
 
     components: {

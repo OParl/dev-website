@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.js'
 import Helpers from './modules/helpers.js'
 
 import FAccordion from './modules/faccordion.vue'

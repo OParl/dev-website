@@ -51,8 +51,6 @@
 
         @include ('footer')
 
-        <script src="{{ asset('/js/lib.js') }}"></script>
-
         @yield ('scripts')
 
         @include ('piwik')
