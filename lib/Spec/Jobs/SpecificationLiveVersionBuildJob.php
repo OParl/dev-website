@@ -8,30 +8,33 @@ use Illuminate\Contracts\Logging\Log;
 class SpecificationLiveVersionBuildJob extends Job
 {
     /**
-     * @var array GH Push Hook Payload
+     * @param Filesystem $fs
+     * @param Log $log
      */
-    protected $payload = [];
-
-    /**
-     * SpecificationBuildJob constructor.
-     *
-     * @param array $payload GH Push Hook Payload
-     * @param string $treeish treeish of the synced repository
-     */
-    public function __construct(array $payload, $treeish = 'master')
+    public function handle(Filesystem $fs, Log $log)
     {
-        parent::__construct();
+        try {
+            $hubSync = $this->doUpdate($fs, $log);
 
-        $this->payload = $payload;
+            $message = ":white_check_mark: Updated live version to <https://github.com/OParl/spec/commit/%s|%s> (%s)";
 
-        $this->treeish = str_replace([',;\n'], '', $treeish);
+            $this->notifySlack(
+                $message,
+                $hubSync->getCurrentHead(),
+                $hubSync->getCurrentHead(),
+                $hubSync->getCurrentTreeish()
+            );
+        } catch (\RuntimeException $e) {
+            $this->notifySlack(":sos: Updating the live version failed.");
+        }
     }
 
     /**
      * @param Filesystem $fs
      * @param Log $log
+     * @return \EFrane\HubSync\Repository
      */
-    public function handle(Filesystem $fs, Log $log)
+    public function doUpdate(Filesystem $fs, Log $log)
     {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
         $path = $hubSync->getAbsolutePath();
@@ -47,6 +50,7 @@ class SpecificationLiveVersionBuildJob extends Job
 
         if (!$this->runSynchronousJob($path, $dockerCmd)) {
             $log->error("Creating live version html failed");
+            throw new \RuntimeException("Update failed");
         }
 
         // move html
@@ -80,8 +84,7 @@ class SpecificationLiveVersionBuildJob extends Job
             'official' => $hubSync->getCurrentTreeish(),
         ]));
 
-        $message = ":white_check_mark: Updated live version to <https://github.com/OParl/spec/commit/%s|%s> (%s)";
-        $this->notifySlack($message, $hubSync->getCurrentHead(), $hubSync->getCurrentHead(), $hubSync->getCurrentTreeish());
+        return $hubSync;
     }
 }
 

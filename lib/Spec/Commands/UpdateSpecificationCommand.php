@@ -28,6 +28,6 @@ class UpdateSpecificationCommand extends Command
 
         $treeish = $this->getTreeishOrMaster();
 
-        $this->dispatch(new SpecificationLiveVersionBuildJob([], $treeish));
+        $this->dispatch(new SpecificationLiveVersionBuildJob($treeish));
     }
 }
