@@ -49,10 +49,10 @@ class SpecificationDownloadsBuildJob extends Job
 
         if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
             $log->error('Updating the downloadables failed');
-            return [$hubSync, $version];
+            return [$hubSync, $this->treeish];
         }
 
-        return [$hubSync, $version];
+        return [$hubSync, $this->treeish];
     }
 
     /**
