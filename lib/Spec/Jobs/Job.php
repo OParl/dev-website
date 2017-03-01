@@ -2,6 +2,7 @@
 namespace OParl\Spec\Jobs;
 
 use EFrane\HubSync\Repository;
+use EFrane\HubSync\RepositoryVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 use Symfony\Component\Process\Process;
@@ -36,9 +37,14 @@ class Job extends \App\Jobs\Job
      * @param $hubSync
      * @param $path
      */
-    public function checkoutHubSyncToTreeish(Repository $hubSync)
+    public function checkoutHubSyncToTreeish(Repository $hubSync, $selectMostRecentVersion = true)
     {
         if ($this->treeish !== $hubSync->getCurrentTreeish() && is_string($this->treeish)) {
+            if ($selectMostRecentVersion) {
+                $versions = RepositoryVersions::forRepository($hubSync);
+                $this->treeish = $versions->getLatestMatchingConstraint($this->treeish);
+            }
+
             $checkoutCmd = "git checkout {$this->treeish}";
 
             $this->runSynchronousJob($hubSync->getAbsolutePath(), $checkoutCmd);

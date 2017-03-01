@@ -34,8 +34,6 @@ class SpecificationSchemaBuildJob extends Job
     public function doSchemaUpdate(Filesystem $fs, Log $log)
     {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
-        $versions = RepositoryVersions::forRepository($hubSync);
-        $this->treeish = $versions->getLatestMatchingConstraint($this->treeish);
 
         $this->checkoutHubSyncToTreeish($hubSync);
 
