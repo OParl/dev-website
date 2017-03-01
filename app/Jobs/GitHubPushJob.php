@@ -50,10 +50,10 @@ class GitHubPushJob extends Job
 
         switch ($this->repository) {
             case 'spec':
-                $this->dispatchNow(new SpecificationLiveVersionBuildJob([], 'v1.0'));
-                $this->dispatchNow(new SpecificationSchemaBuildJob('v1.0'));
+                $this->dispatchNow(new SpecificationLiveVersionBuildJob([], '~1.0'));
+                $this->dispatchNow(new SpecificationSchemaBuildJob('~1.0'));
                 $this->dispatchNow(new SpecificationSchemaBuildJob('master'));
-                $this->dispatchNow(new SpecificationDownloadsBuildJob('v1.0'));
+                $this->dispatchNow(new SpecificationDownloadsBuildJob('~1.0'));
                 $this->dispatchNow(new SpecificationDownloadsBuildJob('master'));
                 break;
 
