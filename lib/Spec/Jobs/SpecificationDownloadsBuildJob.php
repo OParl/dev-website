@@ -22,7 +22,7 @@ class SpecificationDownloadsBuildJob extends Job
     {
         list($hubSync, $currentHead) = $this->updateRepository($fs, $log);
 
-        $downloadsPath = $this->createDownloadsDirectory($fs, $currentHead);
+        $downloadsPath = $this->createDownloadsDirectory($fs, $hubSync->getUniqueRevision($currentHead));
         try {
             $this->provideDownloadableFiles($fs, $currentHead, $hubSync, $downloadsPath);
             $this->provideDownloadableArchives($fs, $currentHead, $hubSync, $downloadsPath);
@@ -45,7 +45,9 @@ class SpecificationDownloadsBuildJob extends Job
         $hubSync = $this->getUpdatedHubSync($fs, $log);
         $this->checkoutHubSyncToTreeish($hubSync);
 
-        $dockerCmd = $this->prepareCommand(sprintf('make VERSION=%s clean archives', $this->treeish));
+        $dockerCmd = $this->prepareCommand(sprintf('make VERSION=%s clean archives',
+            $hubSync->getUniqueRevision($this->treeish)));
+        $log->info($dockerCmd);
 
         if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
             $log->error('Updating the downloadables failed');
@@ -60,9 +62,9 @@ class SpecificationDownloadsBuildJob extends Job
      * @param $currentHead
      * @return string
      */
-    public function createDownloadsDirectory(Filesystem $fs, $currentHead)
+    public function createDownloadsDirectory(Filesystem $fs, $hash)
     {
-        $downloadsPath = 'downloads/specification/' . $currentHead;
+        $downloadsPath = 'downloads/specification/' . $hash;
 
         if (!$fs->exists($downloadsPath)) {
             $fs->makeDirectory($downloadsPath);
@@ -78,7 +80,7 @@ class SpecificationDownloadsBuildJob extends Job
      * @param $hubSync
      * @param $downloadsPath
      */
-    public function provideDownloadableFiles(Filesystem $fs, $currentHead, $hubSync, $downloadsPath)
+    public function provideDownloadableFiles(Filesystem $fs, $currentHead, Repository $hubSync, $downloadsPath)
     {
         $downloadableFormats = [
             'pdf',
@@ -89,8 +91,10 @@ class SpecificationDownloadsBuildJob extends Job
             'txt',
         ];
 
-        collect($downloadableFormats)->map(function ($format) use ($currentHead) {
-            return 'OParl-' . $currentHead . '.' . $format;
+        $hash = $hubSync->getUniqueRevision($currentHead);
+
+        collect($downloadableFormats)->map(function ($format) use ($hash) {
+            return 'OParl-' . $hash . '.' . $format;
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
             $fs->copy(
                 $hubSync->getPath('out/' . $filename),
@@ -105,7 +109,7 @@ class SpecificationDownloadsBuildJob extends Job
      * @param $hubSync
      * @param $downloadsPath
      */
-    public function provideDownloadableArchives(Filesystem $fs, $currentHead, $hubSync, $downloadsPath)
+    public function provideDownloadableArchives(Filesystem $fs, $currentHead, Repository $hubSync, $downloadsPath)
     {
         $downloadableArchives = [
             'zip',
@@ -113,8 +117,10 @@ class SpecificationDownloadsBuildJob extends Job
             'tar.bz2',
         ];
 
-        collect($downloadableArchives)->map(function ($format) use ($currentHead) {
-            return 'OParl-' . $currentHead . '.' . $format;
+        $hash = $hubSync->getUniqueRevision($currentHead);
+
+        collect($downloadableArchives)->map(function ($format) use ($hash) {
+            return 'OParl-' . $hash . '.' . $format;
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
             $fs->copy(
                 $hubSync->getPath('archives/' . $filename),
