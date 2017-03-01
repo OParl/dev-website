@@ -1,29 +1,31 @@
 <template>
-    <div class="modal-mask" v-show="show" transition="modal">
-        <div class="modal-wrapper" @click.self="show = false">
-            <div class="modal-container">
+    <transition name="modal">
+        <div class="modal-mask" v-show="show">
+            <div class="modal-wrapper" @click.self="show = false">
+                <div class="modal-container">
 
-                <div class="modal-header">
-                    <slot name="header">
-                    </slot>
-                </div>
+                    <div class="modal-header">
+                        <slot name="header">
+                        </slot>
+                    </div>
 
-                <div class="modal-body">
-                    <slot name="body">
-                    </slot>
-                </div>
+                    <div class="modal-body">
+                        <slot name="body">
+                        </slot>
+                    </div>
 
-                <div class="modal-footer">
-                    <slot name="footer">
-                        <button class="modal-default-button"
-                                @click="show = false">
-                            {{ text.okBtn }}
-                        </button>
-                    </slot>
+                    <div class="modal-footer">
+                        <slot name="footer">
+                            <button class="modal-default-button"
+                                    @click="confirm">
+                                {{ text.okBtn }}
+                            </button>
+                        </slot>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -31,8 +33,7 @@
         props: {
             show: {
                 type: Boolean,
-                required: true,
-                twoWay: true
+                required: true
             }
         },
         data() {
@@ -40,6 +41,12 @@
                 text: {
                     okBtn: 'OK'
                 }
+            }
+        },
+        methods: {
+            confirm: function() {
+                this.show = false;
+                $emit('confirm');
             }
         }
     };

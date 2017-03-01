@@ -4,9 +4,11 @@
             <slot name="title"></slot>
             <i class="fa" :class="caret"></i>
         </div>
-        <div class="c-accordion--body" v-show="show" transition="expand">
-            <slot name="body"></slot>
-        </div>
+        <transition name="expand">
+            <div class="c-accordion--body" v-show="show">
+                <slot name="body"></slot>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -18,7 +20,6 @@
             show: {
                 type: Boolean,
                 required: false,
-                twoWay: true,
                 default: false
             },
 
