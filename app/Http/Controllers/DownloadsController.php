@@ -29,10 +29,10 @@ class DownloadsController extends Controller
 
         abort_if($validator->fails(), 403);
 
-        $download = $specificationDownloadRepository->getVersion('master');
-
         if (strcmp($version, 'latest') !== 0) {
             $download = $specificationDownloadRepository->getVersion($version);
+        } else {
+            $download = $specificationDownloadRepository->getVersion('master');
         }
 
         abort_if(is_null($download), 404);
