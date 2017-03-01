@@ -17,13 +17,13 @@
 @stop
 
 @section ('content')
-    <f-accordion :show.sync="showTableOfContents" :has-trigger="true">
+    <f-accordion :show="showTableOfContents" :has-trigger="true">
         <div slot="body">{!! $liveView->getTableOfContents() !!}</div>
     </f-accordion>
 
     {!! $liveView->getBody() !!}
 
-    <f-modal :show.sync="showDownloadsModal">
+    <f-modal v-if="showDownloadsModal" @close="showDownloadsModal = false">
         <h3 slot="header">@lang('app.specification.download.select.title')</h3>
         <div slot="body">
             <p class="left">@lang('app.specification.download.formatinfo')</p>

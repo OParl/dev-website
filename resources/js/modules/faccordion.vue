@@ -32,7 +32,7 @@
         computed: {
             caret() {
                 return (this.show) ? 'fa-caret-down' : 'fa-caret-right';
-            },
-        },
+            }
+        }
     };
 </script>

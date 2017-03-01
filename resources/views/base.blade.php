@@ -36,23 +36,24 @@
         <link rel="shortcut icon" href="{{ asset('/img/favicon.png') }}" />
     </head>
     <body>
-        <div class="sr-only">
-            <ul>
-                <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
-                {{-- TODO: insert links to main chapters --}}
-            </ul>
+        <div id="app">
+            <div class="sr-only">
+                <ul>
+                    <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
+                    {{-- TODO: insert links to main chapters --}}
+                </ul>
+            </div>
+
+            @include ('header')
+
+            <main id="content">
+                @yield('content')
+            </main>
+
+            @include ('footer')
         </div>
 
-        @include ('header')
-
-        <main id="content">
-            @yield('content')
-        </main>
-
-        @include ('footer')
-
         @yield ('scripts')
-
         @include ('piwik')
     </body>
 </html>

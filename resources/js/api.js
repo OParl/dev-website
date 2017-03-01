@@ -4,7 +4,7 @@ import Helpers from './modules/helpers.js'
 import FAccordion from './modules/faccordion.vue'
 
 var vm = new Vue({
-    el: 'body',
+    el: '#app',
 
     components: [
         FAccordion

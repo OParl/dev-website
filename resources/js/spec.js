@@ -6,7 +6,7 @@ import FModal from './modules/fmodal.vue'
 import FAccordion from './modules/faccordion.vue'
 
 var vm = new Vue({
-    el: 'body',
+    el: '#app',
 
     data: {
         showDownloadsModal: false,
