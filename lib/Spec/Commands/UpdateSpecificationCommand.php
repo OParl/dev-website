@@ -26,7 +26,7 @@ class UpdateSpecificationCommand extends Command
     {
         $this->info('Updating specification');
 
-        $treeish = $this->getTreeishOrMaster();
+        $treeish = $this->getTreeishOrDefault();
 
         $this->dispatch(new SpecificationLiveVersionBuildJob($treeish));
     }

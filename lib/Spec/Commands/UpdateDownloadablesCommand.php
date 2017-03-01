@@ -18,7 +18,7 @@ class UpdateDownloadablesCommand extends Command
     {
         $this->info('Updating downloadables');
 
-        $treeish = $this->getTreeishOrMaster();
+        $treeish = $this->getTreeishOrDefault();
 
         $this->dispatch(new SpecificationDownloadsBuildJob($treeish));
     }

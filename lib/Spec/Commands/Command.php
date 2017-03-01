@@ -10,12 +10,12 @@ namespace OParl\Spec\Commands;
 
 class Command extends \Illuminate\Console\Command
 {
-    public function getTreeishOrMaster()
+    public function getTreeishOrDefault($default = 'master')
     {
         $treeish = $this->argument('treeish');
 
         if (is_null($treeish)) {
-            $treeish = 'master';
+            $treeish = $default;
         }
 
         return $treeish;
