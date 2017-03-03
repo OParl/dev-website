@@ -2277,6 +2277,11 @@
       "from": "once@>=1.3.0 <1.4.0",
       "resolved": "https://registry.npmjs.org/once/-/once-1.3.3.tgz"
     },
+    "oparl": {
+      "version": "0.0.1",
+      "from": "oparl@latest",
+      "resolved": "https://registry.npmjs.org/oparl/-/oparl-0.0.1.tgz"
+    },
     "orchestrator": {
       "version": "0.3.8",
       "from": "orchestrator@>=0.3.0 <0.4.0",
