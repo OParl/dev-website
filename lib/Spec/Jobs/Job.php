@@ -26,6 +26,9 @@ class Job extends \App\Jobs\Job
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
 
+        // failsave checkout to master to ensure we're on an actual branch
+        $this->runSynchronousJob($hubSync->getAbsolutePath(), 'git checkout master');
+
         if (!$hubSync->update()) {
             $log->error("Git pull failed");
         }
