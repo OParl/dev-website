@@ -2178,6 +2178,11 @@
         }
       }
     },
+    "node-prismjs": {
+      "version": "0.1.0",
+      "from": "node-prismjs@latest",
+      "resolved": "https://registry.npmjs.org/node-prismjs/-/node-prismjs-0.1.0.tgz"
+    },
     "node-sass": {
       "version": "4.5.0",
       "from": "node-sass@>=4.2.0 <5.0.0",

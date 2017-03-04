@@ -2,16 +2,23 @@ import Vue from 'vue/dist/vue.js'
 import Helpers from './modules/helpers.js'
 
 import FAccordion from './modules/faccordion.vue'
+import OparlClient from './modules/oparl-client.vue'
 
-var vm = new Vue({
+// TODO: Prism.js + javascript highlighting + line numbers plugin
+import Prism from 'prismjs';
+window.Prism = Prism;
+
+let vm = new Vue({
     el: '#app',
 
     components: [
-        FAccordion
+        FAccordion,
+        OparlClient
     ],
 
     created() {
-        Helpers.prismURLHelper();
+        //Helpers.prismURLHelper();
+        Prism.highlight();
     },
 });
 
