@@ -22,7 +22,7 @@ class SpecificationLiveVersionBuildJob extends Job
                 $message,
                 $hubSync->getCurrentHead(),
                 $hubSync->getCurrentHead(),
-                $hubSync->getCurrentTreeish()
+                $this->treeish
             );
         } catch (\RuntimeException $e) {
             $this->notifySlack(":sos: Updating the live version failed.");
