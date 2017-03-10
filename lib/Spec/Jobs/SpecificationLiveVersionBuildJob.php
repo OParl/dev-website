@@ -46,7 +46,7 @@ class SpecificationLiveVersionBuildJob extends Job
             $fs->delete($hubSync->getPath() . '/out/live.html');
         }
 
-        $dockerCmd = $this->prepareCommand('make live');
+        $dockerCmd = $this->prepareCommand('make clean live');
 
         if (!$this->runSynchronousJob($path, $dockerCmd)) {
             $log->error("Creating live version html failed");
@@ -79,9 +79,14 @@ class SpecificationLiveVersionBuildJob extends Job
 
         $fs->put('live/raw.md', $raw);
 
+        $official = $hubSync->getCurrentTreeish();
+        if ($official === 'HEAD') {
+            $official = $this->treeish;
+        }
+
         $fs->put('live/version.json', json_encode([
             'hash'     => $hubSync->getCurrentHead(),
-            'official' => $hubSync->getCurrentTreeish(),
+            'official' => $official,
         ]));
 
         return $hubSync;
