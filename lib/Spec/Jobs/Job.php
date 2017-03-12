@@ -22,6 +22,26 @@ class Job extends \App\Jobs\Job
         $this->buildMode = env('OPARL_BUILD_MODE', 'native'); # TODO: move this into a configuration variable
     }
 
+    /**
+     * Run a command on the oparl specification repository
+     * leaving the repo in a pristine state afterwards
+     *
+     * @param Repository $repository
+     * @param string $cmd unprepared command
+     * @return bool command success
+     */
+    public function runCleanRepositoryCommand(Repository $repository, $cmd, ...$args)
+    {
+        array_unshift($args, $cmd);
+        $prepareCommand = new \ReflectionMethod($this, 'prepareCommand');
+        $cmd = $prepareCommand->invokeArgs($this, $args);
+
+        $result = $this->runSynchronousJob($repository->getAbsolutePath(), $cmd);
+        $repository->clean();
+
+        return $result;
+    }
+
     public function getUpdatedHubSync(Filesystem $fs, Log $log)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
@@ -90,14 +110,18 @@ class Job extends \App\Jobs\Job
         }
     }
 
-    public function prepareCommand($cmd)
+    public function prepareCommand($cmd, ...$args)
     {
-        if ($this->buildMode === 'docker') {
-            return sprintf('docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest %s', $cmd);
+        if (count($args) > 0) {
+            $cmd = vsprintf($cmd, $args);
         }
 
         if ($this->buildMode === 'native') {
             return $cmd;
+        }
+
+        if ($this->buildMode === 'docker') {
+            return sprintf('docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest %s', $cmd);
         }
 
         throw new \LogicException("Unsupported build mode: {$this->buildMode}");

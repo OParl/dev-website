@@ -46,9 +46,7 @@ class SpecificationLiveVersionBuildJob extends Job
             $fs->delete($hubSync->getPath() . '/out/live.html');
         }
 
-        $dockerCmd = $this->prepareCommand('make clean live');
-
-        if (!$this->runSynchronousJob($path, $dockerCmd)) {
+        if (!$this->runCleanRepositoryCommand($hubSync, 'make clean live')) {
             $log->error("Creating live version html failed");
             throw new \RuntimeException("Update failed");
         }

@@ -2,6 +2,7 @@
 
 namespace OParl\Spec\Jobs;
 
+use Composer\Semver\Semver;
 use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -13,6 +14,8 @@ class SpecificationSchemaBuildJob extends Job
     {
         try {
             $hubSync = $this->doSchemaUpdate($fs, $log);
+            $hubSync->clean();
+
             $this->notifySlack(
                 ":white_check_mark: Updated schema assets for %s to <https://github.com/OParl/spec/commit/%s|%s>",
                 $this->treeish,
@@ -35,9 +38,14 @@ class SpecificationSchemaBuildJob extends Job
     {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
 
+        $initialConstraint = $this->treeish;
         $this->checkoutHubSyncToTreeish($hubSync);
 
-        $dirname = (strcmp('master', $this->treeish) === 0) ? $this->treeish : substr($this->treeish, 1);
+        $dirname = 'master';
+        if (strcmp($this->treeish, 'master') !== 0) {
+            $dirname = substr($initialConstraint, 1);
+        }
+
         $dirname = $this->createSchemaDirectory($fs, $dirname);
 
         collect($fs->files($hubSync->getPath('schema/')))->each(function ($file) use ($fs, $dirname) {

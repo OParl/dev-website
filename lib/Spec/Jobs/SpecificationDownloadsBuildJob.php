@@ -45,16 +45,14 @@ class SpecificationDownloadsBuildJob extends Job
         $hubSync = $this->getUpdatedHubSync($fs, $log);
         $this->checkoutHubSyncToTreeish($hubSync);
 
-        $dockerCmd = $this->prepareCommand(sprintf('make VERSION=%s clean archives',
-            $hubSync->getUniqueRevision($this->treeish)));
-        $log->info($dockerCmd);
+        $revision = $hubSync->getCurrentHead();
 
-        if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $dockerCmd)) {
+        if (!$this->runCleanRepositoryCommand($hubSync, 'make VERSION=%s clean archives', $revision)) {
             $log->error('Updating the downloadables failed');
-            return [$hubSync, $this->treeish];
+            return [$hubSync, $revision];
         }
 
-        return [$hubSync, $this->treeish];
+        return [$hubSync, $revision];
     }
 
     /**
