@@ -17,6 +17,7 @@ class InitializeCommand extends Command
         $this->call('oparl:init:schema');
 
         $this->call('oparl:update:specification');
-        $this->call('oparl:update:downloadables');
+        $this->call('oparl:update:downloadables', ['~1.0']);
+        $this->call('oparl:update:downloadables', ['master']);
     }
 }
