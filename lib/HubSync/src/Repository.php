@@ -96,7 +96,7 @@ class Repository
 
     public function clean()
     {
-        return $this->synchronousProcess('git clean -xf');
+        return $this->synchronousProcess(sprintf('git -C %s clean -xf', $this->getAbsolutePath()));
     }
 
     /**
