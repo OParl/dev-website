@@ -69,10 +69,20 @@ class RepositoryTest extends TestCase
     /**
      * @depends testSecondUpdateRebases
      */
-    public function testCleanRemoves()
+    public function testRemoveRemoves()
     {
-        $this->repo->clean();
+        $this->repo->remove();
 
         $this->assertFileNotExists($this->repo->getAbsolutePath());
+    }
+
+    public function testCleanRemovesUntracked()
+    {
+        // ensure unclean state
+        @file_put_contents($this->repo->getAbsolutePath() . '/removable_testfile', 'content');
+
+        $this->repo->clean();
+
+        $this->assertFileNotExists($this->repo->getAbsolutePath() . '/removable_testfile');
     }
 }

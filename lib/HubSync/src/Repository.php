@@ -88,10 +88,15 @@ class Repository
     /**
      * Removes the repository
      */
-    public function clean()
+    public function remove()
     {
         $this->fs->deleteDirectory($this->path);
         $this->fs->delete($this->path);
+    }
+
+    public function clean()
+    {
+        return $this->synchronousProcess('git clean -xf');
     }
 
     /**
