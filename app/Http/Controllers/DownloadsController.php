@@ -46,11 +46,6 @@ class DownloadsController extends Controller
         }
     }
 
-    public function stableSpecification($format)
-    {
-        return redirect()->route('downloads.specification', ['v1.0.3', $format]);
-    }
-
     public function latestSpecification($format)
     {
         return redirect()->route('downloads.specification', ['latest', $format]);
