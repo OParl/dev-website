@@ -53,7 +53,7 @@ class LiveView
 
         $content = $crawler->filterXPath('//body/*[not(self::nav)]');
 
-        $skipElements = 1;
+        $skipElements = 0;
         foreach ($content as $domElement) {
             if ($skipElements) {
                 $skipElements--;
