@@ -37,16 +37,9 @@ class SpecificationLiveVersionBuildJob extends Job
     public function doUpdate(Filesystem $fs, Log $log)
     {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
-        $path = $hubSync->getAbsolutePath();
-
         $this->checkoutHubSyncToTreeish($hubSync);
 
-        // remove current html
-        if ($fs->exists($hubSync->getPath() . '/out/live.html')) {
-            $fs->delete($hubSync->getPath() . '/out/live.html');
-        }
-
-        if (!$this->runCleanRepositoryCommand($hubSync, 'make clean live')) {
+        if (!$this->runRepositoryCommand($hubSync, 'make live')) {
             $log->error("Creating live version html failed");
             throw new \RuntimeException("Update failed");
         }
@@ -86,6 +79,9 @@ class SpecificationLiveVersionBuildJob extends Job
             'hash'     => $hubSync->getCurrentHead(),
             'official' => $official,
         ]));
+
+        // IMPORTANT: Need to clean up by hand since images are missing otherwise
+        $hubSync->clean();
 
         return $hubSync;
     }
