@@ -35,41 +35,11 @@ return [
             'driver' => 'sync',
         ],
 
-        'database' => [
-            'driver' => 'database',
-            'table'  => 'jobs',
-            'queue'  => 'default',
-            'expire' => 60,
-        ],
-
-        'beanstalkd' => [
-            'driver' => 'beanstalkd',
-            'host'   => 'localhost',
-            'queue'  => 'default',
-            'ttr'    => 60,
-        ],
-
-        'sqs' => [
-            'driver' => 'sqs',
-            'key'    => 'your-public-key',
-            'secret' => 'your-secret-key',
-            'queue'  => 'your-queue-url',
-            'region' => 'us-east-1',
-        ],
-
-        'iron' => [
-            'driver'  => 'iron',
-            'host'    => env('QUEUE_IRON_HOST', 'mq-aws-us-east-1.iron.io'),
-            'token'   => env('QUEUE_IRON_TOKEN', 'your-token'),
-            'project' => env('QUEUE_IRON_PROJECT', 'your-project-id'),
-            'queue'   => 'your-queue-name', // Not set, always use a specific queue in the code
-            'encrypt' => true,
-        ],
-
         'redis' => [
             'driver' => 'redis',
-            'queue'  => 'default',
-            'expire' => 60,
+            'queue'  => '{default}',
+            'connection' => 'default',
+            'retry_after' => 310
         ],
 
     ],
@@ -86,7 +56,7 @@ return [
     */
 
     'failed' => [
-        'database' => 'mysql', 'table' => 'failed_jobs',
+        'database' => 'sqlite', 'table' => 'failed_jobs',
     ],
 
 ];
