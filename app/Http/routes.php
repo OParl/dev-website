@@ -40,7 +40,8 @@ $router->group(['domain' => 'dev.' . config('app.url')], function () use ($route
     $router->get('/downloads/spezifikation-{version}.{format}')
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
-        ->where('version', '[a-z0-9.]{3,8}')
+        ->where('version', '(master|1.0)')
+        ->where('format', '(html|docx|odt|txt|pdf|epub|zip|tar.bz2|tar.gz)')
         ->middleware('track');
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
