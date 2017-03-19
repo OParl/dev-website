@@ -28,16 +28,25 @@ class Job extends \App\Jobs\Job
      *
      * @param Repository $repository
      * @param string $cmd unprepared command
+     * @param array $args command arguments
      * @return bool command success
      */
     public function runCleanRepositoryCommand(Repository $repository, $cmd, ...$args)
+    {
+        $result = $this->runRepositoryCommand($repository, $cmd, $args);
+
+        $repository->clean();
+
+        return $result;
+    }
+
+    public function runRepositoryCommand(Repository $repository, $cmd, ...$args)
     {
         array_unshift($args, $cmd);
         $prepareCommand = new \ReflectionMethod($this, 'prepareCommand');
         $cmd = $prepareCommand->invokeArgs($this, $args);
 
         $result = $this->runSynchronousJob($repository->getAbsolutePath(), $cmd);
-        $repository->clean();
 
         return $result;
     }

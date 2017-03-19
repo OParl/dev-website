@@ -64,11 +64,11 @@ class LiveView
         }
 
         // rewrite image urls
-
-        $this->body = preg_replace('/"(.?)(src\/images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
+        $this->body = preg_replace('/"(.?)(.*images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
 
         // fix image tags
         $this->body = str_replace('<img ', '<img class="img-responsive"', $this->body);
+
         // fix table tags
         $this->body = str_replace('<table>', '<table class="table table-striped table-condensed table-responsive">',
             $this->body);
