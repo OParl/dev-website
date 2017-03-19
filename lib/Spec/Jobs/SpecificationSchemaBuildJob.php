@@ -2,9 +2,7 @@
 
 namespace OParl\Spec\Jobs;
 
-use Composer\Semver\Semver;
 use EFrane\HubSync\Repository;
-use EFrane\HubSync\RepositoryVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
@@ -39,7 +37,17 @@ class SpecificationSchemaBuildJob extends Job
         $hubSync = $this->getUpdatedHubSync($fs, $log);
 
         $initialConstraint = $this->treeish;
-        $this->checkoutHubSyncToTreeish($hubSync);
+
+        try {
+            if (!$this->checkoutHubSyncToTreeish($hubSync)) {
+                $log->info('Did not switch branches');
+            } else {
+                $log->info('Did switch branches');
+            }
+        } catch (\RuntimeException $e) {
+            $log->error('Branch switch on schema update failed');
+            throw $e;
+        }
 
         $dirname = 'master';
         if (strcmp($this->treeish, 'master') !== 0) {
