@@ -5,9 +5,10 @@ use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Symfony\Component\Process\Process;
 
-class Job extends \App\Jobs\Job
+class Job extends \App\Jobs\Job implements ShouldQueue
 {
     /**
      * @var string treeish of the synced repository
@@ -59,7 +60,7 @@ class Job extends \App\Jobs\Job
         $this->runSynchronousJob($hubSync->getAbsolutePath(), 'git checkout master');
 
         if (!$hubSync->update()) {
-            $log->error("Git pull failed");
+            $log->error("Git pull for OParl/spec failed");
         }
 
         return $hubSync;
