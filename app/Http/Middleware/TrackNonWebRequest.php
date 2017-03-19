@@ -4,7 +4,14 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class TrackAPICall
+/**
+ * This middleware can be used to track
+ * non-web requests (which do not deliver html)
+ * like API calls or Download routes
+ *
+ * @package App\Http\Middleware
+ */
+class TrackNonWebRequest
 {
     /**
      * Handle an incoming request.
