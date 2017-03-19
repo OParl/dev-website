@@ -80,8 +80,14 @@ class Job extends \App\Jobs\Job implements ShouldQueue
 
             $checkoutCmd = "git checkout {$this->treeish}";
 
-            $this->runSynchronousJob($hubSync->getAbsolutePath(), $checkoutCmd);
+            if (!$this->runSynchronousJob($hubSync->getAbsolutePath(), $checkoutCmd)) {
+                throw new \RuntimeException("Failed to checkout {$this->treeish}");
+            }
+
+            return true;
         }
+
+        return false;
     }
 
     /**
