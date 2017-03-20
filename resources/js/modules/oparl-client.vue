@@ -7,7 +7,8 @@
 <script>
     import OParl from 'oparl';
 
-    let client = OParl.open('http://dev.dev-website.dev/api/v1/system', function (err, serverObj) {
+    /*
+    let client = OParl.open('', function (err, serverObj) {
         if (err !== null) {
             console.error('Something went wrong: ' + err);
         } else {
@@ -15,7 +16,9 @@
         }
     });
 
+
     window.OParl = client;
+     */
 
     export default {
         data() {
