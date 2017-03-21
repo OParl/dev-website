@@ -61,6 +61,7 @@ class Job extends \App\Jobs\Job implements ShouldQueue
 
         if (!$hubSync->update()) {
             $log->error("Git pull for OParl/spec failed");
+            $log->error($hubSync->getLastError());
         }
 
         return $hubSync;
