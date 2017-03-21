@@ -39,10 +39,6 @@ class Repository
     protected $remoteURI = '';
 
     protected $fs = null;
-    /**
-     * @var string last error, if any
-     */
-    protected $lastError = '';
 
     /**
      * Repository constructor
@@ -66,25 +62,6 @@ class Repository
     }
 
     /**
-     * @return string
-     */
-    public function getLastError()
-    {
-        $lastError = $this->lastError;
-        $this->lastError = '';
-
-        return $lastError;
-    }
-
-    /**
-     * @param string $lastError
-     */
-    public function setLastError($lastError)
-    {
-        $this->lastError = $lastError;
-    }
-
-    /**
      * @return bool was the update succesful?
      */
     public function update()
@@ -105,13 +82,7 @@ class Repository
         $process->start();
         $process->wait();
 
-        if ($process->getExitCode() != 0) {
-            $this->setLastError($process->getOutput());
-
-            return false;
-        }
-
-        return true;
+        return $process->getExitCode() == 0;
     }
 
     /**
@@ -126,16 +97,6 @@ class Repository
     public function clean()
     {
         return $this->synchronousProcess(sprintf('git -C %s clean -xf', $this->getAbsolutePath()));
-    }
-
-    /**
-     * Returns the absolute path to the repository
-     *
-     * @return string
-     */
-    public function getAbsolutePath()
-    {
-        return $this->absolutePath;
     }
 
     /**
@@ -191,6 +152,16 @@ class Repository
     {
         $revParseCmd = sprintf('git -C %s rev-parse --abbrev-ref HEAD', $this->getAbsolutePath());
         return $this->synchronousProcess($revParseCmd);
+    }
+
+    /**
+     * Returns the absolute path to the repository
+     *
+     * @return string
+     */
+    public function getAbsolutePath()
+    {
+        return $this->absolutePath;
     }
 
     /**
