@@ -73,7 +73,7 @@ class Repository
                 $this->absolutePath
             );
         } else {
-            $cmd = sprintf('git -C %s pull -q --autostash', $this->absolutePath);
+            $cmd = sprintf('git -C %s pull -q', $this->absolutePath);
         }
 
         $process = new Process($cmd);
