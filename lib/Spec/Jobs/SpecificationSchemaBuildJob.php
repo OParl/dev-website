@@ -8,6 +8,12 @@ use Illuminate\Contracts\Logging\Log;
 
 class SpecificationSchemaBuildJob extends Job
 {
+    /**
+     * Handle OParl Schema Updates
+     *
+     * @param Filesystem $fs
+     * @param Log $log
+     */
     public function handle(Filesystem $fs, Log $log)
     {
         try {
@@ -37,6 +43,7 @@ class SpecificationSchemaBuildJob extends Job
         $hubSync = $this->getUpdatedHubSync($fs, $log);
 
         $initialConstraint = $this->treeish;
+        $log->info("Beginning Schema Update Job for treeish {$initialConstraint}");
 
         try {
             if (!$this->checkoutHubSyncToTreeish($hubSync)) {
@@ -62,9 +69,20 @@ class SpecificationSchemaBuildJob extends Job
             $fs->put($filename, $fs->get($file));
         });
 
+        $log->info("Finished Schema Update Job for treeish {$initialConstraint}");
+
         return $hubSync;
     }
 
+    /**
+     * Create the versioned Schema Directory
+     *
+     * Schema directories
+     *
+     * @param Filesystem $fs
+     * @param $authoritativeVersion
+     * @return string
+     */
     public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
     {
         $schemaPath = 'schema/' . $authoritativeVersion;
