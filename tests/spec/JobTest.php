@@ -73,4 +73,9 @@ class JobTest extends TestCase
         $cmd = 'echo "Hello World"';
         $this->assertTrue($sut->runSynchronousJob('.', $cmd));
     }
+
+    public function testCheckoutHubSyncToTreeish()
+    {
+        $this->markTestSkipped('Not yet implemented');
+    }
 }
