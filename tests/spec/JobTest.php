@@ -55,4 +55,15 @@ class JobTest extends TestCase
         $cmd = 'make live';
         $this->assertEquals('docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest make live', $sut->prepareCommand($cmd));
     }
+
+    public function testNotifySlack()
+    {
+        config(['slack.enabled' => false]);
+        $sut = new OParlJob();
+
+        $this->assertFalse($sut->notifySlack('Message'));
+
+        config(['slack.enabled' => true]);
+        $this->assertTrue($sut->notifySlack('Message'));
+    }
 }

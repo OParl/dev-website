@@ -127,20 +127,21 @@ class Job extends \App\Jobs\Job implements ShouldQueue
         return $process->getExitCode() == 0;
     }
 
-    public function notifySlack($message)
+    public function notifySlack($message, ...$args)
     {
         if (!config('slack.enabled')) {
-            return;
+            return false;
         }
 
-        $args = func_get_args();
-        array_shift($args);
-
-        $message = vsprintf($message, $args);
+        if (count($args) > 0) {
+            $message = vsprintf($message, $args);
+        }
 
         if (!app()->environment('testing')) {
             \Slack::send($message);
         }
+
+        return true;
     }
 
     public function prepareCommand($cmd, ...$args)
