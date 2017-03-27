@@ -117,7 +117,7 @@ class Job extends \App\Jobs\Job implements ShouldQueue
      *
      * @return bool
      */
-    protected function runSynchronousJob($path, $cmd)
+    public function runSynchronousJob($path, $cmd)
     {
         $process = new Process($cmd, $path);
 

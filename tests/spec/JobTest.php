@@ -66,4 +66,11 @@ class JobTest extends TestCase
         config(['slack.enabled' => true]);
         $this->assertTrue($sut->notifySlack('Message'));
     }
+
+    public function testRunSynchronousJob()
+    {
+        $sut = new OParlJob();
+        $cmd = 'echo "Hello World"';
+        $this->assertTrue($sut->runSynchronousJob('.', $cmd));
+    }
 }
