@@ -10,6 +10,8 @@ use Symfony\Component\Process\Process;
 
 class Job extends \App\Jobs\Job implements ShouldQueue
 {
+    const AVAILABLE_BUILD_MODES = ['native', 'docker'];
+
     /**
      * @var string treeish of the synced repository
      */
@@ -20,7 +22,22 @@ class Job extends \App\Jobs\Job implements ShouldQueue
     public function __construct($treeish = 'master')
     {
         $this->treeish = $treeish;
-        $this->buildMode = env('OPARL_BUILD_MODE', 'native'); # TODO: move this into a configuration variable
+
+        $this->buildMode = config('oparl.specificationBuildMode');
+
+        if (!in_array($this->buildMode, self::AVAILABLE_BUILD_MODES)) {
+            throw new \InvalidArgumentException("Unsupported build mode {$this->buildMode}");
+        }
+    }
+
+    public function getTreeish()
+    {
+        return $this->treeish;
+    }
+
+    public function getBuildMode()
+    {
+        return $this->buildMode;
     }
 
     /**
