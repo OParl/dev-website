@@ -34,4 +34,25 @@ class JobTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new OParlJob();
     }
+
+    public function testPrepareCommand()
+    {
+        $sut = new OParlJob();
+
+        $cmd = 'make live';
+        $this->assertEquals($cmd, $sut->prepareCommand($cmd));
+
+        $cmd = 'make DEBUG=%s live';
+        $this->assertEquals('make DEBUG=false live', $sut->prepareCommand($cmd, 'false'));
+
+        $cmd = '%s %d %1.1f';
+        $this->assertEquals('make 1 1,1', $sut->prepareCommand($cmd, 'make', 1, 1.1));
+
+        config(['oparl.specificationBuildMode' => 'docker']);
+
+        $sut = new OParlJob();
+
+        $cmd = 'make live';
+        $this->assertEquals('docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest make live', $sut->prepareCommand($cmd));
+    }
 }
