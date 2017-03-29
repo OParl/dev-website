@@ -10,10 +10,14 @@ namespace EFrane\HubSync;
 
 use Symfony\Component\Process\Process as SymfonyProcess;
 
-trait Process
+trait SynchronousProcess
 {
     public function synchronousProcess($cmd, $timeout = 60)
     {
+        if (!is_string($cmd) || strlen($cmd) == 0) {
+            return '';
+        }
+
         $process = new SymfonyProcess($cmd);
 
         $process->setTimeout($timeout);

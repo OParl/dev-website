@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class RepositoryVersions
 {
-    use Process;
+    use SynchronousProcess;
 
     /**
      * @var Repository
