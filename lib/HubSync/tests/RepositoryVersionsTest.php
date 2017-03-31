@@ -26,6 +26,11 @@ class RepositoryVersionsTest extends TestCase
         $this->repo->update();
     }
 
+    public function tearDown()
+    {
+        $this->repo->remove();
+    }
+
     public function testCreates()
     {
         $sut = new RepositoryVersions($this->repo);
