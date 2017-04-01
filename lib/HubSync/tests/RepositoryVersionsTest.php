@@ -40,11 +40,29 @@ class RepositoryVersionsTest extends TestCase
         $this->assertInstanceOf(RepositoryVersions::class, $sut);
     }
 
+    /**
+     * @covers RepositoryVersions::loadVersions
+     */
     public function testGetAll()
     {
         $sut = new RepositoryVersions($this->repo);
         $versions = $sut->getAll();
         $this->assertInstanceOf(\Illuminate\Support\Collection::class, $versions);
         $this->assertGreaterThanOrEqual(2, $versions->count());
+    }
+
+    public function testGetLatestForMatchingConstraint()
+    {
+        $this->repo->update();
+        $sut = new RepositoryVersions($this->repo);
+
+        $this->assertEquals('master', $sut->getLatestMatchingConstraint('master'));
+        $this->assertEquals('v1.0.1', $sut->getLatestMatchingConstraint('~1.0'));
+
+        $this->expectException(UnexpectedValueException::class);
+        $sut->getLatestMatchingConstraint('');
+
+        $this->expectException(UnexpectedValueException::class);
+        $sut->getLatestMatchingConstraint(null);
     }
 }
