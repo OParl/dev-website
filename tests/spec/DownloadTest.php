@@ -23,7 +23,7 @@ class DownloadTest extends TestCase
     public function testGetInfo()
     {
         $filename = '__test_file';
-        $this->fs->put($filename, 'Text Content');
+        $this->fs->put($filename, '');
 
         $sut = new \OParl\Spec\Model\Download($this->fs, $filename);
 
@@ -31,5 +31,18 @@ class DownloadTest extends TestCase
 
         $this->assertInstanceOf(\SplFileInfo::class, $info);
         $this->assertEquals($filename, $info->getFilename());
+        $this->assertEquals(0, $info->getSize());
+    }
+
+    public function testGetData()
+    {
+        $filename = '__test_file';
+        $content = 'Content';
+
+        $this->fs->put($filename, $content);
+
+        $sut = new \OParl\Spec\Model\Download($this->fs, $filename);
+
+        $this->assertEquals($content, $sut->getData());
     }
 }
