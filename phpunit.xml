@@ -25,6 +25,11 @@
     </php>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">.</directory>
+            <exclude>
+                <file>./app/Http/routes.php</file>
+                <file>./lib/Server/routes.php</file>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
