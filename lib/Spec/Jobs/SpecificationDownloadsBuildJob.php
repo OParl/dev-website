@@ -25,7 +25,7 @@ class SpecificationDownloadsBuildJob extends Job
         $initialConstraint = $this->treeish;
 
         try {
-            $hubSync = $this->updateRepository($fs, $log);
+            $hubSync = $this->build($fs, $log);
         } catch (\Exception $e) {
             $message = ':sos: Failed running make during downloads update';
             $this->notifySlack($message);
@@ -37,6 +37,7 @@ class SpecificationDownloadsBuildJob extends Job
         }
 
         $downloadsPath = $this->createDownloadsDirectory($fs);
+
         try {
             $this->provideDownloadableFiles($fs, $hubSync, $downloadsPath);
             $this->provideDownloadableArchives($fs, $hubSync, $downloadsPath);
@@ -54,7 +55,7 @@ class SpecificationDownloadsBuildJob extends Job
      * @param Log $log
      * @return Repository
      */
-    public function updateRepository(Filesystem $fs, Log $log)
+    public function build(Filesystem $fs, Log $log)
     {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
         $this->checkoutHubSyncToTreeish($hubSync);
