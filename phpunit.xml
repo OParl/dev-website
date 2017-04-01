@@ -10,11 +10,23 @@
          stopOnFailure="false"
          syntaxCheck="true">
     <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./tests/</directory>
+        <testsuite name="API">
+            <directory>./tests/api/</directory>
         </testsuite>
-        <testsuite name="HubSync Test Suite">
+        <testsuite name="HubSync">
             <directory>./lib/HubSync/tests/</directory>
+        </testsuite>
+        <testsuite name="Core">
+            <directory>./tests/core/</directory>
+        </testsuite>
+        <testsuite name="Schema">
+            <directory>./tests/schema/</directory>
+        </testsuite>
+        <testsuite name="Spec">
+            <directory>./tests/spec/</directory>
+        </testsuite>
+        <testsuite name="ReportedBugs">
+            <directory>./tests/bugs/</directory>
         </testsuite>
     </testsuites>
     <php>
