@@ -76,11 +76,7 @@ class JobTest extends TestCase
 
     public function testCheckoutHubSyncToTreeish()
     {
-        $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
-
-        /** @var \EFrane\HubSync\Repository $repo */
-        $repo = new \EFrane\HubSync\Repository($fs, 'test', 'tests/assets/test.git');
-        $repo->update();
+        $repo = $this->repositoryProvider();
 
         $sut = new OParlJob();
         $result = $sut->checkoutHubSyncToTreeish($repo);
@@ -93,5 +89,33 @@ class JobTest extends TestCase
         $this->assertEquals('a322ae0', $repo->getCurrentHead());
 
         $repo->remove();
+    }
+
+    public function testRunRepositoryCommand()
+    {
+        /** @var \OParl\Spec\Jobs\Job|PHPUnit_Framework_MockObject_MockObject $sut */
+        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\Job::class)
+            ->setMethods(['runSynchronousJob'])
+            ->getMock();
+
+        $sut->expects($this->exactly(2))->method('runSynchronousJob');
+
+        $repo = $this->repositoryProvider();
+        $sut->runRepositoryCommand($repo, 'ls');
+        $sut->runRepositoryCommand($repo, 'ls', '-l', '-t', '*');
+    }
+
+    /**
+     * @return \EFrane\HubSync\Repository
+     */
+    public function repositoryProvider()
+    {
+        $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
+
+        /** @var \EFrane\HubSync\Repository $repo */
+        $repo = new \EFrane\HubSync\Repository($fs, 'test', 'tests/assets/test.git');
+        $repo->update();
+
+        return $repo;
     }
 }
