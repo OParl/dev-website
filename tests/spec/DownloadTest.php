@@ -14,7 +14,7 @@ class DownloadTest extends TestCase
         $this->fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
     }
 
-    public function testConstruct()
+    public function testGetFilename()
     {
         $sut = new \OParl\Spec\Model\Download($this->fs, 'filename');
         $this->assertEquals('filename', $sut->getFilename());
@@ -44,5 +44,11 @@ class DownloadTest extends TestCase
         $sut = new \OParl\Spec\Model\Download($this->fs, $filename);
 
         $this->assertEquals($content, $sut->getData());
+    }
+
+    public function testToString()
+    {
+        $sut = new \OParl\Spec\Model\Download($this->fs, 'filename');
+        $this->assertEquals('filename', (string)$sut);
     }
 }
