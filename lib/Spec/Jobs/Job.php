@@ -84,8 +84,10 @@ class Job extends \App\Jobs\Job implements ShouldQueue
     }
 
     /**
-     * @param $hubSync
-     * @param $path
+     * @param Repository $hubSync
+     * @param boolean $selectMostRecentVersion
+     *
+     * @return boolean
      */
     public function checkoutHubSyncToTreeish(Repository $hubSync, $selectMostRecentVersion = true)
     {

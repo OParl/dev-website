@@ -76,6 +76,22 @@ class JobTest extends TestCase
 
     public function testCheckoutHubSyncToTreeish()
     {
-        $this->markTestSkipped('Not yet implemented');
+        $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
+
+        /** @var \EFrane\HubSync\Repository $repo */
+        $repo = new \EFrane\HubSync\Repository($fs, 'test', 'tests/assets/test.git');
+        $repo->update();
+
+        $sut = new OParlJob();
+        $result = $sut->checkoutHubSyncToTreeish($repo);
+        $this->assertFalse($result); // repo is on master, should not return true
+        $this->assertEquals('master', $repo->getCurrentTreeish());
+
+        $sut = new OParlJob('~1.0');
+        $result = $sut->checkoutHubSyncToTreeish($repo);
+        $this->assertTrue($result);
+        $this->assertEquals('a322ae0', $repo->getCurrentHead());
+
+        $repo->remove();
     }
 }
