@@ -25,7 +25,7 @@
         <testsuite name="Spec">
             <directory>./tests/spec/</directory>
         </testsuite>
-        <testsuite name="ReportedBugs">
+        <testsuite name="Regressions">
             <directory>./tests/bugs/</directory>
         </testsuite>
     </testsuites>
