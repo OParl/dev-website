@@ -32,7 +32,8 @@
     "phpunit/phpunit": "~5.4",
     "phpspec/phpspec": "~2.1",
     "mockery/mockery": "^0.9.4",
-    "phpunit/phpunit-selenium": "^3.0"
+    "phpunit/phpunit-selenium": "^3.0",
+    "mikey179/vfsStream": "^1.6"
   },
   "autoload": {
     "classmap": [
