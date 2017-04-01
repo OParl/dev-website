@@ -8,9 +8,13 @@
 
 namespace OParl\Spec\Model;
 
-
 use Illuminate\Contracts\Filesystem\Filesystem;
 
+/**
+ * Class Download
+ *
+ * @package OParl\Spec\Model
+ */
 class Download
 {
     /**
