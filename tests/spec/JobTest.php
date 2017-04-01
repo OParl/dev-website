@@ -105,6 +105,28 @@ class JobTest extends TestCase
         $sut->runRepositoryCommand($repo, 'ls', '-l', '-t', '*');
     }
 
+    public function testRunCleanRepositoryCommand()
+    {
+        $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
+
+        /** @var \EFrane\HubSync\Repository|PHPUnit_Framework_MockObject_MockObject $sut */
+        $repo = $this->getMockBuilder(\EFrane\HubSync\Repository::class)
+            ->setMethods(['clean'])
+            ->setConstructorArgs([$fs, 'test', 'tests/assets/test.git'])
+            ->getMock();
+
+        /** @var \OParl\Spec\Jobs\Job|PHPUnit_Framework_MockObject_MockObject $sut */
+        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\Job::class)
+            ->setMethods(['runRepositoryCommand'])
+            ->getMock();
+
+        $repo->expects($this->exactly(2))->method('clean');
+        $sut->expects($this->exactly(2))->method('runRepositoryCommand');
+
+        $sut->runCleanRepositoryCommand($repo, 'ls');
+        $sut->runCleanRepositoryCommand($repo, 'ls', '-l', '-t', '*');
+    }
+
     /**
      * @return \EFrane\HubSync\Repository
      */
