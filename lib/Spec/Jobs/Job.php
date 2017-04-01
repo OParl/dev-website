@@ -58,6 +58,12 @@ class Job extends \App\Jobs\Job implements ShouldQueue
         return $result;
     }
 
+    /**
+     * @param Repository $repository
+     * @param $cmd
+     * @param array ...$args
+     * @return bool
+     */
     public function runRepositoryCommand(Repository $repository, $cmd, ...$args)
     {
         array_unshift($args, $cmd);

@@ -121,10 +121,22 @@ class JobTest extends TestCase
             ->getMock();
 
         $repo->expects($this->exactly(2))->method('clean');
-        $sut->expects($this->exactly(2))->method('runRepositoryCommand');
+        $sut->expects($this->once())->method('runRepositoryCommand')
+            ->with($repo, 'ls');
 
         $sut->runCleanRepositoryCommand($repo, 'ls');
-        $sut->runCleanRepositoryCommand($repo, 'ls', '-l', '-t', '*');
+
+        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\Job::class)
+            ->setMethods(['runRepositoryCommand'])
+            ->getMock();
+
+        $sut->expects($this->once())->method('runRepositoryCommand')
+            ->with($repo, 'my', ['little', 'pony']);
+
+        $sut->runCleanRepositoryCommand($repo, 'my', 'little', 'pony');
+
+        // Every method call is an assertion, PHPUnit counts mock method constraints only once
+        $this->addToAssertionCount(2);
     }
 
     /**
