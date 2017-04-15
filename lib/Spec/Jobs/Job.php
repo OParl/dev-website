@@ -137,12 +137,14 @@ class Job extends \App\Jobs\Job implements ShouldQueue
 
     public function notifySlack($message, ...$args)
     {
-        if (!config('slack.enabled')) {
-            return false;
-        }
-
         if (count($args) > 0) {
             $message = vsprintf($message, $args);
+        }
+
+        \Log::info("[Slack] {$message}");
+
+        if (!config('slack.enabled')) {
+            return false;
         }
 
         if (!app()->environment('testing')) {
