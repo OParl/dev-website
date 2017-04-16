@@ -1,13 +1,14 @@
 <?php
 
 /* @var Illuminate\Routing\Router $router */
-$router->group([
-    'domain'     => 'dev.'.config('app.url'),
-    'prefix'     => 'api/v1/',
-    'middleware' => ['api.format', 'track'],
-], function () use ($router) {
-    $router->get('/', ['uses' => 'RootController@index', 'as' => 'api.index']);
+$router->get('/', ['uses' => 'RootController@index', 'as' => 'api.index']);
 
+$router->group([
+    'as'         => 'api.v1.',
+    'domain'     => 'dev.' . config('app.url'),
+    'prefix'     => 'api/v1/',
+    'middleware' => ['api.format', 'track', 'bindings'],
+], function () use ($router) {
     $router->resource('system', 'SystemController', ['only' => ['index', 'show']]);
     $router->resource('body', 'BodyController', ['only' => ['index', 'show']]);
     $router->resource('legislativeterm', 'LegislativeTermController', ['only' => ['index', 'show']]);

@@ -10,7 +10,7 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "laravel/framework": "5.2.*",
+    "laravel/framework": "5.3.*",
     "graham-campbell/github": "^4.0",
     "predis/predis": "^1.0",
     "cocur/slugify": "^1.2",

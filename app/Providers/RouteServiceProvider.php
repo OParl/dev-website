@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,12 +24,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot()
     {
-        $router->pattern('downloadsExtension', '(docx|txt|pdf|odt|html|epub|zip|tar\.gz|tar\.bz2)');
-        $router->pattern('downloadsVersion', '[a-z0-9]{7}');
+        Route::pattern('downloadsExtension', '(docx|txt|pdf|odt|html|epub|zip|tar\.gz|tar\.bz2)');
+        Route::pattern('downloadsVersion', '[a-z0-9]{7}');
 
-        parent::boot($router);
+        parent::boot();
     }
 
     /**
