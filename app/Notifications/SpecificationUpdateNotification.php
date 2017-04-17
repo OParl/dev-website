@@ -51,7 +51,7 @@ class SpecificationUpdateNotification extends Notification
         if (!$this->success) {
             $message->warning();
         }
-        
+
         $message->to(config('services.slack.ci.channel'));
         $message->content($this->message);
 
