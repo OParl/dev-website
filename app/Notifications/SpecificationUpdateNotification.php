@@ -62,10 +62,10 @@ class SpecificationUpdateNotification extends Notification
     {
         return new self(
             true,
-            'Updated live version to <https://github.com/OParl/spec/commit/%s|%s> (%s)',
+            'Updated live version for %s to <https://github.com/OParl/spec/commit/%s|%s>',
+            $treeish,
             $currentHead,
-            $currentHead,
-            $treeish
+            $currentHead
         );
     }
 
@@ -73,7 +73,7 @@ class SpecificationUpdateNotification extends Notification
     {
         return new self(
             false,
-            'Updating the live version to %s failed.',
+            'Updating the live version to %s failed',
             $treeish
         );
     }
@@ -93,7 +93,7 @@ class SpecificationUpdateNotification extends Notification
     {
         return new self(
             false,
-            'Updating the downloads for %s failed.',
+            'Updating the downloads for %s failed',
             $treeish
         );
     }
@@ -113,7 +113,7 @@ class SpecificationUpdateNotification extends Notification
     {
         return new self(
             false,
-            'Updating the schema to %s failed.',
+            'Updating the schema to %s failed',
             $treeish
         );
     }

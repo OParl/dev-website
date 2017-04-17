@@ -44,7 +44,7 @@ class SpecificationDownloadsBuildJob extends Job
             $this->provideDownloadableArchives($fs, $hubSync, $downloadsPath);
 
             $this->notify(SpecificationUpdateNotification::downloadsUpdateSuccesfulNotification(
-                $hubSync->getCurrentTreeish(),
+                $initialConstraint,
                 $hubSync->getCurrentHead()
             ));
         } catch (\Exception $e) {

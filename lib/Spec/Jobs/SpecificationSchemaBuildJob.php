@@ -9,6 +9,8 @@ use Illuminate\Contracts\Logging\Log;
 
 class SpecificationSchemaBuildJob extends Job
 {
+    protected $initialConstraint;
+
     /**
      * Handle OParl Schema Updates
      *
@@ -22,7 +24,7 @@ class SpecificationSchemaBuildJob extends Job
             $hubSync->clean();
 
             $this->notify(SpecificationUpdateNotification::schemaUpdateSuccesfulNotification(
-                $hubSync->getCurrentTreeish(),
+                $this->initialConstraint,
                 $hubSync->getCurrentHead()
             ));
         } catch (\Exception $e) {
@@ -39,8 +41,8 @@ class SpecificationSchemaBuildJob extends Job
     {
         $hubSync = $this->getUpdatedHubSync($fs, $log);
 
-        $initialConstraint = $this->treeish;
-        $log->info("Beginning Schema Update Job for treeish {$initialConstraint}");
+        $this->initialConstraint = $this->treeish;
+        $log->info("Beginning Schema Update Job for treeish {$this->initialConstraint}");
 
         try {
             if (!$this->checkoutHubSyncToTreeish($hubSync)) {
@@ -55,7 +57,7 @@ class SpecificationSchemaBuildJob extends Job
 
         $dirname = 'master';
         if (strcmp($this->treeish, 'master') !== 0) {
-            $dirname = substr($initialConstraint, 1);
+            $dirname = substr($this->initialConstraint, 1);
         }
 
         $dirname = $this->createSchemaDirectory($fs, $dirname);
@@ -66,7 +68,7 @@ class SpecificationSchemaBuildJob extends Job
             $fs->put($filename, $fs->get($file));
         });
 
-        $log->info("Finished Schema Update Job for treeish {$initialConstraint}");
+        $log->info("Finished Schema Update Job for treeish {$this->initialConstraint}");
 
         return $hubSync;
     }

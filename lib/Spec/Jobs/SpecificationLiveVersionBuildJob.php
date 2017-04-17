@@ -18,7 +18,7 @@ class SpecificationLiveVersionBuildJob extends Job
             $hubSync = $this->doUpdate($fs, $log);
 
             $this->notify(SpecificationUpdateNotification::liveVersionUpdateSuccessfulNotification(
-                $hubSync->getCurrentTreeish(),
+                $this->treeish,
                 $hubSync->getCurrentHead()
             ));
         } catch (\RuntimeException $e) {
