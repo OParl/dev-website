@@ -142,7 +142,9 @@ class PopulateCommand extends Command
         /* File */
         $this->info('Creating File entities');
         $progressBar = new ProgressBar($this->output, $amounts['file']);
-        factory(File::class, $amounts['file'])->create()->each(function () use ($progressBar) {
+        /* @var Collection $files */
+        $files = factory(File::class, $amounts['file'])->create();
+        $files->each(function () use ($progressBar) {
             $progressBar->advance();
         });
         $this->line('');
@@ -180,6 +182,11 @@ class PopulateCommand extends Command
                     $meeting->location()->associate($this->getLocation());
                 }
 
+                $meetingAuxiliaryFiles = $files->random($this->faker->numberBetween(0, max(5, $files->count())));
+                if ($meetingAuxiliaryFiles->count() > 0) {
+                    $meeting->auxiliaryFiles()->saveMany($meetingAuxiliaryFiles);
+                }
+
                 $progressBar->advance();
             };
 
@@ -215,7 +222,7 @@ class PopulateCommand extends Command
             /* AgendaItem */
             factory(AgendaItem::class, $amounts['meeting.items'])
                 ->create()
-                ->each(function (AgendaItem $item) use ($meeting, $meetingOrgas) {
+                ->each(function (AgendaItem $item) use ($meeting, $meetingOrgas, $files) {
                     /* @var Consultation $consultation */
                     $consultation = factory(Consultation::class)->create();
                     $consultation->meeting()->associate($meeting);
