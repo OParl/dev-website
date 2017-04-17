@@ -56,7 +56,7 @@ class PopulateCommand extends Command
     protected function generateData()
     {
         $this->info('Creating a System');
-        $system = factory(System::class, 1)->create();
+        $system = factory(System::class, 1)->create()->first();
 
         $amounts = [
             'body'  => 3,
@@ -225,11 +225,7 @@ class PopulateCommand extends Command
                     $numberOfConsultationOrgas = $this->faker->numberBetween(1, $meetingOrgas->count());
                     $consultationOrgas = $meetingOrgas->random($numberOfConsultationOrgas);
 
-                    if ($consultationOrgas instanceof Organization) {
-                        $consultation->organizations()->save($consultationOrgas);
-                    } else {
-                        $consultation->organizations()->saveMany($consultationOrgas);
-                    }
+                    $consultation->organizations()->saveMany($consultationOrgas);
 
                     $meeting->agendaItems()->save($item);
                 });
@@ -278,18 +274,12 @@ class PopulateCommand extends Command
         /* @var $legislativeTerms Collection */
         $legislativeTerms = collect();
 
-        $generatedLegislativeTermOrTerms = factory(LegislativeTerm::class, $amount)->create();
-        if ($generatedLegislativeTermOrTerms instanceof Collection) {
-            $generatedLegislativeTermOrTerms->each(function (
-                LegislativeTerm $term
-            ) use ($legislativeTerms, $progressBar) {
-                $legislativeTerms->push($term);
-                $progressBar->advance();
-            });
-        } else {
-            $legislativeTerms->push($generatedLegislativeTermOrTerms);
+        factory(LegislativeTerm::class, $amount)->create()->each(function (
+            LegislativeTerm $term
+        ) use ($legislativeTerms, $progressBar) {
+            $legislativeTerms->push($term);
             $progressBar->advance();
-        }
+        });
 
         return $legislativeTerms;
     }
