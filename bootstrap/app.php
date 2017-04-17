@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -10,21 +9,9 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\SyslogHandler;
-use Monolog\Logger;
-
-ini_set('mbstring.mb_http_output', 'utf-8');
-
-setlocale(LC_ALL, 'de_DE.UTF-8');
-Carbon\Carbon::setLocale('de');
-
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
-
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
@@ -35,43 +22,18 @@ $app = new Illuminate\Foundation\Application(
 | incoming requests to this application from both the web and CLI.
 |
 */
-
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
-);
-
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class
 );
-
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
-
-$app->configureMonologUsing(function (Logger $monolog) use ($app) {
-    if ($app->environment('local') || $app->environment('testing')) {
-        $logPath = storage_path('logs/laravel.log');
-        $logStreamHandler = new StreamHandler($logPath, Logger::DEBUG);
-
-        $logFormat = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
-        $formatter = new LineFormatter($logFormat);
-
-        $logStreamHandler->setFormatter($formatter);
-
-        $monolog->pushHandler($logStreamHandler);
-    } else {
-        // Log to syslog on production systems, only log events of level warning or higher
-        $syslog    = new SyslogHandler('dev.oparl.org', LOG_USER, Logger::WARNING);
-        $formatter = new LineFormatter('%channel%.%level_name%: %message% %extra%');
-
-        $syslog->setFormatter($formatter);
-        $monolog->pushHandler($syslog);
-    }
-});
-
+$app->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
+);
 /*
 |--------------------------------------------------------------------------
 | Return The Application
@@ -82,5 +44,4 @@ $app->configureMonologUsing(function (Logger $monolog) use ($app) {
 | from the actual running of the application and sending responses.
 |
 */
-
 return $app;
