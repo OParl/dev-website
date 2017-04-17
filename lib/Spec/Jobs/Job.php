@@ -6,10 +6,13 @@ use EFrane\HubSync\RepositoryVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notifiable;
 use Symfony\Component\Process\Process;
 
 class Job extends \App\Jobs\Job implements ShouldQueue
 {
+    use Notifiable;
+
     const AVAILABLE_BUILD_MODES = ['native', 'docker'];
 
     /**
@@ -132,26 +135,7 @@ class Job extends \App\Jobs\Job implements ShouldQueue
         $process->start();
         $process->wait();
 
-        return $process->getExitCode() == 0;
-    }
-
-    public function notifySlack($message, ...$args)
-    {
-        if (count($args) > 0) {
-            $message = vsprintf($message, $args);
-        }
-
-        \Log::info("[Slack] {$message}");
-
-        if (!config('slack.enabled')) {
-            return false;
-        }
-
-        if (!app()->environment('testing')) {
-            \Slack::send($message);
-        }
-
-        return true;
+        return $process->getExitCode() === 0;
     }
 
     public function prepareCommand($cmd, ...$args)
@@ -169,5 +153,10 @@ class Job extends \App\Jobs\Job implements ShouldQueue
         }
 
         throw new \LogicException("Unsupported build mode: {$this->buildMode}");
+    }
+
+    public function routeNotificationForSlack()
+    {
+        return config('services.slack.ci.endpoint');
     }
 }

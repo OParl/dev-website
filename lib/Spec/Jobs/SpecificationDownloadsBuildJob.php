@@ -8,6 +8,7 @@
 
 namespace OParl\Spec\Jobs;
 
+use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
@@ -42,11 +43,12 @@ class SpecificationDownloadsBuildJob extends Job
             $this->provideDownloadableFiles($fs, $hubSync, $downloadsPath);
             $this->provideDownloadableArchives($fs, $hubSync, $downloadsPath);
 
-            $message = ":white_check_mark: Updated specification downloads for %s to <https://github.com/OParl/spec/commit/%s|%s>";
-            $this->notifySlack($message, $hubSync->getCurrentTreeish(), $hubSync->getCurrentHead(), $hubSync->getCurrentHead());
+            $this->notify(SpecificationUpdateNotification::downloadsUpdateSuccesfulNotification(
+                $hubSync->getCurrentTreeish(),
+                $hubSync->getCurrentHead()
+            ));
         } catch (\Exception $e) {
-            $message = ":sos: Updating the downloads for %s failed!";
-            $this->notifySlack($message, $this->treeish);
+            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace OParl\Spec\Jobs;
 
+use App\Notifications\SpecificationUpdateNotification;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
@@ -16,16 +17,12 @@ class SpecificationLiveVersionBuildJob extends Job
         try {
             $hubSync = $this->doUpdate($fs, $log);
 
-            $message = ":white_check_mark: Updated live version to <https://github.com/OParl/spec/commit/%s|%s> (%s)";
-
-            $this->notifySlack(
-                $message,
-                $hubSync->getCurrentHead(),
-                $hubSync->getCurrentHead(),
-                $this->treeish
-            );
+            $this->notify(SpecificationUpdateNotification::liveVersionUpdateSuccessfulNotification(
+                $hubSync->getCurrentTreeish(),
+                $hubSync->getCurrentHead()
+            ));
         } catch (\RuntimeException $e) {
-            $this->notifySlack(":sos: Updating the live version failed.");
+            $this->notify(SpecificationUpdateNotification::liveVersionUpdateFailedNotification($this->treeish));
         }
     }
 

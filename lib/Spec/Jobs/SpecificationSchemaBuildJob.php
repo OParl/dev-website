@@ -2,6 +2,7 @@
 
 namespace OParl\Spec\Jobs;
 
+use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
@@ -20,16 +21,12 @@ class SpecificationSchemaBuildJob extends Job
             $hubSync = $this->doSchemaUpdate($fs, $log);
             $hubSync->clean();
 
-            $this->notifySlack(
-                ":white_check_mark: Updated schema assets for %s to <https://github.com/OParl/spec/commit/%s|%s>",
-                $this->treeish,
+            $this->notify(SpecificationUpdateNotification::schemaUpdateSuccesfulNotification(
+                $hubSync->getCurrentTreeish(),
                 $hubSync->getCurrentHead()
-            );
+            ));
         } catch (\Exception $e) {
-            $this->notifySlack(
-                ":sos: Schema assets update for %s failed!",
-                $this->treeish
-            );
+            $this->notify(SpecificationUpdateNotification::schemaUpdateFailedNotification($this->treeish));
         }
     }
 
