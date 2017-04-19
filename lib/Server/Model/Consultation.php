@@ -4,15 +4,6 @@ namespace OParl\Server\Model;
 
 class Consultation extends BaseModel
 {
-    public static function boot()
-    {
-        self::updated(function (Consultation $consultation) {
-            if (!is_null($consultation->paper)) {
-                $consultation->paper()->body()->associate($consultation->organizations->first()->body);
-            }
-        });
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|Paper
      */

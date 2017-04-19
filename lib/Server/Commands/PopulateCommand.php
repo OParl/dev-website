@@ -60,7 +60,7 @@ class PopulateCommand extends Command
 
         $amounts = [
             'body'  => 3,
-            'paper' => 250,
+            'paper' => 100,
             'file'  => 200,
         ];
 
@@ -187,10 +187,13 @@ class PopulateCommand extends Command
                     $meeting->location()->associate($this->getLocation());
                 }
 
-                $meetingAuxiliaryFiles = $files->random($this->faker->numberBetween(0, max(5, $files->count())));
+                $meetingAuxiliaryFiles = $files->random($this->faker->numberBetween(1, 5));
+
                 if ($meetingAuxiliaryFiles->count() > 0) {
                     $meeting->auxiliaryFiles()->saveMany($meetingAuxiliaryFiles);
                 }
+
+                $meeting->save();
 
                 $progressBar->advance();
             };
@@ -239,6 +242,7 @@ class PopulateCommand extends Command
 
                     $consultation->organizations()->saveMany($consultationOrgas);
 
+
                     $meeting->agendaItems()->save($item);
                 });
 
@@ -252,6 +256,11 @@ class PopulateCommand extends Command
         foreach (Consultation::all() as $consultation) {
             /* @var Consultation $consultation */
             $consultation->paper()->associate(Paper::all()->random());
+            $consultation->paper->body()->associate($consultation->organizations->first()->body);
+            $consultation->save();
+
+            // explicit free()
+            $consultation = null;
 
             $progressBar->advance();
         }
