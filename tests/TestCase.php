@@ -2,7 +2,6 @@
 
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-
 class TestCase extends BaseTestCase
 {
     /**

@@ -5,7 +5,7 @@ $router->get('/', ['uses' => 'RootController@index', 'as' => 'api.index']);
 
 $router->group([
     'as'         => 'api.v1.',
-    'domain'     => 'dev.' . config('app.url'),
+    'domain'     => 'dev.'.config('app.url'),
     'prefix'     => 'api/v1/',
     'middleware' => ['api.format', 'track', 'bindings'],
 ], function () use ($router) {

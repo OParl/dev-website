@@ -36,10 +36,10 @@ return [
         ],
 
         'redis' => [
-            'driver' => 'redis',
-            'queue'  => '{default}',
-            'connection' => 'default',
-            'retry_after' => 60
+            'driver'      => 'redis',
+            'queue'       => '{default}',
+            'connection'  => 'default',
+            'retry_after' => 60,
         ],
 
     ],

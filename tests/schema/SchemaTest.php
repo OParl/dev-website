@@ -4,6 +4,7 @@ class SchemaTest extends TestCase
 {
     /**
      * @dataProvider schemaNames
+     *
      * @param string $name entity name
      */
     public function testSchemaServesAndIsJSON1_0($name)
@@ -15,6 +16,7 @@ class SchemaTest extends TestCase
 
     /**
      * @dataProvider schemaNames
+     *
      * @param string $name entity name
      */
     public function testSchemaServesAndIsJSON1_1($name)
@@ -26,6 +28,7 @@ class SchemaTest extends TestCase
 
     /**
      * @dataProvider schemaNames
+     *
      * @param string $name entity name
      */
     public function testSchemaServesAndIsJSONmaster($name)
@@ -37,9 +40,10 @@ class SchemaTest extends TestCase
 
     /**
      * Since we did not have standalone schema files for all entities on 1.0
-     * this test only applies to OParl >= 1.1
+     * this test only applies to OParl >= 1.1.
      *
      * @dataProvider schemaNames
+     *
      * @param string $name entity name
      */
     public function testType_1_1($name)
@@ -56,20 +60,24 @@ class SchemaTest extends TestCase
 
     /**
      * @dataProvider schemaNames
+     *
      * @param string $name entity name
      */
-    public function testTitle_1_0($name) {
+    public function testTitle_1_0($name)
+    {
         $this->route('get', 'schema.get', ['1.0', $name]);
-        $this->assertContains('"title": "' . $name .'"', $this->response->getContent());
+        $this->assertContains('"title": "'.$name.'"', $this->response->getContent());
     }
 
     /**
      * @dataProvider schemaNames
+     *
      * @param string $name entity name
      */
-    public function testTitle_master($name) {
+    public function testTitle_master($name)
+    {
         $this->route('get', 'schema.get', ['master', $name]);
-        $this->assertContains('"title": "' . $name .'"', $this->response->getContent());
+        $this->assertContains('"title": "'.$name.'"', $this->response->getContent());
     }
 
     public function schemaNames()

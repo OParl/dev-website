@@ -18,7 +18,7 @@ class ConsultationTransformer extends BaseTransformer
 
         if (!$this->isIncluded()) {
             $data = array_merge($data, [
-                'paper' => route('api.v1.paper.show', $consultation->paper)
+                'paper' => route('api.v1.paper.show', $consultation->paper),
             ]);
         }
 

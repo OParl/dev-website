@@ -3,17 +3,15 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 23/11/2016
- * Time: 11:20
+ * Time: 11:20.
  */
 
 namespace OParl\Spec\Repositories;
 
 /**
- * Class SpecificationDownloadRepository
+ * Class SpecificationDownloadRepository.
  *
  * Repository for OParl Specification Downloads
- *
- * @package OParl\Spec\Repositories
  */
 class SpecificationDownloadRepository extends DownloadRepository
 {

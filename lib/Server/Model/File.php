@@ -5,9 +5,7 @@ namespace OParl\Server\Model;
 use Illuminate\Filesystem\Filesystem;
 
 /**
- * Class File
- *
- * @package OParl\Server\Model
+ * Class File.
  */
 class File extends BaseModel
 {
@@ -21,7 +19,6 @@ class File extends BaseModel
 //        self::deleting(function (File $file, Filesystem $filesystem) {
 //            $filesystem->delete($file->storage_filename);
 //        });
-
     }
 
     public function keywords()
@@ -31,16 +28,15 @@ class File extends BaseModel
 
     public function masterFile()
     {
-        return $this->belongsTo(File::class, 'master_file_id', 'id');
+        return $this->belongsTo(self::class, 'master_file_id', 'id');
     }
 
     public function derivativeFiles()
     {
-        return $this->hasMany(File::class, 'id', 'master_file_id');
+        return $this->hasMany(self::class, 'id', 'master_file_id');
     }
 
     // TODO: think about query to marry all the file related meeting attributes to File
-
 
     // TODO: agendaItem
     // TODO: paper

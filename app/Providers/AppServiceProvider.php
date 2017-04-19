@@ -54,7 +54,7 @@ LPMARKUP;
     public function register()
     {
         $this->app->singleton(Generator::class, function () {
-           return Factory::create('de_DE');
+            return Factory::create('de_DE');
         });
     }
 }

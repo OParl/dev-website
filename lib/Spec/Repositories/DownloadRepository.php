@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 23/11/2016
- * Time: 11:54
+ * Time: 11:54.
  */
 
 namespace OParl\Spec\Repositories;
@@ -31,6 +31,7 @@ abstract class DownloadRepository
         $this->versions = collect($fs->directories("downloads/{$this->getIdentifier()}"))
             ->map(function ($version) use ($fs) {
                 $version = explode('/', $version)[2];
+
                 return new DownloadVersion($fs, $this->getIdentifier(), $version);
             })->sort(function (DownloadVersion $a, DownloadVersion $b) {
                 $ageA = $a->getAge();

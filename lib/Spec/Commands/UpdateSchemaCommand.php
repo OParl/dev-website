@@ -10,7 +10,7 @@ class UpdateSchemaCommand extends Command
     use DispatchesJobs;
 
     protected $signature = 'oparl:update:schema {constraint?}';
-    protected $description = "Force-update the schema assets";
+    protected $description = 'Force-update the schema assets';
 
     public function handle()
     {
@@ -21,12 +21,14 @@ class UpdateSchemaCommand extends Command
 
         if ((strcmp($constraint, 'master') !== 0) && !starts_with($constraint, '~')) {
             $this->error('Constraint must be specified as ~<major>.<minor>');
+
             return 1;
         }
 
-        $this->info('Updating schema assets for constraint "' . $constraint .'"');
+        $this->info('Updating schema assets for constraint "'.$constraint.'"');
 
         $this->dispatch(new SpecificationSchemaBuildJob($constraint));
+
         return 0;
     }
 }

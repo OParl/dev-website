@@ -14,14 +14,14 @@ class RepositoryTest extends TestCase
     public static function setUpBeforeClass()
     {
         // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__ . '/../../../storage/app/hub_sync/test');
+        $cmd = sprintf('rm -rf %s', __DIR__.'/../../../storage/app/hub_sync/test');
         exec($cmd);
     }
 
     public static function tearDownAfterClass()
     {
         // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__ . '/../../../storage/app/hub_sync/test');
+        $cmd = sprintf('rm -rf %s', __DIR__.'/../../../storage/app/hub_sync/test');
         exec($cmd);
     }
 
@@ -45,13 +45,13 @@ class RepositoryTest extends TestCase
 
     public function testGetStoragePath()
     {
-        $this->assertEquals('hub_sync/' . $this->localName, $this->repo->getPath());
+        $this->assertEquals('hub_sync/'.$this->localName, $this->repo->getPath());
     }
 
     public function testGetAbsolutePath()
     {
         $this->assertStringStartsWith('/', $this->repo->getAbsolutePath());
-        $this->assertStringEndsWith('storage/app/hub_sync/' . $this->localName, $this->repo->getAbsolutePath());
+        $this->assertStringEndsWith('storage/app/hub_sync/'.$this->localName, $this->repo->getAbsolutePath());
     }
 
     public function testNoRepoBeforeUpdate()
@@ -93,10 +93,10 @@ class RepositoryTest extends TestCase
     public function testCleanRemovesUntracked()
     {
         // ensure unclean state
-        @file_put_contents($this->repo->getAbsolutePath() . '/removable_testfile', 'content');
+        @file_put_contents($this->repo->getAbsolutePath().'/removable_testfile', 'content');
 
         $this->repo->clean();
 
-        $this->assertFileNotExists($this->repo->getAbsolutePath() . '/removable_testfile');
+        $this->assertFileNotExists($this->repo->getAbsolutePath().'/removable_testfile');
     }
 }

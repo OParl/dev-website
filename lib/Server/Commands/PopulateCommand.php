@@ -82,7 +82,7 @@ class PopulateCommand extends Command
             $amounts,
             $amountsDynamic
         ) {
-            $this->line("\nCreating base data for Body " . $body->id . "\n");
+            $this->line("\nCreating base data for Body ".$body->id."\n");
 
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
@@ -153,7 +153,7 @@ class PopulateCommand extends Command
         $this->info('Creating Paper entities');
         $bodies = Body::all();
         $progressBar = new ProgressBar($this->output, $bodies->count() * $amounts['paper']);
-        Body::all()->each(function(Body $body) use ($progressBar, $amounts) {
+        Body::all()->each(function (Body $body) use ($progressBar, $amounts) {
             factory(Paper::class, $amounts['paper'])->create()->each(function ($paper) use ($body, $progressBar) {
                 /* @var Paper $paper */
                 $paper->mainFile()->associate(File::all()->random());
@@ -167,7 +167,7 @@ class PopulateCommand extends Command
 
         /* Meeting */
         foreach (Body::all() as $body) {
-            $this->info('Creating Meeting entities for body ' . $body->id);
+            $this->info('Creating Meeting entities for body '.$body->id);
 
             $meetingAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
             $progressBar = new ProgressBar($this->output, $meetingAmounts['meeting']);
@@ -196,7 +196,7 @@ class PopulateCommand extends Command
                 $meeting->save();
 
                 $progressBar->advance();
-            };
+            }
 
             $this->line('');
         }
@@ -242,7 +242,6 @@ class PopulateCommand extends Command
 
                     $consultation->organizations()->saveMany($consultationOrgas);
 
-
                     $meeting->agendaItems()->save($item);
                 });
 
@@ -271,6 +270,7 @@ class PopulateCommand extends Command
     /**
      * @param $amountsDynamic
      * @param $amounts
+     *
      * @return array
      */
     protected function updateDynamicAmounts($amountsDynamic, $amounts)

@@ -40,7 +40,7 @@ class GitHubHooksControllerTest extends \TestCase
         $this->expectsJobs(\App\Jobs\GitHubPushJob::class);
         $this->post(
             route('hooks.gh.push', ['spec']),
-            ['payload' => json_encode(['action' => 'closed'])],
+            ['payload'        => json_encode(['action' => 'closed'])],
             ['x-github-event' => 'push']
         );
 
@@ -82,7 +82,9 @@ class GitHubHooksControllerTest extends \TestCase
             'foo',
             'bar',
             'spec',
-            'liboparl'
-        ])->map(function($repo) { return [$repo]; })->toArray();
+            'liboparl',
+        ])->map(function ($repo) {
+            return [$repo];
+        })->toArray();
     }
 }

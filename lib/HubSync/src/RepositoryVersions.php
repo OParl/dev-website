@@ -30,16 +30,20 @@ class RepositoryVersions
         return new self($repository);
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         return $this->versions;
     }
 
     /**
      * @param $constraint
-     * @return mixed
+     *
      * @throws \UnexpectedValueException
+     *
+     * @return mixed
      */
-    public function getLatestMatchingConstraint($constraint) {
+    public function getLatestMatchingConstraint($constraint)
+    {
         return $this->versions->filter(function ($versionToCheck) use ($constraint) {
             return Semver::satisfies($versionToCheck, $constraint);
         })->last();

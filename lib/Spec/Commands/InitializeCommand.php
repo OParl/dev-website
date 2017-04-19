@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 04/01/2017
- * Time: 14:39
+ * Time: 14:39.
  */
 
 namespace OParl\Spec\Commands;

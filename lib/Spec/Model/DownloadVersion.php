@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 23/11/2016
- * Time: 10:26
+ * Time: 10:26.
  */
 
 namespace OParl\Spec\Model;
@@ -22,7 +22,7 @@ class DownloadVersion
     protected $version = '';
 
     /**
-     * @var Collection $files available files for the identifier and version
+     * @var Collection available files for the identifier and version
      */
     protected $files = null;
 
@@ -52,14 +52,17 @@ class DownloadVersion
 
     /**
      * @param $version
+     *
      * @return bool
      */
-    public function isVersion($version) {
+    public function isVersion($version)
+    {
         return strcmp($this->version, $version) === 0;
     }
 
     /**
-     * Return the number of days this download version exists
+     * Return the number of days this download version exists.
+     *
      * @return int
      */
     public function getAge()
@@ -76,8 +79,10 @@ class DownloadVersion
 
     /**
      * @param $extension
-     * @return Download
+     *
      * @throws FileNotFoundException
+     *
+     * @return Download
      */
     public function getFileForExtension($extension)
     {

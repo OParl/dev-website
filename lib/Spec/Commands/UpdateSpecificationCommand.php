@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 20/11/2016
- * Time: 12:12
+ * Time: 12:12.
  */
 
 namespace OParl\Spec\Commands;
@@ -12,8 +12,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 
 /**
- * Class UpdateSpecificationCommand
- * @package OParl\Spec\Commands
+ * Class UpdateSpecificationCommand.
  */
 class UpdateSpecificationCommand extends Command
 {

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\Repositories\SpecificationDownloadRepository;
 
 class DownloadsController extends Controller
@@ -24,7 +22,7 @@ class DownloadsController extends Controller
         /* @var \Illuminate\Contracts\Validation\Validator $validator */
         $validator = \Validator::make(compact('format'), [
             'version' => 'string',
-            'format' => 'in:pdf,txt,odt,docx,html,epub,zip,tar.gz,tar.bz2',
+            'format'  => 'in:pdf,txt,odt,docx,html,epub,zip,tar.gz,tar.bz2',
         ]);
 
         abort_if($validator->fails(), 403);
@@ -39,10 +37,12 @@ class DownloadsController extends Controller
 
         try {
             $file = $download->getFileForExtension($format);
+
             return response()->download($file->getInfo()->getRealPath());
         } catch (FileNotFoundException $e) {
             abort(404);
-            return null;
+
+            return;
         }
     }
 

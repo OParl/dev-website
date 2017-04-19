@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 31/12/2016
- * Time: 09:57
+ * Time: 09:57.
  */
 
 namespace EFrane\HubSync;

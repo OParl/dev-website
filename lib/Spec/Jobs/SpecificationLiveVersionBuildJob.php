@@ -10,7 +10,7 @@ class SpecificationLiveVersionBuildJob extends Job
 {
     /**
      * @param Filesystem $fs
-     * @param Log $log
+     * @param Log        $log
      */
     public function handle(Filesystem $fs, Log $log)
     {
@@ -28,7 +28,8 @@ class SpecificationLiveVersionBuildJob extends Job
 
     /**
      * @param Filesystem $fs
-     * @param Log $log
+     * @param Log        $log
+     *
      * @return \EFrane\HubSync\Repository
      */
     public function doUpdate(Filesystem $fs, Log $log)
@@ -37,13 +38,13 @@ class SpecificationLiveVersionBuildJob extends Job
         $this->checkoutHubSyncToTreeish($hubSync);
 
         if (!$this->runRepositoryCommand($hubSync, 'make live')) {
-            $log->error("Creating live version html failed");
-            throw new \RuntimeException("Update failed");
+            $log->error('Creating live version html failed');
+            throw new \RuntimeException('Update failed');
         }
 
         // move html
         $fs->makeDirectory('live');
-        $fs->put('live/live.html', $fs->get($hubSync->getPath() . '/out/live.html'));
+        $fs->put('live/live.html', $fs->get($hubSync->getPath().'/out/live.html'));
 
         // reset and copy images
         $fs->delete($fs->files('live/images/'));
@@ -53,7 +54,7 @@ class SpecificationLiveVersionBuildJob extends Job
         collect($fs->files($hubSync->getPath('/src/images')))->filter(function ($filename) {
             return ends_with($filename, '.png');
         })->map(function ($filename) use ($fs) {
-            $fs->put('live/images/' . basename($filename), $fs->get($filename));
+            $fs->put('live/images/'.basename($filename), $fs->get($filename));
         });
 
         // provide concatenated markdown version
@@ -62,7 +63,7 @@ class SpecificationLiveVersionBuildJob extends Job
         })->map(function ($filename) use ($fs) {
             return $fs->get($filename);
         })->reduce(function ($carry, $current) {
-            return $carry . $current;
+            return $carry.$current;
         }, '');
 
         $fs->put('live/raw.md', $raw);
@@ -83,4 +84,3 @@ class SpecificationLiveVersionBuildJob extends Job
         return $hubSync;
     }
 }
-

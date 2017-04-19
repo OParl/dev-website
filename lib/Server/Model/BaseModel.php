@@ -28,7 +28,7 @@ class BaseModel extends Model
             self::setModelConfiguration(config('api.default'));
         }
 
-        $connection = config('database.' . self::$modelConfiguration['connection']);
+        $connection = config('database.'.self::$modelConfiguration['connection']);
 
         if (strlen($connection) == 0) {
             throw new ConnectionNotFoundException();

@@ -19,7 +19,6 @@ class MeetingController extends APIController
         $value = $valueExpression->getValue();
 
         // body is body of organization of any meeting
-
     }
 
     protected function queryOrganization(QueryService &$query, ValueExpression $valueExpression)

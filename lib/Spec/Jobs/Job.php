@@ -1,4 +1,5 @@
 <?php
+
 namespace OParl\Spec\Jobs;
 
 use EFrane\HubSync\Repository;
@@ -45,11 +46,12 @@ class Job extends \App\Jobs\Job implements ShouldQueue
 
     /**
      * Run a command on the oparl specification repository
-     * leaving the repo in a pristine state afterwards
+     * leaving the repo in a pristine state afterwards.
      *
      * @param Repository $repository
-     * @param string $cmd unprepared command
-     * @param array $args command arguments
+     * @param string     $cmd        unprepared command
+     * @param array      $args       command arguments
+     *
      * @return bool command success
      */
     public function runCleanRepositoryCommand(Repository $repository, $cmd, ...$args)
@@ -65,6 +67,7 @@ class Job extends \App\Jobs\Job implements ShouldQueue
      * @param Repository $repository
      * @param $cmd
      * @param array ...$args
+     *
      * @return bool
      */
     public function runRepositoryCommand(Repository $repository, $cmd, ...$args)
@@ -86,7 +89,7 @@ class Job extends \App\Jobs\Job implements ShouldQueue
         $this->runSynchronousJob($hubSync->getAbsolutePath(), 'git checkout master');
 
         if (!$hubSync->update()) {
-            $log->error("Git pull for OParl/spec failed");
+            $log->error('Git pull for OParl/spec failed');
         }
 
         return $hubSync;
@@ -94,9 +97,9 @@ class Job extends \App\Jobs\Job implements ShouldQueue
 
     /**
      * @param Repository $hubSync
-     * @param boolean $selectMostRecentVersion
+     * @param bool       $selectMostRecentVersion
      *
-     * @return boolean
+     * @return bool
      */
     public function checkoutHubSyncToTreeish(Repository $hubSync, $selectMostRecentVersion = true)
     {
@@ -119,7 +122,7 @@ class Job extends \App\Jobs\Job implements ShouldQueue
     }
 
     /**
-     * Run a Symfony\Process synchronously
+     * Run a Symfony\Process synchronously.
      *
      * Requires a working directory.
      *

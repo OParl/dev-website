@@ -49,6 +49,6 @@ class DownloadTest extends TestCase
     public function testToString()
     {
         $sut = new \OParl\Spec\Model\Download($this->fs, 'filename');
-        $this->assertEquals('filename', (string)$sut);
+        $this->assertEquals('filename', (string) $sut);
     }
 }
