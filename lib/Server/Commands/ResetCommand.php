@@ -5,9 +5,7 @@ namespace OParl\Server\Commands;
 use Illuminate\Console\Command;
 
 /**
- * Clear the server data
- *
- * @package OParl\Server\Commands
+ * Clear the server data.
  */
 class ResetCommand extends Command
 {

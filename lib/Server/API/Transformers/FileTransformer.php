@@ -12,7 +12,7 @@ class FileTransformer extends BaseTransformer
             'name'         => $file->name,
             'fileName'     => $file->file_name,
             'mimeType'     => $file->mime_type,
-            'size'         => (int)$file->size,
+            'size'         => (int) $file->size,
             'sha1Checksum' => $file->sha1_checksum,
             'text'         => $file->text,
 

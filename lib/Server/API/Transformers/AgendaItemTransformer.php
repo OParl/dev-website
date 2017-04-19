@@ -12,7 +12,7 @@ class AgendaItemTransformer extends BaseTransformer
             'meeting'        => route('api.v1.meeting.show', $agendaItem->meeting),
             'number'         => $agendaItem->number,
             'name'           => $agendaItem->name,
-            'public'         => (bool)$agendaItem->public,
+            'public'         => (bool) $agendaItem->public,
             'consultation'   => route('api.v1.consultation.show', $agendaItem->consultation),
             'result'         => $agendaItem->result,
             'resolutionText' => $agendaItem->resolutionText,

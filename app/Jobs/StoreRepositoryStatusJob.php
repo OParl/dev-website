@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 13/10/2016
- * Time: 10:51
+ * Time: 10:51.
  */
 
 namespace App\Jobs;
@@ -32,7 +32,7 @@ class StoreRepositoryStatusJob extends Job
     {
         RepositoryStatus::create([
             'repository' => $this->repository,
-            'payload' => $this->payload
+            'payload'    => $this->payload,
         ]);
     }
 }

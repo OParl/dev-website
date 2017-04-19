@@ -3,12 +3,11 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 07/10/2016
- * Time: 18:29
+ * Time: 18:29.
  */
 
 namespace App\Http\Controllers\Hooks;
 
-use App\Http\Controllers\Controller;
 use App\Http\Middleware\ValidateGitHubWebHook;
 use App\Jobs\GitHubPushJob;
 use Illuminate\Http\Request;
@@ -34,7 +33,6 @@ class GitHubHooksController extends HooksController
         switch ($ghEvent) {
             case 'pull_request':
                 // update jobs are only necessary on PR merges
-
 
                 if ($payload['action'] === 'closed' && $payload['merged']) {
                     $this->dispatch(new GitHubPushJob($repository, $payload));

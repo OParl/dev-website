@@ -12,10 +12,10 @@ class ServerServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         $router->group(['namespace' => 'OParl\Server\API\Controllers'], function ($router) {
-            require __DIR__ . '/routes.php';
+            require __DIR__.'/routes.php';
         });
 
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'server');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'server');
     }
 
     public function register()

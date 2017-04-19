@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 23/11/2016
- * Time: 10:57
+ * Time: 10:57.
  */
 
 namespace OParl\Spec\Model;
@@ -11,9 +11,7 @@ namespace OParl\Spec\Model;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 /**
- * Class Download
- *
- * @package OParl\Spec\Model
+ * Class Download.
  */
 class Download
 {

@@ -35,7 +35,7 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
         'Rathaus',
     ];
 
-    $name = $faker->randomElement($names) . ' ' . ($faker->optional() ? $faker->city : $faker->country);
+    $name = $faker->randomElement($names).' '.($faker->optional() ? $faker->city : $faker->country);
 
     $equivalentBody = collect(
         range(0, $faker->numberBetween(0, 5)))
@@ -59,7 +59,7 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
 
         'equivalent_body' => $equivalentBody,
 
-        'contact_email' => $slugify->slugify($contactName) . '@' . parse_url($url, PHP_URL_HOST),
+        'contact_email' => $slugify->slugify($contactName).'@'.parse_url($url, PHP_URL_HOST),
         'contact_name'  => $contactName,
 
         'classification' => $faker->word,
@@ -203,7 +203,7 @@ $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generat
         $shortNameNumber = $faker->numberBetween(100, 999);
     } while ($shortNameNumber < 0);
 
-    $shortName = 'O-' . $romanizer->formatNumber($shortNameNumber);
+    $shortName = 'O-'.$romanizer->formatNumber($shortNameNumber);
 
     $organizationTypes = [
         'externes Gremium',
@@ -263,7 +263,7 @@ $factory->define(OParl\Server\Model\Paper::class, function (Faker\Generator $fak
             'Vorschlag',
             'Eingabe',
             'Protokoll',
-            'Kurzprotokoll'
+            'Kurzprotokoll',
         ]),
     ];
 });
@@ -305,10 +305,10 @@ $factory->define(OParl\Server\Model\File::class, function (Faker\Generator $fake
 
     return [
         'storage_file_name' => $fileName,
-        'mime_type' => 'application/pdf',
-        'sha1_checksum' => $sha1,
-        'text' => $faker->realText(800),
-        'file_name' => $faker->randomAscii($faker->numberBetween(3, 12)),
-        'name' => $faker->randomAscii($faker->numberBetween(10, 20)),
+        'mime_type'         => 'application/pdf',
+        'sha1_checksum'     => $sha1,
+        'text'              => $faker->realText(800),
+        'file_name'         => $faker->randomAscii($faker->numberBetween(3, 12)),
+        'name'              => $faker->randomAscii($faker->numberBetween(10, 20)),
     ];
 });

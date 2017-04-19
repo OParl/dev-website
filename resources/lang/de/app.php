@@ -25,15 +25,15 @@ return [
 
     'demo.title' => 'API Demo',
 
-    'downloads.title' => 'Downloads',
-    'downloads.liboparl.title' => 'LibOParl',
-    'downloads.liboparl.description' => 'LibOParl kann sowohl als Quellcode direkt von GitHub bezogen werden, als auch in vorkompilierten Paketen für Debian/Linux und macOS.',
+    'downloads.title'                      => 'Downloads',
+    'downloads.liboparl.title'             => 'LibOParl',
+    'downloads.liboparl.description'       => 'LibOParl kann sowohl als Quellcode direkt von GitHub bezogen werden, als auch in vorkompilierten Paketen für Debian/Linux und macOS.',
     'downloads.liboparl.format.macos_brew' => 'Für macOS gibt es zu dem die Möglichkeit, liboparl über Homebrew zu beziehen. Dazu muss der Tap `efrane/myformulae` hinzugefügt werden. Dann kann liboparl mit `brew install liboparl` installiert werden. Nähere Informationen zur Benutzung von Homebrew sind unter [brew.sh](https://brew.sh) verfügbar.',
     'downloads.liboparl.format.source_zip' => 'Quellcode als Zip-Datei',
     'downloads.liboparl.format.debian_zip' => 'Library für Debian/GNU Linux',
-    'downloads.liboparl.format.macos_zip' => 'Library für macOS',
-    'downloads.liboparl.sourcecode' => 'Quellcode',
-    'downloads.liboparl.packages' => 'Pakete',
+    'downloads.liboparl.format.macos_zip'  => 'Library für macOS',
+    'downloads.liboparl.sourcecode'        => 'Quellcode',
+    'downloads.liboparl.packages'          => 'Pakete',
 
     'specification.title' => 'Spezifikation',
 
@@ -53,5 +53,5 @@ return [
     'specification.download.format.targz'  => 'Gzip',
     'specification.download.format.tarbz2' => 'Bzip2',
 
-    'footer.disclaimer' => "macOS ist eine eingetragene Marke von Apple Inc, CA\n"
+    'footer.disclaimer' => "macOS ist eine eingetragene Marke von Apple Inc, CA\n",
 ];

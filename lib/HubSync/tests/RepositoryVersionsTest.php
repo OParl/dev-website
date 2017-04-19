@@ -3,7 +3,8 @@
 use EFrane\HubSync\RepositoryVersions;
 
 /**
- * Class RepositoryVersionsTest
+ * Class RepositoryVersionsTest.
+ *
  * @after RepositoryTest
  */
 class RepositoryVersionsTest extends TestCase

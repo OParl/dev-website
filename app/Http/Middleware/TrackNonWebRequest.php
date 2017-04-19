@@ -7,17 +7,16 @@ use Closure;
 /**
  * This middleware can be used to track
  * non-web requests (which do not deliver html)
- * like API calls or Download routes
- *
- * @package App\Http\Middleware
+ * like API calls or Download routes.
  */
 class TrackNonWebRequest
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -27,7 +26,7 @@ class TrackNonWebRequest
 
         if (class_exists('\PiwikTracker')) {
             $tracker = new \PiwikTracker(config('piwik.siteId'), config('piwik.url'));
-            $tracker->doTrackPageView('demoapi:' . $request->getRequestUri());
+            $tracker->doTrackPageView('demoapi:'.$request->getRequestUri());
         }
 
         return $response;

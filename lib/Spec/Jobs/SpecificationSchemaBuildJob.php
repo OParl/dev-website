@@ -12,10 +12,10 @@ class SpecificationSchemaBuildJob extends Job
     protected $initialConstraint;
 
     /**
-     * Handle OParl Schema Updates
+     * Handle OParl Schema Updates.
      *
      * @param Filesystem $fs
-     * @param Log $log
+     * @param Log        $log
      */
     public function handle(Filesystem $fs, Log $log)
     {
@@ -34,7 +34,8 @@ class SpecificationSchemaBuildJob extends Job
 
     /**
      * @param Filesystem $fs
-     * @param Log $log
+     * @param Log        $log
+     *
      * @return Repository
      */
     public function doSchemaUpdate(Filesystem $fs, Log $log)
@@ -63,7 +64,7 @@ class SpecificationSchemaBuildJob extends Job
         $dirname = $this->createSchemaDirectory($fs, $dirname);
 
         collect($fs->files($hubSync->getPath('schema/')))->each(function ($file) use ($fs, $dirname) {
-            $filename = $dirname . '/' . basename($file);
+            $filename = $dirname.'/'.basename($file);
 
             $fs->put($filename, $fs->get($file));
         });
@@ -74,20 +75,22 @@ class SpecificationSchemaBuildJob extends Job
     }
 
     /**
-     * Create the versioned Schema Directory
+     * Create the versioned Schema Directory.
      *
      * Schema directories
      *
      * @param Filesystem $fs
      * @param $authoritativeVersion
+     *
      * @return string
      */
     public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
     {
-        $schemaPath = 'schema/' . $authoritativeVersion;
+        $schemaPath = 'schema/'.$authoritativeVersion;
 
         if (!$fs->exists($schemaPath)) {
             $fs->makeDirectory($schemaPath);
+
             return $schemaPath;
         }
 

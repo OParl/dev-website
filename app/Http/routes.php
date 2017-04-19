@@ -20,7 +20,7 @@
  * dev.oparl.org except the api/ section which is loaded in via the
  * OParl\Server\ServerServiceProvider.
  */
-$router->group(['domain' => 'dev.' . config('app.url')], function () use ($router) {
+$router->group(['domain' => 'dev.'.config('app.url')], function () use ($router) {
     $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
 
     // Specification
@@ -69,7 +69,7 @@ $router->group(['domain' => 'dev.' . config('app.url')], function () use ($route
  * Additionally, short links to downloads of the stable and
  * the latest unstable specification versions are provided.
  */
-$router->group(['domain' => 'spec.' . config('app.url')], function () use ($router) {
+$router->group(['domain' => 'spec.'.config('app.url')], function () use ($router) {
     $router->any('/')->uses('SpecificationController@redirectToIndex');
     $router->get('/1.0')->uses('SpecificationController@redirectToVersion')->where('version', '1.0');
 
@@ -85,7 +85,7 @@ $router->group(['domain' => 'spec.' . config('app.url')], function () use ($rout
  *
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
-$router->group(['domain' => 'schema.' . config('app.url')], function () use ($router) {
+$router->group(['domain' => 'schema.'.config('app.url')], function () use ($router) {
     $router->pattern('version', '(1\.0|1\.1|master)');
 
     $router->get('/')->uses('DevelopersController@redirectToIndex');

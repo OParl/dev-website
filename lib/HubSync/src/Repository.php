@@ -6,13 +6,11 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 /**
- * Class Repository
+ * Class Repository.
  *
  * This is a git repository container able to sync itself with any remote.
  * Syncing is done using the actual git binaries thus the process running
  * this command should be allowed to use these.
- *
- * @package EFrane\HubSync
  */
 class Repository
 {
@@ -41,7 +39,7 @@ class Repository
     protected $fs = null;
 
     /**
-     * Repository constructor
+     * Repository constructor.
      *
      * @param $localName string
      * @param $remoteURI string
@@ -86,7 +84,7 @@ class Repository
     }
 
     /**
-     * Removes the repository
+     * Removes the repository.
      */
     public function remove()
     {
@@ -100,21 +98,22 @@ class Repository
     }
 
     /**
-     * Get the path to a file inside the repository
+     * Get the path to a file inside the repository.
      *
      * Will return the repository's root path if no
      * filename was given.
      *
      * @param string $file path/to/a/file
+     *
      * @return string
      */
     public function getPath($file = '')
     {
-        return (strlen($file) === 0) ? $this->path : $this->path . '/' . $file;
+        return (strlen($file) === 0) ? $this->path : $this->path.'/'.$file;
     }
 
     /**
-     * Get the repository name
+     * Get the repository name.
      *
      * i.e. the name of the repository's root directory
      *
@@ -126,7 +125,7 @@ class Repository
     }
 
     /**
-     * Get the remote URI used for updates
+     * Get the remote URI used for updates.
      *
      * @return string
      */
@@ -136,7 +135,7 @@ class Repository
     }
 
     /**
-     * Get the current repo treeish
+     * Get the current repo treeish.
      *
      * Aside from the canonical revision hash, there are
      * also other ways to uniquely address a git commit.
@@ -151,11 +150,12 @@ class Repository
     public function getCurrentTreeish()
     {
         $revParseCmd = sprintf('git -C %s rev-parse --abbrev-ref HEAD', $this->getAbsolutePath());
+
         return $this->synchronousProcess($revParseCmd);
     }
 
     /**
-     * Returns the absolute path to the repository
+     * Returns the absolute path to the repository.
      *
      * @return string
      */
@@ -173,18 +173,20 @@ class Repository
     }
 
     /**
-     * Get the unique shortened commit hash for any revision
+     * Get the unique shortened commit hash for any revision.
      *
      * In contrast to `getCurrentTreeish` this does not
      * return a symbolic name but the familiar git commit sha1
      * hash in it's shortened version.
      *
      * @param string $revision revision can be any tree-ish
+     *
      * @return string
      */
     public function getUniqueRevision($revision)
     {
         $revParseCmd = sprintf('git -C %s rev-parse --short %s', $this->getAbsolutePath(), $revision);
+
         return $this->synchronousProcess($revParseCmd);
     }
 }

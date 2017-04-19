@@ -10,7 +10,7 @@ class ValidateGitHubWebHook
      * Handle an incoming GitHub Webhook request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -33,7 +33,7 @@ class ValidateGitHubWebHook
 
         // check digest (https://developer.github.com/webhooks/securing/)
         $hmac = hash_hmac('sha1', $request->getContent(), env('GITHUB_WEBHOOK_SECRET'));
-        $hmacFormatted = 'sha1=' . $hmac;
+        $hmacFormatted = 'sha1='.$hmac;
         if ($hmacFormatted !== $request->header('x-hub-signature')) {
             return $errorResponse;
         }

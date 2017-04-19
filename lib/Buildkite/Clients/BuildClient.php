@@ -45,8 +45,8 @@ class BuildClient extends AbstractClient
     }
 
   /**
-   * @param string $status
-   * @param array $meta
+   * @param string       $status
+   * @param array        $meta
    * @param string|array $branch
    *
    * @return array|null

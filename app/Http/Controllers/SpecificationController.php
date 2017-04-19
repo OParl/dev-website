@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\BuildRepository;
 use OParl\Spec\LiveVersionRepository;
 use OParl\Spec\Model\LiveView;
-use OParl\Spec\Repositories\DownloadRepository;
 
 class SpecificationController extends Controller
 {

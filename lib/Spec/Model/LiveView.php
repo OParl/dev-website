@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 24/11/2016
- * Time: 11:21
+ * Time: 11:21.
  */
 
 namespace OParl\Spec\Model;
@@ -14,11 +14,9 @@ use Masterminds\HTML5;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * Represents a live view of the specification
+ * Represents a live view of the specification.
  *
  * Provides the necessary modifications to turn
- *
- * @package OParl\Spec\Model
  */
 class LiveView
 {
@@ -111,8 +109,8 @@ class LiveView
             $toLanguage = $fromLanguage;
         }
 
-        $html = preg_replace('/<pre(.+)class="' . $fromLanguage . '">.*?<code.*?>/',
-            '<pre$1><code class="language-' . $toLanguage . '">', $html);
+        $html = preg_replace('/<pre(.+)class="'.$fromLanguage.'">.*?<code.*?>/',
+            '<pre$1><code class="language-'.$toLanguage.'">', $html);
 
         return $html;
     }
@@ -124,12 +122,13 @@ class LiveView
     {
         return function ($match) use (&$exampleIdentifierCount) {
             $data = [
-                'exampleIdentifier' => 'example-' . $exampleIdentifierCount,
+                'exampleIdentifier' => 'example-'.$exampleIdentifierCount,
                 'exampleTitle'      => $match[1],
                 'exampleCode'       => $match[2],
             ];
 
             $exampleIdentifierCount++;
+
             return view('specification.example', $data);
         };
     }

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 20/11/2016
- * Time: 14:48
+ * Time: 14:48.
  */
 
 namespace OParl\Spec\Jobs;
@@ -19,7 +19,7 @@ class SpecificationDownloadsBuildJob extends Job
 
     /**
      * @param Filesystem $fs
-     * @param Log $log
+     * @param Log        $log
      */
     public function handle(Filesystem $fs, Log $log)
     {
@@ -54,7 +54,8 @@ class SpecificationDownloadsBuildJob extends Job
 
     /**
      * @param Filesystem $fs
-     * @param Log $log
+     * @param Log        $log
+     *
      * @return Repository
      */
     public function build(Filesystem $fs, Log $log)
@@ -74,14 +75,16 @@ class SpecificationDownloadsBuildJob extends Job
     /**
      * @param Filesystem $fs
      * @param $currentHead
+     *
      * @return string
      */
     public function createDownloadsDirectory(Filesystem $fs)
     {
-        $downloadsPath = 'downloads/specification/' . $this->storageName;
+        $downloadsPath = 'downloads/specification/'.$this->storageName;
 
         if (!$fs->exists($downloadsPath)) {
             $fs->makeDirectory($downloadsPath);
+
             return $downloadsPath;
         }
 
@@ -107,13 +110,13 @@ class SpecificationDownloadsBuildJob extends Job
 
         collect($downloadableFormats)->map(function ($format) use ($hubSync) {
             return [
-                'build'   => 'OParl-' . $hubSync->getCurrentHead() . '.' . $format,
-                'storage' => 'OParl-' . $this->storageName . '.' . $format,
+                'build'   => 'OParl-'.$hubSync->getCurrentHead().'.'.$format,
+                'storage' => 'OParl-'.$this->storageName.'.'.$format,
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
             $fs->copy(
-                $hubSync->getPath('out/' . $filename['build']),
-                $downloadsPath . '/' . $filename['storage']
+                $hubSync->getPath('out/'.$filename['build']),
+                $downloadsPath.'/'.$filename['storage']
             );
         });
     }
@@ -134,13 +137,13 @@ class SpecificationDownloadsBuildJob extends Job
 
         collect($downloadableArchives)->map(function ($format) use ($hubSync) {
             return [
-                'build'   => 'OParl-' . $hubSync->getCurrentHead() . '.' . $format,
-                'storage' => 'OParl-' . $this->storageName . '.' . $format,
+                'build'   => 'OParl-'.$hubSync->getCurrentHead().'.'.$format,
+                'storage' => 'OParl-'.$this->storageName.'.'.$format,
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
             $fs->copy(
-                $hubSync->getPath('archives/' . $filename['build']),
-                $downloadsPath . '/' . $filename['storage']
+                $hubSync->getPath('archives/'.$filename['build']),
+                $downloadsPath.'/'.$filename['storage']
             );
         });
     }

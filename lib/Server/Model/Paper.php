@@ -26,18 +26,18 @@ class Paper extends BaseModel
 
     public function relatedPapers()
     {
-        return $this->belongsToMany(Paper::class, 'oparl_papers_related_papers', 'paper_id', 'related_paper_id');
+        return $this->belongsToMany(self::class, 'oparl_papers_related_papers', 'paper_id', 'related_paper_id');
     }
 
     public function subordinatedPapers()
     {
-        return $this->belongsToMany(Paper::class, 'oparl_papers_subordinated_papers', 'paper_id',
+        return $this->belongsToMany(self::class, 'oparl_papers_subordinated_papers', 'paper_id',
             'subordinated_paper_id');
     }
 
     public function superordinatedPapers()
     {
-        return $this->belongsToMany(Paper::class, 'oparl_papers_superordinated_papers', 'paper_id',
+        return $this->belongsToMany(self::class, 'oparl_papers_superordinated_papers', 'paper_id',
             'superordinated_paper_id');
     }
 

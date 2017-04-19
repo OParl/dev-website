@@ -49,6 +49,6 @@ return [
     'repositories' => [
         'spec',
         'dev-website',
-        'liboparl'
-    ]
+        'liboparl',
+    ],
 ];

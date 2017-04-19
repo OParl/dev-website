@@ -2,7 +2,6 @@
 
 namespace OParl\Server\API\Transformers;
 
-use OParl\Server\Model\File;
 use OParl\Server\Model\Meeting;
 
 class MeetingTransformer extends BaseTransformer
@@ -53,7 +52,7 @@ class MeetingTransformer extends BaseTransformer
     public function includeLocation(Meeting $meeting)
     {
         if (!$meeting->location) {
-            return null;
+            return;
         }
 
         return $this->item($meeting->location, $this->locationTransformer);
@@ -62,7 +61,7 @@ class MeetingTransformer extends BaseTransformer
     public function includeInvitation(Meeting $meeting)
     {
         if (!$meeting->invitation) {
-            return null;
+            return;
         }
 
         return $this->item($meeting->invitation, $this->fileTransformer);
@@ -71,7 +70,7 @@ class MeetingTransformer extends BaseTransformer
     public function includeResultsProtocol(Meeting $meeting)
     {
         if (!$meeting->resultsProtocol) {
-            return null;
+            return;
         }
 
         return $this->item($meeting->resultsProtocol, $this->fileTransformer);
@@ -80,7 +79,7 @@ class MeetingTransformer extends BaseTransformer
     public function includeVerbatimProtocol(Meeting $meeting)
     {
         if (!$meeting->verbatimProtocol) {
-            return null;
+            return;
         }
 
         return $this->item($meeting->verbatimProtocol, $this->fileTransformer);
