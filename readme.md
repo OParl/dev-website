@@ -1,4 +1,6 @@
-Master: [![Build Status](https://travis-ci.org/OParl/dev-website.svg?branch=master)](https://travis-ci.org/OParl/dev-website)<br />
+Master: [![Build Status](https://travis-ci.org/OParl/dev-website.svg?branch=master)](https://travis-ci.org/OParl/dev-website)
+[![StyleCI](https://styleci.io/repos/37522193/shield?branch=master)](https://styleci.io/repos/37522193)
+<br />
 Production: [![Build Status](https://travis-ci.org/OParl/dev-website.svg?branch=production)](https://travis-ci.org/OParl/dev-website)
 
 # OParl - Entwicklerplattform
