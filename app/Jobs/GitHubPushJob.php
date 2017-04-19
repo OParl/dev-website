@@ -43,9 +43,6 @@ class GitHubPushJob extends Job
 
     public function handle()
     {
-        // fixme: there is an error with the repository status model
-        //$this->dispatch(new StoreRepositoryStatusJob($this->repository, $this->payload));
-
         switch ($this->repository) {
             case 'spec':
                 switch ($this->payload['ref']) {
@@ -71,8 +68,8 @@ class GitHubPushJob extends Job
                 // TODO: subtree-split lib/Server to OParl/php-reference-server
                 break;
 
-            case 'liboparl':
-                // TODO: request new buildables from CI?
+            case 'validator':
+                // TODO: update validator repo
                 break;
 
             default:
