@@ -308,5 +308,7 @@ $factory->define(OParl\Server\Model\File::class, function (Faker\Generator $fake
         'mime_type' => 'application/pdf',
         'sha1_checksum' => $sha1,
         'text' => $faker->realText(800),
+        'file_name' => $faker->randomAscii($faker->numberBetween(3, 12)),
+        'name' => $faker->randomAscii($faker->numberBetween(10, 20)),
     ];
 });

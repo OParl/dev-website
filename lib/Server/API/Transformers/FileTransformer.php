@@ -17,11 +17,11 @@ class FileTransformer extends BaseTransformer
             'text'         => $file->text,
 
             // TODO: make this configurable before providing the server as loadable module
-            'accessUrl'    => null,
-            'downloadUrl'  => null,
+            'accessUrl'    => route('dummyfile.show', $file->file_name),
+            'downloadUrl'  => route('dummyfile.serve', $file->file_name),
 
             'externalServiceUrl' => $file->external_service_url,
-            'masterFile'         => route('api.v1.file.show', $file->masterFile),
+            'masterFile'         => ($file->masterFile) ? route('api.v1.file.show', $file->masterFile) : null,
             'derivativeFile'     => $this->collectionRouteList('api.v1.file.show', $file->derivativeFiles),
 
             'license'     => $file->license,

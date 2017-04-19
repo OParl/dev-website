@@ -55,7 +55,7 @@ $router->group(['domain' => 'dev.' . config('app.url')], function () use ($route
         ->where('repository', '[a-z-]+');
 
     // Dummy file controller for API demo
-    $router->pattern('filename', '[a-z0-9]{3,8}');
+    $router->pattern('filename', '[a-z0-9]{3,12}');
     $router->get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
     $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
 });

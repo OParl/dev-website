@@ -6,7 +6,7 @@ use OParl\Server\Model\Paper;
 
 class PaperTransformer extends BaseTransformer
 {
-    protected $defaultIncludes = ['location', 'consultation'];
+    protected $defaultIncludes = ['location', 'consultation', 'mainFile'];
 
     public function transform(Paper $paper)
     {
@@ -19,7 +19,7 @@ class PaperTransformer extends BaseTransformer
             'relatedPaper' => $this->collectionRouteList('api.v1.paper.show', $paper->relatedPapers),
             'subordinatedPaper' => $this->collectionRouteList('api.v1.paper.show', $paper->subordinatedPapers),
             'superordinatedPaper' => $this->collectionRouteList('api.v1.paper.show', $paper->superordinatedPapers),
-            'mainFile' => $paper->mainFile,
+            // mainFile is included
             'auxiliaryFile' => $this->collectionRouteList('api.v1.file.show', $paper->auxiliaryFiles),
             'originatorPerson' => $this->collectionRouteList('api.v1.person.show', $paper->originatorPeople),
             'underDirectionOf' => $this->collectionRouteList('api.v1.organization.show', $paper->underDirectionOfOrganizations),
@@ -35,5 +35,10 @@ class PaperTransformer extends BaseTransformer
 
     public function includeConsultation(Paper $paper) {
         return $this->collection($paper->consultations, new ConsultationTransformer(true), 'included');
+    }
+
+    public function includeMainFile(Paper $paper)
+    {
+        return $this->item($paper->mainFile, new FileTransformer(true), 'included');
     }
 }
