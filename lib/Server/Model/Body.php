@@ -44,4 +44,9 @@ class Body extends BaseModel
     {
         return $this->belongsTo(System::class);
     }
+
+    public function papers()
+    {
+        return $this->hasMany(Paper::class);
+    }
 }

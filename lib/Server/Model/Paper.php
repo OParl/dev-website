@@ -6,6 +6,9 @@ class Paper extends BaseModel
 {
     protected $dates = ['published_date'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|Body
+     */
     public function body()
     {
         return $this->belongsTo(Body::class);

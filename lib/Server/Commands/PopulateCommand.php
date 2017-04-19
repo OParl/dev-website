@@ -151,12 +151,17 @@ class PopulateCommand extends Command
 
         /* Paper */
         $this->info('Creating Paper entities');
-        $progressBar = new ProgressBar($this->output, $amounts['paper']);
-        factory(Paper::class, $amounts['paper'])->create()->each(function ($paper) use ($progressBar) {
-            /* @var Paper $paper */
-            $paper->mainFile()->associate(File::all()->random());
+        $bodies = Body::all();
+        $progressBar = new ProgressBar($this->output, $bodies->count() * $amounts['paper']);
+        Body::all()->each(function(Body $body) use ($progressBar, $amounts) {
+            factory(Paper::class, $amounts['paper'])->create()->each(function ($paper) use ($body, $progressBar) {
+                /* @var Paper $paper */
+                $paper->mainFile()->associate(File::all()->random());
+                $paper->body()->associate($body);
+                $paper->save();
 
-            $progressBar->advance();
+                $progressBar->advance();
+            });
         });
         $this->line('');
 
