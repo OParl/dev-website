@@ -46,7 +46,7 @@ class JobTest extends TestCase
         $this->assertEquals('make DEBUG=false live', $sut->prepareCommand($cmd, 'false'));
 
         $cmd = '%s %d %1.1f';
-        $this->assertEquals('make 1 1,1', $sut->prepareCommand($cmd, 'make', 1, 1.1));
+        $this->assertEquals('make 1 1.1', $sut->prepareCommand($cmd, 'make', 1, 1.1));
 
         config(['oparl.specificationBuildMode' => 'docker']);
 
