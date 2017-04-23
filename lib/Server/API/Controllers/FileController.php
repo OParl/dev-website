@@ -15,6 +15,6 @@ class FileController extends APIController
 
     public function getCustomQueryParameters()
     {
-        return ['created_since', 'created_before', 'modified_since', 'modified_before'];
+        return ['created_since', 'created_until', 'modified_since', 'modified_until'];
     }
 }

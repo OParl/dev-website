@@ -26,7 +26,7 @@ trait FilterQueryMethods
         $query->where('created_at', '>=', $valueExpression->getValue());
     }
 
-    public function queryCreatedBefore(QueryService &$query, ValueExpression $valueExpression)
+    public function queryCreatedUntil(QueryService &$query, ValueExpression $valueExpression)
     {
         $query->where('created_at', '<=', $valueExpression->getValue());
     }
@@ -36,7 +36,7 @@ trait FilterQueryMethods
         $query->where('updated_at', '>=', $valueExpression->getValue());
     }
 
-    public function queryModifiedBefore(QueryService &$query, ValueExpression $valueExpression)
+    public function queryModifiedUntil(QueryService &$query, ValueExpression $valueExpression)
     {
         $query->where('updated_at', '<=', $valueExpression->getValue());
     }

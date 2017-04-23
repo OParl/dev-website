@@ -17,7 +17,7 @@ class OrganizationController extends APIController
 
     public function getCustomQueryParameters()
     {
-        return ['created_since', 'created_before', 'modified_since', 'modified_before'];
+        return ['created_since', 'created_until', 'modified_since', 'modified_until'];
     }
 
     protected function queryBody(QueryService &$query, ValueExpression $valueExpression)
