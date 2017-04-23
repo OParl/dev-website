@@ -16,3 +16,4 @@ npm-debug.log
 
 tests/assets/spec.git
 
+!/lib/Server/API/Controllers/MeetingController.php
