@@ -6,7 +6,7 @@ use EFrane\Transfugio\Query\QueryService;
 use EFrane\Transfugio\Query\ValueExpression;
 
 /**
- * Provide the methods for OParl Filter Queries
+ * Provide the methods for OParl Filter Queries.
  *
  * Queries for lists can be filtered by the following parameters:
  *
@@ -18,8 +18,6 @@ use EFrane\Transfugio\Query\ValueExpression;
  * Which all expect ISO 8801 Timestamps. These are nicely transformed into Carbon
  * instances by Transfugio which makes all this querying a matter of applying the
  * correct operator on the correct model field.
- *
- * @package OParl\Server\API
  */
 trait FilterQueryMethods
 {

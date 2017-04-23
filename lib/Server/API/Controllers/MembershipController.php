@@ -11,7 +11,6 @@ class MembershipController extends APIController
 {
     use IndexPaginatedTrait;
     use ShowItemTrait;
-
     use FilterQueryMethods;
 
     public function getCustomQueryParameters()
