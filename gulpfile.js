@@ -1,5 +1,6 @@
 let gulp = require('gulp');
 
+let env        = require('gulp-env');
 let babelify   = require('babelify');
 let browserify = require('browserify');
 let buffer     = require('vinyl-buffer');
@@ -17,6 +18,12 @@ let config = {
 };
 
 let script = function (src, dest = '') {
+    if (config.production) {
+        env.set({
+            NODE_ENV: 'production'
+        });
+    }
+
     if (dest.length === 0) {
         src_parts = src.split('/');
         dest = src_parts.pop();
@@ -31,10 +38,10 @@ let script = function (src, dest = '') {
 
     return m_browserify
         .add(src)
+        .transform(vueify)
         .transform(babelify.configure({
             presets: [require('babel-preset-es2015')]
         }))
-        .transform(vueify)
         .bundle()
         .on('error', function (e) {
             console.log(e);
@@ -62,6 +69,7 @@ gulp.task('default', ['scripts', 'styles', 'fonts', 'images']);
 gulp.task('watch', function () {
     gulp.watch('./resources/assets/sass/**/*.scss', ['styles']);
     gulp.watch('./resources/js/**/*.js', ['scripts']);
+    gulp.watch('./resources/js/**/*.vue', ['scripts']);
 });
 
 gulp.task('scripts-api', function () {
@@ -144,6 +152,10 @@ gulp.task('images', function() {
     ];
 
     for (const i in images) {
+        if (!images.hasOwnProperty(i)) {
+            continue;
+        }
+
         let image = images[i];
 
         gulp.src(image[0])
