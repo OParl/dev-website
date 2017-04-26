@@ -8,15 +8,12 @@
 
 namespace App\Http\Controllers\Hooks;
 
-use App\Http\Middleware\ValidateGitHubWebHook;
-use App\Jobs\GitHubPushJob;
 use Illuminate\Http\Request;
 
 class GitLabHooksController extends HooksController
 {
     public function __construct()
     {
-
     }
 
     public function push(Request $request, $repository)
