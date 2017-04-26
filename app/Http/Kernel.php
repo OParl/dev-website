@@ -40,7 +40,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'guest'        => RedirectIfAuthenticated::class,
         'hooks.github' => ValidateGitHubWebHook::class,
-        'api.format'   => APIOutputFormatMiddleware::class,
         'track'        => TrackNonWebRequest::class,
         'bindings'     => SubstituteBindings::class,
     ];

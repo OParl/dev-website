@@ -883,12 +883,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/Transfugio.git",
-                "reference": "4adf15ac9e64e7e1e1647f452dbef5679b6eaee5"
+                "reference": "73e696f2dec3b9e86ceadd3cd6bdb3efc50134c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/4adf15ac9e64e7e1e1647f452dbef5679b6eaee5",
-                "reference": "4adf15ac9e64e7e1e1647f452dbef5679b6eaee5",
+                "url": "https://api.github.com/repos/eFrane/Transfugio/zipball/73e696f2dec3b9e86ceadd3cd6bdb3efc50134c8",
+                "reference": "73e696f2dec3b9e86ceadd3cd6bdb3efc50134c8",
                 "shasum": ""
             },
             "require": {
@@ -923,7 +923,7 @@
                 }
             ],
             "description": "Fractal based APIs in Laravel.",
-            "time": "2017-04-23T09:24:06+00:00"
+            "time": "2017-04-26T08:40:49+00:00"
         },
         {
             "name": "embed/embed",
@@ -1876,16 +1876,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.37",
+            "version": "1.0.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd"
+                "reference": "4ba6e13f5116204b21c3afdf400ecf2b9eb1c482"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
-                "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/4ba6e13f5116204b21c3afdf400ecf2b9eb1c482",
+                "reference": "4ba6e13f5116204b21c3afdf400ecf2b9eb1c482",
                 "shasum": ""
             },
             "require": {
@@ -1907,12 +1907,12 @@
                 "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
                 "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
                 "league/flysystem-copy": "Allows you to use Copy.com storage",
-                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
                 "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
                 "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
                 "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
                 "league/flysystem-webdav": "Allows you to use WebDAV storage",
-                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+                "spatie/flysystem-dropbox": "Allows you to use Dropbox storage"
             },
             "type": "library",
             "extra": {
@@ -1955,7 +1955,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-03-22T15:43:14+00:00"
+            "time": "2017-04-22T18:59:19+00:00"
         },
         {
             "name": "league/fractal",
