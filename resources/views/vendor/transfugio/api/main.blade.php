@@ -1,1 +1,1 @@
-<pre><code class="language-javascript">{{ $json }}</code></pre>
+<pre ><code class="language-javascript">{{ $json }}</code></pre>

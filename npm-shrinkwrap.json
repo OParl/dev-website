@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "JSONStream": {
+      "version": "1.3.0",
+      "from": "JSONStream@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.0.tgz"
+    },
     "abbrev": {
       "version": "1.1.0",
       "from": "abbrev@>=1.0.0 <2.0.0",
@@ -1390,6 +1395,11 @@
       "from": "gulp-copy@latest",
       "resolved": "https://registry.npmjs.org/gulp-copy/-/gulp-copy-1.0.0.tgz"
     },
+    "gulp-env": {
+      "version": "0.4.0",
+      "from": "gulp-env@>=0.4.0 <0.5.0",
+      "resolved": "https://registry.npmjs.org/gulp-env/-/gulp-env-0.4.0.tgz"
+    },
     "gulp-exec": {
       "version": "2.1.3",
       "from": "gulp-exec@>=2.1.3 <3.0.0",
@@ -1807,11 +1817,6 @@
       "version": "4.0.1",
       "from": "jsonpointer@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/jsonpointer/-/jsonpointer-4.0.1.tgz"
-    },
-    "JSONStream": {
-      "version": "1.3.0",
-      "from": "JSONStream@>=1.0.3 <2.0.0",
-      "resolved": "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.0.tgz"
     },
     "jsprim": {
       "version": "1.3.1",
@@ -3086,15 +3091,15 @@
       "from": "strict-uri-encode@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz"
     },
-    "string_decoder": {
-      "version": "0.10.31",
-      "from": "string_decoder@>=0.10.0 <0.11.0",
-      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
-    },
     "string-width": {
       "version": "1.0.2",
       "from": "string-width@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/string-width/-/string-width-1.0.2.tgz"
+    },
+    "string_decoder": {
+      "version": "0.10.31",
+      "from": "string_decoder@>=0.10.0 <0.11.0",
+      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
     },
     "stringstream": {
       "version": "0.0.5",

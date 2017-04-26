@@ -1,11 +1,11 @@
-import Vue from 'vue/dist/vue.js'
-import './directives.js'
+import Vue from 'vue'
+import Prism from 'prismjs/components/prism-core'
+import 'prismjs/components/prism-javascript'
 
-import Helpers from './modules/helpers.js'
 import FModal from './modules/fmodal.vue'
 import FAccordion from './modules/faccordion.vue'
 
-var vm = new Vue({
+const vm = new Vue({
     el: '#app',
 
     data: {
@@ -13,8 +13,8 @@ var vm = new Vue({
         showTableOfContents: false,
     },
 
-    created() {
-        //Helpers.prismURLHelper();
+    mounted() {
+        Prism.highlightAll();
     },
 
     components: {
