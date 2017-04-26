@@ -147,7 +147,7 @@ gulp.task('images', function() {
         let image = images[i];
 
         gulp.src(image[0])
-            .pipe((image.length == 3) ? rename(image[2]) : util.noop())
+            .pipe((image.length === 3) ? rename(image[2]) : util.noop())
             .pipe(gulp.dest(image[1], {
                 overwrite: false
             }));
