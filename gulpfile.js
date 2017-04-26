@@ -1,17 +1,14 @@
 let gulp = require('gulp');
 
-let env        = require('gulp-env');
-let babelify   = require('babelify');
-let browserify = require('browserify');
-let buffer     = require('vinyl-buffer');
-let concat     = require('gulp-concat');
-let cssmin     = require('gulp-clean-css');
-let rename     = require("gulp-rename");
-let sass       = require('gulp-sass');
-let source     = require('vinyl-source-stream');
-let uglify     = require('gulp-uglify');
-let util       = require('gulp-util');
-let vueify     = require('vueify');
+let env           = require('gulp-env');
+let babelify      = require('babelify');
+let cssmin        = require('gulp-clean-css');
+let rename        = require("gulp-rename");
+let sass          = require('gulp-sass');
+let uglify        = require('gulp-uglify');
+let util          = require('gulp-util');
+let webpackStream = require('webpack-stream');
+let vue           = require('vue-loader');
 
 let config = {
     production: !!util.env.production
@@ -29,26 +26,17 @@ let script = function (src, dest = '') {
         dest = src_parts.pop();
     }
 
-    const m_browserify = browserify({
-        debug: !config.production,
-        cache: {},
-        packageCache: {},
-        fullPaths: true,
-    });
-
-    return m_browserify
-        .add(src)
-        .transform(vueify)
-        .transform(babelify.configure({
-            presets: [require('babel-preset-es2015')]
+    // TODO: use webpack...somehow
+    return gulp.src(src)
+        .pipe(webpackStream({
+            loaders: [
+                {
+                    test: /\.vue$/,
+                    loader: 'vue'
+                }
+            ]
         }))
-        .bundle()
-        .on('error', function (e) {
-            console.log(e);
-        })
-        .pipe(source(dest))
-        .pipe(buffer())
-        .pipe((config.production) ? uglify() : util.noop())
+        .pipe(rename(dest))
 };
 
 let font_src = function (src, formats = ['eot', 'otf', 'ttf', 'woff', 'woff2']) {
