@@ -6,7 +6,6 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrackNonWebRequest;
 use App\Http\Middleware\ValidateGitHubWebHook;
 use App\Http\Middleware\VerifyCsrfToken;
-use EFrane\Transfugio\Http\APIOutputFormatMiddleware;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
