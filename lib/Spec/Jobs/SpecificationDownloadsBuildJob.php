@@ -60,7 +60,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
      */
     public function build(Filesystem $fs, Log $log)
     {
-        $hubSync = $this->getUpdatedHubSync($fs, $log);
+        $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
         $this->checkoutHubSyncToTreeish($hubSync);
 
         $revision = $hubSync->getCurrentHead();
