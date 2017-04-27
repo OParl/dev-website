@@ -8,12 +8,15 @@
 
 namespace App\Http\Controllers\Hooks;
 
+use App\Http\Middleware\ValidateGitHubWebHook;
+use App\Jobs\GitLabPushJob;
 use Illuminate\Http\Request;
 
 class GitLabHooksController extends HooksController
 {
     public function __construct()
     {
+        $this->middleware(ValidateGitHubWebHook::class, ['except' => 'index']);
     }
 
     public function push(Request $request, $repository)
@@ -24,6 +27,22 @@ class GitLabHooksController extends HooksController
             return abort(400);
         }
 
-        return $request->input();
+        $glEvent = $request->header('x-gitlab-event');
+
+        if (is_null($glEvent)) {
+            return abort(400);
+        }
+
+        $payload = json_decode($request->request, true);
+
+        switch ($glEvent) {
+            case 'Pipeline Hook':
+                $this->dispatch(new GitLabPushJob($payload));
+                return response()->json(['result' => 'Success.']);
+                break;
+
+            default:
+                return response()->json(['result' => \Inspiring::quote()]);
+        }
     }
 }

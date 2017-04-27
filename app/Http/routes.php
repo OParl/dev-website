@@ -55,7 +55,7 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->where('repository', '[a-z-]+');
 
     $router->get('/_/gl/', ['uses' => 'Hooks\GitLabHooksController@index', 'as' => 'hooks.gl.index']);
-    $router->get('/_/gl/push/{repository}', ['uses' => 'Hooks\GitLabHooksController@index', 'as' => 'hooks.gl.push'])
+    $router->post('/_/gl/push/{repository}', ['uses' => 'Hooks\GitLabHooksController@push', 'as' => 'hooks.gl.push'])
         ->where('repository', '[a-z-]+');
 
     // Dummy file controller for API demo
