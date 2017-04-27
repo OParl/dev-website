@@ -7,7 +7,7 @@ use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
-class SpecificationSchemaBuildJob extends Job
+class SpecificationSchemaBuildJob extends SpecificationJob
 {
     protected $initialConstraint;
 

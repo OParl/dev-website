@@ -2,9 +2,9 @@
 
 namespace OParl\Spec\Jobs;
 
+use App\Jobs\Job;
 use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
-use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,9 +12,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Symfony\Component\Process\Process;
 
-class Job extends \App\Jobs\Job implements ShouldQueue
+abstract class SpecificationJob extends Job implements ShouldQueue
 {
-    use Queueable;
     use InteractsWithQueue;
     use Notifiable;
 
@@ -23,13 +22,15 @@ class Job extends \App\Jobs\Job implements ShouldQueue
     /**
      * @var string treeish of the synced repository
      */
-    protected $treeish = 'master';
+    protected $treeish = '';
 
     protected $buildMode = 'docker';
 
-    public function __construct($treeish = 'master')
+    public function __construct($treeish = '')
     {
-        $this->treeish = $treeish;
+        if (!is_string($treeish) || strlen($treeish) === 0) {
+            $this->treeish = config('oparl.versions.specification.latest');
+        }
 
         $this->buildMode = config('oparl.specificationBuildMode');
 
@@ -53,8 +54,8 @@ class Job extends \App\Jobs\Job implements ShouldQueue
      * leaving the repo in a pristine state afterwards.
      *
      * @param Repository $repository
-     * @param string     $cmd        unprepared command
-     * @param array      $args       command arguments
+     * @param string $cmd unprepared command
+     * @param array $args command arguments
      *
      * @return bool command success
      */
@@ -85,6 +86,31 @@ class Job extends \App\Jobs\Job implements ShouldQueue
         return $result;
     }
 
+    /**
+     * Run a Symfony\Process synchronously.
+     *
+     * Requires a working directory.
+     *
+     * @param $path
+     * @param $cmd
+     *
+     * @return bool
+     */
+    public function runSynchronousJob($path, $cmd)
+    {
+        $process = new Process($cmd, $path);
+
+        $process->start();
+        $process->wait();
+
+        return $process->getExitCode() === 0;
+    }
+
+    /**
+     * @param Filesystem $fs
+     * @param Log $log
+     * @return Repository
+     */
     public function getUpdatedHubSync(Filesystem $fs, Log $log)
     {
         $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
@@ -101,7 +127,7 @@ class Job extends \App\Jobs\Job implements ShouldQueue
 
     /**
      * @param Repository $hubSync
-     * @param bool       $selectMostRecentVersion
+     * @param bool $selectMostRecentVersion
      *
      * @return bool
      */
@@ -126,25 +152,10 @@ class Job extends \App\Jobs\Job implements ShouldQueue
     }
 
     /**
-     * Run a Symfony\Process synchronously.
-     *
-     * Requires a working directory.
-     *
-     * @param $path
      * @param $cmd
-     *
-     * @return bool
+     * @param array ...$args
+     * @return string
      */
-    public function runSynchronousJob($path, $cmd)
-    {
-        $process = new Process($cmd, $path);
-
-        $process->start();
-        $process->wait();
-
-        return $process->getExitCode() === 0;
-    }
-
     public function prepareCommand($cmd, ...$args)
     {
         if (count($args) > 0) {
@@ -162,6 +173,9 @@ class Job extends \App\Jobs\Job implements ShouldQueue
         throw new \LogicException("Unsupported build mode: {$this->buildMode}");
     }
 
+    /**
+     * @return string slack url
+     */
     public function routeNotificationForSlack()
     {
         return config('services.slack.ci.endpoint');
