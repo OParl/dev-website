@@ -16,7 +16,7 @@ class ValidatorBuildJob extends Job implements ShouldQueue
 
     public function __construct($treeish = '')
     {
-       $this->determineTreeish($treeish, 'oparl.versions.validator.stable');
+        $this->determineTreeish($treeish, 'oparl.versions.validator.stable');
     }
 
     public function handle(Filesystem $fs, Log $log)
@@ -26,6 +26,7 @@ class ValidatorBuildJob extends Job implements ShouldQueue
 
     /**
      * @param Filesystem $fs
+     *
      * @return Repository
      */
     public function getRepository(Filesystem $fs)
