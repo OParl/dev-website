@@ -84,10 +84,10 @@ class JobTest extends TestCase
     {
         /** @var \OParl\Spec\Jobs\SpecificationJob|PHPUnit_Framework_MockObject_MockObject $sut */
         $sut = $this->getMockBuilder(\OParl\Spec\Jobs\SpecificationJob::class)
-            ->setMethods(['runSynchronousJob'])
+            ->setMethods(['runSynchronousCommand'])
             ->getMock();
 
-        $sut->expects($this->exactly(2))->method('runSynchronousJob');
+        $sut->expects($this->exactly(2))->method('runSynchronousCommand');
 
         $repo = $this->repositoryProvider();
         $sut->runRepositoryCommand($repo, 'ls');
