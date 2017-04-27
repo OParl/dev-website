@@ -4,9 +4,8 @@ return [
     'specificationBuildMode' => env('OPARL_BUILD_MODE', 'native'),
 
     /*
-     * These constraints are used for the site-internal functions like
-     * displaying the specification's web view or providing the
-     * validation service.
+     * These constraints are used for the site-internal functions like displaying
+     * the specification's web view or providing the validation service.
      */
     'versions'               => [
         'specification' => [
