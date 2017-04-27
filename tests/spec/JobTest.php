@@ -56,11 +56,11 @@ class JobTest extends TestCase
         $this->assertEquals('docker run --rm -v $(pwd):$(pwd) -w $(pwd) oparl/specbuilder:latest make live', $sut->prepareCommand($cmd));
     }
 
-    public function testRunSynchronousJob()
+    public function testRunSynchronousCommand()
     {
         $sut = new OParlJob();
         $cmd = 'echo "Hello World"';
-        $this->assertTrue($sut->runSynchronousJob('.', $cmd));
+        $this->assertTrue($sut->runSynchronousCommand('.', $cmd));
     }
 
     public function testCheckoutHubSyncToTreeish()
