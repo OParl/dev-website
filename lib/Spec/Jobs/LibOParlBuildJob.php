@@ -16,7 +16,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
 use OParl\Spec\Jobs\InteractsWithRepositoryTrait;
 
-class LibOParlUpdateJob extends Job implements ShouldQueue
+class LibOParlBuildJob extends Job implements ShouldQueue
 {
     use InteractsWithRepositoryTrait;
     use Queueable;
@@ -31,6 +31,7 @@ class LibOParlUpdateJob extends Job implements ShouldQueue
 
     public function handle(Filesystem $fs)
     {
-        $repo = new Repository($fs, 'oparl_liboparl', 'https://');
+        //$repo = new Repository($fs, 'oparl_liboparl', '<to be determined>');
+
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
-use Spec\Jobs\LibOParlUpdateJob;
+use Spec\Jobs\LibOParlBuildJob;
 
 class GitLabPipelineJob implements ShouldQueue
 {
@@ -43,7 +43,7 @@ class GitLabPipelineJob implements ShouldQueue
         $builds = data_get($this->payload, 'builds');
 
         if (is_array($builds) && count($builds) > 0 && $builds[0]['status'] === 'success') {
-            $this->dispatchNow(new LibOParlUpdateJob());
+            $this->dispatchNow(new LibOParlBuildJob());
         }
     }
 }
