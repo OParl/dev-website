@@ -8,10 +8,12 @@
 
 namespace App\Jobs;
 
+use Illuminate\Contracts\Logging\Log;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
 use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 use OParl\Spec\Jobs\SpecificationSchemaBuildJob;
+use OParl\Spec\Jobs\ValidatorBuildJob;
 
 /**
  * GitHubPushJob.
@@ -41,7 +43,7 @@ class GitHubPushJob extends Job
         $this->payload = $payload;
     }
 
-    public function handle()
+    public function handle(Log $log)
     {
         switch ($this->repository) {
             case 'spec':
@@ -59,7 +61,7 @@ class GitHubPushJob extends Job
                         break;
 
                     default:
-                        \Log::info("Unknown reference {$this->payload['ref']}, keeping my calm.");
+                        $log->info("Unknown reference {$this->payload['ref']}, keeping my calm.");
                         break;
                 }
 
@@ -70,11 +72,11 @@ class GitHubPushJob extends Job
                 break;
 
             case 'validator':
-                // TODO: update validator repo
+                $this->dispatch(new ValidatorBuildJob());
                 break;
 
             default:
-                \Log::error('Cannot process push job for '.$this->repository);
+                $log->error('Cannot process push job for '.$this->repository);
                 break;
         }
     }
