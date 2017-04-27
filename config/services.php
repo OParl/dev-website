@@ -60,4 +60,8 @@ return [
             'channel'  => env('SLACK_CHANNEL', '#ci'),
         ],
     ],
+
+    'gitlab' => [
+        'token' => env('GITLAB_WEBHOOK_SECRET', '')
+    ],
 ];
