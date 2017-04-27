@@ -45,10 +45,4 @@ return [
             // 'version'      => 'v3',
         ],
     ],
-
-    'repositories' => [
-        'spec',
-        'dev-website',
-        'liboparl',
-    ],
 ];
