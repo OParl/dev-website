@@ -8,6 +8,7 @@ use OParl\Spec\Commands\InitializeSchemaCommand;
 use OParl\Spec\Commands\UpdateDownloadsCommand;
 use OParl\Spec\Commands\UpdateSchemaCommand;
 use OParl\Spec\Commands\UpdateSpecificationCommand;
+use OParl\Spec\Commands\DeployLibOParlCommand;
 
 class SpecServiceProvider extends IlluminateServiceProvider
 {
@@ -19,11 +20,14 @@ class SpecServiceProvider extends IlluminateServiceProvider
     public function register()
     {
         $this->commands([
-            UpdateDownloadsCommand::class,
-            UpdateSpecificationCommand::class,
-            UpdateSchemaCommand::class,
-            InitializeSchemaCommand::class,
+            DeployLibOParlCommand::class,
+
             InitializeCommand::class,
+            InitializeSchemaCommand::class,
+
+            UpdateDownloadsCommand::class,
+            UpdateSchemaCommand::class,
+            UpdateSpecificationCommand::class,
         ]);
     }
 }
