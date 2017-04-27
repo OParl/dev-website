@@ -4,14 +4,18 @@ namespace OParl\Spec\Jobs;
 
 use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Queue\InteractsWithQueue;
 use Symfony\Component\Process\Process;
 
 class Job extends \App\Jobs\Job implements ShouldQueue
 {
+    use Queueable;
+    use InteractsWithQueue;
     use Notifiable;
 
     const AVAILABLE_BUILD_MODES = ['native', 'docker'];
