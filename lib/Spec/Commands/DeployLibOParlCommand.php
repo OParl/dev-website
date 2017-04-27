@@ -2,7 +2,7 @@
 
 namespace OParl\Spec\Commands;
 
-use Spec\Jobs\LibOParlUpdateJob;
+use Spec\Jobs\LibOParlBuildJob;
 
 class DeployLibOParlCommand extends Command
 {
@@ -11,6 +11,6 @@ class DeployLibOParlCommand extends Command
 
     public function handle()
     {
-        $this->dispatchNow(new LibOParlUpdateJob());
+        $this->dispatchNow(new LibOParlBuildJob());
     }
 }
