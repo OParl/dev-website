@@ -38,6 +38,7 @@ class GitLabHooksController extends HooksController
         switch ($glEvent) {
             case 'Pipeline Hook':
                 $this->dispatch(new GitLabPipelineJob($payload));
+
                 return response()->json(['result' => 'Success.']);
                 break;
 
