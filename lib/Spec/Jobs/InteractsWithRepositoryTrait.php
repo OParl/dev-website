@@ -40,8 +40,8 @@ trait InteractsWithRepositoryTrait
      * Run a command on a repository, leaving the repo in a pristine state afterwards.
      *
      * @param Repository $repository
-     * @param string $cmd unprepared command
-     * @param array $args command arguments
+     * @param string     $cmd        unprepared command
+     * @param array      $args       command arguments
      *
      * @return bool command success
      */
@@ -95,7 +95,8 @@ trait InteractsWithRepositoryTrait
 
     /**
      * @param Filesystem $fs
-     * @param Log $log
+     * @param Log        $log
+     *
      * @return Repository
      */
     public function getUpdatedHubSync(Repository $repository, Log $log)
@@ -111,7 +112,7 @@ trait InteractsWithRepositoryTrait
 
     /**
      * @param Repository $hubSync
-     * @param bool $selectMostRecentVersion
+     * @param bool       $selectMostRecentVersion
      *
      * @return bool
      */
@@ -138,6 +139,7 @@ trait InteractsWithRepositoryTrait
     /**
      * @param $cmd
      * @param array ...$args
+     *
      * @return string
      */
     public function prepareCommand($cmd, ...$args)
