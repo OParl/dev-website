@@ -57,8 +57,13 @@ return [
         'ci' => [
             'enabled'  => env('SLACK_ENABLED', false),
             'endpoint' => env('SLACK_ENDPOINT', ''),
-            'channel'  => env('SLACK_CHANNEL', '#ci'),
+            'channel'  => env('SLACK_CHANNEL_CI', '#ci'),
         ],
+        'validation' => [
+            'enabled'  => env('SLACK_ENABLED', false),
+            'endpoint' => env('SLACK_ENDPOINT', ''),
+            'channel'  => env('SLACK_CHANNEL_VALIDATOR', '#_general'),
+        ]
     ],
 
     'gitlab' => [
