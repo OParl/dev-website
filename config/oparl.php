@@ -54,4 +54,11 @@ return [
             'grindhold-liboparl',
         ],
     ],
+
+    /*
+     * liboparl related configuration
+     */
+    'liboparl' => [
+        'prefix' => env('LIBOPARL_PREFIX'), // install prefix, MUST be set in the environment
+    ],
 ];
