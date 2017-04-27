@@ -16,8 +16,6 @@ use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
  */
 class UpdateSpecificationCommand extends Command
 {
-    use DispatchesJobs;
-
     protected $signature = 'oparl:update:specification {treeish?}';
     protected $description = "Force-update the specifications' HTML and assets";
 
@@ -25,7 +23,7 @@ class UpdateSpecificationCommand extends Command
     {
         $this->info('Updating specification');
 
-        $treeish = $this->getTreeishOrDefault('~1.0');
+        $treeish = $this->getTreeishOrDefault(config('oparl.versions.specification.stable'));
 
         $this->dispatch(new SpecificationLiveVersionBuildJob($treeish));
     }

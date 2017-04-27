@@ -7,8 +7,6 @@ use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
 
 class UpdateDownloadsCommand extends Command
 {
-    use DispatchesJobs;
-
     protected $signature = 'oparl:update:downloads {treeish?}';
     protected $description = "Force-update the site's spec downloads";
 
