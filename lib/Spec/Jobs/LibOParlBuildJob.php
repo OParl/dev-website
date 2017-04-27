@@ -9,7 +9,6 @@
 namespace Spec\Jobs;
 
 use App\Jobs\Job;
-use EFrane\HubSync\Repository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
