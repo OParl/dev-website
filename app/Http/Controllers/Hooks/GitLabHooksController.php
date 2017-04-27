@@ -9,7 +9,7 @@
 namespace App\Http\Controllers\Hooks;
 
 use App\Http\Middleware\ValidateGitHubWebHook;
-use App\Jobs\GitLabPushJob;
+use App\Jobs\GitLabPipelineJob;
 use Illuminate\Http\Request;
 
 class GitLabHooksController extends HooksController
@@ -37,7 +37,7 @@ class GitLabHooksController extends HooksController
 
         switch ($glEvent) {
             case 'Pipeline Hook':
-                $this->dispatch(new GitLabPushJob($payload));
+                $this->dispatch(new GitLabPipelineJob($payload));
                 return response()->json(['result' => 'Success.']);
                 break;
 
