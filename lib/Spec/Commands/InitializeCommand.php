@@ -19,7 +19,7 @@ class InitializeCommand extends Command
         $this->call('oparl:update:specification');
 
         collect(config('oparl.downloads.specification'))
-            ->map(function ($downloadVersionConstraint) {
+            ->each(function ($downloadVersionConstraint) {
                 $this->call('oparl:update:downloads', [$downloadVersionConstraint]);
             });
     }

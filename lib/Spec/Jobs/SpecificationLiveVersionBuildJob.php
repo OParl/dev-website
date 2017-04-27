@@ -6,7 +6,7 @@ use App\Notifications\SpecificationUpdateNotification;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
-class SpecificationLiveVersionBuildJob extends Job
+class SpecificationLiveVersionBuildJob extends SpecificationJob
 {
     /**
      * @param Filesystem $fs

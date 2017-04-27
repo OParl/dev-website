@@ -1,6 +1,6 @@
 <?php
 
-use OParl\Spec\Jobs\Job as OParlJob;
+use OParl\Spec\Jobs\SpecificationJob as OParlJob;
 
 class JobTest extends TestCase
 {
@@ -82,8 +82,8 @@ class JobTest extends TestCase
 
     public function testRunRepositoryCommand()
     {
-        /** @var \OParl\Spec\Jobs\Job|PHPUnit_Framework_MockObject_MockObject $sut */
-        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\Job::class)
+        /** @var \OParl\Spec\Jobs\SpecificationJob|PHPUnit_Framework_MockObject_MockObject $sut */
+        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\SpecificationJob::class)
             ->setMethods(['runSynchronousJob'])
             ->getMock();
 
@@ -104,8 +104,8 @@ class JobTest extends TestCase
             ->setConstructorArgs([$fs, 'test', 'tests/assets/test.git'])
             ->getMock();
 
-        /** @var \OParl\Spec\Jobs\Job|PHPUnit_Framework_MockObject_MockObject $sut */
-        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\Job::class)
+        /** @var \OParl\Spec\Jobs\SpecificationJob|PHPUnit_Framework_MockObject_MockObject $sut */
+        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\SpecificationJob::class)
             ->setMethods(['runRepositoryCommand'])
             ->getMock();
 
@@ -115,7 +115,7 @@ class JobTest extends TestCase
 
         $sut->runCleanRepositoryCommand($repo, 'ls');
 
-        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\Job::class)
+        $sut = $this->getMockBuilder(\OParl\Spec\Jobs\SpecificationJob::class)
             ->setMethods(['runRepositoryCommand'])
             ->getMock();
 

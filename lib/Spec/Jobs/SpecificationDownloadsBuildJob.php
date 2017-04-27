@@ -13,7 +13,7 @@ use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
-class SpecificationDownloadsBuildJob extends Job
+class SpecificationDownloadsBuildJob extends SpecificationJob
 {
     protected $storageName = '';
 
