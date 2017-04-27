@@ -8,7 +8,6 @@
 
 namespace OParl\Spec\Commands;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 
 /**
