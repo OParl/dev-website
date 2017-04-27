@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Symfony\Component\Process\Process;
 
-abstract class SpecificationJob extends Job implements ShouldQueue
+class SpecificationJob extends Job implements ShouldQueue
 {
     use InteractsWithQueue;
     use Notifiable;
@@ -28,6 +28,8 @@ abstract class SpecificationJob extends Job implements ShouldQueue
 
     public function __construct($treeish = '')
     {
+        $this->treeish = $treeish;
+        
         if (!is_string($treeish) || strlen($treeish) === 0) {
             $this->treeish = config('oparl.versions.specification.latest');
         }
