@@ -34,7 +34,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
      */
     public function doUpdate(Filesystem $fs, Log $log)
     {
-        $hubSync = $this->getUpdatedHubSync($fs, $log);
+        $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
         $this->checkoutHubSyncToTreeish($hubSync);
 
         if (!$this->runRepositoryCommand($hubSync, 'make live')) {

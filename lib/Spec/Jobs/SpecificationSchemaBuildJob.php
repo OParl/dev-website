@@ -40,7 +40,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
      */
     public function doSchemaUpdate(Filesystem $fs, Log $log)
     {
-        $hubSync = $this->getUpdatedHubSync($fs, $log);
+        $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
 
         $this->initialConstraint = $this->treeish;
         $log->info("Beginning Schema Update Job for treeish {$this->initialConstraint}");

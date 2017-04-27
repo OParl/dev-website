@@ -3,6 +3,8 @@
 namespace OParl\Spec\Jobs;
 
 use App\Jobs\Job;
+use EFrane\HubSync\Repository;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -61,5 +63,14 @@ class SpecificationJob extends Job implements ShouldQueue
         }
 
         throw new \LogicException("Unsupported build mode: {$this->buildMode}");
+    }
+
+    /**
+     * @param Filesystem $fs
+     * @return Repository
+     */
+    public function getRepository(Filesystem $fs)
+    {
+        return new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
     }
 }

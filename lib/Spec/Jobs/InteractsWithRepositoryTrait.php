@@ -98,18 +98,15 @@ trait InteractsWithRepositoryTrait
      * @param Log $log
      * @return Repository
      */
-    public function getUpdatedHubSync(Filesystem $fs, Log $log)
+    public function getUpdatedHubSync(Repository $repository, Log $log)
     {
-        $hubSync = new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
+        $this->runSynchronousCommand($repository->getAbsolutePath(), 'git checkout master');
 
-        // failsave checkout to master to ensure we're on an actual branch
-        $this->runSynchronousCommand($hubSync->getAbsolutePath(), 'git checkout master');
-
-        if (!$hubSync->update()) {
+        if (!$repository->update()) {
             $log->error('Git pull for OParl/spec failed');
         }
 
-        return $hubSync;
+        return $repository;
     }
 
     /**
