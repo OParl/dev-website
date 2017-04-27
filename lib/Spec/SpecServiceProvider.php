@@ -3,12 +3,12 @@
 namespace OParl\Spec;
 
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
+use OParl\Spec\Commands\DeployLibOParlCommand;
 use OParl\Spec\Commands\InitializeCommand;
 use OParl\Spec\Commands\InitializeSchemaCommand;
 use OParl\Spec\Commands\UpdateDownloadsCommand;
 use OParl\Spec\Commands\UpdateSchemaCommand;
 use OParl\Spec\Commands\UpdateSpecificationCommand;
-use OParl\Spec\Commands\DeployLibOParlCommand;
 
 class SpecServiceProvider extends IlluminateServiceProvider
 {

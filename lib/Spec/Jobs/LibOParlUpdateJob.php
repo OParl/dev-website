@@ -27,7 +27,6 @@ class LibOParlUpdateJob extends Job implements ShouldQueue
     public function __construct($treeish = '')
     {
         $this->prefix = config('oparl.liboparl.prefix');
-
     }
 
     public function handle(Filesystem $fs)

@@ -46,6 +46,7 @@ class SpecificationJob extends Job implements ShouldQueue
     /**
      * @param $cmd
      * @param array ...$args
+     *
      * @return string
      */
     public function prepareCommand($cmd, ...$args)
@@ -67,6 +68,7 @@ class SpecificationJob extends Job implements ShouldQueue
 
     /**
      * @param Filesystem $fs
+     *
      * @return Repository
      */
     public function getRepository(Filesystem $fs)
