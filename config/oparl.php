@@ -24,7 +24,7 @@ return [
     ],
 
     /*
-     * These constraints are used to provide downloads for specified component
+     * These constraints are used to provide downloads for the specified component
      */
     'downloads' => [
         'specification' => [
