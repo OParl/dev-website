@@ -3,12 +3,13 @@
 namespace OParl\Spec;
 
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
-use OParl\Spec\Commands\DeployLibOParlCommand;
+use OParl\Spec\Commands\UpdateLibOParlCommand;
 use OParl\Spec\Commands\InitializeCommand;
 use OParl\Spec\Commands\InitializeSchemaCommand;
 use OParl\Spec\Commands\UpdateDownloadsCommand;
 use OParl\Spec\Commands\UpdateSchemaCommand;
 use OParl\Spec\Commands\UpdateSpecificationCommand;
+use OParl\Spec\Commands\UpdateValidatorCommand;
 
 class SpecServiceProvider extends IlluminateServiceProvider
 {
@@ -20,14 +21,14 @@ class SpecServiceProvider extends IlluminateServiceProvider
     public function register()
     {
         $this->commands([
-            DeployLibOParlCommand::class,
-
             InitializeCommand::class,
             InitializeSchemaCommand::class,
 
             UpdateDownloadsCommand::class,
+            UpdateLibOParlCommand::class,
             UpdateSchemaCommand::class,
             UpdateSpecificationCommand::class,
+            UpdateValidatorCommand::class,
         ]);
     }
 }

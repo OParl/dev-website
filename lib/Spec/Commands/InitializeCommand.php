@@ -22,5 +22,7 @@ class InitializeCommand extends Command
             ->each(function ($downloadVersionConstraint) {
                 $this->call('oparl:update:downloads', [$downloadVersionConstraint]);
             });
+
+        $this->call('oparl:update:validator');
     }
 }
