@@ -21,7 +21,7 @@ class GitLabHooksController extends HooksController
 
     public function push(Request $request, $repository)
     {
-        $allowedRepositories = collect(['grindhold-liboparl']);
+        $allowedRepositories = collect(config('oparl.repositories.gitlab'));
 
         if (!$allowedRepositories->contains($repository)) {
             return abort(400);

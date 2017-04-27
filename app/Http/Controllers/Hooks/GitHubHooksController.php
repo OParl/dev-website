@@ -21,7 +21,7 @@ class GitHubHooksController extends HooksController
 
     public function push(Request $request, $repository)
     {
-        $allowedRepositories = collect(config('github.repositories'));
+        $allowedRepositories = collect(config('oparl.repositories.github'));
 
         if (!$allowedRepositories->contains($repository)) {
             return abort(400);
