@@ -62,6 +62,6 @@ return [
     ],
 
     'gitlab' => [
-        'token' => env('GITLAB_WEBHOOK_SECRET', '')
+        'token' => env('GITLAB_WEBHOOK_SECRET', ''),
     ],
 ];
