@@ -3,10 +3,10 @@
 namespace OParl\Spec;
 
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
-use OParl\Spec\Commands\UpdateLibOParlCommand;
 use OParl\Spec\Commands\InitializeCommand;
 use OParl\Spec\Commands\InitializeSchemaCommand;
 use OParl\Spec\Commands\UpdateDownloadsCommand;
+use OParl\Spec\Commands\UpdateLibOParlCommand;
 use OParl\Spec\Commands\UpdateSchemaCommand;
 use OParl\Spec\Commands\UpdateSpecificationCommand;
 use OParl\Spec\Commands\UpdateValidatorCommand;
