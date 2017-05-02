@@ -2,12 +2,12 @@
 
 namespace OParl\Spec\Commands;
 
-use Spec\Jobs\LibOParlBuildJob;
+use OParl\Spec\Jobs\LibOParlBuildJob;
 
 class UpdateLibOParlCommand extends Command
 {
-    protected $signature = 'oparl:deploy:liboparl';
-    protected $description = 'Deploy the latest stable liboparl on the server';
+    protected $signature = 'oparl:update:liboparl';
+    protected $description = 'Update the liboparl build on the server';
 
     public function handle()
     {

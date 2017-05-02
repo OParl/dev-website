@@ -23,6 +23,7 @@ class InitializeCommand extends Command
                 $this->call('oparl:update:downloads', [$downloadVersionConstraint]);
             });
 
+        $this->call('oparl:update:liboparl');
         $this->call('oparl:update:validator');
     }
 }
