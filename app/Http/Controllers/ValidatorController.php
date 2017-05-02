@@ -18,7 +18,7 @@ class ValidatorController extends Controller
 
         try {
             $client = new Client([
-                'timeout' => 10
+                'timeout' => 10,
             ]);
 
             $response = $client->request('get', $endpoint);

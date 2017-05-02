@@ -30,9 +30,10 @@ class ValidatorRunJob extends Job
 
     /**
      * ValidatorRunJob constructor.
+     *
      * @param string $endpoint
      * @param string $email
-     * @param boolean $canSaveData
+     * @param bool   $canSaveData
      */
     public function __construct($endpoint, $email, $canSaveData)
     {
@@ -54,13 +55,13 @@ class ValidatorRunJob extends Job
         }
     }
 
-    public function handleProgress($type, $data) {
+    public function handleProgress($type, $data)
+    {
         switch ($type) {
             case Process::OUT:
                 try {
                     $this->log->info($data);
                 } catch (\Exception $e) {
-
                 }
                 break;
             case Process::ERR:

@@ -26,14 +26,14 @@ class LibOParlBuildJob extends Job implements ShouldQueue
         $repo = new Repository($fs, 'oparl_liboparl', 'https://github.com/OParl/liboparl.git');
         $repo = $this->getUpdatedHubSync($repo, $log);
 
-        $buildDir = $repo->getAbsolutePath() . '/build';
+        $buildDir = $repo->getAbsolutePath().'/build';
 
         if (!is_dir($buildDir)) {
             mkdir($buildDir);
         }
 
         $meson = "meson -Dbuild_valadoc=false -Dbuild_test=false --prefix={$this->prefix}";
-        if (!file_exists($buildDir . '/build.ninja')) {
+        if (!file_exists($buildDir.'/build.ninja')) {
             $success = $this->runSynchronousCommand($buildDir, $meson, $output);
 
             if (!$success) {
@@ -41,7 +41,7 @@ class LibOParlBuildJob extends Job implements ShouldQueue
             }
         }
 
-        $ninja = "ninja install";
+        $ninja = 'ninja install';
         $success = $this->runSynchronousCommand($buildDir, $ninja, $output);
         if (!$success) {
             $log->error($output);
