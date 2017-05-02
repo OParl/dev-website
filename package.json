@@ -20,6 +20,7 @@
     "node-prismjs": "^0.1.0",
     "oparl": "0.0.1",
     "prismjs": "^1.6.0",
+    "pure-css": "^1.0.4",
     "source-code-pro": "git://github.com/adobe-fonts/source-code-pro.git#release",
     "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
     "vinyl-buffer": "^1.0.0",
