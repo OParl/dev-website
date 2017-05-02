@@ -62,6 +62,9 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->pattern('filename', '[a-z0-9]{3,12}');
     $router->get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
     $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
+
+    $router->post('/validator', ['uses' => 'ValidatorController@scheduleValidation', 'as' => 'validator.validate']);
+    $router->get('/validator/{endpoint}', ['uses' => 'ValidatorController@result', 'as' => 'validator.result']);
 });
 
 /*
