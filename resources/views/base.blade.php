@@ -47,6 +47,7 @@
             @include ('header')
 
             <main id="content">
+                <br>
                 @yield('content')
             </main>
 

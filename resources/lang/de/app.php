@@ -54,4 +54,13 @@ return [
     'specification.download.format.tarbz2' => 'Bzip2',
 
     'footer.disclaimer' => "macOS ist eine eingetragene Marke von Apple Inc, CA\n",
+
+    'validation.form.email'             => 'E-Mail',
+    'validation.form.email.description' => 'Nach erfolgreicher Validierung erhalten Sie die Ergebnisse im ausgewählten Format an diese E-Mail-Adresse.',
+    'validation.form.endpoint'          => 'OParl-Endpunkt',
+    'validation.form.endpoint.label'    => 'Tragen Sie hier den Endpunkt ein, den Sie validieren möchten.',
+    'validation.form.save'              => 'Dürfen wir Ihre Validierungsergebnisse zur weiteren Auswertung speichern?',
+    'validation.start'                  => 'Validierung beauftragen!',
+    'validation.success'                => 'Die Validierung für :endpoint wurde gestart',
+    'validation.invalid_url'            => 'Unter :endpoint konnte kein OParl-System gefunden werden, bitte überprüfen Sie Ihre Eingabe.',
 ];
