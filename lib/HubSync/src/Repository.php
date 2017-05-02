@@ -42,8 +42,8 @@ class Repository
      * Repository constructor.
      *
      * @param Filesystem $fs
-     * @param string $localName
-     * @param string $remoteURI
+     * @param string     $localName
+     * @param string     $remoteURI
      */
     public function __construct(Filesystem $fs, $localName, $remoteURI)
     {

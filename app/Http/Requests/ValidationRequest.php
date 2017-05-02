@@ -24,9 +24,9 @@ class ValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email|required',
+            'email'    => 'email|required',
             'endpoint' => 'url|required',
-            'save' => 'boolean|optional',
+            'save'     => 'boolean|optional',
         ];
     }
 }
