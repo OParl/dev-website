@@ -83,12 +83,14 @@ trait InteractsWithRepositoryTrait
      *
      * @return bool
      */
-    public function runSynchronousCommand($path, $cmd)
+    public function runSynchronousCommand($path, $cmd, &$output = null)
     {
         $process = new Process($cmd, $path);
 
         $process->start();
         $process->wait();
+
+        $output = $process->getOutput();
 
         return $process->getExitCode() === 0;
     }
