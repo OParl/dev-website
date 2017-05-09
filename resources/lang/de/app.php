@@ -63,8 +63,8 @@ return [
     'validation.form.endpoint.label'    => 'Tragen Sie hier den Endpunkt ein, den Sie validieren möchten.',
     'validation.form.endpoint.required' => 'Sie müssen einen OParl-Endpunkt angeben, der validiert werden soll.',
     'validation.form.endpoint.invalid'  => 'Der angegebene Endpunkt ist keine gültige URL.',
+    'validation.form.endpoint.no_oparl' => 'Unter :endpoint konnte kein OParl-System gefunden werden, bitte überprüfen Sie Ihre Eingabe.',
     'validation.form.save'              => 'Dürfen wir Ihre Validierungsergebnisse zur weiteren Auswertung speichern?',
     'validation.start'                  => 'Validierung beauftragen!',
     'validation.success'                => 'Die Validierung für :endpoint wurde gestartet.',
-    'validation.invalid_url'            => 'Unter :endpoint konnte kein OParl-System gefunden werden, bitte überprüfen Sie Ihre Eingabe.',
 ];

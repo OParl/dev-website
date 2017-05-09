@@ -57,16 +57,16 @@ class ValidationRequest extends FormRequest
                 $response = $client->request('get', $endpoint);
 
                 if ($response->getStatusCode() !== 200) {
-                    $validator->errors()->add('endpoint', trans('app.validation.invalid_url', compact('endpoint')));
+                    $validator->errors()->add('endpoint', trans('app.validation.form.endpoint.no_oparl', compact('endpoint')));
                 }
 
                 $json = @json_decode($response->getBody(), true);
 
                 if (!isset($json['name'])) {
-                    $validator->errors()->add('endpoint', trans('app.validation.invalid_url', compact('endpoint')));
+                    $validator->errors()->add('endpoint', trans('app.validation.form.endpoint.no_oparl', compact('endpoint')));
                 }
             } catch (ConnectException $e) {
-                $validator->errors()->add('endpoint', trans('app.validation.invalid_url', compact('endpoint')));
+                $validator->errors()->add('endpoint', trans('app.validation.form.endpoint.no_oparl', compact('endpoint')));
             }
         });
     }
