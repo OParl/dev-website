@@ -30,15 +30,15 @@
             <p>@lang('app.developers.validator.info-text')</p>
 
             @if (session('message'))
-                <p>
-                    {{ session('message') }}
-                </p>
+                <ul class="messages col-xs-12">
+                    <li class="success">{{ session('message') }}</li>
+                </ul>
             @endif
 
-            @if (count($errors) > 0)
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+            @if ($errors->count() > 0)
+                <ul class="messages col-xs-12">
+                    @foreach ($errors->all() as $type => $message)
+                        <li class="error">{{ $message }}</li>
                     @endforeach
                 </ul>
             @endif
@@ -47,17 +47,22 @@
                 {{ csrf_field() }}
 
                 <label for="endpoint" class="col-sm-4 col-xs-12">@lang('app.validation.form.endpoint')</label>
-                <input type="url" name="endpoint" id="endpoint" class="col-sm-8 col-xs-12">
+                <input type="url" name="endpoint" id="endpoint" class="col-sm-8 col-xs-12" value="{{ old('endpoint') }}"
+                       required>
 
                 <label for="email" class="col-sm-4 col-xs-12">@lang('app.validation.form.email')</label>
-                <input type="email" name="email" id="email"  class="col-sm-8 col-xs-12">
+                <input type="email" name="email" id="email" class="col-sm-8 col-xs-12" value="{{ old('email') }}"
+                       required>
 
                 <label class="pure-checkbox col-sm-offset-1 col-sm-offset-11 col-xs-12">
                     <input type="checkbox" name="save" class="form-control">
                     @lang('app.validation.form.save')
                 </label>
 
-                <button type="submit" class="col-xs-4 col-xs-offset-8 pure-button pure-button-primary">@lang('app.validation.start')</button>
+                <button type="submit"
+                        class="col-xs-4 col-xs-offset-8 pure-button pure-button-primary">
+                    @lang('app.validation.start')
+                </button>
             </form>
 
             <br>

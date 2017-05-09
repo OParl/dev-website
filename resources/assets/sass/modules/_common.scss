@@ -97,3 +97,25 @@ ol.list-unstyled, ul.list-unstyled {
 .small {
   font-size: small;
 }
+
+ul.messages {
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin-bottom: .1em;
+    padding: .1em;
+    text-align: center;
+    color: white;
+
+    &.error {
+      border: 1px $brand-danger dotted;
+      background: lighten($brand-danger, .5);
+    }
+
+    &.success {
+      border: 1px $brand-success dotted;
+      background: lighten($brand-success, .5);
+    }
+  }
+}

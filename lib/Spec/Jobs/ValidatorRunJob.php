@@ -46,7 +46,7 @@ class ValidatorRunJob extends Job
     {
         $this->log = $log;
 
-        $validatorCmd = sprintf('./validate -fjson %s %s');
+        $validatorCmd = sprintf('./validate -fjson "%s"', $this->endpoint);
         $validator = new Process($validatorCmd);
         $validator->start();
 
