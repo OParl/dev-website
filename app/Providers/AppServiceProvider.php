@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
 LPMARKUP;
         });
 
-        /**
+        /*
          * Blade Directive @dumpasset:
          *
          * Dump an asset's content directly into the page
@@ -62,7 +62,7 @@ LPMARKUP;
                 $content = base64_encode($content);
 
                 $content = sprintf('data:image/%s;base64,%s', $type, $content);
-            };
+            }
 
             return $content;
         });

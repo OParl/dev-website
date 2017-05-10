@@ -15,7 +15,7 @@ class ValidatorController extends Controller
         // 1) read input data
         $endpoint = $response->input('endpoint');
         $email = $response->input('email');
-        $canSaveData = (bool)$response->input('save');
+        $canSaveData = (bool) $response->input('save');
 
         // 2) schedule validation job
         $this->dispatch(new ValidatorRunJob($endpoint, $email, $canSaveData));
