@@ -54,14 +54,14 @@ LPMARKUP;
 
             if (file_exists($filename)) {
                 $content = file_get_contents($filename);
-            }
 
-            $mime = mime_content_type($filename);
-            if (starts_with($mime, 'image/')) {
-                $type = pathinfo($filename, PATHINFO_EXTENSION);
-                $content = base64_encode($content);
+                $mime = mime_content_type($filename);
+                if (starts_with($mime, 'image/')) {
+                    $type = pathinfo($filename, PATHINFO_EXTENSION);
+                    $content = base64_encode($content);
 
-                $content = sprintf('data:image/%s;base64,%s', $type, $content);
+                    $content = sprintf('data:image/%s;base64,%s', $type, $content);
+                }
             }
 
             return $content;
