@@ -24,7 +24,9 @@
             --}}
         </div>
     </section>
+    {{--
     @include ('developers.partials.validator_form')
+    --}}
 @stop
 
 @section ('scripts')
