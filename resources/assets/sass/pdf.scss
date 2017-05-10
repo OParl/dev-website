@@ -1,0 +1,44 @@
+@import 'config/variables';
+
+header {
+  border-bottom: 1px solid $brand-primary;
+  color: $brand-primary;
+  margin-bottom: 1em;
+  padding: 1em;
+
+  span {
+    vertical-align: 50%;
+  }
+}
+
+.page {
+  page-break-inside: avoid;
+}
+
+.pagebreak {
+  display: block;
+  page-break-after: always;
+}
+
+h1 {
+  text-align: center;
+}
+
+.result--okay {
+  color: $brand-success;
+}
+
+.result--warning {
+  color: $brand-warning;
+}
+
+.result--error {
+  color: $brand-danger;
+}
+
+.infobox {
+  border: 1px solid black;
+  background: #f0ecb6;
+  padding: 1em;
+  margin: .5em;
+}
