@@ -40,6 +40,11 @@ class AppServiceProvider extends ServiceProvider
 ?>
 LPMARKUP;
         });
+
+        \Blade::directive('dumpasset', function ($expr) {
+            $content = file_get_contents(public_path($expr));
+            return $content;
+        });
     }
 
     /**
