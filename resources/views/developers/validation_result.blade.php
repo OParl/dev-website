@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>{{ $title }}</title>
     <style type="text/css">
-        @dumpasset('css/pdf.css')
+        @if ($app->environment('production'))
+            @dumpasset('css/pdf.min.css')
+        @else
+            @dumpasset('css/pdf.css')
+        @endif
     </style>
 </head>
 <body>
