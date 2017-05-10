@@ -53,8 +53,6 @@ class ValidatorRunJob extends Job
         foreach ($validator as $type => $data) {
             $this->handleProgress($type, $data);
         }
-
-
     }
 
     public function handleProgress($type, $data)
