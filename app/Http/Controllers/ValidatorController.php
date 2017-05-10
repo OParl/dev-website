@@ -41,13 +41,15 @@ class ValidatorController extends Controller
 
         $title = sprintf('OParl Validator %s', Carbon::now()->format('hi-d-m-Y'));
 
-        $pdf->loadHtml(view('developers.validation_result', [
+        $html = view('developers.validation_result', [
             'endpoint'       => 'http://dev.dev-website.dev/api/v1/system/1',
             'result'         => [],
             'oparlVersion'   => '1.0',
             'validationDate' => Carbon::now()->format('d.m.Y'),
             'title'          => $title,
-        ]));
+        ]);
+
+        $pdf->loadHtml($html);
 
         $pdf->setPaper('A4', 'portrait');
 
