@@ -64,6 +64,7 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
 
     $router->post('/validator', ['uses' => 'ValidatorController@scheduleValidation', 'as' => 'validator.validate']);
+    $router->get('/validator/test', ['uses' => 'ValidatorController@resultTest', 'as' => 'validator.result.test']);
     $router->get('/validator/{endpoint}', ['uses' => 'ValidatorController@result', 'as' => 'validator.result']);
 });
 
