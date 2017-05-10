@@ -41,8 +41,29 @@ class AppServiceProvider extends ServiceProvider
 LPMARKUP;
         });
 
+        /**
+         * Blade Directive @dumpasset:
+         *
+         * Dump an asset's content directly into the page
+         */
         \Blade::directive('dumpasset', function ($expr) {
-            $content = file_get_contents(public_path($expr));
+            $filename = str_replace(['"', "'"], '', $expr);
+            $filename = public_path($filename);
+
+            $content = '';
+
+            if (file_exists($filename)) {
+                $content = file_get_contents($filename);
+            }
+
+            $mime = mime_content_type($filename);
+            if (starts_with($mime, 'image/')) {
+                $type = pathinfo($filename, PATHINFO_EXTENSION);
+                $content = base64_encode($content);
+
+                $content = sprintf('data:image/%s;base64,%s', $type, $content);
+            };
+
             return $content;
         });
     }
