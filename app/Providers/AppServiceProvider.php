@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\DevelopersHeader;
 use App\Http\ViewComposers\Header;
 use App\Http\ViewComposers\Piwik;
 use Faker\Factory;
@@ -22,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
 
         $v->composer('header', Header::class);
         $v->composer('piwik', Piwik::class);
+        $v->composer('developers.partials.subheader', DevelopersHeader::class);
 
         // add a @markdown(...) directive which formats value to markdown
         \Blade::directive('markdown', function ($expr) {

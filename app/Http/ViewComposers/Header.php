@@ -45,13 +45,6 @@ class Header
             }
         }
 
-        if (\Auth::check()) {
-            array_unshift($sections, [
-                'routeKey' => 'admin.dashboard',
-                'title'    => '<span class="glyphicon glyphicon-user"></span>',
-            ]);
-        }
-
         return $sections;
     }
 }
