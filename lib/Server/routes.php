@@ -5,7 +5,7 @@ $router->get('/api/oparl/v1/', ['uses' => 'RootController@index', 'as' => 'api.o
 
 $router->group([
     'as'         => 'api.oparl.v1.',
-    'domain'     => 'dev.'.config('app.url'),
+    'domain'     => 'dev.' . config('app.url'),
     'prefix'     => 'api/oparl/v1/',
     'middleware' => ['track', 'bindings'],
 ], function () use ($router) {
