@@ -24,7 +24,12 @@
             @endif
         </title>
 
-        <link href="{{ asset('/css/app'.$app->environment('production') ? '.min' : ''.'.css') }}" rel="stylesheet" />
+        @if ($app->environment('production'))
+            <link href="{{ asset('/css/app.min.css') }}" rel="stylesheet" />
+        @else
+            <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
+        @endif
+
 
         @yield('styles')
 

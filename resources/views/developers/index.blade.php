@@ -29,5 +29,9 @@
 @stop
 
 @section ('scripts')
-    <script type="text/javascript" src="{{ asset('js/developers'.$app->environment('production') ? '.min' : ''.'.js') }}"></script>
+    @if ($app->environment('production'))
+        <script type="text/javascript" src="{{ asset('js/developers.min.js') }}"></script>
+    @else
+        <script type="text/javascript" src="{{ asset('js/developers.js') }}"></script>
+    @endif
 @stop
