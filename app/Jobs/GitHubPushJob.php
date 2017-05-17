@@ -75,6 +75,10 @@ class GitHubPushJob extends Job
                 $this->dispatch(new ValidatorBuildJob());
                 break;
 
+            case 'resources':
+                $this->dispatch(new ResourcesUpdateJob());
+                break;
+
             default:
                 $log->error('Cannot process push job for '.$this->repository);
                 break;
