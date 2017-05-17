@@ -45,5 +45,5 @@
 @stop
 
 @section ('scripts')
-    <script type="text/javascript" src="{{ asset('js/spec.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/spec'.$app->environment('production') ? '.min' : ''.'.js') }}"></script>
 @stop
