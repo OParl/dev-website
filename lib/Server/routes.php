@@ -6,7 +6,7 @@ $router->get('/', ['uses' => 'RootController@index', 'as' => 'api.index']);
 $router->group([
     'as'         => 'api.v1.',
     'domain'     => 'dev.'.config('app.url'),
-    'prefix'     => 'api/v1/',
+    'prefix'     => 'api/oparl/v1/',
     'middleware' => ['track', 'bindings'],
 ], function () use ($router) {
     $apiOnlyIndexAndShow = ['only' => ['index', 'show']];
