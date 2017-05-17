@@ -42,6 +42,7 @@ class UpdateResourcesCommand extends Command
     public function handle()
     {
         $this->dispatch(new ResourcesUpdateJob());
+
         return 0;
     }
 }

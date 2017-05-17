@@ -6,8 +6,6 @@ use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notifiable;
 use Symfony\Component\Process\Process;
 
 trait InteractsWithRepositoryTrait

@@ -25,6 +25,7 @@ class DevelopersController extends Controller
     public function endpoints(Filesystem $fs)
     {
         $endpoints = Yaml::parse($fs->get('live/endpoints.yml'));
+
         return view('developers.endpoints', compact('endpoints'));
     }
 }
