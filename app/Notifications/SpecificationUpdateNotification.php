@@ -118,4 +118,23 @@ class SpecificationUpdateNotification extends Notification
             $treeish
         );
     }
+
+    public static function resourcesUpdateSuccesfulNotification($currentHead)
+    {
+        return new self(
+            true,
+            'Updated resources to <https://github.com/OParl/resources/commit/%s|%s>',
+            $currentHead,
+            $currentHead
+        );
+    }
+
+    public static function resourcesUpdateFailedNotification($treeish)
+    {
+        return new self(
+            false,
+            'Updating the resources to %s failed',
+            $treeish
+        );
+    }
 }
