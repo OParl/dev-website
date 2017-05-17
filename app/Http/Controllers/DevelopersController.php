@@ -9,12 +9,16 @@ class DevelopersController extends Controller
 {
     public function index()
     {
-        return view('developers.index');
+        return view('developers.index', [
+            'title' => trans('app.developers.title'),
+        ]);
     }
 
     public function contact()
     {
-        return view('developers.contact');
+        return view('developers.contact', [
+            'title' => trans('app.contact.title'),
+        ]);
     }
 
     public function redirectToIndex()
@@ -26,6 +30,9 @@ class DevelopersController extends Controller
     {
         $endpoints = collect(Yaml::parse($fs->get('live/endpoints.yml')))->sortBy('name');
 
-        return view('developers.endpoints', compact('endpoints'));
+        return view('developers.endpoints', [
+            'title'     => trans('app.endpoints.title'),
+            'endpoints' => $endpoints,
+        ]);
     }
 }
