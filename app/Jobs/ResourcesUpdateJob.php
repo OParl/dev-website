@@ -45,7 +45,9 @@ class ResourcesUpdateJob implements ShouldQueue
         // TODO: validate endpoints.yml
         // $this->notify(SpecificationUpdateNotification::resourcesUpdateFailedNotification($this->treeish));
 
+        $fs->delete('live/endpoints.yml');
         $fs->copy($repo->getPath('endpoints.yml'), 'live/endpoints.yml');
+        
         $this->notify(SpecificationUpdateNotification::resourcesUpdateSuccesfulNotification($repo->getCurrentHead()));
     }
 
