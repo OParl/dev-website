@@ -11,11 +11,11 @@ class GH9Test extends TestCase
 
     public function testFetchOrganizationWhereBodyCondition()
     {
-        $this->route('get', 'api.v1.organization.index', ['where' => encode_where(['body' => '1'])]);
+        $this->route('get', 'api.oparl.v1.organization.index', ['where' => encode_where(['body' => '1'])]);
 
         $this->assertResponseStatus(200);
 
         $host = env('APP_URL');
-        $this->seeJson(['body' => "http://dev.{$host}/api/v1/body/1"]);
+        $this->seeJson(['body' => "http://dev.{$host}/api/oparl/v1/body/1"]);
     }
 }

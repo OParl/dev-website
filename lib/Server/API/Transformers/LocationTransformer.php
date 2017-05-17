@@ -20,11 +20,11 @@ class LocationTransformer extends BaseTransformer
 
         if (!$this->isIncluded()) {
             $data = array_merge($data, [
-                'body'         => $this->collectionRouteList('api.v1.body.show', $location->bodies),
-                'organization' => $this->collectionRouteList('api.v1.organization.show', $location->organizations),
-                'person'       => $this->collectionRouteList('api.v1.person.show', $location->people),
-                'meeting'      => $this->collectionRouteList('api.v1.meeting.show', $location->meetings),
-                'paper'        => $this->collectionRouteList('api.v1.paper.show', $location->papers),
+                'body'         => $this->collectionRouteList('api.oparl.v1.body.show', $location->bodies),
+                'organization' => $this->collectionRouteList('api.oparl.v1.organization.show', $location->organizations),
+                'person'       => $this->collectionRouteList('api.oparl.v1.person.show', $location->people),
+                'meeting'      => $this->collectionRouteList('api.oparl.v1.meeting.show', $location->meetings),
+                'paper'        => $this->collectionRouteList('api.oparl.v1.paper.show', $location->papers),
             ]);
         }
 

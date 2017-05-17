@@ -2,7 +2,7 @@
 
 return [
     'itemsPerPage'   => 100,
-    'rootURL'        => 'api/v1/',
+    'rootURL'        => 'api/oparl/v1/',
     'modelNamespace' => 'OParl\\Server\\Model\\',
 
     'transformers' => [

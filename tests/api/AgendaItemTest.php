@@ -4,7 +4,7 @@ class AgendaItemTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.agendaitem.index');
+        $this->route('get', 'api.oparl.v1.agendaitem.index');
         $this->assertResponseStatus(200);
 
         $responseAgendaItemCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class AgendaItemTest extends TestCase
 
     public function testShow()
     {
-        $this->route('get', 'api.v1.agendaitem.show', [1]);
+        $this->route('get', 'api.oparl.v1.agendaitem.show', [1]);
         $this->assertResponseStatus(200);
 
         $entity = \OParl\Server\Model\AgendaItem::find(1);

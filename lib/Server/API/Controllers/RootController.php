@@ -8,6 +8,6 @@ class RootController extends Controller
 {
     public function index()
     {
-        return redirect()->route('api.v1.system.index', ['format' => 'html']);
+        return redirect()->route('api.oparl.v1.system.index', ['format' => 'html']);
     }
 }

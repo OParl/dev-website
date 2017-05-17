@@ -4,7 +4,7 @@ class FileTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.file.index');
+        $this->route('get', 'api.oparl.v1.file.index');
         $this->assertResponseStatus(200);
 
         $responseFileCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class FileTest extends TestCase
 
     public function testShow()
     {
-        $this->route('get', 'api.v1.file.show', [1]);
+        $this->route('get', 'api.oparl.v1.file.show', [1]);
         $this->assertResponseStatus(200);
 
         $entity = \OParl\Server\Model\File::find(1);
@@ -25,7 +25,7 @@ class FileTest extends TestCase
 
     public function testShowNotExistsError()
     {
-        $this->route('get', 'api.v1.file.show', [0]);
+        $this->route('get', 'api.oparl.v1.file.show', [0]);
         $this->assertResponseStatus(404);
         $this->seeJson([
             'error' => [

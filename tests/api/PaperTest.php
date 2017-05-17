@@ -4,7 +4,7 @@ class PaperTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.paper.index');
+        $this->route('get', 'api.oparl.v1.paper.index');
         $this->assertResponseStatus(200);
 
         $responsePaperCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class PaperTest extends TestCase
 
     public function testShowFailsWithNonExisting()
     {
-        $this->route('get', 'api.v1.paper.show', [0]);
+        $this->route('get', 'api.oparl.v1.paper.show', [0]);
         $this->assertResponseStatus(404);
         $this->seeJson([
             'error' => [

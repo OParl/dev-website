@@ -11,7 +11,7 @@ class PersonTransformer extends BaseTransformer
     public function transform(Person $person)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($person), [
-            'body'          => route('api.v1.body.show', $person->body_id),
+            'body'          => route('api.oparl.v1.body.show', $person->body_id),
             'name'          => $person->name,
             'familyName'    => $person->family_name,
             'givenName'     => $person->given_name,
@@ -20,7 +20,7 @@ class PersonTransformer extends BaseTransformer
             'gender'        => $person->gender,
             'phone'         => $person->phone,
             'email'         => $person->email,
-            'location'      => ($person->location) ? route('api.v1.location.show', $person->location) : null,
+            'location'      => ($person->location) ? route('api.oparl.v1.location.show', $person->location) : null,
             'status'        => $person->status,
             // membership is included
             'life'          => $person->life,

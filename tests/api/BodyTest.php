@@ -4,7 +4,7 @@ class BodyTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.body.index');
+        $this->route('get', 'api.oparl.v1.body.index');
         $this->assertResponseStatus(200);
 
         $responseBodyCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class BodyTest extends TestCase
 
     public function testShow()
     {
-        $this->route('get', 'api.v1.body.show', [1]);
+        $this->route('get', 'api.oparl.v1.body.show', [1]);
         $this->assertResponseStatus(200);
 
         $entity = \OParl\Server\Model\Body::find(1);

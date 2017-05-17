@@ -37,8 +37,8 @@ class MeetingTransformer extends BaseTransformer
             'start'        => $this->formatDateTime($meeting->start),
             'end'          => $this->formatDateTime($meeting->end),
             // location is included
-            'organization' => $this->collectionRouteList('api.v1.organization.show', $meeting->organizations),
-            'participant'  => $this->collectionRouteList('api.v1.person.show', $meeting->participants),
+            'organization' => $this->collectionRouteList('api.oparl.v1.organization.show', $meeting->organizations),
+            'participant'  => $this->collectionRouteList('api.oparl.v1.person.show', $meeting->participants),
             // invitation is included
             // resultsProtocol is included
             // verbatimProtocol is included

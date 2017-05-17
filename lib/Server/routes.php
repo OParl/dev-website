@@ -1,9 +1,10 @@
 <?php
-$router->get('/api/oparl/v1/', ['uses' => 'RootController@index', 'as' => 'api.index']);
-
 /* @var Illuminate\Routing\Router $router */
+
+$router->get('/api/oparl/v1/', ['uses' => 'RootController@index', 'as' => 'api.oparl.index']);
+
 $router->group([
-    'as'         => 'api.v1.',
+    'as'         => 'api.oparl.v1.',
     'domain'     => 'dev.'.config('app.url'),
     'prefix'     => 'api/oparl/v1/',
     'middleware' => ['track', 'bindings'],

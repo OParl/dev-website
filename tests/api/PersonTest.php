@@ -4,7 +4,7 @@ class PersonTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.person.index');
+        $this->route('get', 'api.oparl.v1.person.index');
         $this->assertResponseStatus(200);
 
         $responsePersonCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class PersonTest extends TestCase
 
     public function testShow()
     {
-        $this->route('get', 'api.v1.person.show', [1]);
+        $this->route('get', 'api.oparl.v1.person.show', [1]);
         $this->assertResponseStatus(200);
 
         $entity = \OParl\Server\Model\Person::find(1);

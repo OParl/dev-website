@@ -4,7 +4,7 @@ class ConsultationTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.consultation.index');
+        $this->route('get', 'api.oparl.v1.consultation.index');
         $this->assertResponseStatus(200);
 
         $responseConsultationCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class ConsultationTest extends TestCase
 
     public function testShowNotExistsError()
     {
-        $this->route('get', 'api.v1.consultation.show', [0]);
+        $this->route('get', 'api.oparl.v1.consultation.show', [0]);
         $this->assertResponseStatus(404);
         $this->seeJson([
             'error' => [
