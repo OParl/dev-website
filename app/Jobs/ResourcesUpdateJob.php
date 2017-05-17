@@ -12,8 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use OParl\Spec\Jobs\InteractsWithRepositoryTrait;
 
 /**
- * Class ResourcesUpdateJob
- * @package App\Jobs
+ * Class ResourcesUpdateJob.
  */
 class ResourcesUpdateJob implements ShouldQueue
 {
