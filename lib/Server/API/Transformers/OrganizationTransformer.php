@@ -11,11 +11,11 @@ class OrganizationTransformer extends BaseTransformer
     public function transform(Organization $organization)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($organization), [
-            'body'              => route('api.v1.body.show', $organization->body_id),
+            'body'              => route('api.oparl.v1.body.show', $organization->body_id),
             'name'              => $organization->name,
             'shortName'         => $organization->short_name,
-            'membership'        => $this->collectionRouteList('api.v1.membership.show', $organization->members),
-            'meeting'           => route_where('api.v1.meeting.index', ['organization' => $organization->id]),
+            'membership'        => $this->collectionRouteList('api.oparl.v1.membership.show', $organization->members),
+            'meeting'           => route_where('api.oparl.v1.meeting.index', ['organization' => $organization->id]),
             'post'              => $organization->post,
             'subOrganizationOf' => null, // TODO: sub orgas
             'organizationType'  => $organization->organizationType,

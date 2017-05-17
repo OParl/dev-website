@@ -4,7 +4,7 @@ class MeetingTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.meeting.index');
+        $this->route('get', 'api.oparl.v1.meeting.index');
         $this->assertResponseStatus(200);
 
         $responseMeetingCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class MeetingTest extends TestCase
 
     public function testShow()
     {
-        $this->route('get', 'api.v1.meeting.show', [1]);
+        $this->route('get', 'api.oparl.v1.meeting.show', [1]);
         $this->assertResponseStatus(200);
 
         $entity = \OParl\Server\Model\Meeting::find(1);

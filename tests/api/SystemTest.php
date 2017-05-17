@@ -4,14 +4,14 @@ class SystemTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.system.index');
+        $this->route('get', 'api.oparl.v1.system.index');
         $this->assertResponseStatus(200);
         $this->seeJson(['name' => 'OParl Demoserver']);
     }
 
     public function testHasBodies()
     {
-        $this->route('get', 'api.v1.system.index');
+        $this->route('get', 'api.oparl.v1.system.index');
 
         $this->assertTrue(is_string($this->decodeResponseJson()['body']));
     }

@@ -28,6 +28,6 @@ class System extends BaseModel
      */
     public function getProductAttribute()
     {
-        return route('api.index');
+        return route('api.oparl.index');
     }
 }

@@ -16,7 +16,7 @@ class LegislativeTermTransformer extends BaseTransformer
         ]);
 
         if (!$this->isIncluded()) {
-            $data['body'] = route('api.v1.body.show', $legislativeTerm->body_id);
+            $data['body'] = route('api.oparl.v1.body.show', $legislativeTerm->body_id);
         }
 
         return $this->cleanupData($data, $legislativeTerm);

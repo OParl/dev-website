@@ -49,6 +49,7 @@ return [
             'spec',
             'dev-website',
             'validator',
+            'resources',
         ],
         'gitlab' => [
             'grindhold-liboparl',

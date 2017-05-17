@@ -18,8 +18,7 @@ class Header
         ],
 
         [
-            'routeKey' => 'api.v1.system.index',
-            'params'   => ['format' => 'html'],
+            'routeKey' => 'api.oparl',
             'title'    => 'app.demo.title',
         ],
 

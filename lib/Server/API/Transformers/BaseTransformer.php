@@ -14,9 +14,9 @@ class BaseTransformer extends TransfugioBaseTransformer
         $EntityName = ucfirst(class_basename($entity));
 
         $default = [
-            'id'       => route("api.v1.{$entityName}.show", $entity),
+            'id'       => route("api.oparl.v1.{$entityName}.show", $entity),
             'type'     => "https://schema.oparl.org/1.0/{$EntityName}",
-            'web'      => route("api.v1.{$entityName}.show", $entity, ['format' => 'html']),
+            'web'      => route("api.oparl.v1.{$entityName}.show", $entity, ['format' => 'html']),
             'deleted'  => $entity->trashed() ? true : false,
             'created'  => $this->formatDateTime($entity->created_at),
             'modified' => $this->formatDateTime($entity->updated_at),

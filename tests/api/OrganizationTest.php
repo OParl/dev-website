@@ -4,7 +4,7 @@ class OrganizationTest extends TestCase
 {
     public function testIndex()
     {
-        $this->route('get', 'api.v1.organization.index');
+        $this->route('get', 'api.oparl.v1.organization.index');
         $this->assertResponseStatus(200);
 
         $responseOrganizationCount = $this->decodeResponseJson()['pagination']['totalElements'];
@@ -15,7 +15,7 @@ class OrganizationTest extends TestCase
 
     public function testShow()
     {
-        $this->route('get', 'api.v1.organization.show', [1]);
+        $this->route('get', 'api.oparl.v1.organization.show', [1]);
         $this->assertResponseStatus(200);
 
         $entity = \OParl\Server\Model\Organization::find(1);

@@ -35,6 +35,9 @@ return [
     'downloads.liboparl.sourcecode'        => 'Quellcode',
     'downloads.liboparl.packages'          => 'Pakete',
 
+    'endpoints.title' => 'OParl-Endpunkte',
+    'endpoints.text' => 'Zur Zeit sind uns die folgenden OParl-Endpunkte bekannt.',
+
     'specification.title' => 'Spezifikation',
 
     'specification.download.title'         => 'Spezifikation herunterladen',
