@@ -47,7 +47,7 @@ class ResourcesUpdateJob implements ShouldQueue
 
         $fs->delete('live/endpoints.yml');
         $fs->copy($repo->getPath('endpoints.yml'), 'live/endpoints.yml');
-        
+
         $this->notify(SpecificationUpdateNotification::resourcesUpdateSuccesfulNotification($repo->getCurrentHead()));
     }
 
