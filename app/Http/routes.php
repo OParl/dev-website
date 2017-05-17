@@ -23,14 +23,12 @@
 $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router) {
     $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
 
-    // Specification
-    $router->get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
-    $router->get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
-    $router->get('/spezifikation/images/',
-        ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
-    $router->get('/spezifikation/images/{image}.png', 'SpecificationController@image')
-        ->name('specification.image')
-        ->where('image', '[a-zA-Z0-9-._]+');
+    $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
+
+    // Dummy file controller for API demo
+    $router->pattern('filename', '[a-z0-9]{3,12}');
+    $router->get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
+    $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
 
     // Downloads
     $router->get('/downloads/')
@@ -44,7 +42,22 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->where('format', '(html|docx|odt|txt|pdf|epub|zip|tar.bz2|tar.gz)')
         ->middleware('track');
 
-    $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
+    $router->get('/endpunkte')
+        ->name('endpoints.index')
+        ->uses('DevelopersController@endpoints');
+
+    // Specification
+    $router->get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
+    $router->get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
+    $router->get('/spezifikation/images/',
+        ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
+    $router->get('/spezifikation/images/{image}.png', 'SpecificationController@image')
+        ->name('specification.image')
+        ->where('image', '[a-zA-Z0-9-._]+');
+
+    $router->post('/validator', ['uses' => 'ValidatorController@scheduleValidation', 'as' => 'validator.validate']);
+    $router->get('/validator/test', ['uses' => 'ValidatorController@resultTest', 'as' => 'validator.result.test']);
+    $router->get('/validator/{endpoint}', ['uses' => 'ValidatorController@result', 'as' => 'validator.result']);
 
     $router->get('/_/bk/', 'Hooks\BuildkiteController@index')->name('hooks.bk.index');
 
@@ -57,15 +70,6 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/_/gl/', ['uses' => 'Hooks\GitLabHooksController@index', 'as' => 'hooks.gl.index']);
     $router->post('/_/gl/push/{repository}', ['uses' => 'Hooks\GitLabHooksController@push', 'as' => 'hooks.gl.push'])
         ->where('repository', '[a-z-]+');
-
-    // Dummy file controller for API demo
-    $router->pattern('filename', '[a-z0-9]{3,12}');
-    $router->get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
-    $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
-
-    $router->post('/validator', ['uses' => 'ValidatorController@scheduleValidation', 'as' => 'validator.validate']);
-    $router->get('/validator/test', ['uses' => 'ValidatorController@resultTest', 'as' => 'validator.result.test']);
-    $router->get('/validator/{endpoint}', ['uses' => 'ValidatorController@result', 'as' => 'validator.result']);
 });
 
 /*

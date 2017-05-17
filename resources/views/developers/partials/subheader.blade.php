@@ -1,0 +1,2 @@
+<li class="col-xs-12"><a href="{{ route('downloads.index') }}">@lang('app.downloads.title')</a></li>
+<li class="col-xs-12"><a href="{{ route('endpoints.index') }}">@lang('app.endpoints.title')</a></li>
