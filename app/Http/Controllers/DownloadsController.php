@@ -41,9 +41,9 @@ class DownloadsController extends Controller
             return response()->download($file->getInfo()->getRealPath());
         } catch (FileNotFoundException $e) {
             abort(404);
-
-            return;
         }
+
+        return redirect()->back();
     }
 
     public function latestSpecification($format)

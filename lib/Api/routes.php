@@ -2,10 +2,12 @@
 
 /* @var Illuminate\Routing\Router $router */
 $router->group([
-    'as'         => 'api.v1',
+    'as'         => 'api.',
     'domain'     => 'dev.'.config('app.url'),
-    'prefix'     => '/api/v1',
+    'prefix'     => '/api/',
     'middleware' => ['track'],
 ], function () use ($router) {
-    $router->resource('endpoint', 'EndpointController', ['only' => ['index', 'show']]);
+    $router->get('/endpoints')
+        ->name('endpoints.index')
+        ->uses('EndpointApiController@index');
 });
