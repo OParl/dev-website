@@ -34,9 +34,9 @@ class EndpointApiController
         return response()->json([
             'data' => $data,
             'meta' => [
-                'page' => $page,
+                'page'  => $page,
                 'total' => $pageCount,
-                'next'  => ($pageCount > $page) ? route('api.endpoints.index', ['page' => ++$page]) : null
+                'next'  => ($pageCount > $page) ? route('api.endpoints.index', ['page' => ++$page]) : null,
             ],
         ]);
     }
