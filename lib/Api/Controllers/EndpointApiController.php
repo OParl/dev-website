@@ -25,7 +25,8 @@ class EndpointApiController
                     'title'       => $endpoint['title'],
                     'description' => isset($endpoint['description']) ? $endpoint['description'] : null,
                 ];
-            });
+            })
+            ->values();
 
         $data = $endpoints->forPage($page, $itemsPerPage);
 
