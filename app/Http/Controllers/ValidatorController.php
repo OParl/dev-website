@@ -6,6 +6,7 @@ use App\Http\Requests\Request;
 use App\Http\Requests\ValidationRequest;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use OParl\Spec\Jobs\ValidatorRunJob;
 
 class ValidatorController extends Controller
@@ -31,7 +32,7 @@ class ValidatorController extends Controller
         // TODO: show validation progress maybe?
     }
 
-    public function resultTest()
+    public function resultTest(Filesystem $fs)
     {
         $pdf = new Dompdf([
             'isPhpEnabled' => true,
@@ -41,13 +42,15 @@ class ValidatorController extends Controller
 
         $title = sprintf('OParl Validator %s', Carbon::now()->format('hi-d-m-Y'));
 
-        $html = view('developers.validation_result', [
+        $data = [
             'endpoint'       => 'http://dev.dev-website.dev/api/v1/system/1',
-            'result'         => [],
-            'oparlVersion'   => '1.0',
+            'result'         => json_decode($fs->get('result.json'), true),
             'validationDate' => Carbon::now()->format('d.m.Y'),
             'title'          => $title,
-        ]);
+            'oparlVersion'   => '1.0',
+        ];
+
+        $html = view('developers.validation_result', $data)->render();
 
         $pdf->loadHtml($html);
 
