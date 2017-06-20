@@ -40,9 +40,9 @@ cp .env.example .env
 Das Entwicklerportal ist sowohl über WebHooks als auch durch die API mit GitHub
 integriert. Falls an den Integrationsschnittpunkten Änderungen vorgenommen werden
 müssen, ist GitHub-Administrationszugriff auf ein Klon der
-[OParl Spezifikation](OParl/spec) notwendig. Weiterhin empfiehlt sich beim Entwickeln
+[OParl Spezifikation][repo:spec] notwendig. Weiterhin empfiehlt sich beim Entwickeln
 auf einer lokalen (nicht direkt aus dem Internet erreichbaren) Maschine die Verwendung
-von [ngrok](https://ngrok.com/). Zur Integration sind eine GH Application und ein Webhook notwendig.
+von [ngrok][ngrok]. Zur Integration sind eine GH Application und ein Webhook notwendig.
 
 ### Entwicklungsserver
 
@@ -55,7 +55,7 @@ zugänglich sein.
 
 ### Frontend
 
-Ab gesehen davon basiert die Frontend Entwicklung im Code Management auf Laravel Elixir.
+Abgesehen davon basiert die Frontend Entwicklung im Code Management auf Laravel Elixir.
 Zentrale Komponenten sind mit Vue.js realisiert, Wenn im Frontendcode gearbeitet wird,
 empfiehlt es sich mit
 
@@ -67,7 +67,50 @@ dafür zu sorgen, dass der Code permanent für den Browser kompiliert wird. Es i
 nicht notwendig, diese generierten Dateien im Repository zu speichern, da sie während des
 Deployments der Seite automatisch erstellt und aktualisiert werden.
 
-## Lizenz
+## System Architecture
 
-Dieses Programm steht unter den Bedingungen der [MIT-Lizenz](https://opensource.org/licenses/MIT)
-zur Verfügung.
+The OParl developer portal is comprised of several components. At the core, a Laravel 5
+based web application acts as frontend and orchestrates updates to all the subcomponents.
+Behind the scenes, the repositories of the [specification][repo:spec], [liboparl][repo:liboparl], 
+[resources][repo:resources] and the [validator][repo:validator]. Addtionally, the server running
+the main component also provides the full build environments for the specification and liboparl,
+as well as the runtime environment for the validator.
+
+### Webhooks
+
+**From GitHub:**
+
+- **OParl/spec**: will update specification downloads, schema assets and live version
+  on push; acts according to tags and branches, as configured in `config/oparl.php`
+- **OParl/validator**: will update the local validator repository on push; also adheres to config
+- **OParl/resources**: will update the endpoints list in `endpoints.yml` on push
+- **OParl/liboparl**: will update the local liboparl repository and schedule a liboparl build job;
+  adheres to config
+  
+### Validator Workflow
+
+TODO.
+
+### Internationalization / Localization
+
+TODO.
+
+### Support versions and feature longevity
+
+The main application follows Laravel framework updates with roughly one to two months drag. This is done
+so that the release rush bugs will hopefully be fixed before the update. This policy was adopted after
+framework updates broke not-yet-updated third party packages. The third party packages fetched from
+[Packagist][packagist] and [npmjs][npmjs] are regularily checked for updates.
+
+## License
+
+This program is being provided under the terms of the [MIT License][mit]
+
+[mit]: https://opensource.org/licenses/MIT
+[ngrok]: https://ngrok.com
+[npm]: https://npmjs.com
+[packagist]: https://packagist.org
+[repo:spec]: https://github.com/OParl/spec
+[repo:liboparl]: https://github.com/OParl/liboparl
+[repo:resources]: https://github.com/OParl/resources
+[repo:validator]: https://github.com/OParl/validator
