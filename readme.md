@@ -67,7 +67,7 @@ Deployments der Seite automatisch erstellt und aktualisiert werden.
 The OParl developer portal is comprised of several components. At the core, a Laravel 5
 based web application acts as frontend and orchestrates updates to all the subcomponents.
 Behind the scenes, the repositories of the [specification][repo:spec], [liboparl][repo:liboparl], 
-[resources][repo:resources] and the [validator][repo:validator]. Addtionally, the server running
+[resources][repo:resources] and the [validator][repo:validator]. Additionally, the server running
 the main component also provides the full build environments for the specification and liboparl,
 as well as the runtime environment for the validator.
 
