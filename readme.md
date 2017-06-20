@@ -1,8 +1,3 @@
-Master: [![Build Status](https://travis-ci.org/OParl/dev-website.svg?branch=master)](https://travis-ci.org/OParl/dev-website)
-[![StyleCI](https://styleci.io/repos/37522193/shield?branch=master)](https://styleci.io/repos/37522193)
-<br />
-Production: [![Build Status](https://travis-ci.org/OParl/dev-website.svg?branch=production)](https://travis-ci.org/OParl/dev-website)
-
 # OParl - Entwicklerplattform
 
 Dies ist der Code zur [OParl-Entwicklerplattform](https://dev.oparl.org).
@@ -75,6 +70,48 @@ Behind the scenes, the repositories of the [specification][repo:spec], [liboparl
 [resources][repo:resources] and the [validator][repo:validator]. Addtionally, the server running
 the main component also provides the full build environments for the specification and liboparl,
 as well as the runtime environment for the validator.
+
+### The .env-file
+
+Eventhough most configuration lives inside the versioned `config/`-directory, some configuration
+options must be set on a per host basis. These - for the most part - include all the security
+related config options such as the application encryption key or the webhook secret for GitHub.
+
+| Variable                 | Default Value           | Description                             |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| APP_ENV                  | `production`            | Application environment                 |
+| APP_DEBUG                | `false`                 | Toggles the debug mode                  |
+| APP_KEY                  | `<none>`                | Application encryption key              |
+| APP_URL                  | `http://localhost/`     |                                         |
+| APP_LOG                  | `daily`                 | Controls the builtin logfile rotation   |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| DB_DEFAULT               | `sqlite`                | Select db type for main db              |
+| DB_HOST                  |                         | Host for mysql connection               |
+| DB_DATABASE              |                         | Database name for mysql connection      |
+| DB_USERNAME              |                         | User name for mysql connection          |
+| DB_PASSWORD              |                         |                                         |
+| DB_DEMO_DEFAULT          | `sqlite_demo`           | Select db type for test data db         |
+| DB_DEMO_HOST             |                         |                                         |
+| DB_DEMO_DATABASE         |                         |                                         |
+| DB_DEMO_USERNAME         |                         |                                         |
+| DB_DEMO_PASSWORD         |                         |                                         |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| CACHE_DRIVER             | `file`                  | Storage driver for the app cache        |
+| SESSION_DRIVER           | `file`                  | Storage driver for sessions             |
+| QUEUE_DRIVER             | `file`                  | Queue driver for background tasks       |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| PIWIK_URL                |                         | URL for Piwik tracking                  |
+| PIWIK_SITE_ID            |                         | Piwik site id                           |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| SLACK_ENABLED            | `false`                 | Globally toggle Slack integration       |
+| SLACK_ENDPOINT           |                         |                                         |
+| SLACK_CHANNEL_CI         | `#ci`                   |                                         |
+| SLACK_CHANNEL_VALIDATION | `#feedback`             |                                         |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| OPARL_BUILD_MODE         | `native`                | Specification build mode                |
+| LIBOPARL_PREFIX          |                         | Install-dir for liboparl                |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| GITHUB_WEBHOOK_SECRET    |                         | Secret for GitHub hook validation       |
 
 ### Webhooks
 

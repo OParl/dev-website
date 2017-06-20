@@ -62,7 +62,7 @@ return [
         'validation' => [
             'enabled'  => env('SLACK_ENABLED', false),
             'endpoint' => env('SLACK_ENDPOINT', ''),
-            'channel'  => env('SLACK_CHANNEL_VALIDATOR', '#_general'),
+            'channel'  => env('SLACK_CHANNEL_VALIDATOR', '#feedback'),
         ],
     ],
 
