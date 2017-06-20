@@ -102,6 +102,13 @@ so that the release rush bugs will hopefully be fixed before the update. This po
 framework updates broke not-yet-updated third party packages. The third party packages fetched from
 [Packagist][packagist] and [npmjs][npmjs] are regularily checked for updates.
 
+The development plaform itself is unversioned as it is under continuous development. The validator,
+liboparl and the specification however follow the [Semantic Versioning][semver] specification. Additionally,
+the reference and test API implementations of OParl have versioned endpoints at 
+`https://dev.oparl.org/api/oparl/<version>/`. Check #46 for future plans on this.
+
+Other provided API methods will eventually be documented using Swagger. See #47 on documentation status.
+
 ## License
 
 This program is being provided under the terms of the [MIT License][mit]
