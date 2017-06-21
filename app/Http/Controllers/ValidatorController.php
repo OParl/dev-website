@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Request;
 use App\Http\Requests\ValidationRequest;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 use OParl\Spec\Jobs\ValidatorRunJob;
 
 class ValidatorController extends Controller
@@ -32,7 +32,7 @@ class ValidatorController extends Controller
         // TODO: show validation progress maybe?
     }
 
-    public function resultTest(Filesystem $fs)
+    public function resultTest(Request $request, Filesystem $fs)
     {
         $pdf = new Dompdf([
             'isPhpEnabled' => true,
@@ -51,6 +51,10 @@ class ValidatorController extends Controller
         ];
 
         $html = view('developers.validation_result', $data)->render();
+
+        if ($request->has('format') && $request->input('format') === 'html') {
+            return $html;
+        }
 
         $pdf->loadHtml($html);
 

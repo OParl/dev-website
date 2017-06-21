@@ -52,12 +52,13 @@
                     <li class="result--okay">Durchschnittliche Antwortzeit des Servers &lt; 500ms</li>
                 @endif
             </ul>
+
+            <p>
+                Auf den folgenden Seiten finden Sie detaillierte Auswertungen der Analyse Ihres Endpunktes
+                aufgeschlüsselt nach OParl-Objekten. Falls zu einzelnen Punkten Fragen aufkommen, wenden
+                Sie sich bitte mit diesem Dokument im Anhang per E-Mail an info@oparl.org.
+            </p>
         </div>
-        <p>
-            Auf den folgenden Seiten finden Sie detaillierte Auswertungen der Analyse Ihres Endpunktes
-            aufgeschlüsselt nach OParl-Objekten. Falls zu einzelnen Punkten Fragen aufkommen, wenden
-            Sie sich bitte mit diesem Dokument im Anhang per E-Mail an info@oparl.org.
-        </p>
     </div>
 
     @foreach ($result['object_messages'] as $objectName => $data)
@@ -66,25 +67,41 @@
         @else
             <div>
         @endif
-            <header>
-                <img src="@dumpasset('img/favicon.png')" width="32" height="32">
-                <span>OParl.org – Validator</span>
-            </header>
+                <header>
+                    <img src="@dumpasset('img/favicon.png')" width="32" height="32">
+                    <span>OParl.org – Validator</span>
+                </header>
 
-            <h2>oparl:{{ strtolower($objectName) }}</h2>
+                <h2>oparl:{{ strtolower($objectName) }}</h2>
 
-            <h3>Aufgetretene Meldungen</h3>
+                <h3>Aufgetretene Meldungen</h3>
 
-            @foreach ($data as $message)
-                <strong>{{ $message['severity'] }}: {{ $message['message'] }}</strong>
-                {{--<p>TODO: long description</p>--}}
-                <h4>Aufgetretenen in folgenden Objekten:</h4>
-                <ul>
-                    @foreach($message['objects'] as $errorObject)
-                        <li>{{ $errorObject }}</li>
-                    @endforeach
-                </ul>
-            @endforeach
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Schwere</th>
+                        <th>Meldung</th>
+                        <th>betroffene Objekte</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $message)
+                            <tr>
+                                <td>{{ $message['severity'] }}</td>
+                                <td>{{ $message['message'] }}</td>
+                                <td>
+                                    <ul>
+                                        @foreach ($message['objects'] as $errorObject)
+                                            <li>
+                                                <a href="{{ $errorObject }}">{{ $errorObject }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
         </div>
     @endforeach
 </body>
