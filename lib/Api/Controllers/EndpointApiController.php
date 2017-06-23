@@ -11,33 +11,44 @@ class EndpointApiController
     /**
      * @SWG\Get(
      *     path="endpoints",
+     *     tags={ "endpoints" },
      *     summary="list endpoints",
      *     @SWG\Response(
      *         response="200",
      *         description="A listing of known OParl endpoints",
      *         @SWG\Schema(
-     *             title="Endpoint",
-     *             example={
-     *                  { "url": "https://example.com/api", "title": "Example.com OParl API" },
-     *                  { "url": "https://example.com/api", "title": "Example.com OParl API", "description": "This is a cool OParl API" },
-     *             },
-     *             required={
-     *                  "url",
-     *                  "title"
-     *             },
-     *             @SWG\Property(
-     *                 property="url",
-     *                 type="string"
-     *             ),
-     *             @SWG\Property(
-     *                 property="title",
-     *                 type="string"
-     *             ),
-     *             @SWG\Property(
-     *                 property="description",
-     *                 type="string"
-     *             )
+     *              type="array",
+     *              @SWG\Items(ref="#/definitions/Endpoint")
      *         )
+     *     )
+     * )
+     *
+     * @SWG\Definition(
+     *     type="object",
+     *     definition="Endpoint",
+     *     example={
+     *         "url": "https://example.com/api",
+     *         "title": "Example.com OParl API",
+     *         "description": "This is a cool OParl API"
+     *     },
+     *     required={
+     *         "url",
+     *         "title"
+     *     },
+     *     @SWG\Property(
+     *         property="url",
+     *         type="string",
+     *         description="The OParl endpoint's entrypoint"
+     *     ),
+     *     @SWG\Property(
+     *         property="title",
+     *         type="string",
+     *         description="The OParl endpoint's name"
+     *     ),
+     *     @SWG\Property(
+     *         property="description",
+     *         type="string",
+     *         description="Optional detailed endpoint description"
      *     )
      * )
      */

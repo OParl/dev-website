@@ -14,12 +14,17 @@ use function Swagger\scan;
  * @SWG\Swagger(
  *     schemes={"https"},
  *     host="dev.oparl.org",
- *     basePath="/api",
+ *     basePath="/api/",
  *     @SWG\Info(
  *         title="OParl Developer Platform API",
  *         description="Meta information concerning the OParl ecosystem",
- *         version="0"
- *     )
+ *         version="0",
+ *         @SWG\License(
+ *             name="CC-4.0-BY",
+ *             url="https://creativecommons.org/licenses/by/4.0/"
+ *         )
+ *     ),
+ *     produces={ "application/json" }
  * )
  */
 class ApiController
@@ -28,7 +33,10 @@ class ApiController
     {
         $swagger = scan(base_path('lib/Api/Controllers'));
 
-        return response()->json(json_decode($swagger));
+        return response($swagger, 200, [
+            'Content-Tyype' => 'application/json',
+            'Access-Control-Allow-Origin' => '*'
+        ]);
     }
 
     public function index()
