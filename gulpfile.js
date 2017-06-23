@@ -167,7 +167,3 @@ gulp.task('images', () => {
             }));
     }
 });
-
-gulp.task('swagger-ui', () => {
-
-});

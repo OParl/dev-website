@@ -8,6 +8,39 @@ use Symfony\Component\Yaml\Yaml;
 
 class EndpointApiController
 {
+    /**
+     * @SWG\Get(
+     *     path="endpoints",
+     *     summary="list endpoints",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="A listing of known OParl endpoints",
+     *         @SWG\Schema(
+     *             title="Endpoint",
+     *             example={
+     *                  { "url": "https://example.com/api", "title": "Example.com OParl API" },
+     *                  { "url": "https://example.com/api", "title": "Example.com OParl API", "description": "This is a cool OParl API" },
+     *             },
+     *             required={
+     *                  "url",
+     *                  "title"
+     *             },
+     *             @SWG\Property(
+     *                 property="url",
+     *                 type="string"
+     *             ),
+     *             @SWG\Property(
+     *                 property="title",
+     *                 type="string"
+     *             ),
+     *             @SWG\Property(
+     *                 property="description",
+     *                 type="string"
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function index(Request $request, Filesystem $fs)
     {
         $page = 0;
