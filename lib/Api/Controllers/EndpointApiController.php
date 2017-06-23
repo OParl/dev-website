@@ -10,15 +10,14 @@ class EndpointApiController
 {
     /**
      * @SWG\Get(
-     *     path="endpoints",
+     *     path="/endpoints",
      *     tags={ "endpoints" },
      *     summary="list endpoints",
      *     @SWG\Response(
      *         response="200",
      *         description="A listing of known OParl endpoints",
      *         @SWG\Schema(
-     *              type="array",
-     *              @SWG\Items(ref="#/definitions/Endpoint")
+     *              @SWG\Property( property="data", type="array", @SWG\Items( ref="#/definitions/Endpoint" ))
      *         )
      *     )
      * )
