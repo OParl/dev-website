@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: sgraupner
  * Date: 21.06.17
- * Time: 11:21
+ * Time: 11:21.
  */
 
 namespace OParl\Website\Api\Controllers;
