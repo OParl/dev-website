@@ -17,7 +17,7 @@ let config = {
     production: !!util.env.production
 };
 
-let script = function (src, dest = '') {
+let script = (src, dest = '')  => {
     if (config.production) {
         env.set({
             NODE_ENV: 'production'
@@ -43,7 +43,7 @@ let script = function (src, dest = '') {
             presets: [require('babel-preset-es2015')]
         }))
         .bundle()
-        .on('error', function (e) {
+        .on('error', (e) => {
             console.log(e);
         })
         .pipe(source(dest))
@@ -51,14 +51,16 @@ let script = function (src, dest = '') {
         .pipe((config.production) ? uglify() : util.noop())
 };
 
-let font_src = function (src, formats = ['eot', 'otf', 'ttf', 'woff', 'woff2']) {
+let font_src = (src, formats = ['eot', 'otf', 'ttf', 'woff', 'woff2']) => {
     let sources = [];
 
     // make sources enumeration
     // return for use with gulp.src/gulp.dest
 
     for (let format in formats) {
-        sources.push(src + "/" + formats[format].toUpperCase() + "/*");
+        if (formats.hasOwnProperty(format)) {
+            sources.push(src + "/" + formats[format].toUpperCase() + "/*");
+        }
     }
 
     return sources;
@@ -66,23 +68,23 @@ let font_src = function (src, formats = ['eot', 'otf', 'ttf', 'woff', 'woff2']) 
 
 gulp.task('default', ['scripts', 'styles', 'fonts', 'images']);
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
     gulp.watch('./resources/assets/sass/**/*.scss', ['styles']);
     gulp.watch('./resources/js/**/*.js', ['scripts']);
     gulp.watch('./resources/js/**/*.vue', ['scripts']);
 });
 
-gulp.task('scripts-api', function () {
+gulp.task('scripts-api', () => {
     return script('./resources/js/api.js')
         .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('scripts-developers', function () {
+gulp.task('scripts-developers', () => {
     return script('./resources/js/developers.js')
         .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('scripts-spec', function () {
+gulp.task('scripts-spec', () => {
     return script('./resources/js/spec.js')
         .pipe(gulp.dest('./public/js'));
 });
@@ -93,7 +95,7 @@ gulp.task('scripts', [
     'scripts-spec'
 ]);
 
-gulp.task('styles', function () {
+gulp.task('styles', () => {
     return gulp.src('./resources/assets/sass/*.scss')
         .pipe(sass())
         .pipe(config.production ? cssmin() : util.noop())
@@ -103,17 +105,17 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('fonts-source-sans-pro', function () {
+gulp.task('fonts-source-sans-pro', () => {
     return gulp.src(font_src('./node_modules/source-sans-pro'))
         .pipe(gulp.dest('./public/fonts'));
 });
 
-gulp.task('fonts-source-code-pro', function () {
+gulp.task('fonts-source-code-pro', () => {
     return gulp.src(font_src('./node_modules/source-code-pro'))
         .pipe(gulp.dest('./public/fonts'));
 });
 
-gulp.task('fonts-font-awesome', function () {
+gulp.task('fonts-font-awesome', () => {
     return gulp.src('./node_modules/font-awesome/fonts/**.*')
         .pipe(gulp.dest('./public/fonts'));
 });
@@ -124,7 +126,7 @@ gulp.task('fonts', [
     'fonts-font-awesome'
 ]);
 
-gulp.task('images', function() {
+gulp.task('images', () => {
     const images = [
         [
             './resources/assets/brand/icon/oparl-icon.png',
@@ -164,4 +166,8 @@ gulp.task('images', function() {
                 overwrite: false
             }));
     }
+});
+
+gulp.task('swagger-ui', () => {
+
 });
