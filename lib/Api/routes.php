@@ -18,5 +18,4 @@ $router->group([
     $router->get('/endpoints')
         ->name('endpoints.index')
         ->uses('EndpointApiController@index');
-
 });
