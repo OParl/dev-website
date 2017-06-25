@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sgraupner
- * Date: 21.06.17
- * Time: 11:21.
- */
 
 namespace OParl\Website\Api\Controllers;
 
@@ -29,6 +23,11 @@ use function Swagger\scan;
  */
 class ApiController
 {
+    /**
+     * Return the dynamically updated swagger.json for the meta endpoints
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function swaggerJson()
     {
         $swagger = scan(base_path('lib/Api/Controllers'));
@@ -39,6 +38,11 @@ class ApiController
         ]);
     }
 
+    /**
+     * Index page for the api
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function index()
     {
         return view('api.index');
