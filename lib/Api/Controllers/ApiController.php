@@ -24,7 +24,7 @@ use function Swagger\scan;
 class ApiController
 {
     /**
-     * Return the dynamically updated swagger.json for the meta endpoints
+     * Return the dynamically updated swagger.json for the meta endpoints.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -39,7 +39,7 @@ class ApiController
     }
 
     /**
-     * Index page for the api
+     * Index page for the api.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
