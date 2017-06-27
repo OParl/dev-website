@@ -10,10 +10,17 @@
     "eslint": "^4.1.1",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.8.0",
+    "flexboxgrid": "^6.3.1",
+    "font-awesome": "^4.7.0",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "fsevents": "^1.1.2",
     "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-clean-css": "^3.4.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-util": "^3.0.8",
     "prismjs": "^1.6.0",
+    "pure-css": "^1.0.4",
     "source-code-pro": "git://github.com/adobe-fonts/source-code-pro.git#release",
     "source-map-loader": "^0.2.1",
     "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
@@ -37,6 +44,7 @@
   },
   "scripts": {
     "dev": "gulp --require babel-register --gulpfile tasks",
+    "watch": "gulp --require babel-register --gulpfile tasks watch",
     "prod": "NODE_ENV=production gulp build --require babel-register --gulpfile tasks"
   }
 }
