@@ -17,7 +17,7 @@
 @stop
 
 @section ('content')
-    <f-accordion :show="showTableOfContents" :has-trigger="true">
+    <f-accordion :show.sync="showTableOfContents" :has-trigger="true">
         <div slot="body">{!! $liveView->getTableOfContents() !!}</div>
     </f-accordion>
 
