@@ -1,6 +1,5 @@
-import Vue from 'vue/dist/vue.common'
+import Vue from 'vue'
 import Prism from 'prismjs/components/prism-core'
-import 'prismjs/components/prism-javascript'
 
 import FModal from './modules/fmodal.vue'
 import FAccordion from './modules/faccordion.vue'
@@ -14,7 +13,7 @@ const vm = new Vue({
     },
 
     mounted() {
-        //Prism.highlightAll();
+        Prism.highlightAll();
     },
 
     components: {
