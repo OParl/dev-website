@@ -20,6 +20,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-util": "^3.0.8",
     "prismjs": "^1.6.0",
+    "prismjs-loader": "0.0.4",
     "pure-css": "^1.0.4",
     "source-code-pro": "git://github.com/adobe-fonts/source-code-pro.git#release",
     "source-map-loader": "^0.2.1",

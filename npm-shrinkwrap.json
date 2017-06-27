@@ -3803,6 +3803,28 @@
       "resolved": "https://registry.npmjs.org/prismjs/-/prismjs-1.6.0.tgz",
       "integrity": "sha1-EY2V+3pm26InLjQ7NF9SNmWds2U="
     },
+    "prismjs-loader": {
+      "version": "0.0.4",
+      "resolved": "https://registry.npmjs.org/prismjs-loader/-/prismjs-loader-0.0.4.tgz",
+      "integrity": "sha1-rWK8Enx9Kqc/6uSmtDPvAYjxze8=",
+      "dependencies": {
+        "emojis-list": {
+          "version": "1.0.3",
+          "resolved": "https://registry.npmjs.org/emojis-list/-/emojis-list-1.0.3.tgz",
+          "integrity": "sha1-yv/pcNUMdr+yOAyui9YqytS239U="
+        },
+        "loader-utils": {
+          "version": "0.2.14",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.14.tgz",
+          "integrity": "sha1-PtqyoSPrsZahydbdPoM4SViEPm8="
+        },
+        "prismjs": {
+          "version": "1.4.1",
+          "resolved": "https://registry.npmjs.org/prismjs/-/prismjs-1.4.1.tgz",
+          "integrity": "sha1-uCoQN08zvqWLNVxgKefiV8oFE0o="
+        }
+      }
+    },
     "private": {
       "version": "0.1.7",
       "resolved": "https://registry.npmjs.org/private/-/private-0.1.7.tgz",

@@ -1,12 +1,13 @@
-import Vue from 'vue/dist/vue.common'
+let Prism = require('!!prismjs?lang=javascript');
+import Vue from 'vue'
 
 import FAccordion from './modules/faccordion.vue'
 
 const vm = new Vue({
     el: '#app',
 
-    created() {
-        //Prism.highlightAll();
+    mounted() {
+        Prism.highlightAll();
     },
 
     components: {
