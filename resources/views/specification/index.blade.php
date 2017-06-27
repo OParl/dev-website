@@ -6,7 +6,7 @@
         &nbsp;
     </li>
     <li class="col-xs-2">
-        <button @click="showTableOfContents = !showTableOfContents" title="@lang('common.table-of-contents')" aria-label="@lang('common.table-of-contents')">
+        <button @click="toggleTableOfContents" title="@lang('common.table-of-contents')" aria-label="@lang('common.table-of-contents')">
         <i class="fa fa-2x fa-book" aria-hidden="true"></i>
         </button>
         <button @click="showDownloadsModal = true" title="@lang('app.specification.download.title')"
@@ -17,7 +17,7 @@
 @stop
 
 @section ('content')
-    <f-accordion :show.sync="showTableOfContents" :has-trigger="true">
+    <f-accordion :has-trigger="true" ref="tableOfContents">
         <div slot="body">{!! $liveView->getTableOfContents() !!}</div>
     </f-accordion>
 

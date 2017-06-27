@@ -16,16 +16,23 @@
     export default {
         name: 'FAccordion',
 
-        props: {
-            show: {
-                type: Boolean,
-                required: false,
-                default: false
-            },
+        data() {
+            return {
+                show: false
+            }
+        },
 
+        props: {
             hasTrigger: {
+                required: false,
                 type: Boolean,
-                required: false
+                default: false
+            }
+        },
+
+        methods: {
+            toggleShow() {
+                this.show = !this.show;
             }
         },
 

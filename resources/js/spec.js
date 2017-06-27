@@ -4,21 +4,29 @@ import Vue from 'vue'
 import FModal from './modules/fmodal.vue'
 import FAccordion from './modules/faccordion.vue'
 
+import SpecificationExample from './modules/specification-example.vue'
+
 const vm = new Vue({
     el: '#app',
 
     data: {
         showDownloadsModal: false,
-        showTableOfContents: false,
     },
 
     mounted() {
         Prism.highlightAll();
     },
 
+    methods: {
+        toggleTableOfContents() {
+            this.$refs.tableOfContents.toggleShow()
+        }
+    },
+
     components: {
         FModal,
-        FAccordion
+        FAccordion,
+        SpecificationExample
     }
 });
 

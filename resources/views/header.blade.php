@@ -19,8 +19,6 @@
     <nav>
         <ul class="row center-xs">
             @yield('subheader')
-
-            {{-- TODO: implement subheader stickyness --}}
         </ul>
     </nav>
 </header>

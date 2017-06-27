@@ -1,4 +1,3 @@
-<f-accordion>
-    <span slot="title">{{ $exampleTitle }}</span>
-    <div slot="body">{!! $exampleCode !!}</div>
-</f-accordion>
+<specification-example title="{{ $exampleTitle }}">
+    {!! $exampleCode !!}
+</specification-example>
