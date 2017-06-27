@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-        <base href="{{ route('developers.index') }}">
+        <base href="{{ \Request::url() }}">
 
         <meta charset="utf-8" />
 
