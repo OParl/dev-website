@@ -6,16 +6,22 @@ use Illuminate\Contracts\View\View;
 
 class Header
 {
+    public function compose(View $view)
+    {
+        return $view->with('sections', $this->getSections());
+    }
+
     /**
      * The header sections
      *
      * Format:
      * <code>
      * [
-     *      'routeKey' => Key to a defined route, $routeName.index will be auto-expanded
+     *      'icon'     => Displayed link icon (REQUIRED)
      *      'title'    => Displayed link title (REQUIRED)
      *      'url'      => External link
      *      'params'   => Route parameters, can be used instead of refering to an index route
+     *      'routeKey' => Key to a defined route, $routeName.index will be auto-expanded
      * ]
      *
      * @var array header config
@@ -24,28 +30,27 @@ class Header
         [
             'routeKey' => 'developers',
             'title'    => 'app.developers.title',
+            'icon'     => 'fa-home',
         ],
 
         [
             'routeKey' => 'specification',
             'title'    => 'app.specification.title',
+            'icon'     => 'fa-book',
         ],
 
         [
             'routeKey' => 'api.oparl',
             'title'    => 'app.demo.title',
+            'icon'     => 'fa-dashboard',
         ],
 
         [
             'routeKey' => 'contact',
             'title'    => 'app.contact.title',
+            'icon'     => 'fa-comment',
         ],
     ];
-
-    public function compose(View $view)
-    {
-        return $view->with('sections', $this->getSections());
-    }
 
     protected function getSections()
     {
