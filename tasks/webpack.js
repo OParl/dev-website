@@ -27,7 +27,9 @@ let config = {
     context: path.resolve(__dirname, '../resources/js'),
 
     plugins: isProduction
-        ? [new webpack.optimize.UglifyJsPlugin()].concat(webpackDefaultPlugins)
+        ? [
+            //new webpack.optimize.UglifyJsPlugin()
+        ].concat(webpackDefaultPlugins)
         : webpackDefaultPlugins,
 
     stats: {

@@ -45,6 +45,6 @@
   "scripts": {
     "dev": "gulp --require babel-register --gulpfile tasks",
     "watch": "gulp --require babel-register --gulpfile tasks watch",
-    "prod": "NODE_ENV=production gulp build --require babel-register --gulpfile tasks"
+    "prod": "NODE_ENV=production gulp --require babel-register --gulpfile tasks"
   }
 }
