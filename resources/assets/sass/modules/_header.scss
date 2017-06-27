@@ -21,25 +21,23 @@ header {
       list-style: none;
     }
 
+    img {
+      margin-top: 0.3em;
+      height: $header-top-header-height;
+    }
+
+
     li {
+      text-align: center;
+      border-left: 1px solid $brand-hover;
       transition: $transition-hover-bg;
 
       &.active {
         background: $brand-hover;
       }
-
-      &:first-of-type img {
-        margin-top: 0.3em;
-        height: $header-top-header-height;
-      }
-
-      &:not(:first-of-type) {
-        text-align: center;
-        border-left: 1px solid $brand-hover;
-
-        &:hover {
-          background: $brand-hover;
-        }
+      
+      &:hover {
+        background: $brand-hover;
       }
     }
 

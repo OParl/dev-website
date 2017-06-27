@@ -6,6 +6,20 @@ use Illuminate\Contracts\View\View;
 
 class Header
 {
+    /**
+     * The header sections
+     *
+     * Format:
+     * <code>
+     * [
+     *      'routeKey' => Key to a defined route, $routeName.index will be auto-expanded
+     *      'title'    => Displayed link title (REQUIRED)
+     *      'url'      => External link
+     *      'params'   => Route parameters, can be used instead of refering to an index route
+     * ]
+     *
+     * @var array header config
+     */
     protected $sections = [
         [
             'routeKey' => 'developers',
@@ -23,8 +37,8 @@ class Header
         ],
 
         [
-            'title'    => 'app.contact.title',
             'routeKey' => 'contact',
+            'title'    => 'app.contact.title',
         ],
     ];
 
@@ -35,15 +49,23 @@ class Header
 
     protected function getSections()
     {
-        $sections = $this->sections;
         $currentRouteName = \Route::currentRouteName();
 
-        foreach ($sections as $key => $section) {
+        $sections = collect($this->sections)->map(function ($section) use ($currentRouteName) {
             if (isset($section['routeKey']) && starts_with($currentRouteName, $section['routeKey'])) {
-                $sections[$key]['current'] = true;
-                break;
+                $section['current'] = true;
             }
-        }
+
+            if (isset($section['routeKey']) && !isset($section['params'])) {
+                $section['href'] = route($section['routeKey'] . '.index');
+            } elseif (isset($section['params'])) {
+                $section['href'] = route($section['routeKey'], $section['params']);
+            } else {
+                $section['href'] = $section['url'];
+            }
+
+            return $section;
+        })->toArray();
 
         return $sections;
     }
