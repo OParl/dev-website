@@ -15,5 +15,6 @@ composer.phar
 npm-debug.log
 
 tests/assets/spec.git
+tests/js/coverage
 
 !/lib/Server/API/Controllers/MeetingController.php

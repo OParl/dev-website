@@ -6,8 +6,41 @@
 
 <f-accordion>
     <span slot="title">Mehr&hellip;</span>
-    <div slot="body">
+    <div slot="body" c>
         <h4 >Eigenschaften</h4>
+        <table >
+            <thead>
+                <tr>
+                    <th>Feldname</th>
+                    <th>JSON Datentyp</th>
+                    <th>Beschreibung</th>
+                </tr>
+            </thead>
+                @foreach ($documentation->getFields() as $field)
+                    <tr>
+                        <td>
+                            @if ($field->isRequired())
+                                <strong aria-label="Zwingende Eigenschaft">{{ $field->getName() }}</strong>
+                            @elseif(isset($schema['oparl:recommended']) && in_array($name, $schema['oparl:recommended']))
+                                <em aria-label="Empfohlene Eigenschaft">{{ $name }}</em>
+                            @else
+                                {{ $field->getName() }}
+                            @endif
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                @endforeach
+            <tbody>
+
+            </tbody>
+        </table>
+
+        {{--
         <dl class="properties">
             @foreach ($documentation->getFields() as $field)
                 <dt>
@@ -39,12 +72,13 @@
                 </dd>
             @endforeach
         </dl>
+        --}}
 
         <div class="small">
             <h4 class="text-muted">Legende</h4>
             <ul class="list-unstyled">
-                <li class="text-danger">Zwingende Eigenschaft</li>
-                <li class="text-success">Empfohlene Eigenschaft</li>
+                <li><strong>Zwingende Eigenschaft</strong></li>
+                <li><em>Empfohlene Eigenschaft</em></li>
             </ul>
         </div>
     </div>
