@@ -12,7 +12,7 @@ class Header
     }
 
     /**
-     * The header sections
+     * The header sections.
      *
      * Format:
      * <code>
@@ -62,7 +62,7 @@ class Header
             }
 
             if (isset($section['routeKey']) && !isset($section['params'])) {
-                $section['href'] = route($section['routeKey'] . '.index');
+                $section['href'] = route($section['routeKey'].'.index');
             } elseif (isset($section['params'])) {
                 $section['href'] = route($section['routeKey'], $section['params']);
             } else {
