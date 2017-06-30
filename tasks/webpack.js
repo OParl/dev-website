@@ -14,7 +14,9 @@ const webpackDefaultPlugins = [
 ];
 
 if (process.env.NODE_ENV !== 'testing') {
-    webpackDefaultPlugins.push(new FriendlyErrors());
+    webpackDefaultPlugins.push(new FriendlyErrors({
+        clearConsole: false
+    }));
 }
 
 const webpackProdPlugins = [
