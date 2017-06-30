@@ -34,7 +34,7 @@
                     <td>
                         @if ($field->hasDescription())
                             <div class="text-muted small">
-                                @press($field->getDescription())
+                                @markdown($field->getDescription())
                             </div>
                         @endif
                     </td>

@@ -5,7 +5,7 @@
             <i class="fa" :class="caret"></i>
         </div>
         <transition name="expand">
-            <div class="c-accordion--body" v-show="show">
+            <div class="c-accordion--body" v-show="show" style="display: none">
                 <slot name="body"></slot>
             </div>
         </transition>
