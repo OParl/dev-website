@@ -37,6 +37,7 @@ return [
 
     'endpoints.title' => 'OParl-Endpunkte',
     'endpoints.text'  => 'Zur Zeit sind uns die folgenden OParl-Endpunkte bekannt.',
+    'endpoints.copy'  => 'Diesen Endpunkt in die Zwischenablage kopieren.',
 
     'specification.title' => 'Spezifikation',
 
