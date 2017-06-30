@@ -97,8 +97,6 @@ function scripts() {
 
         if (err) console.log('Webpack', err);
 
-        //console.log(stats.toString({}));
-
         resolve()
     }))
 }
