@@ -1,7 +1,7 @@
 <h4>Kurzbeschreibung</h4>
 
 <p>
-    @press($documentation->getModelDescription())
+    @markdown($documentation->getModelDescription())
 </p>
 
 <f-accordion>
