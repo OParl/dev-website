@@ -11,7 +11,14 @@ const webpackDefaultPlugins = [
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new FriendlyErrors(),
+];
+
+if (process.env.NODE_ENV !== 'testing') {
+    webpackDefaultPlugins.push(new FriendlyErrors());
+}
+
+const webpackProdPlugins = [
+    new webpack.optimize.UglifyJsPlugin()
 ];
 
 let config = {
@@ -27,9 +34,7 @@ let config = {
     context: path.resolve(__dirname, '../resources/js'),
 
     plugins: isProduction
-        ? [
-            //new webpack.optimize.UglifyJsPlugin()
-        ].concat(webpackDefaultPlugins)
+        ? webpackProdPlugins.concat(webpackDefaultPlugins)
         : webpackDefaultPlugins,
 
     stats: {
@@ -38,13 +43,13 @@ let config = {
     },
 
     cache: true,
-    devtool: 'source-map',
+    devtool: (isProduction) ? 'source-map' : false,
 
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': path.resolve('.')
+            '@': path.resolve('resources/js')
         }
     },
 
@@ -66,8 +71,15 @@ let config = {
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                include: []
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env'],
+                        plugins: ['transform-runtime'],
+                        cacheDirectory: true,
+                    }
+                }
             },
             {
                 test: /\.js$/,
@@ -83,7 +95,7 @@ function scripts() {
 
         if (err) console.log('Webpack', err);
 
-        console.log(stats.toString({ /* stats options */ }));
+        //console.log(stats.toString({}));
 
         resolve()
     }))

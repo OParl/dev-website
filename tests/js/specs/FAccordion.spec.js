@@ -1,7 +1,7 @@
-import vue from 'vue';
-import FAccordion from 'webpack../../../resources/js/modules/faccordion.vue';
+import FAccordion from '@/modules/faccordion.vue';
 
 describe('FAccordion.vue', () => {
-    'use strict';
-
+    it('returns data as a function', () => {
+        expect(typeof FAccordion.data === 'function');
+    });
 });
