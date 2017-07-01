@@ -42,6 +42,8 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->where('format', '(html|docx|odt|txt|pdf|epub|zip|tar.bz2|tar.gz)')
         ->middleware('track');
 
+    $router->get('/endpunkt')
+        ->uses('RedirectController@fuzzy');
     $router->get('/endpunkte')
         ->name('endpoints.index')
         ->uses('DevelopersController@endpoints');
