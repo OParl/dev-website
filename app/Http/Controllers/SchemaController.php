@@ -17,7 +17,12 @@ class SchemaController extends Controller
             return route('schema.get', [$version, basename($file, '.json')]);
         });
 
-        return response()->json($files, 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return response()->json(
+            $files,
+            200,
+            [],
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        );
     }
 
     public function getSchema(Filesystem $fs, $version, $entity)
