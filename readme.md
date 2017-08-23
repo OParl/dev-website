@@ -3,9 +3,9 @@
 Dies ist der Code zur [OParl-Entwicklerplattform](https://dev.oparl.org).
 Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.  
 
-## Mitentwickeln
+## Contributing
 
-### Systemanforderungen
+### System Requirements
 
 - php > 5.6
 - composer
@@ -29,38 +29,6 @@ cp .env.example .env
 ./artisan deploy --fix-missing
 ./artisan setup
 ```
-
-### GitHub Integration
-
-Das Entwicklerportal ist sowohl über WebHooks als auch durch die API mit GitHub
-integriert. Falls an den Integrationsschnittpunkten Änderungen vorgenommen werden
-müssen, ist GitHub-Administrationszugriff auf ein Klon der
-[OParl Spezifikation][repo:spec] notwendig. Weiterhin empfiehlt sich beim Entwickeln
-auf einer lokalen (nicht direkt aus dem Internet erreichbaren) Maschine die Verwendung
-von [ngrok][ngrok]. Zur Integration sind eine GH Application und ein Webhook notwendig.
-
-### Entwicklungsserver
-
-Ein temporärer Server kann mit `php artisan serve` gestartet werden. Alternativ ist
-die Verwendung von Laravel Homestead oder Valet als Entwicklungsserver zu empfehlen.
-
-Bei Verwendung eines eigenen Webservers ist Document root der `public`-Ordner und die
-Index-Datei ist `public/index.php`. Weitere Ordner sollten vom (Virtual-)Host aus nicht
-zugänglich sein.
-
-### Frontend
-
-Abgesehen davon basiert die Frontend Entwicklung im Code Management auf Laravel Elixir.
-Zentrale Komponenten sind mit Vue.js realisiert, Wenn im Frontendcode gearbeitet wird,
-empfiehlt es sich mit
-
-```
-gulp watch
-```
-
-dafür zu sorgen, dass der Code permanent für den Browser kompiliert wird. Es ist dagegen
-nicht notwendig, diese generierten Dateien im Repository zu speichern, da sie während des
-Deployments der Seite automatisch erstellt und aktualisiert werden.
 
 ## System Architecture
 
