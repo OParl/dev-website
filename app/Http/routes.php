@@ -100,11 +100,20 @@ $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
 $router->group(['domain' => 'schema.'.config('app.url')], function () use ($router) {
-    $router->pattern('version', sprintf('(%s)', preg_quote(implode('|', array_keys(config('oparl.schema'))))));
+    $router->pattern(
+        'version',
+        sprintf(
+        '(%s)',
+            implode(
+                '|',
+                array_keys(config('oparl.schema'))
+            )
+        )
+    );
 
     $router->get('/')->uses('DevelopersController@redirectToIndex');
 
-    $router->get('/{version}/')
+    $router->get('/{version}')
         ->name('schema.list')
         ->uses('SchemaController@listSchemaVersion');
 
