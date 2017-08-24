@@ -39,6 +39,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
 
         if (!$this->runRepositoryCommand($hubSync, 'make live')) {
             $log->error('Creating live version html failed');
+
             throw new \RuntimeException('Update failed');
         }
 
