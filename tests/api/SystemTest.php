@@ -16,27 +16,27 @@ class SystemTest extends TestCase
         $this->assertTrue(is_string($this->decodeResponseJson()['body']));
     }
 
-/*
-    public function testStructureIsValid()
-    {
-        // NOTE: This test is separate from testShow purely for code cleanliness
-
-        $this->route('get', 'api.v1.system.index');
-        $this->seeJsonStructure(
-            [
-                "id"           => '*',
-                "type"         => '*',
-                "oparlVersion" => '*',
-                "name"         => 'OParl Demoserver',
-                "vendor"       => '*',
-                "product"      => '*',
-                "contactName"  => '*',
-                "contactEmail" => '*',
-                "website"      => '*',
-                "created"      => '*',
-                "modified"     => '*',
-                "deleted"      => false,
-            ]
-        );
-    }*/
+    /*
+        public function testStructureIsValid()
+        {
+            // NOTE: This test is separate from testShow purely for code cleanliness
+    
+            $this->route('get', 'api.v1.system.index');
+            $this->seeJsonStructure(
+                [
+                    "id"           => '*',
+                    "type"         => '*',
+                    "oparlVersion" => '*',
+                    "name"         => 'OParl Demoserver',
+                    "vendor"       => '*',
+                    "product"      => '*',
+                    "contactName"  => '*',
+                    "contactEmail" => '*',
+                    "website"      => '*',
+                    "created"      => '*',
+                    "modified"     => '*',
+                    "deleted"      => false,
+                ]
+            );
+        }*/
 }

@@ -98,17 +98,17 @@ abstract class AbstractClient
         return $id;
     }
 
-  /**
-   * @param $project
-   **/
-  protected function extractCombinedOrganizationFromProject($project)
-  {
-      if (strpos($project, '/') > 0) {
-          list($this->organization, $this->project) = explode('/', $project);
-      } else {
-          $this->organization = $project;
-      }
-  }
+    /**
+     * @param $project
+     **/
+    protected function extractCombinedOrganizationFromProject($project)
+    {
+        if (strpos($project, '/') > 0) {
+            list($this->organization, $this->project) = explode('/', $project);
+        } else {
+            $this->organization = $project;
+        }
+    }
 
-  // TODO: pagination methods
+    // TODO: pagination methods
 }

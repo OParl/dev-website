@@ -22,7 +22,7 @@ return [
         ],
         'schema' => [
             'stable' => '~1.0',
-            'latest' => 'master'
+            'latest' => 'master',
         ],
     ],
 

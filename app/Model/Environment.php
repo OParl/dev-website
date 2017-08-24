@@ -18,7 +18,7 @@ class Environment extends Model
     public static function set($key, array $value)
     {
         /* @var Environment $model */
-    $model = static::whereKey($key);
+        $model = static::whereKey($key);
         $model->value = $value;
 
         return $model->save();
