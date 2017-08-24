@@ -20,6 +20,10 @@ return [
             'stable' => '~0.1',
             'latest' => 'master',
         ],
+        'schema' => [
+            'stable' => '~1.0',
+            'latest' => 'master'
+        ],
     ],
 
     /*
@@ -36,7 +40,7 @@ return [
      * Mapping of Schema endpoints to version constraints of the specification repository
      */
     'schema'                 => [
-        '1.0'    => '~1.0',
+        '1.0'    => '1.0',
         '1.1'    => 'master',
         'master' => 'master',
     ],
