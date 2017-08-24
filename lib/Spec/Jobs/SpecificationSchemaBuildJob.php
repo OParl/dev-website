@@ -53,6 +53,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
             }
         } catch (\RuntimeException $e) {
             $log->error('Branch switch on schema update failed');
+
             throw $e;
         }
 
