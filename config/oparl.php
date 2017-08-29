@@ -54,9 +54,7 @@ return [
             'dev-website',
             'validator',
             'resources',
-        ],
-        'gitlab' => [
-            'grindhold-liboparl',
+            'liboparl'
         ],
     ],
 

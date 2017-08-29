@@ -12,6 +12,11 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use OParl\Spec\Model\DownloadVersion;
 
+/**
+ * Class DownloadRepository
+ *
+ * @package OParl\Spec\Repositories
+ */
 abstract class DownloadRepository
 {
     /** @var Collection */
@@ -24,6 +29,11 @@ abstract class DownloadRepository
      */
     abstract protected function getIdentifier();
 
+    /**
+     * DownloadRepository constructor.
+     *
+     * @param Filesystem $fs
+     */
     public function __construct(Filesystem $fs)
     {
         $this->fs = $fs;

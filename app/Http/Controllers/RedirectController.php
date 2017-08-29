@@ -8,6 +8,11 @@ use Illuminate\Routing\Router;
 
 class RedirectController
 {
+    /**
+     * fuzzy match unknown routes
+     *
+     * This tries to match routes with minor typos to their actual counterparts
+     */
     public function fuzzy(Request $request, Router $router)
     {
         $redirectRoute = collect($router->getRoutes()->get(strtoupper($request->method())))
