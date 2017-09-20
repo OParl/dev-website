@@ -9,7 +9,7 @@ use Illuminate\Routing\Router;
 class RedirectController
 {
     /**
-     * fuzzy match unknown routes
+     * fuzzy match unknown routes.
      *
      * This tries to match routes with minor typos to their actual counterparts
      */

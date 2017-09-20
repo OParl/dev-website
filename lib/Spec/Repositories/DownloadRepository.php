@@ -13,9 +13,7 @@ use Illuminate\Support\Collection;
 use OParl\Spec\Model\DownloadVersion;
 
 /**
- * Class DownloadRepository
- *
- * @package OParl\Spec\Repositories
+ * Class DownloadRepository.
  */
 abstract class DownloadRepository
 {
