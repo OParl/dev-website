@@ -54,7 +54,7 @@ return [
             'dev-website',
             'validator',
             'resources',
-            'liboparl'
+            'liboparl',
         ],
     ],
 
