@@ -20,7 +20,7 @@ class SystemTest extends TestCase
         public function testStructureIsValid()
         {
             // NOTE: This test is separate from testShow purely for code cleanliness
-    
+
             $this->route('get', 'api.v1.system.index');
             $this->seeJsonStructure(
                 [
