@@ -12,7 +12,7 @@ return [
    *
    * Important: The provided locale must be an IETF language code.
    **/
-  'locale' => 'de_DE',
+  'locale'   => 'de_DE',
 
   'markdown' => [
     'enabled' => false,

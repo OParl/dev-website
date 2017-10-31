@@ -28,7 +28,7 @@ class BodyTransformer extends BaseTransformer
             'meeting'           => route_where('api.oparl.v1.meeting.index', ['body' => $body->id]),
             'paper'             => route_where('api.oparl.v1.paper.index', ['body' => $body->id]),
             // legislative term is an included object
-            'classification' => $body->classification,
+            'classification'    => $body->classification,
             // location is an included object
         ]);
 
