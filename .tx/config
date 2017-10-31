@@ -1,0 +1,39 @@
+[main]
+host = https://www.transifex.com
+
+[dev-website.appphp]
+source_lang = de
+source_file = resources/lang/de/app.php
+file_filter = resources/lang/<lang>/app.php
+type = PHP_ARRAY
+
+[dev-website.authphp]
+source_lang = de
+source_file = resources/lang/de/auth.php
+file_filter = resources/lang/<lang>/auth.php
+type = PHP_ARRAY
+
+[dev-website.commonphp]
+source_lang = de
+source_file = resources/lang/de/common.php
+file_filter = resources/lang/<lang>/common.php
+type = PHP_ARRAY
+
+[dev-website.paginationphp]
+source_lang = de
+source_file = resources/lang/de/pagination.php
+file_filter = resources/lang/<lang>/pagination.php
+type = PHP_ARRAY
+
+[dev-website.passwordsphp]
+source_lang = de
+source_file = resources/lang/de/passwords.php
+file_filter = resources/lang/<lang>/passwords.php
+type = PHP_ARRAY
+
+; TODO: Transform validation.php to dot-syntax
+;[dev-website.validationphp]
+;source_lang = de
+;source_file = resources/lang/de/validation.php
+;file_filter = resources/lang/<lang>/validation.php
+;type = PHP_ARRAY
