@@ -17,8 +17,8 @@ class FileTransformer extends BaseTransformer
             'text'         => $file->text,
 
             // TODO: make this configurable before providing the server as loadable module
-            'accessUrl'    => route('dummyfile.show', $file->file_name),
-            'downloadUrl'  => route('dummyfile.serve', $file->file_name),
+            'accessUrl'   => route('dummyfile.show', $file->file_name),
+            'downloadUrl' => route('dummyfile.serve', $file->file_name),
 
             'externalServiceUrl' => $file->external_service_url,
             'masterFile'         => ($file->masterFile) ? route('api.oparl.v1.file.show', $file->masterFile) : null,

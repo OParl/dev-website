@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -19,4 +19,4 @@ return array(
     'sent'     => 'Passworterinnerung wurde gesendet!',
     'reset'    => 'Das Passwort wurde zurückgesetzt!',
 
-);
+];
