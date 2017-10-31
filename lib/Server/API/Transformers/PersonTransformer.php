@@ -23,8 +23,8 @@ class PersonTransformer extends BaseTransformer
             'location'      => ($person->location) ? route('api.oparl.v1.location.show', $person->location) : null,
             'status'        => $person->status,
             // membership is included
-            'life'       => $person->life,
-            'lifeSource' => $person->life_source,
+            'life'          => $person->life,
+            'lifeSource'    => $person->life_source,
         ]);
 
         return $this->cleanupData($data, $person);

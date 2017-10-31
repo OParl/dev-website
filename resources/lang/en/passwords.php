@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
 
     /*
     |--------------------------------------------------------------------------
@@ -19,4 +19,4 @@ return [
     'sent'     => 'We have e-mailed your password reset link!',
     'reset'    => 'Your password has been reset!',
 
-];
+);

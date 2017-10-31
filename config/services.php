@@ -29,7 +29,7 @@ return [
         'region' => 'us-east-1',
     ],
 
-    'stripe' => [
+    'stripe'    => [
         'model'  => 'App\User',
         'key'    => '',
         'secret' => '',
@@ -42,7 +42,7 @@ return [
     ],
 
     // akismet service config for efrane/akismet
-    'akismet' => [
+    'akismet'   => [
         'key' => env('AKISMET_KEY'),
     ],
 
