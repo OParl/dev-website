@@ -28,8 +28,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
         try {
             $hubSync = $this->build($fs, $log);
         } catch (\Exception $e) {
-            $message = ':sos: Failed running make during downloads update';
-            $this->notifySlack($message);
+            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
         }
 
         $this->storageName = 'master';
