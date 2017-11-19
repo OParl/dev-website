@@ -72,6 +72,8 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/_/gl/', ['uses' => 'Hooks\GitLabHooksController@index', 'as' => 'hooks.gl.index']);
     $router->post('/_/gl/push/{repository}', ['uses' => 'Hooks\GitLabHooksController@push', 'as' => 'hooks.gl.push'])
         ->where('repository', '[a-z-]+');
+
+    $router->get('/_/language/{language}')->name('locale.set')->uses('MiscController@setLocale')->where('language', '(de|en)');
 });
 
 /*
