@@ -31,7 +31,7 @@ before_install:
 before_script:
   - composer install --prefer-source --no-interaction --no-scripts
   - touch storage/database.sqlite
-  - cp .env.example .env
+  - cp .env.testings .env
   - sed -i -e 's/local/testing/' .env
   - php artisan key:generate
   - php artisan migrate
