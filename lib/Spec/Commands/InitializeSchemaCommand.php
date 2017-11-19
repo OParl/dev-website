@@ -10,7 +10,7 @@ class InitializeSchemaCommand extends Command
     public function handle()
     {
         collect(config('oparl.versions.schema'))->unique()->each(function ($constraint) {
-            $this->call('oparl:update:schema', ['constraint' => $constraint]);
+            $this->call('oparl:update:schema', ['treeish' => $constraint]);
         });
     }
 }
