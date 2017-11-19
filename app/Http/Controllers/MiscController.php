@@ -6,7 +6,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Contracts\Session\Session;
 
 class MiscController extends Controller
@@ -14,6 +13,7 @@ class MiscController extends Controller
     public function setLocale(Session $session, $locale)
     {
         $session->put('user.locale', $locale);
+
         return redirect()->back();
     }
 }
