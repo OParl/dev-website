@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\SetApplicationLocale;
 use App\Http\Middleware\TrackNonWebRequest;
 use App\Http\Middleware\ValidateGitHubWebHook;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -29,6 +30,8 @@ class Kernel extends HttpKernel
         ShareErrorsFromSession::class,
 
         VerifyCsrfToken::class,
+
+        SetApplicationLocale::class,
     ];
 
     /**
