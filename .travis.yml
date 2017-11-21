@@ -42,7 +42,3 @@ script: vendor/bin/phpunit
 
 after_failure:
   - cat storage/logs/laravel.log
-
-addons:
-  code_climate:
-    repo_token: 508fe87f962a88242d15226693fb435f6c07592cab81543f3e4124c29e7ee8db
