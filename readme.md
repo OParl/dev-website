@@ -7,9 +7,9 @@ Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.
 
 ### System Requirements
 
-- php > 5.6
+- php >= 5.6
 - composer
-- node > 6.0
+- node >= 6.0
 - npm
 - gulp
 
