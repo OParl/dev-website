@@ -26,6 +26,14 @@ const imageList = [
         './resources/assets/img/okf.svg',
         './public/img/logos'
     ],
+    [
+        './node_modules/flag-icon-css/flags/1x1/de.svg',
+        './public/flags/1x1'
+    ],
+    [
+        './node_modules/flag-icon-css/flags/1x1/gb.svg',
+        './public/flags/1x1'
+    ]
 ];
 
 function images() {
