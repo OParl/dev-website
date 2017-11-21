@@ -12,9 +12,14 @@
 // TODO: move to modules
 @import 'fonts';
 
+.u-round {
+  border-radius: 50%;
+}
+
 @import '../../../node_modules/flexboxgrid/dist/flexboxgrid';
 @import '../../../node_modules/prismjs/themes/prism';
 @import '../../../node_modules/prismjs/themes/prism-okaidia';
+@import '../../../node_modules/flag-icon-css/sass/_flag-icon';
 
 @import 'modules/common';
 @import 'modules/forms';
