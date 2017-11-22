@@ -5,15 +5,6 @@
 @stop
 
 @section('content')
-    {{--
-    <section class="row">
-        <h2 class="col-xs-12 col-md-3">@lang('app.endpoints.title')</h2>
-        <div class="col-xs-12 col-md-9">
-            @press(trans('app.endpoints.text'))
-        </div>
-    </section>
-    --}}
-
     <section class="row">
         @foreach ($endpoints as $endpoint)
             <div class="col-xs-12 col-sm-6">

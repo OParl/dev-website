@@ -57,6 +57,7 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->name('specification.image')
         ->where('image', '[a-zA-Z0-9-._]+');
 
+    $router->get('/validator')->uses('ValidatorController@validationForm')->name('validator.index');
     $router->post('/validator', ['uses' => 'ValidatorController@scheduleValidation', 'as' => 'validator.validate']);
     $router->get('/validator/test', ['uses' => 'ValidatorController@resultTest', 'as' => 'validator.result.test']);
     $router->get('/validator/{endpoint}', ['uses' => 'ValidatorController@result', 'as' => 'validator.result']);

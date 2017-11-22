@@ -71,4 +71,5 @@ return array(
     'validation.form.save'              => 'Dürfen wir Ihre Validierungsergebnisse zur weiteren Auswertung speichern?',
     'validation.start'                  => 'Validierung beauftragen!',
     'validation.success'                => 'Die Validierung für :endpoint wurde gestartet.',
+    'validation.title'                  => 'Validator',
 );
