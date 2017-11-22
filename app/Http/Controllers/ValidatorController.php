@@ -11,6 +11,10 @@ use OParl\Spec\Jobs\ValidatorRunJob;
 
 class ValidatorController extends Controller
 {
+    public function validationForm() {
+        return view('developers.validation.form');
+    }
+
     public function scheduleValidation(ValidationRequest $response)
     {
         // 1) read input data
@@ -50,7 +54,7 @@ class ValidatorController extends Controller
             'oparlVersion'   => '1.0',
         ];
 
-        $html = view('developers.validation_result', $data)->render();
+        $html = view('developers.validation.result', $data)->render();
 
         if ($request->has('format') && $request->input('format') === 'html') {
             return $html;
