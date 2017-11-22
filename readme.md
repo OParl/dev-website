@@ -7,7 +7,7 @@ Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.
 
 ### System Requirements
 
-- php >= 5.6
+- php >= 5.6, < 7.1
 - composer
 - node >= 6.0
 - npm
@@ -77,7 +77,7 @@ related config options such as the application encryption key or the webhook sec
 | SLACK_CHANNEL_VALIDATION | `#feedback`             |                                         |
 | ------------------------ | ----------------------- | --------------------------------------- |
 | OPARL_BUILD_MODE         | `native`                | Specification build mode                |
-| LIBOPARL_PREFIX          |                         | Install-dir for liboparl                |
+| LIBOPARL_PREFIX          | `/usr/local`            | Install-dir for liboparl                |
 | ------------------------ | ----------------------- | --------------------------------------- |
 | GITHUB_WEBHOOK_SECRET    |                         | Secret for GitHub hook validation       |
 
@@ -98,7 +98,7 @@ TODO.
 
 ### Internationalization / Localization
 
-TODO.
+Locales are managed via [Transifex][transifex:website] with all the other localizable products of OParl. 
 
 ### Support versions and feature longevity
 
@@ -126,3 +126,4 @@ This program is being provided under the terms of the [MIT License][mit]
 [repo:liboparl]: https://github.com/OParl/liboparl
 [repo:resources]: https://github.com/OParl/resources
 [repo:validator]: https://github.com/OParl/validator
+[transifex:website]: https://transifex.com/OParl/dev-website
