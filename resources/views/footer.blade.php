@@ -1,7 +1,7 @@
 <footer class="row">
     <div class="c-footer col-xs-12 col-md-offset-2 col-md-8">
         <div class="row">
-            <div class="col-xs-6 col-sm-4">
+            <div class="col-xs-6 col-sm-4 center-sm">
                 <img
                         src="{{ asset('img/logos/okf.svg') }}"
                         alt="Logo der OpenKnowledge Foundation Deutschland" height="48"
