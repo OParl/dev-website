@@ -7,7 +7,7 @@
                         alt="Logo der OpenKnowledge Foundation Deutschland" height="48"
                 />
             </div>
-            <div class="col-xs-6 col-sm-4">
+            <div class="col-xs-6 col-sm-4 end-sm">
                 <img src="{{ asset('img/logos/cfg.svg') }}" alt="Logo von Code for Germany" height="48" />
             </div>
             <div class="col-xs-12 col-sm-4 first-sm middle-sm">
