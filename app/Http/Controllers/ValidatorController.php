@@ -11,7 +11,8 @@ use OParl\Spec\Jobs\ValidatorRunJob;
 
 class ValidatorController extends Controller
 {
-    public function validationForm() {
+    public function validationForm()
+    {
         return view('developers.validation.form');
     }
 

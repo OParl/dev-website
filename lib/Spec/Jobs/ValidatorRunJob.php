@@ -4,8 +4,8 @@ namespace OParl\Spec\Jobs;
 
 use App\Jobs\Job;
 use EFrane\HubSync\Repository;
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Logging\Log;
 use Symfony\Component\Process\Process;
 
 class ValidatorRunJob extends Job
@@ -55,13 +55,13 @@ class ValidatorRunJob extends Job
 
         $validator = new Process($validatorCmd);
         $validator->setEnv([
-            'PATH' => "{$validatorRepo->getAbsolutePath()}:/usr/local/bin:/usr/bin"
+            'PATH' => "{$validatorRepo->getAbsolutePath()}:/usr/local/bin:/usr/bin",
         ]);
         $validator->setWorkingDirectory($validatorRepo->getAbsolutePath());
 
         $log->debug("Validator working directory: {$validator->getWorkingDirectory()}");
         $log->debug("Validator command line: {$validator->getCommandLine()}");
-        $log->debug("Validator Environment", $validator->getEnv());
+        $log->debug('Validator Environment', $validator->getEnv());
 
         $validator->run([&$this, 'handleProgress']);
     }
