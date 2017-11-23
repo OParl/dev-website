@@ -26,7 +26,7 @@ class ValidatorController extends Controller
         $this->dispatch(new ValidatorRunJob($endpoint, $email, $canSaveData));
 
         // 3) success!
-        return redirect()->route('developers.index')->with('message',
+        return redirect()->route('validator.index')->with('message',
             trans('app.validation.success', compact('endpoint')));
     }
 
