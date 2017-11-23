@@ -26,11 +26,6 @@ class ValidatorRunJob extends Job
     protected $canSaveData;
 
     /**
-     * @var Log
-     */
-    protected $log;
-
-    /**
      * ValidatorRunJob constructor.
      *
      * @param string $endpoint
@@ -46,7 +41,6 @@ class ValidatorRunJob extends Job
 
     public function handle(Log $log, Filesystem $fs)
     {
-        $this->log = $log;
         $log->info("Beginning Validation for {$this->endpoint}");
 
         $validatorRepo = new Repository($fs, 'oparl_validator', '');
@@ -63,21 +57,18 @@ class ValidatorRunJob extends Job
         $log->debug("Validator command line: {$validator->getCommandLine()}");
         $log->debug('Validator Environment', $validator->getEnv());
 
-        $validator->run([&$this, 'handleProgress']);
-    }
-
-    public function handleProgress($type, $data)
-    {
-        switch ($type) {
-            case Process::OUT:
-                try {
-                    $this->log->info($data);
-                } catch (\Exception $e) {
-                }
-                break;
-            case Process::ERR:
-                $this->log->error($data);
-                break;
-        }
+        $validator->run(function ($type, $data) use ($log) {
+            switch ($type) {
+                case Process::OUT:
+                    try {
+                        $log->info($data);
+                    } catch (\Exception $e) {
+                    }
+                    break;
+                case Process::ERR:
+                    $log->error($data);
+                    break;
+            }
+        });
     }
 }
