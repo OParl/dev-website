@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -65,7 +66,7 @@ class ValidationRequest extends FormRequest
                 if (!isset($json['name'])) {
                     $validator->errors()->add('endpoint', trans('app.validation.form.endpoint.no_oparl', compact('endpoint')));
                 }
-            } catch (ConnectException $e) {
+            } catch (RequestException $e) {
                 $validator->errors()->add('endpoint', trans('app.validation.form.endpoint.no_oparl', compact('endpoint')));
             }
         });

@@ -16,6 +16,14 @@
   border-radius: 50%;
 }
 
+.warning {
+  background: $brand-warning;
+}
+
+.success {
+  background: $brand-success;
+}
+
 @import '../../../node_modules/flexboxgrid/dist/flexboxgrid';
 @import '../../../node_modules/prismjs/themes/prism';
 @import '../../../node_modules/prismjs/themes/prism-okaidia';
