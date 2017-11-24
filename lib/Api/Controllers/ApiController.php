@@ -33,7 +33,7 @@ class ApiController
         $swagger = scan(base_path('lib/Api/Controllers'));
 
         return response($swagger, 200, [
-            'Content-Tyype'               => 'application/json',
+            'Content-Type'               => 'application/json',
             'Access-Control-Allow-Origin' => '*',
         ]);
     }
