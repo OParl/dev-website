@@ -17,7 +17,7 @@ return [
             'latest' => 'master',
         ],
         'validator' => [
-            'stable' => '~0.1',
+            'stable' => 'production',
             'latest' => 'master',
         ],
         'schema' => [

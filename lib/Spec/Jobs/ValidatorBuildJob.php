@@ -21,7 +21,7 @@ class ValidatorBuildJob extends Job implements ShouldQueue
 
     public function handle(Filesystem $fs, Log $log)
     {
-        $repo = $this->getUpdatedHubSync($this->getRepository($fs), $log);
+        $this->getUpdatedHubSync($this->getRepository($fs), $log);
     }
 
     /**
