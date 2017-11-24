@@ -33,6 +33,7 @@ class ValidationCompleted extends Mailable
      * Build the message.
      *
      * @param $log Log
+     *
      * @return $this
      */
     public function build(Log $log, Filesystem $fs)
