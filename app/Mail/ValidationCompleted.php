@@ -36,7 +36,7 @@ class ValidationCompleted extends Mailable
      *
      * @return $this
      */
-    public function build(Log $log, Filesystem $fs)
+    public function build(Log $log)
     {
         $validationFilename = sprintf('OParl Validator %s.pdf', Carbon::now()->format('hi-d-m-Y'));
 
@@ -49,7 +49,7 @@ class ValidationCompleted extends Mailable
         return $this
             ->from('bot@oparl.org', 'OParl Validator')
             ->replyTo('info@oparl.org', 'OParl Team')
-            ->subject(trans('app.validation.completed'))
+            ->subject(trans('app.validation.completed', ['endpoint' => $this->validationResult['endpoint']]))
             ->text('emails.validation_completed', $this->validationResult)
             ->attachData($pdf->output(['compress' => 1]), $validationFilename, [
                 'mime' => 'application/pdf',
