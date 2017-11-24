@@ -5,6 +5,12 @@
 @stop
 
 @section ('content')
+        @if (Session::has('message'))
+            <div class="success">
+                {{ Session::get('message') }}
+            </div>
+        @endif
+
         <form
                 action="{{ route('validator.schedule') }}"
                 method="post"

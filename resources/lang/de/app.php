@@ -59,6 +59,7 @@ return array(
 
     'footer.disclaimer' => "macOS ist eine eingetragene Marke von Apple Inc, CA\n",
 
+    'validation.completed'                 => '[OParl] Validierung für :endpoint abgeschlossen',
     'validation.form.email'                => 'E-Mail',
     'validation.form.email.description'    => 'Nach abgeschlossener Validierung erhalten Sie die Ergebnisse im ausgewählten Format an diese E-Mail-Adresse.',
     'validation.form.email.required'       => 'Sie müssen eine E-Mail-Adresse angeben, damit die Validierung durchgeführt wird.',

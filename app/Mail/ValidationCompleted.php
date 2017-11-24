@@ -43,13 +43,14 @@ class ValidationCompleted extends Mailable
         $pdf = $this->createValidationResultPDF($log);
         $log->info("Finished preparing validtion result email for {$this->validationResult['endpoint']}");
 
-        $pdf->stream(storage_path('app/validation/result.pdf'));
+        file_put_contents(storage_path('app/validation/result.pdf'), $pdf->output());
 
         return $this
-            ->from('info@oparl.org', 'OParl Team')
+            ->from('bot@oparl.org', 'OParl Validator')
+            ->replyTo('info@oparl.org', 'OParl Team')
             ->subject(trans('app.validation.completed'))
             ->text('emails.validation_completed', $this->validationResult)
-            ->attachData($pdf->output(), $validationFilename, [
+            ->attachData($pdf->output(['compress' => 1]), $validationFilename, [
                 'mime' => 'application/pdf',
             ]);
     }
@@ -62,7 +63,6 @@ class ValidationCompleted extends Mailable
 
         if (in_array(app()->environment(), ['local', 'testing'])) {
             $options->setLogOutputFile(storage_path('logs/pdfgen.log'));
-            $options->setDebugKeepTemp(true);
         }
 
         $pdf = new Dompdf($options);
@@ -74,6 +74,8 @@ class ValidationCompleted extends Mailable
 
         $stylesheet = new Stylesheet($pdf);
         $stylesheet->load_css_file(public_path($stylesheetFilename));
+
+        $log->debug('Validation result', $this->validationResult);
 
         $html = view('developers.validation.result', $this->validationResult)->render();
 
