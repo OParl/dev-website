@@ -3,13 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ $title }}</title>
-    <style type="text/css">
-        @if ($app->environment('production'))
-            @dumpasset('css/pdf.min.css')
-        @else
-            @dumpasset('css/pdf.css')
-        @endif
-    </style>
 </head>
 <body>
     <div class="page">
@@ -19,11 +12,11 @@
         </header>
 
         <h1>
-            OParl {{ $oparlVersion }} Validierung
+            OParl {{ $result['oparl_version'] }} Validierung
         </h1>
 
         <p>
-            Resultat der OParl {{ $oparlVersion }} Validierung für <a href="{{ $endpoint }}">{{ $endpoint }}</a> vom {{ $validationDate }}.
+            Resultat der OParl {{ $result['oparl_version'] }} Validierung für <a href="{{ $endpoint }}">{{ $endpoint }}</a> vom {{ $validationDate }}.
         </p>
 
         <div class="pagebreak">
@@ -43,14 +36,15 @@
                         @endif
                     </ul>
                 </li>
-                @if ($result['network']['ssl'])
-                    <li class="result--okay">Gültiges SSL-Zertifikat</li>
-                @else
-                    <li class="result--error">Kein gültiges SSL-Zertifikat</li>
-                @endif
-                @if ($result['network']['average_ttl'] < 500)
-                    <li class="result--okay">Durchschnittliche Antwortzeit des Servers &lt; 500ms</li>
-                @endif
+                 {{--TODO: Re-enable network stats once master is stable again --}}
+                {{--@if ($result['network']['ssl'])--}}
+                    {{--<li class="result--okay">Gültiges SSL-Zertifikat</li>--}}
+                {{--@else--}}
+                    {{--<li class="result--error">Kein gültiges SSL-Zertifikat</li>--}}
+                {{--@endif--}}
+                {{--@if ($result['network']['average_ttl'] < 500)--}}
+                    {{--<li class="result--okay">Durchschnittliche Antwortzeit des Servers &lt; 500ms</li>--}}
+                {{--@endif--}}
             </ul>
 
             <p>
@@ -61,48 +55,58 @@
         </div>
     </div>
 
-    @foreach ($result['object_messages'] as $objectName => $data)
-        @if (!$loop->last)
-            <div class="pagebreak">
-        @else
-            <div>
-        @endif
-                <header>
-                    <img src="@dumpasset('img/favicon.png')" width="32" height="32">
-                    <span>OParl.org – Validator</span>
-                </header>
+    {{--@foreach ($result['object_messages'] as $objectName => $data)--}}
+        {{--@if (!$loop->last)--}}
+            {{--<div class="pagebreak">--}}
+        {{--@else--}}
+            {{--<div>--}}
+        {{--@endif--}}
+                {{--<header>--}}
+                    {{--<img src="@dumpasset('img/favicon.png')" width="32" height="32">--}}
+                    {{--<span>OParl.org – Validator</span>--}}
+                {{--</header>--}}
 
-                <h2>oparl:{{ strtolower($objectName) }}</h2>
+                {{--<h2>oparl:{{ strtolower($objectName) }}</h2>--}}
 
-                <h3>Aufgetretene Meldungen</h3>
+                {{--<h3>Aufgetretene Meldungen</h3>--}}
 
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Schwere</th>
-                        <th>Meldung</th>
-                        <th>betroffene Objekte</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $message)
-                            <tr>
-                                <td>{{ $message['severity'] }}</td>
-                                <td>{{ $message['message'] }}</td>
-                                <td>
-                                    <ul>
-                                        @foreach ($message['objects'] as $errorObject)
-                                            <li>
-                                                <a href="{{ $errorObject }}">{{ $errorObject }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-        </div>
-    @endforeach
+                {{--@foreach ($data as $message)--}}
+                {{--<ul>--}}
+                    {{--@foreach ($message['objects'] as $errorObject)--}}
+                        {{--<li>--}}
+                            {{--<a href="{{ $errorObject }}">{{ $errorObject }}</a>--}}
+                        {{--</li>--}}
+                    {{--@endforeach--}}
+                {{--</ul>--}}
+                {{--@endforeach--}}
+
+                {{--<table>--}}
+                    {{--<thead>--}}
+                    {{--<tr>--}}
+                        {{--<th>Schwere</th>--}}
+                        {{--<th>Meldung</th>--}}
+                        {{--<th>betroffene Objekte</th>--}}
+                    {{--</tr>--}}
+                    {{--</thead>--}}
+                    {{--<tbody>--}}
+                        {{--@foreach ($data as $message)--}}
+                            {{--<tr>--}}
+                                {{--<td>{{ $message['severity'] }}</td>--}}
+                                {{--<td>{{ $message['message'] }}</td>--}}
+                                {{--<td>--}}
+                                    {{--<ul>--}}
+                                        {{--@foreach ($message['objects'] as $errorObject)--}}
+                                            {{--<li>--}}
+                                                {{--<a href="{{ $errorObject }}">{{ $errorObject }}</a>--}}
+                                            {{--</li>--}}
+                                        {{--@endforeach--}}
+                                    {{--</ul>--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                        {{--@endforeach--}}
+                    {{--</tbody>--}}
+                {{--</table>--}}
+        {{--</div>--}}
+    {{--@endforeach--}}
 </body>
 </html>
