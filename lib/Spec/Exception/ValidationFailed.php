@@ -6,11 +6,10 @@
 
 namespace OParl\Spec\Exception;
 
-
 class ValidationFailed extends \RuntimeException
 {
     public static function validatorQuitUnexpectedly()
     {
-        return new self("Validator quit unexpectedly.");
+        return new self('Validator quit unexpectedly.');
     }
 }
