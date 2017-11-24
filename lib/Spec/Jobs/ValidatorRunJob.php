@@ -76,6 +76,7 @@ class ValidatorRunJob extends Job
     /**
      * @param Log        $log
      * @param Filesystem $fs
+     *
      * @return array
      */
     protected function runValidator(Log $log, Filesystem $fs)
@@ -86,7 +87,7 @@ class ValidatorRunJob extends Job
             $fs->makeDirectory('validation');
         }
 
-        $validationResultFile = storage_path('app/validation/' . uniqid('validation-') . '.json');
+        $validationResultFile = storage_path('app/validation/'.uniqid('validation-').'.json');
         $validatorCmd = sprintf('./validate --porcelain -fjson -o%s "%s"', $validationResultFile, $this->endpoint);
 
         $validator = new Process($validatorCmd);
@@ -97,16 +98,16 @@ class ValidatorRunJob extends Job
 
         $log->debug("Validator working directory: {$validator->getWorkingDirectory()}");
         $log->debug("Validator command line: {$validator->getCommandLine()}");
-        $log->debug("Validator environment", $validator->getEnv());
+        $log->debug('Validator environment', $validator->getEnv());
 
         $validatorLogPrefix = sprintf('[validator %s] ', substr(sha1($this->endpoint), 0, 6));
 
         $validator->run(function ($type, $data) use ($log, $validatorLogPrefix) {
             // $type will always be Process::ERR for validator data since it writes it's progress output to STDERR
-            $log->debug($validatorLogPrefix . $data);
+            $log->debug($validatorLogPrefix.$data);
         });
 
-        $json = (array)json_decode(file_get_contents($validationResultFile), true);
+        $json = (array) json_decode(file_get_contents($validationResultFile), true);
         unlink($validationResultFile);
 
         return $json;
