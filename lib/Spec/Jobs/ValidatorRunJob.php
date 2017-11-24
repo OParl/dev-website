@@ -10,6 +10,7 @@ use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Mail\Mailer;
+use OParl\Spec\Exception\ValidationFailed;
 use Symfony\Component\Process\Process;
 
 class ValidatorRunJob extends Job
@@ -47,30 +48,35 @@ class ValidatorRunJob extends Job
     {
         $log->info("Beginning Validation for {$this->endpoint}");
 
-        $json = $this->runValidator($log, $fs);
+        try {
+            $json = $this->runValidator($log, $fs);
 
-        $this->saveResult($json);
+            $this->saveResult($json);
 
-        // TODO: l10n/i18n for validation results
-        Carbon::setLocale('de');
+            // TODO: l10n/i18n for validation results
+            Carbon::setLocale('de');
 
-        $title = sprintf(
-            'OParl Validierung am %s für %s',
-            Carbon::now()->format('d.m.Y'),
-            $this->endpoint
-        );
+            $title = sprintf(
+                'OParl Validierung am %s für %s',
+                Carbon::now()->format('d.m.Y'),
+                $this->endpoint
+            );
 
-        $data = [
-            'endpoint'           => $this->endpoint,
-            'urlEncodedEndpoint' => urlencode($this->endpoint),
-            'result'             => $json,
-            'validationDate'     => Carbon::now()->format('d.m.Y'),
-            'title'              => $title,
-        ];
+            $data = [
+                'endpoint'           => $this->endpoint,
+                'urlEncodedEndpoint' => urlencode($this->endpoint),
+                'result'             => $json,
+                'validationDate'     => Carbon::now()->format('d.m.Y'),
+                'title'              => $title,
+            ];
 
-        $log->info("Finished Validation for {$this->endpoint}");
+            $log->info("Finished Validation for {$this->endpoint}");
 
-        $mailer->to($this->email)->send(new ValidationCompleted($data));
+            $mailer->to($this->email)->send(new ValidationCompleted($data));
+        } catch (ValidationFailed $e) {
+            // TODO: proper failure handling including an informative mail
+            $log->error("Failed validation for {$this->endpoint}");
+        }
     }
 
     /**
@@ -87,7 +93,7 @@ class ValidatorRunJob extends Job
             $fs->makeDirectory('validation');
         }
 
-        $validationResultFile = storage_path('app/validation/'.uniqid('validation-').'.json');
+        $validationResultFile = storage_path('app/validation/'.uniqid('validation-').'.result');
         $validatorCmd = sprintf('./validate --porcelain -fjson -o%s "%s"', $validationResultFile, $this->endpoint);
 
         $validator = new Process($validatorCmd);
@@ -107,10 +113,17 @@ class ValidatorRunJob extends Job
             $log->debug($validatorLogPrefix.$data);
         });
 
-        $json = (array) json_decode(file_get_contents($validationResultFile), true);
-        unlink($validationResultFile);
+        if ($validator->getExitCode() !== 0) {
+            throw ValidationFailed::validatorQuitUnexpectedly();
+        }
 
-        return $json;
+        $result = (array) json_decode(file_get_contents($validationResultFile), true);
+
+        if (file_exists($validationResultFile)) {
+            unlink($validationResultFile);
+        }
+
+        return $result;
     }
 
     /**
