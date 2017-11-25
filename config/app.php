@@ -170,6 +170,7 @@ return [
         EFrane\Transfugio\TransfugioServiceProvider::class,
         GrahamCampbell\GitHub\GitHubServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
+        Morrislaptop\LaravelQueueClear\LaravelQueueClearServiceProvider::class,
 
         OParl\Spec\SpecServiceProvider::class,
         OParl\Server\ServerServiceProvider::class,
