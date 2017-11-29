@@ -58,29 +58,36 @@
         <h2>oparl:{{ strtolower($objectName) }}</h2>
         <h3>Aufgetretene Meldungen</h3>
 
-        <table>
+        <table id="result">
             <thead>
             <tr>
+                <th></th>
                 <th>Schwere</th>
                 <th>Meldung</th>
-                <th>betroffene Objekte</th>
             </tr>
             </thead>
             <tbody>
             @foreach ($data as $message)
                 <tr>
+                    <td><span class="result-id result-id__{{ $message['severity'] }}">{{ $loop->index + 1 }}</span></td>
                     <td class="result--{{ $message['severity'] }}">{{ $message['severity'] }}</td>
                     <td>{{ $message['message'] }}</td>
-                    <td>
-                        <ul>
-                            @foreach ($message['objects'] as $messageObject)
-                                <li><a href="{{ $messageObject }}">{{ $messageObject }}</a></li>
-                            @endforeach
-                        </ul>
-                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+
+        <h3>Betroffene Objekte</h3>
+
+        <ul class="linklist">
+            @foreach ($data as $message)
+                @foreach ($message['objects'] as $messageObject)
+                    <li>
+                        <span class="result-id result-id__{{ $message['severity'] }}">{{ $loop->parent->index + 1 }}</span>
+                        <a href="{{ $messageObject }}">{{ $messageObject }}</a>
+                    </li>
+                @endforeach
+            @endforeach
+        </ul>
     </div>
 @endforeach
