@@ -34,6 +34,7 @@ class EndpointInfoUpdateJob implements ShouldQueue
      * Execute the job.
      *
      * @param Log $log
+     *
      * @return void
      */
     public function handle(Log $log)
@@ -46,7 +47,7 @@ class EndpointInfoUpdateJob implements ShouldQueue
                 'url' => $this->endpointData['url'],
             ]);
         } catch (QueryException $e) {
-            $log->error("Failed to update endpoint info", $this->endpointData);
+            $log->error('Failed to update endpoint info', $this->endpointData);
 
             return;
         }
@@ -63,18 +64,24 @@ class EndpointInfoUpdateJob implements ShouldQueue
         // get the endpoint's system
         $guzzle = new Client();
         $systemResponse = $guzzle->get($endpoint->url);
-        $systemJson = json_decode((string)$systemResponse->getBody(), true);
+        $systemJson = json_decode((string) $systemResponse->getBody(), true);
         $endpoint->system = $systemJson;
 
         // get the endpoint's body list and update the known endpoint bodies
         $bodyResponse = $guzzle->get($systemJson['body']);
-        $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
+        $bodyJson = json_decode((string) $bodyResponse->getBody(), true);
+
+        if (!array_key_exists('data', $bodyJson)) {
+            $endpoint->save();
+            $log->error("Endpoint {$endpoint->url} does not appear to have a valid body list.", $bodyJson);
+            $this->fail();
+        }
 
         collect($bodyJson['data'])->each(function (array $body) use ($log, $endpoint) {
             /** @var EndpointBody $endpointBody */
             $endpointBody = EndpointBody::query()->firstOrCreate([
                 'endpoint_id' => $endpoint->id,
-                'oparl_id' => $body['id'],
+                'oparl_id'    => $body['id'],
             ]);
 
             try {
