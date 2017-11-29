@@ -8,7 +8,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
