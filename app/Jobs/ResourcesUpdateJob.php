@@ -9,18 +9,21 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use OParl\Spec\Jobs\InteractsWithRepositoryTrait;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ResourcesUpdateJob.
  */
 class ResourcesUpdateJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable;
+    use InteractsWithQueue, Queueable;
     use InteractsWithRepositoryTrait;
     use Notifiable;
+    use DispatchesJobs;
 
     /**
      * Create a new job instance.
@@ -40,15 +43,16 @@ class ResourcesUpdateJob implements ShouldQueue
     public function handle(Filesystem $fs, Log $log)
     {
         $repo = new Repository($fs, 'oparl_resources', 'https://github.com/OParl/resources.git');
-        $this->getUpdatedHubSync($repo, $log);
+        //$this->getUpdatedHubSync($repo, $log);
 
         // TODO: validate endpoints.yml
         // $this->notify(SpecificationUpdateNotification::resourcesUpdateFailedNotification($this->treeish));
 
-        $fs->delete('live/endpoints.yml');
-        $fs->copy($repo->getPath('endpoints.yml'), 'live/endpoints.yml');
+        collect(Yaml::parse($fs->get($repo->getPath('endpoints.yml'))))->map(function (array $endpoint) {
+            $this->dispatch(new EndpointInfoUpdateJob($endpoint));
+        });
 
-        $this->notify(SpecificationUpdateNotification::resourcesUpdateSuccesfulNotification($repo->getCurrentHead()));
+        //$this->notify(SpecificationUpdateNotification::resourcesUpdateSuccesfulNotification($repo->getCurrentHead()));
     }
 
     /**
