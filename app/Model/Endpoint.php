@@ -29,7 +29,7 @@ class Endpoint extends Model
     ];
 
     protected $appends = [
-        'fetched',
+        'fetched'
     ];
 
     public function bodies()
@@ -41,7 +41,10 @@ class Endpoint extends Model
     {
         /** @var Carbon $fetched */
         $fetched = $this->endpoint_fetched;
+        if (!is_null($fetched)) {
+            return $fetched->toIso8601String();
+        }
 
-        return $fetched->toIso8601String();
+        return null;
     }
 }
