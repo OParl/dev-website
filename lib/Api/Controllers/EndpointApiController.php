@@ -2,9 +2,8 @@
 
 namespace OParl\Website\API\Controllers;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
+use App\Model\Endpoint;
 use Illuminate\Http\Request;
-use Symfony\Component\Yaml\Yaml;
 
 class EndpointApiController
 {
@@ -50,8 +49,10 @@ class EndpointApiController
      *         description="Optional detailed endpoint description"
      *     )
      * )
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, Filesystem $fs)
+    public function index(Request $request)
     {
         $page = 0;
         $itemsPerPage = 25;
@@ -60,27 +61,17 @@ class EndpointApiController
             $page = intval($request->get('page'));
         }
 
-        $endpoints = collect(Yaml::parse($fs->get('live/endpoints.yml')))
-            ->sortBy('name')
-            ->map(function ($endpoint) {
-                return [
-                    'url'         => $endpoint['url'],
-                    'title'       => $endpoint['title'],
-                    'description' => isset($endpoint['description']) ? $endpoint['description'] : null,
-                ];
-            })
-            ->values();
-
-        $data = $endpoints->forPage($page, $itemsPerPage);
-
+        $endpoints = Endpoint::with('bodies')->get()->forPage($page, $itemsPerPage);
         $pageCount = floor($endpoints->count() / $itemsPerPage);
 
         return response()->json([
-            'data' => $data,
+            'data' => $endpoints,
             'meta' => [
                 'page'  => $page,
                 'total' => $pageCount,
-                'next'  => ($pageCount > $page) ? route('api.endpoints.index', ['page' => ++$page]) : null,
+                'next'  => ($pageCount > $page)
+                    ? route('api.endpoints.index', ['page' => ++$page])
+                    : null,
             ],
         ]);
     }
