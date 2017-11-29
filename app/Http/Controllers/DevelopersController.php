@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Model\Endpoint;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Symfony\Component\Yaml\Yaml;
 
 class DevelopersController extends Controller
 {
