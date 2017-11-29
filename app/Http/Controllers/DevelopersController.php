@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Endpoint;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
@@ -28,7 +29,7 @@ class DevelopersController extends Controller
 
     public function endpoints(Filesystem $fs)
     {
-        $endpoints = collect(Yaml::parse($fs->get('live/endpoints.yml')))->sortBy('name');
+        $endpoints = Endpoint::all();
 
         return view('developers.endpoints', [
             'title'     => trans('app.endpoints.title'),
