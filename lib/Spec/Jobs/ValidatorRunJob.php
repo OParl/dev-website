@@ -93,7 +93,7 @@ class ValidatorRunJob extends Job
             $fs->makeDirectory('validation');
         }
 
-        $validationResultFile = storage_path('app/validation/' . uniqid('validation-') . '.result');
+        $validationResultFile = storage_path('app/validation/'.uniqid('validation-').'.result');
         $validatorCmd = sprintf('./validate --porcelain -fjson -o%s "%s"', $validationResultFile, $this->endpoint);
 
         $validator = new Process($validatorCmd);
@@ -112,14 +112,14 @@ class ValidatorRunJob extends Job
 
         $validator->run(function ($type, $data) use ($log, $validatorLogPrefix) {
             // $type will always be Process::ERR for validator data since it writes it's progress output to STDERR
-            $log->debug($validatorLogPrefix . $data);
+            $log->debug($validatorLogPrefix.$data);
         });
 
         if ($validator->getExitCode() !== 0) {
             throw ValidationFailed::validatorQuitUnexpectedly();
         }
 
-        $result = (array)json_decode(file_get_contents($validationResultFile), true);
+        $result = (array) json_decode(file_get_contents($validationResultFile), true);
 
         if (file_exists($validationResultFile)) {
             unlink($validationResultFile);

@@ -29,7 +29,7 @@ class ValidationRequest extends FormRequest
         return [
             'email'    => 'required|email',
             'endpoint' => 'required|url',
-            'save'     => 'nullable|boolean',
+            'save'     => 'nullable',
         ];
     }
 
