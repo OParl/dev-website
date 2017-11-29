@@ -71,6 +71,12 @@ class EndpointInfoUpdateJob implements ShouldQueue
         $bodyResponse = $guzzle->get($systemJson['body']);
         $bodyJson = json_decode((string) $bodyResponse->getBody(), true);
 
+        if (!array_key_exists('data', $bodyJson)) {
+            $endpoint->save();
+            $log->error("Endpoint {$endpoint->url} does not appear to have a valid body list.", $bodyJson);
+            $this->fail();
+        }
+
         collect($bodyJson['data'])->each(function (array $body) use ($log, $endpoint) {
             /** @var EndpointBody $endpointBody */
             $endpointBody = EndpointBody::query()->firstOrCreate([
