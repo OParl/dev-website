@@ -21,35 +21,6 @@ class EndpointApiController
      *     )
      * )
      *
-     * @SWG\Definition(
-     *     type="object",
-     *     definition="Endpoint",
-     *     example={
-     *         "url": "https://example.com/api",
-     *         "title": "Example.com OParl API",
-     *         "description": "This is a cool OParl API"
-     *     },
-     *     required={
-     *         "url",
-     *         "title"
-     *     },
-     *     @SWG\Property(
-     *         property="url",
-     *         type="string",
-     *         description="The OParl endpoint's entrypoint"
-     *     ),
-     *     @SWG\Property(
-     *         property="title",
-     *         type="string",
-     *         description="The OParl endpoint's name"
-     *     ),
-     *     @SWG\Property(
-     *         property="description",
-     *         type="string",
-     *         description="Optional detailed endpoint description"
-     *     )
-     * )
-     *
      * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
