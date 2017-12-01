@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class EndpointBody
+ * Class EndpointBody.
  *
  * @SWG\Definition(
  *     type="object",
@@ -25,8 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  *         description="The body's website"
  *     )
  * )
- *
- * @package App\Model
  */
 class EndpointBody extends Model
 {
@@ -43,7 +41,7 @@ class EndpointBody extends Model
     ];
 
     protected $appends = [
-        'oparlURL'
+        'oparlURL',
     ];
 
     /**
