@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidationRequest;
-use Carbon\Carbon;
-use Dompdf\Dompdf;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use OParl\Spec\Jobs\ValidatorRunJob;
 
@@ -31,7 +28,8 @@ class ValidatorController extends Controller
             trans('app.validation.success', compact('endpoint')))->withInput();
     }
 
-    public function validationScheduleSuccess(Request $request) {
+    public function validationScheduleSuccess(Request $request)
+    {
 //        if (!$request->session()->has('message')) {
 //            return redirect()->route('validator.index');
 //        }

@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Endpoint
+ * Class Endpoint.
  *
  * * @SWG\Definition(
  *     type="object",
@@ -36,8 +36,6 @@ use Illuminate\Database\Eloquent\Model;
  *         description="Optional detailed endpoint description"
  *     )
  * )
- *
- * @package App\Model
  */
 class Endpoint extends Model
 {
