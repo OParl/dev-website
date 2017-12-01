@@ -59,6 +59,7 @@ return array(
 
     'footer.disclaimer' => "macOS ist eine eingetragene Marke von Apple Inc, CA\n",
 
+    'validation.explanation.duration'      => 'Die Natur der Validierung eines OParl-Endpunktes bedingt, dass jedes Element abgerufen und geprüft werden muss. Je nach Größe des Endpunktes kann dies unter Umständen einige Stunden in Anspruch nehmen. Falls Sie jedoch nach 24 Stunden noch keine Nachricht von bot@oparl.org erhalten haben sollten, möchten wir Sie bitten zu uns mit Angabe des von Ihnen beauftragten Endpunktes <a href=":contact_url">Kontakt</a> aufzunehmen.',
     'validation.completed'                 => '[OParl] Validierung für :endpoint abgeschlossen',
     'validation.form.email'                => 'E-Mail',
     'validation.form.email.description'    => 'Nach abgeschlossener Validierung erhalten Sie die Ergebnisse im ausgewählten Format an diese E-Mail-Adresse.',
