@@ -67,7 +67,6 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
 });
 
 $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Generator $faker) {
-
     $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
     $startDate->hour = 0;
@@ -193,7 +192,6 @@ $factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator
 });
 
 $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generator $faker) {
-
     $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
 
     do {
