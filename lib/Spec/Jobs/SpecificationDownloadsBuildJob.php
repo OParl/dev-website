@@ -12,13 +12,10 @@ use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
-use Symfony\Component\Process\Process;
 
 class SpecificationDownloadsBuildJob extends SpecificationJob
 {
     protected $storageName = '';
-    protected $buildBasename = '';
-    protected $buildDir = '';
 
     /**
      * @param Filesystem $fs
@@ -81,13 +78,13 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param $currentHead
+     * @param            $currentHead
      *
      * @return string
      */
     public function createDownloadsDirectory(Filesystem $fs)
     {
-        $downloadsPath = 'downloads/specification/'.$this->storageName;
+        $downloadsPath = 'downloads/specification/' . $this->storageName;
 
         if (!$fs->exists($downloadsPath)) {
             $fs->makeDirectory($downloadsPath);
@@ -100,9 +97,9 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param $currentHead
-     * @param $hubSync
-     * @param $downloadsPath
+     * @param            $currentHead
+     * @param            $hubSync
+     * @param            $downloadsPath
      */
     public function provideDownloadableFiles(Filesystem $fs, Repository $hubSync, $downloadsPath)
     {
@@ -118,22 +115,22 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
         collect($downloadableFormats)->map(function ($format) use ($hubSync) {
             return [
                 'build'   => sprintf('%s/%s.%s', $this->buildDir, $this->buildBasename, $format),
-                'storage' => sprintf('OParl-%s.%s', $this->storageName, $format)
+                'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
-                $fs->delete($downloadsPath.'/'.$filename['storage']);
-                $fs->copy(
-                    $hubSync->getPath($filename['build']),
-                    $downloadsPath.'/'.$filename['storage']
-                );
-            });
+            $fs->delete($downloadsPath . '/' . $filename['storage']);
+            $fs->copy(
+                $hubSync->getPath($filename['build']),
+                $downloadsPath . '/' . $filename['storage']
+            );
+        });
     }
 
     /**
      * @param Filesystem $fs
-     * @param $currentHead
-     * @param $hubSync
-     * @param $downloadsPath
+     * @param            $currentHead
+     * @param            $hubSync
+     * @param            $downloadsPath
      */
     public function provideDownloadableArchives(Filesystem $fs, Repository $hubSync, $downloadsPath)
     {
@@ -146,28 +143,14 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
         collect($downloadableArchives)->map(function ($format) use ($hubSync) {
             return [
                 'build'   => sprintf('%s.%s', $this->buildDir, $format),
-                'storage' => sprintf('OParl-%s.%s', $this->storageName, $format)
+                'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
-            $fs->delete($downloadsPath.'/'.$filename['storage']);
+            $fs->delete($downloadsPath . '/' . $filename['storage']);
             $fs->copy(
                 $hubSync->getPath($filename['build']),
-                $downloadsPath.'/'.$filename['storage']
+                $downloadsPath . '/' . $filename['storage']
             );
         });
-    }
-
-    /**
-     * @param $hubSync
-     */
-    protected function getBuildMeta($hubSync)
-    {
-        $process = new Process('python3 build.py --print-basename', storage_path('app/' . $hubSync->getPath()));
-
-        $process->start();
-        $process->wait();
-
-        $this->buildBasename = trim($process->getOutput());
-        $this->buildDir = sprintf('build/%s', $this->buildBasename);
     }
 }

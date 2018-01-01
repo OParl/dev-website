@@ -8,6 +8,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
+use Symfony\Component\Process\Process;
 
 class SpecificationJob extends Job implements ShouldQueue
 {
@@ -18,6 +19,9 @@ class SpecificationJob extends Job implements ShouldQueue
     const AVAILABLE_BUILD_MODES = ['native', 'docker'];
 
     protected $buildMode = 'docker';
+
+    protected $buildBasename = '';
+    protected $buildDir = '';
 
     public function __construct($treeish = '')
     {
@@ -74,5 +78,19 @@ class SpecificationJob extends Job implements ShouldQueue
     public function getRepository(Filesystem $fs)
     {
         return new Repository($fs, 'oparl_spec', 'https://github.com/OParl/spec.git');
+    }
+
+    /**
+     * @param Repository $hubSync
+     */
+    protected function getBuildMeta(Repository $hubSync)
+    {
+        $process = new Process('python3 build.py --print-basename', storage_path('app/' . $hubSync->getPath()));
+
+        $process->start();
+        $process->wait();
+
+        $this->buildBasename = trim($process->getOutput());
+        $this->buildDir = sprintf('build/%s', $this->buildBasename);
     }
 }
