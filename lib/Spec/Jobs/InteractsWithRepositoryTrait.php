@@ -47,7 +47,8 @@ trait InteractsWithRepositoryTrait
      */
     public function runCleanRepositoryCommand(Repository $repository, $cmd, ...$args)
     {
-        $result = $this->runRepositoryCommand($repository, $cmd, $args);
+        $runRepositoryCommand = new \ReflectionMethod($this, 'runRepositoryCommand');
+        $result = $runRepositoryCommand->invokeArgs($this, array_merge([$repository, $cmd], $args));
 
         $repository->clean();
 
@@ -91,6 +92,7 @@ trait InteractsWithRepositoryTrait
         $process->wait();
 
         $output = $process->getOutput();
+        app(Log::class)->debug($output);
 
         return $process->getExitCode() === 0;
     }
