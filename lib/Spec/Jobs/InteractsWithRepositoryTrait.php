@@ -92,7 +92,6 @@ trait InteractsWithRepositoryTrait
         $process->wait();
 
         $output = $process->getOutput();
-        app(Log::class)->debug($output);
 
         return $process->getExitCode() === 0;
     }
