@@ -54,6 +54,7 @@
             @include ('footer')
         </div>
 
+        <script type="application/javascript" href="{{ asset('js/common.js') }}"></script>
         @yield ('scripts')
         @include ('piwik')
     </body>

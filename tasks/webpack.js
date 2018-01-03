@@ -11,6 +11,10 @@ const webpackDefaultPlugins = [
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'common',
+        minChunks: 2
+    }),
 ];
 
 if (process.env.NODE_ENV !== 'testing') {
