@@ -10,7 +10,6 @@ const webpackDefaultPlugins = [
         'process.env': isProduction
     }),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
         name: 'common',
         minChunks: 2
