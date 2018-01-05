@@ -37,8 +37,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
     public function doUpdate(Filesystem $fs, Log $log)
     {
         $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
-        $this->treeish = 'm_master_build_py';
-        $this->checkoutHubSyncToTreeish($hubSync, false);
+        $this->checkoutHubSyncToTreeish($hubSync);
         $this->getBuildMeta($hubSync);
 
         if (!$this->runRepositoryCommand($hubSync, 'python3 build.py live')) {
