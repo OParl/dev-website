@@ -3,6 +3,7 @@
 namespace OParl\Spec\Jobs;
 
 use App\Notifications\SpecificationUpdateNotification;
+use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
 
@@ -31,44 +32,90 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
      * @param Log        $log
      *
      * @return \EFrane\HubSync\Repository
+     * @throws
      */
     public function doUpdate(Filesystem $fs, Log $log)
     {
         $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
-        $this->checkoutHubSyncToTreeish($hubSync);
+        $this->treeish = 'm_master_build_py';
+        $this->checkoutHubSyncToTreeish($hubSync, false);
+        $this->getBuildMeta($hubSync);
 
-        if (!$this->runRepositoryCommand($hubSync, 'make live')) {
+        if (!$this->runRepositoryCommand($hubSync, 'python3 build.py live')) {
             $log->error('Creating live version html failed');
 
             throw new \RuntimeException('Update failed');
         }
 
-        // move html
-        $fs->makeDirectory('live');
-        $fs->put('live/live.html', $fs->get($hubSync->getPath().'/out/live.html'));
+        $this->updateHTML($fs, $hubSync);
+        $this->updateImages($fs, $hubSync);
+        $this->updateConcatenatedMarkdownVersion($fs, $hubSync);
+        $this->updateVersionMetaInfo($fs, $hubSync);
 
-        // reset and copy images
+        // IMPORTANT: Need to clean up by hand since images are missing otherwise
+        $hubSync->clean();
+
+        return $hubSync;
+    }
+
+    /**
+     * @param Filesystem $fs
+     * @param            $hubSync
+     */
+    protected function updateHTML(Filesystem $fs, $hubSync)
+    {
+        $fs->makeDirectory('live');
+        $newVersion = sprintf('%s/%s.html',
+            $hubSync->getPath($this->buildDir),
+            $this->buildBasename
+        );
+
+        if ($fs->exists($newVersion)) {
+            $fs->delete('live/live.html');
+            $fs->copy($newVersion, 'live/live.html');
+        }
+    }
+
+    /**
+     * @param Filesystem $fs
+     * @param            $hubSync
+     */
+    protected function updateImages(Filesystem $fs, Repository $hubSync)
+    {
         $fs->delete($fs->files('live/images/'));
         $fs->deleteDirectory('live/images');
         $fs->makeDirectory('live/images');
 
-        collect($fs->files($hubSync->getPath('/src/images')))->filter(function ($filename) {
+        collect($fs->files($hubSync->getPath('/build/src/images')))->filter(function ($filename) {
             return ends_with($filename, '.png');
         })->map(function ($filename) use ($fs) {
-            $fs->put('live/images/'.basename($filename), $fs->get($filename));
+            $fs->put('live/images/' . basename($filename), $fs->get($filename));
         });
+    }
 
-        // provide concatenated markdown version
+    /**
+     * @param Filesystem $fs
+     * @param            $hubSync
+     */
+    protected function updateConcatenatedMarkdownVersion(Filesystem $fs, Repository $hubSync)
+    {
         $raw = collect($fs->files($hubSync->getPath('/src')))->filter(function ($filename) {
             return ends_with($filename, '.md');
         })->map(function ($filename) use ($fs) {
             return $fs->get($filename);
         })->reduce(function ($carry, $current) {
-            return $carry.$current;
+            return $carry . $current;
         }, '');
 
         $fs->put('live/raw.md', $raw);
+    }
 
+    /**
+     * @param Filesystem $fs
+     * @param            $hubSync
+     */
+    protected function updateVersionMetaInfo(Filesystem $fs, Repository $hubSync)
+    {
         $official = $hubSync->getCurrentTreeish();
         if ($official === 'HEAD') {
             $official = $this->treeish;
@@ -78,10 +125,5 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
             'hash'     => $hubSync->getCurrentHead(),
             'official' => $official,
         ]));
-
-        // IMPORTANT: Need to clean up by hand since images are missing otherwise
-        $hubSync->clean();
-
-        return $hubSync;
     }
 }
