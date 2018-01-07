@@ -88,6 +88,7 @@ trait InteractsWithRepositoryTrait
     {
         $process = new Process($cmd, $path);
 
+        $process->setTimeout(300);
         $process->start();
         $process->wait();
 
