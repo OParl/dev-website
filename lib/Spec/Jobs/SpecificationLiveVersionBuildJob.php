@@ -31,8 +31,9 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
      * @param Filesystem $fs
      * @param Log        $log
      *
-     * @return \EFrane\HubSync\Repository
      * @throws
+     *
+     * @return \EFrane\HubSync\Repository
      */
     public function doUpdate(Filesystem $fs, Log $log)
     {
@@ -88,7 +89,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         collect($fs->files($hubSync->getPath('/build/src/images')))->filter(function ($filename) {
             return ends_with($filename, '.png');
         })->map(function ($filename) use ($fs) {
-            $fs->put('live/images/' . basename($filename), $fs->get($filename));
+            $fs->put('live/images/'.basename($filename), $fs->get($filename));
         });
     }
 
@@ -103,7 +104,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         })->map(function ($filename) use ($fs) {
             return $fs->get($filename);
         })->reduce(function ($carry, $current) {
-            return $carry . $current;
+            return $carry.$current;
         }, '');
 
         $fs->put('live/raw.md', $raw);

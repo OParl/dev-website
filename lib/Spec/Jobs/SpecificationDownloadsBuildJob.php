@@ -20,6 +20,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
     /**
      * @param Filesystem $fs
      * @param Log        $log
+     *
      * @throws \Exception
      */
     public function handle(Filesystem $fs, Log $log)
@@ -31,6 +32,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
             $this->getBuildMeta($hubSync);
         } catch (\Exception $e) {
             $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
+
             throw $e;
         }
 
@@ -83,7 +85,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
      */
     public function createDownloadsDirectory(Filesystem $fs)
     {
-        $downloadsPath = 'downloads/specification/' . $this->storageName;
+        $downloadsPath = 'downloads/specification/'.$this->storageName;
 
         if (!$fs->exists($downloadsPath)) {
             $fs->makeDirectory($downloadsPath);
@@ -117,10 +119,10 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
                 'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
-            $fs->delete($downloadsPath . '/' . $filename['storage']);
+            $fs->delete($downloadsPath.'/'.$filename['storage']);
             $fs->copy(
                 $hubSync->getPath($filename['build']),
-                $downloadsPath . '/' . $filename['storage']
+                $downloadsPath.'/'.$filename['storage']
             );
         });
     }
@@ -145,10 +147,10 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
                 'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
-            $fs->delete($downloadsPath . '/' . $filename['storage']);
+            $fs->delete($downloadsPath.'/'.$filename['storage']);
             $fs->copy(
                 $hubSync->getPath($filename['build']),
-                $downloadsPath . '/' . $filename['storage']
+                $downloadsPath.'/'.$filename['storage']
             );
         });
     }

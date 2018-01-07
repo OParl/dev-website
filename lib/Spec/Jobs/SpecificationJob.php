@@ -85,7 +85,7 @@ class SpecificationJob extends Job implements ShouldQueue
      */
     protected function getBuildMeta(Repository $hubSync)
     {
-        $process = new Process('python3 build.py --print-basename', storage_path('app/' . $hubSync->getPath()));
+        $process = new Process('python3 build.py --print-basename', storage_path('app/'.$hubSync->getPath()));
 
         $process->start();
         $process->wait();
