@@ -51,12 +51,12 @@ class GitHubPushJob extends Job
 
                 switch ($this->payload['ref']) {
                     case 'refs/heads/master':
-                        $this->dispatch(new SpecificationSchemaBuildJob('master'));
+//                        $this->dispatch(new SpecificationSchemaBuildJob('master'));
                         $this->dispatch(new SpecificationDownloadsBuildJob('master'));
                         break;
 
                     case 'refs/heads/1.0':
-                        $this->dispatch(new SpecificationSchemaBuildJob('~1.0'));
+//                        $this->dispatch(new SpecificationSchemaBuildJob('~1.0'));
                         $this->dispatch(new SpecificationDownloadsBuildJob('~1.0'));
                         break;
 
