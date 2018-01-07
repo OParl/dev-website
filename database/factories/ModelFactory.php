@@ -11,8 +11,8 @@
 */
 use Carbon\Carbon;
 use Cocur\Slugify\Slugify;
+use EFrane\BaseX\BaseX;
 use OParl\Server\Model\Keyword;
-use RomanNumber\Formatter as Romanizer;
 
 $slugify = Slugify::create();
 
@@ -67,8 +67,6 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
 });
 
 $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Generator $faker) {
-    $romanizer = new Romanizer();
-
     $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
     $startDate->hour = 0;
@@ -76,7 +74,7 @@ $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Gene
     $startDate->second = 0;
 
     $data = [
-        'name' => sprintf('%s. Wahlperiode', $romanizer->formatNumber($faker->numberBetween(10, 60))),
+        'name' => sprintf('%s. Wahlperiode', BaseX::toRoman($faker->numberBetween(10, 60))),
 
         'start_date' => $startDate,
         'end_date'   => Carbon::instance($startDate)->addYears($faker->numberBetween(1, 5)),
@@ -93,8 +91,7 @@ $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator
     $number = $faker->numberBetween(101, 999);
 
     if ($faker->boolean()) {
-        $romanizer = new Romanizer();
-        $number = $romanizer->formatNumber($number);
+        $number = BaseX::toRoman($number);
     }
 
     $results = [
@@ -195,15 +192,13 @@ $factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator
 });
 
 $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generator $faker) {
-    $romanizer = new Romanizer();
-
     $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
 
     do {
         $shortNameNumber = $faker->numberBetween(100, 999);
     } while ($shortNameNumber < 0);
 
-    $shortName = 'O-'.$romanizer->formatNumber($shortNameNumber);
+    $shortName = 'O-'.BaseX::toRoman($shortNameNumber);
 
     $organizationTypes = [
         'externes Gremium',

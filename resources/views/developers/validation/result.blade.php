@@ -69,7 +69,9 @@
             <tbody>
             @foreach ($data as $message)
                 <tr>
-                    <td><span class="result-id result-id__{{ $message['severity'] }}">{{ $loop->index + 1 }}</span></td>
+                    <td>
+                        <span class="result-id result-id__{{ $message['severity'] }}">{{ $loop->index + 1 }}</span>
+                    </td>
                     <td class="result--{{ $message['severity'] }}">{{ $message['severity'] }}</td>
                     <td>{{ $message['message'] }}</td>
                 </tr>
@@ -83,7 +85,9 @@
             @foreach ($data as $message)
                 @foreach ($message['objects'] as $messageObject)
                     <li>
-                        <span class="result-id result-id__{{ $message['severity'] }}">{{ $loop->parent->index + 1 }}</span>
+                        <span class="result-id result-id__{{ $message['severity'] }}">
+                            {{ $loop->parent->index + 1 }}
+                        </span>
                         <a href="{{ $messageObject }}">{{ $messageObject }}</a>
                     </li>
                 @endforeach

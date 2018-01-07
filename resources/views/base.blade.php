@@ -54,6 +54,7 @@
             @include ('footer')
         </div>
 
+        <script src="{{ asset('js/common.js') }}"></script>
         @yield ('scripts')
         @include ('piwik')
     </body>

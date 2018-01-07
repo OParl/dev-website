@@ -47,7 +47,8 @@ trait InteractsWithRepositoryTrait
      */
     public function runCleanRepositoryCommand(Repository $repository, $cmd, ...$args)
     {
-        $result = $this->runRepositoryCommand($repository, $cmd, $args);
+        $runRepositoryCommand = new \ReflectionMethod($this, 'runRepositoryCommand');
+        $result = $runRepositoryCommand->invokeArgs($this, array_merge([$repository, $cmd], $args));
 
         $repository->clean();
 
@@ -87,6 +88,7 @@ trait InteractsWithRepositoryTrait
     {
         $process = new Process($cmd, $path);
 
+        $process->setTimeout(300);
         $process->start();
         $process->wait();
 

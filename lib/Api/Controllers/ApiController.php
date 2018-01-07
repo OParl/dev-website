@@ -30,7 +30,7 @@ class ApiController
      */
     public function swaggerJson()
     {
-        $swagger = scan(base_path('lib/Api/Controllers'));
+        $swagger = scan([base_path('lib/Api/Controllers'), app_path('Model')]);
 
         return response($swagger, 200, [
             'Content-Type'                => 'application/json',

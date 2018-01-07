@@ -9,7 +9,9 @@
 namespace OParl\Spec\Model;
 
 use EFrane\Letterpress\Letterpress;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Logging\Log;
 use Masterminds\HTML5;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -28,12 +30,17 @@ class LiveView
     protected $body = '';
     protected $tableOfContents = '';
 
-    public function __construct(Filesystem $fs)
+    public function __construct(Filesystem $fs, Log $log)
     {
         $this->fs = $fs;
 
-        $this->originalHTML = $fs->get('live/live.html');
-        $this->versionInformation = json_decode($fs->get('live/version.json'), true);
+        try {
+            $this->originalHTML = $fs->get('live/live.html');
+            $this->versionInformation = json_decode($fs->get('live/version.json'), true);
+        } catch (FileNotFoundException $e) {
+            // TODO: send an alert to slack, this is a fatal error and should be solved quickly
+            $log->error('Failed to load live version');
+        }
 
         $html5 = new HTML5();
         $this->originalDOM = $html5->loadHTML($this->originalHTML);
@@ -48,18 +55,7 @@ class LiveView
         $crawler = new Crawler($this->originalHTML);
 
         $this->tableOfContents = $crawler->filter('body > nav')->html();
-
-        $content = $crawler->filterXPath('//body/*[not(self::nav)]');
-
-        $skipElements = 0;
-        foreach ($content as $domElement) {
-            if ($skipElements) {
-                $skipElements--;
-                continue;
-            }
-
-            $this->body .= $domElement->ownerDocument->saveHTML($domElement);
-        }
+        $this->body = $crawler->filter('body > main')->html();
 
         // rewrite image urls
         $this->body = preg_replace('/"(.?)(.*images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);

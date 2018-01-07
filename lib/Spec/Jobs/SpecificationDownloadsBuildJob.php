@@ -20,6 +20,8 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
     /**
      * @param Filesystem $fs
      * @param Log        $log
+     *
+     * @throws \Exception
      */
     public function handle(Filesystem $fs, Log $log)
     {
@@ -27,8 +29,11 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
         try {
             $hubSync = $this->build($fs, $log);
+            $this->getBuildMeta($hubSync);
         } catch (\Exception $e) {
             $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
+
+            throw $e;
         }
 
         $this->storageName = 'master';
@@ -47,6 +52,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
                 $hubSync->getCurrentHead()
             ));
         } catch (\Exception $e) {
+            dd($e);
             $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
         }
     }
@@ -64,7 +70,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
         $revision = $hubSync->getCurrentHead();
 
-        if (!$this->runCleanRepositoryCommand($hubSync, 'make VERSION=%s clean archives', $revision)) {
+        if (!$this->runCleanRepositoryCommand($hubSync, 'python3 build.py archives', $revision)) {
             throw new \RuntimeException("Failed building the downloadables for {$revision}");
         }
 
@@ -73,7 +79,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param $currentHead
+     * @param            $currentHead
      *
      * @return string
      */
@@ -92,9 +98,9 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param $currentHead
-     * @param $hubSync
-     * @param $downloadsPath
+     * @param            $currentHead
+     * @param            $hubSync
+     * @param            $downloadsPath
      */
     public function provideDownloadableFiles(Filesystem $fs, Repository $hubSync, $downloadsPath)
     {
@@ -109,12 +115,13 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
         collect($downloadableFormats)->map(function ($format) use ($hubSync) {
             return [
-                'build'   => 'OParl-'.$hubSync->getCurrentHead().'.'.$format,
-                'storage' => 'OParl-'.$this->storageName.'.'.$format,
+                'build'   => sprintf('%s/%s.%s', $this->buildDir, $this->buildBasename, $format),
+                'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
+            $fs->delete($downloadsPath.'/'.$filename['storage']);
             $fs->copy(
-                $hubSync->getPath('out/'.$filename['build']),
+                $hubSync->getPath($filename['build']),
                 $downloadsPath.'/'.$filename['storage']
             );
         });
@@ -122,9 +129,9 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param $currentHead
-     * @param $hubSync
-     * @param $downloadsPath
+     * @param            $currentHead
+     * @param            $hubSync
+     * @param            $downloadsPath
      */
     public function provideDownloadableArchives(Filesystem $fs, Repository $hubSync, $downloadsPath)
     {
@@ -136,12 +143,13 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
         collect($downloadableArchives)->map(function ($format) use ($hubSync) {
             return [
-                'build'   => 'OParl-'.$hubSync->getCurrentHead().'.'.$format,
-                'storage' => 'OParl-'.$this->storageName.'.'.$format,
+                'build'   => sprintf('%s.%s', $this->buildDir, $format),
+                'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
+            $fs->delete($downloadsPath.'/'.$filename['storage']);
             $fs->copy(
-                $hubSync->getPath('archives/'.$filename['build']),
+                $hubSync->getPath($filename['build']),
                 $downloadsPath.'/'.$filename['storage']
             );
         });

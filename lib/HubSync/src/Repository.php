@@ -14,7 +14,7 @@ use Symfony\Component\Process\Process;
  */
 class Repository
 {
-    use \EFrane\HubSync\SynchronousProcess;
+    use SynchronousProcess;
 
     /**
      * @var string
