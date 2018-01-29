@@ -1,7 +1,6 @@
 # OParl - Entwicklerplattform
 
-Dies ist der Code zur [OParl-Entwicklerplattform](https://dev.oparl.org).
-Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.  
+Welcome to the [OParl developer][platform] platform codebase. 
 
 ## Contributing
 
@@ -13,11 +12,8 @@ Die Plattform wird mit dem [Laravel Framework](https://laravel.com) entwickelt.
 - npm
 - gulp
 
-**Zusätzlich auf dem Server/Homestead VM/etc.**
-
-- pandoc
-- ghostscript
-- imagemagick / convert
+Additionally, the requirements for running the [validator][repo:validator] and building the 
+[specification][repo:spec] must be met on the system.
 
 ### Setup
 
@@ -118,10 +114,12 @@ Other provided API methods will eventually be documented using Swagger. See #47 
 
 This program is being provided under the terms of the [MIT License][mit]
 
+
 [mit]: https://opensource.org/licenses/MIT
 [ngrok]: https://ngrok.com
 [npm]: https://npmjs.com
 [packagist]: https://packagist.org
+[platform]: https://dev.oparl.org
 [repo:spec]: https://github.com/OParl/spec
 [repo:liboparl]: https://github.com/OParl/liboparl
 [repo:resources]: https://github.com/OParl/resources
