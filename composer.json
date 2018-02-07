@@ -95,8 +95,6 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "php artisan clear-compiled",
-      "php artisan optimize",
       "echo \"You should run ./artisan setup to finish setting up this clone.\""
     ],
     "pre-update-cmd": [
