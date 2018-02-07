@@ -31,7 +31,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
             $hubSync = $this->build($fs, $log);
             $this->getBuildMeta($hubSync);
         } catch (\Exception $e) {
-            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish, $e));
+            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
 
             throw $e;
         }
@@ -52,8 +52,8 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
                 $hubSync->getCurrentHead()
             ));
         } catch (\Exception $e) {
-            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish, $e));
             dd($e);
+            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
         }
     }
 
