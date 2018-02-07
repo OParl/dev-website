@@ -1,44 +1,58 @@
-sudo: required
-# TODO: get that on trusty asap (this depends on travis supporting PHP on trusty)
-# dist: trusty
-
 language: php
+sudo: false
 
 php:
-  - '7.0'
+- 7.0
+- 7.1
 
-cache:
-  directories:
-    - vendor/
-    - node_modules/
-    - specbuilder/
-
-services:
-  - docker
-
-env:
-  global:
-    - QUEUE_DRIVER=sync
+addons:
+  apt:
+    packages:
+    - etoolbox
+    - ghostscript
+    - graphviz
+    - latex-xcolor
+    - librsvg2-bin
+    - lmodern
+    - make
+    - nodejs
+    - npm
+    - pandoc
+    - pandoc-citeproc
+    - python3
+    - python3-pip
+    - python3.4-venv
+    - texlive-fonts-recommended
+    - texlive-generic-recommended
+    - texlive-humanities
+    - texlive-lang-german
+    - texlive-latex-recommended
+    - texlive-luatex
+    - texlive-xetex
 
 before_install:
-  # Prepare the docker container for the spec builder
-  - mkdir -p specbuilder
-  - cd specbuilder
-  - wget https://cdn.rawgit.com/eFrane/oparl-containers/master/specbuilder/Dockerfile
-  - docker build -t oparl/specbuilder:1.0 -t oparl/specbuilder:latest .
-  - cd ..
+- python3 -m venv .spec_build_venv
+- source .spec_build_venv/bin/activate
+
+install:
+- pip3 install pyaml
 
 before_script:
-  - composer install --prefer-source --no-interaction --no-scripts
-  - touch storage/database.sqlite
-  - cp .env.testing .env
-  - sed -i -e 's/local/testing/' .env
-  - php artisan key:generate
-  - php artisan migrate
-  - php artisan oparl:init
-  - php artisan server:populate --refresh
+- composer global require hirak/prestissimo
+- composer install --no-interaction --no-scripts --no-suggest
+- cp .env.testing .env
+- composer run-script post-install-cmd
+- ./artisan setup
 
 script: vendor/bin/phpunit
 
-after_failure:
-  - cat storage/logs/laravel.log
+after_script:
+- deactivate
+- cat storage/logs/laravel-$(date +"%Y-%m-%d").log
+
+cache:
+  apt: true
+  directories:
+  - vendor
+  - .spec_build_venv
+  - /home/travis/.composer

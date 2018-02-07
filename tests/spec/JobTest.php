@@ -120,7 +120,7 @@ class JobTest extends TestCase
             ->getMock();
 
         $sut->expects($this->once())->method('runRepositoryCommand')
-            ->with($repo, 'my', ['little', 'pony']);
+            ->with($repo, 'my', 'little', 'pony');
 
         $sut->runCleanRepositoryCommand($repo, 'my', 'little', 'pony');
 

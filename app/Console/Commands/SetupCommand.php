@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'setup';
+    protected $signature = 'setup {--no-optimize : Do not optimize the environment}';
     protected $description = 'Runs all commands necessary for initial setup of the application.';
 
     public function handle()
@@ -17,20 +17,37 @@ class SetupCommand extends Command
 
         if (!file_exists(base_path('.env'))) {
             copy(base_path('.env.example'), base_path('.env'));
-            $this->error('Created new environment file, please remember to configure it!');
+            $this->warn('Created new environment file, please remember to configure it!');
         }
 
         $this->call('key:generate');
+        $this->call('deploy');
 
-        touch(storage_path('database.sqlite'));
-        touch(storage_path('demodata.sqlite'));
+        try {
+            $mainDBFile = config('database.connections.sqlite.database');
+            $this->info('Creating main database @ ' . $mainDBFile);
+            touch($mainDBFile);
+            $this->call('migrate');
 
-        $this->call('migrate');
-        $this->call('migrate --database=sqlite_demo');
+            $demodataDBFile = config('database.connections.sqlite_demo.database');
+            $this->info('Creating demodata database @ ' . $demodataDBFile);
+            touch($demodataDBFile);
+            $this->call('migrate', ['--database' => 'sqlite_demo']);
+        } catch (\Exception $e) {
+            $this->error('Errors occured while setting up the databases: ' . $e);
+        }
 
-        $this->call('oparl:init');
+        $this->call('server:populate');
 
-        $this->call('optimize');
+        try {
+            $this->call('oparl:init');
+        } catch (\Exception $e) {
+            $this->error('Errors occured while initializing the OParl components: ' . $e);
+        }
+
+        if (!$this->option('no-optimize')) {
+            $this->call('optimize');
+        }
 
         $this->call('up');
     }
