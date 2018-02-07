@@ -38,12 +38,12 @@ class Header
             'title'    => 'app.specification.title',
             'icon'     => 'fa-book',
         ],
-
-        [
-            'routeKey' => 'api.oparl',
-            'title'    => 'app.demo.title',
-            'icon'     => 'fa-dashboard',
-        ],
+//
+//        [
+//            'routeKey' => 'api.oparl',
+//            'title'    => 'app.demo.title',
+//            'icon'     => 'fa-dashboard',
+//        ],
 
         [
             'routeKey' => 'contact',
