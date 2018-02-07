@@ -10,6 +10,42 @@
   "license": "MIT",
   "type": "project",
   "require": {
+    "php": ">=5.6.0|<=7.2",
+
+    "ext-bcmath": "*",
+    "ext-bz2": "*",
+    "ext-calendar": "*",
+    "ext-ctype": "*",
+    "ext-curl": "*",
+    "ext-date": "*",
+    "ext-dom": "*",
+    "ext-exif": "*",
+    "ext-fileinfo": "*",
+    "ext-filter": "*",
+    "ext-ftp": "*",
+    "ext-gd": "*",
+    "ext-gettext": "*",
+    "ext-hash": "*",
+    "ext-iconv": "*",
+    "ext-json": "*",
+    "ext-libxml": "*",
+    "ext-mbstring": "*",
+    "ext-mysqli": "*",
+    "ext-openssl": "*",
+    "ext-pcre": "*",
+    "ext-PDO": "*",
+    "ext-pdo_mysql": "*",
+    "ext-Reflection": "*",
+    "ext-session": "*",
+    "ext-shmop": "*",
+    "ext-SimpleXML": "*",
+    "ext-soap": "*",
+    "ext-sockets": "*",
+    "ext-SPL": "*",
+    "ext-tokenizer": "*",
+    "ext-zip": "*",
+    "ext-zlib": "*",
+
     "laravel/framework": "5.4.*",
     "graham-campbell/github": "^5.1",
     "predis/predis": "^1.1",
@@ -30,7 +66,7 @@
     "dompdf/dompdf": "^0.8.0",
     "zircote/swagger-php": "^2.0",
     "morrislaptop/laravel-queue-clear": "^1.1",
-    "efrane/base-x": "^0.1.1"
+    "efrane/base-x": "^0.2"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.7",
@@ -62,7 +98,8 @@
   "scripts": {
     "post-install-cmd": [
       "php artisan clear-compiled",
-      "php artisan optimize"
+      "php artisan optimize",
+      "echo \"You should run ./artisan setup to finish setting up this clone.\""
     ],
     "pre-update-cmd": [
       "php artisan clear-compiled"
@@ -70,10 +107,6 @@
     "post-update-cmd": [
       "php artisan optimize"
     ],
-    "post-create-project-cmd": [
-      "php -r \"copy('.env.example', '.env');\"",
-      "php artisan key:generate"
-    ]
   },
   "config": {
     "preferred-install": "dist"
