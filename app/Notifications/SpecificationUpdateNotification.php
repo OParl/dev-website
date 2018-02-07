@@ -90,14 +90,12 @@ class SpecificationUpdateNotification extends Notification
         );
     }
 
-    public static function downloadsUpdateFailedNotification($treeish, $exception)
+    public static function downloadsUpdateFailedNotification($treeish)
     {
         return new self(
             false,
-            'Updating the downloads for %s failed: %s \n %s',
-            $treeish,
-            $exception->getMessage(),
-            $exception->getTraceAsString()
+            'Updating the downloads for %s failed',
+            $treeish
         );
     }
 
