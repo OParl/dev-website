@@ -31,7 +31,12 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
             $hubSync = $this->build($fs, $log);
             $this->getBuildMeta($hubSync);
         } catch (\Exception $e) {
-            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
+            $this->notify(
+                SpecificationUpdateNotification::downloadsUpdateFailedNotification(
+                    $this->treeish,
+                    $e->getMessage()
+                )
+            );
 
             throw $e;
         }
@@ -52,8 +57,12 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
                 $hubSync->getCurrentHead()
             ));
         } catch (\Exception $e) {
-            dd($e);
-            $this->notify(SpecificationUpdateNotification::downloadsUpdateFailedNotification($this->treeish));
+            $this->notify(
+                SpecificationUpdateNotification::downloadsUpdateFailedNotification(
+                    $this->treeish,
+                    $e->getMessage()
+                )
+            );
         }
     }
 
@@ -71,7 +80,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
         $revision = $hubSync->getCurrentHead();
 
         if (!$this->runCleanRepositoryCommand($hubSync, 'python3 build.py archives', $revision)) {
-            throw new \RuntimeException("Failed building the downloadables for {$revision}");
+            throw new \RuntimeException("Failed building the archives for {$revision}");
         }
 
         return $hubSync;
@@ -85,7 +94,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
      */
     public function createDownloadsDirectory(Filesystem $fs)
     {
-        $downloadsPath = 'downloads/specification/'.$this->storageName;
+        $downloadsPath = 'downloads/specification/' . $this->storageName;
 
         if (!$fs->exists($downloadsPath)) {
             $fs->makeDirectory($downloadsPath);
@@ -119,10 +128,10 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
                 'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
-            $fs->delete($downloadsPath.'/'.$filename['storage']);
+            $fs->delete($downloadsPath . '/' . $filename['storage']);
             $fs->copy(
                 $hubSync->getPath($filename['build']),
-                $downloadsPath.'/'.$filename['storage']
+                $downloadsPath . '/' . $filename['storage']
             );
         });
     }
@@ -147,10 +156,10 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
                 'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
             ];
         })->map(function ($filename) use ($fs, $hubSync, $downloadsPath) {
-            $fs->delete($downloadsPath.'/'.$filename['storage']);
+            $fs->delete($downloadsPath . '/' . $filename['storage']);
             $fs->copy(
                 $hubSync->getPath($filename['build']),
-                $downloadsPath.'/'.$filename['storage']
+                $downloadsPath . '/' . $filename['storage']
             );
         });
     }
