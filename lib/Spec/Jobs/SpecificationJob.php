@@ -93,4 +93,9 @@ class SpecificationJob extends Job implements ShouldQueue
         $this->buildBasename = trim($process->getOutput());
         $this->buildDir = sprintf('build/%s', $this->buildBasename);
     }
+
+    public function failed(\Exception $e)
+    {
+        \Log::debug($e);
+    }
 }
