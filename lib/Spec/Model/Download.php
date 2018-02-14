@@ -53,4 +53,9 @@ class Download
     {
         return $this->getFilename();
     }
+
+    public function getExtension()
+    {
+        return $this->getInfo()->getExtension();
+    }
 }

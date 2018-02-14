@@ -11,9 +11,8 @@ class UpdateDownloadsCommand extends Command
 
     public function handle()
     {
-        $this->info('Updating downloadables');
-
         $treeish = $this->getTreeishOrDefault();
+        $this->info("Updating downloadables for constraint {$treeish}");
 
         $this->dispatch(new SpecificationDownloadsBuildJob($treeish));
     }

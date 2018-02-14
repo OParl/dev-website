@@ -43,7 +43,7 @@ return array(
 
     'specification.download.title'         => 'Spezifikation herunterladen',
     'specification.download.select.title'  => 'Bitte wählen Sie ein Downloadformat aus',
-    'specification.download.formatinfo'    => 'Wir stellen die Downloads der Spezifikation in verschiedenen Formaten zur Verfügung. Bitte wählen Sie unten das von Ihnen gewünschte aus.',
+    'specification.download.formatinfo'    => 'Wir stellen die Downloads der Spezifikation in verschiedenen Formaten zur Verfügung. Bitte wählen Sie das von Ihnen gewünschte und die gesuchte Version aus um fortzufahren.',
     'specification.download.singlefile'    => 'Dateien',
     'specification.download.archives'      => 'Archive',
     'specification.download.archives-info' => 'Die Archive enthalten immer alle verfügbaren Ausgabeformate.',

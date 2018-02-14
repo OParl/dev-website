@@ -6,24 +6,62 @@
 
 @section ('content')
     <section>
-        <h2>@lang('app.specification.title')</h2>
+        <h2>@lang('app.downloads.title') - @lang('app.specification.title')</h2>
 
         <p>@lang('app.specification.download.formatinfo')</p>
 
-        <div class="row">
-            <div>
-                <h3>@lang('app.specification.download.singlefile')</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Format</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($specificationDownloads->all() as $specificationVersion)
+                    <tr>
+                        <td>
+                            OParl Spezifikation {{ $specificationVersion->getVersion() }}
+                        </td>
+                        <td>
+                            <select name="{{ $specificationVersion->getVersion() }}:version">
+                            @foreach ($specificationVersion->getFiles() as $file)
+                                    <option value="{{ $file->getFilename() }}">{{ $file->getExtension() }}</option>
+                            @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <a href="#" class="pure-button" aria-label="Download">
+                                <img src="{{ asset('img/icons/download.svg') }}" aria-hidden="true">
+                            </a>
+                        </td>
+                    </tr>
 
-                @include('downloads.specification_singlefile_list')
-            </div>
 
-            <div>
-                <h3>@lang('app.specification.download.archives')</h3>
-                <p>@lang('app.specification.download.archives-info')</p>
+                    {{--<tr>--}}
+                        {{--<td colspan="2">Specifikation {{ $download->getVersion() }}</td>--}}
+                        {{--<td>--}}
 
-                @include('downloads.specification_archives_list')
-            </div>
-        </div>
+                        {{--</td>--}}
+                    {{--</tr>--}}
+                @endforeach
+            </tbody>
+        </table>
+        {{--<div class="row">--}}
+            {{--<div>--}}
+                {{--<h3>@lang('app.specification.download.singlefile')</h3>--}}
+
+                {{--@include('downloads.specification_singlefile_list')--}}
+            {{--</div>--}}
+
+            {{--<div>--}}
+                {{--<h3>@lang('app.specification.download.archives')</h3>--}}
+                {{--<p>@lang('app.specification.download.archives-info')</p>--}}
+
+                {{--@include('downloads.specification_archives_list')--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </section>
 
     {{--

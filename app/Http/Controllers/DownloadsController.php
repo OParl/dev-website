@@ -7,10 +7,11 @@ use OParl\Spec\Repositories\SpecificationDownloadRepository;
 
 class DownloadsController extends Controller
 {
-    public function index()
+    public function index(SpecificationDownloadRepository $specificationDownloadRepository)
     {
         return view('downloads.index', [
             'title' => trans('app.downloads.title'),
+            'specificationDownloads' => $specificationDownloadRepository
         ]);
     }
 
