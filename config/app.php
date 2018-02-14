@@ -156,8 +156,6 @@ return [
         /*
          * Application Service Providers...
          */
-        Barryvdh\Debugbar\ServiceProvider::class,
-
         App\Providers\AppServiceProvider::class,
         App\Providers\ConfigServiceProvider::class,
         App\Providers\EventServiceProvider::class,
@@ -168,9 +166,6 @@ return [
         EFrane\Deploy\DeployServiceProvider::class,
         EFrane\Letterpress\Providers\LaravelServiceProvider::class,
         EFrane\Transfugio\TransfugioServiceProvider::class,
-        GrahamCampbell\GitHub\GitHubServiceProvider::class,
-        Laravel\Tinker\TinkerServiceProvider::class,
-        Morrislaptop\LaravelQueueClear\LaravelQueueClearServiceProvider::class,
 
         OParl\Spec\SpecServiceProvider::class,
         OParl\Server\ServerServiceProvider::class,

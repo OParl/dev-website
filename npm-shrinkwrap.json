@@ -9020,6 +9020,9 @@
         "is-plain-obj": "1.1.0"
       }
     },
+    "source-code-pro": {
+      "version": "github:adobe-fonts/source-code-pro#e99ed3b714cd2b3c0d5ac8cc45fd8181d79c0d0b"
+    },
     "source-list-map": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/source-list-map/-/source-list-map-2.0.0.tgz",
@@ -9079,6 +9082,9 @@
       "requires": {
         "source-map": "0.5.6"
       }
+    },
+    "source-sans-pro": {
+      "version": "github:adobe-fonts/source-sans-pro#1a31ead76ead2236cf18a4198d9c618f69c9ac5f"
     },
     "sparkles": {
       "version": "1.0.0",

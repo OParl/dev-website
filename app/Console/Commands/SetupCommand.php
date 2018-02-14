@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'setup {--no-optimize : Do not optimize the environment}';
+    protected $signature = 'setup';
     protected $description = 'Runs all commands necessary for initial setup of the application.';
 
     public function handle()
@@ -43,10 +43,6 @@ class SetupCommand extends Command
             $this->call('oparl:init');
         } catch (\Exception $e) {
             $this->error('Errors occured while initializing the OParl components: ' . $e);
-        }
-
-        if (!$this->option('no-optimize')) {
-            $this->call('optimize');
         }
 
         $this->call('up');
