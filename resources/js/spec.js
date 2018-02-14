@@ -9,22 +9,11 @@ import SpecificationExample from './modules/specification-example.vue'
 const vm = new Vue({
     el: '#app',
 
-    data: {
-        showDownloadsModal: false,
-    },
-
     mounted() {
         Prism.highlightAll();
     },
 
-    methods: {
-        toggleTableOfContents() {
-            this.$refs.tableOfContents.toggleShow()
-        }
-    },
-
     components: {
-        FModal,
         FAccordion,
         SpecificationExample
     }
