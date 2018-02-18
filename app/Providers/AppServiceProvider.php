@@ -68,6 +68,10 @@ LPMARKUP;
 
             return $content;
         });
+
+        \Blade::if ('env', function ($environment) {
+            return app()->environment($environment);
+        });
     }
 
     /**
