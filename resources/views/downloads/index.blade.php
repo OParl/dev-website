@@ -12,55 +12,52 @@
 
         <table>
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Format</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Name</th>
+                <th>Format</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
+            <form action="{{ route('downloads.request') }}" class="pure-form" method="post">
+                {{ csrf_field() }}
+
                 @foreach ($specificationDownloads->all() as $specificationVersion)
                     <tr>
                         <td>
                             OParl Spezifikation {{ $specificationVersion->getVersion() }}
                         </td>
                         <td>
-                            <select name="{{ $specificationVersion->getVersion() }}:version">
-                            @foreach ($specificationVersion->getFiles() as $file)
-                                    <option value="{{ $file->getFilename() }}">{{ $file->getExtension() }}</option>
-                            @endforeach
+                            <select name="format[{{ $specificationVersion->getVersion() }}]" class="pure-input-1-2">
+                                @foreach ($specificationVersion->getFiles() as $file)
+                                    <option value="{{ $file->getExtension() }}">{{ $file->getExtension() }}</option>
+                                @endforeach
                             </select>
                         </td>
-                        <td>
-                            <a href="#" class="pure-button" aria-label="Download">
+                        <td style="font-size: xx-small; text-align: right">
+                            <button type="submit" class="pure-button" aria-label="Download" name="version" value="{{ $specificationVersion->getVersion() }}">
                                 <img src="{{ asset('img/icons/download.svg') }}" aria-hidden="true">
-                            </a>
+                            </button>
                         </td>
                     </tr>
 
-
-                    {{--<tr>--}}
-                        {{--<td colspan="2">Specifikation {{ $download->getVersion() }}</td>--}}
-                        {{--<td>--}}
-
-                        {{--</td>--}}
-                    {{--</tr>--}}
                 @endforeach
+            </form>
             </tbody>
         </table>
         {{--<div class="row">--}}
-            {{--<div>--}}
-                {{--<h3>@lang('app.specification.download.singlefile')</h3>--}}
+        {{--<div>--}}
+        {{--<h3>@lang('app.specification.download.singlefile')</h3>--}}
 
-                {{--@include('downloads.specification_singlefile_list')--}}
-            {{--</div>--}}
+        {{--@include('downloads.specification_singlefile_list')--}}
+        {{--</div>--}}
 
-            {{--<div>--}}
-                {{--<h3>@lang('app.specification.download.archives')</h3>--}}
-                {{--<p>@lang('app.specification.download.archives-info')</p>--}}
+        {{--<div>--}}
+        {{--<h3>@lang('app.specification.download.archives')</h3>--}}
+        {{--<p>@lang('app.specification.download.archives-info')</p>--}}
 
-                {{--@include('downloads.specification_archives_list')--}}
-            {{--</div>--}}
+        {{--@include('downloads.specification_archives_list')--}}
+        {{--</div>--}}
         {{--</div>--}}
     </section>
 

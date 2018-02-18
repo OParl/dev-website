@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DownloadRequest;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use OParl\Spec\Repositories\SpecificationDownloadRepository;
 
@@ -10,8 +11,8 @@ class DownloadsController extends Controller
     public function index(SpecificationDownloadRepository $specificationDownloadRepository)
     {
         return view('downloads.index', [
-            'title' => trans('app.downloads.title'),
-            'specificationDownloads' => $specificationDownloadRepository
+            'title'                  => trans('app.downloads.title'),
+            'specificationDownloads' => $specificationDownloadRepository,
         ]);
     }
 
@@ -50,5 +51,30 @@ class DownloadsController extends Controller
     public function latestSpecification($format)
     {
         return redirect()->route('downloads.specification', ['latest', $format]);
+    }
+
+    /**
+     * Handle specification download requests from the web form
+     *
+     * @param DownloadRequest $downloadRequest
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function downloadRequest(DownloadRequest $downloadRequest)
+    {
+        $input = $downloadRequest->except('_token');
+
+        $selectedVersion = $input['version'];
+        $selectedFormat = $input['format'][$selectedVersion];
+
+        if (in_array($selectedFormat, ['bz2', 'gz'])) {
+            $selectedFormat = 'tar.' . $selectedFormat;
+        }
+
+        return redirect()->route('downloads.specification',
+            [
+                'version' => $selectedVersion,
+                'format'  => $selectedFormat,
+            ]
+        );
     }
 }

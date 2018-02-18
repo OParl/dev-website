@@ -35,6 +35,10 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->name('downloads.index')
         ->uses('DownloadsController@index');
 
+    $router->post('/downloads')
+        ->name('downloads.request')
+        ->uses('DownloadsController@downloadRequest');
+
     $router->get('/downloads/spezifikation-{version}.{format}')
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
