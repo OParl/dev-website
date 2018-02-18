@@ -15,7 +15,7 @@ return array(
     'developers.about-dev.title'   => 'Was finde ich hier?',
     'developers.about-dev.text'    => 'Das OParl-Entwicklerportal ist die zentrale Anlaufstelle zwischen OParl-Implementierern, OParl-Bereitstellern und OParl-Nutzern. Hier finden Sie technische Informationen zur Schnittstelle und weiterführendes Material zu deren Einsatz und Verwendbarkeit für verschiedene Zwecke.',
 
-    'developers.demo'           => 'Einen OParl-Endpunkt der vollständig aus generierten Daten gespeist wird und somit ideal zum Testen und Demonstrieren ihrer Anwendung geeignet ist',
+    'developers.demo'           => 'Einen OParl-Endpunkt der vollständig aus generierten Daten gespeist wird und somit ideal zum Testen und Demonstrieren Ihrer Anwendung geeignet ist',
     'developers.liboparl'       => 'liboparl - Die Standardbibliothek, um Anwendungen auf Basis von OParl-konformen Systemen zu entwickeln',
     'developers.implementors'   => 'Eine Liste von aktuellen OParl-Implementieren und Informationen zu Herstellern OParl-konformer Systeme',
     'developers.usage-examples' => 'Kleine Beispiele zum alltäglichen Nutzwert von OParl',

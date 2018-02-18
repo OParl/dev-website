@@ -5,15 +5,15 @@
 @stop
 
 @section ('content')
-    <section class="row">
-        <h2 class="col-xs-12 col-md-3">@lang('app.developers.about-oparl.title')</h2>
-        <div class="col-xs-12 col-md-9">
+    <section >
+        <h2>@lang('app.developers.about-oparl.title')</h2>
+        <div>
             <p>@press(trans('app.developers.about-oparl.text'))</p>
         </div>
     </section>
-    <section class="row">
-        <h2 class="col-xs-12 col-md-3">@lang('app.developers.about-dev.title')</h2>
-        <div class="col-xs-12 col-md-9">
+    <section>
+        <h2>@lang('app.developers.about-dev.title')</h2>
+        <div>
             <p>@press(trans('app.developers.about-dev.text'))</p>
             <p>@lang('app.developers.demo')</p>
             {{--

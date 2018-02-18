@@ -1,8 +1,8 @@
 @foreach ($sections as $section)
     @if (isset($section['current']) && $section['current'])
-        <li class="col-xs-12 col-sm-2 active">
+        <div class="navbar-item is-active">
     @else
-        <li class="col-xs-12 col-sm-2">
+        <div class="navbar-item">
     @endif
             @if (isset($section['routeKey']) && !isset($section['params']))
                 <a href="{{ route($section['routeKey'] . '.index') }}">
@@ -13,5 +13,5 @@
             @endif
                     @lang($section['title'])
                 </a>
-        </li>
+        </div>
 @endforeach

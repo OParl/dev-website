@@ -36,11 +36,12 @@
         <link rel="shortcut icon" href="{{ asset('/img/favicon.png') }}" />
     </head>
     <body>
-        <div id="app">
+        <div id="app" class="container">
             <div class="sr-only">
                 <ul>
                     <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
                     {{-- TODO: insert links to main chapters --}}
+                    @stack('sr-links')
                 </ul>
             </div>
 

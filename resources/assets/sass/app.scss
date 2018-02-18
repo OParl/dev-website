@@ -1,42 +1,47 @@
-@import 'config/variables';
-
-/**
- * Media Breakpoints:
- *
- * xs: < 48em
- * sm: < 62em
- * md: < 75em
- * lg: >= 75em
- */
-
-// TODO: move to modules
-@import 'fonts';
-
-.u-round {
-  border-radius: 50%;
-}
-
-.warning {
-  background: $brand-warning;
-}
-
-.success {
-  background: $brand-success;
-}
-
-@import '../../../node_modules/flexboxgrid/dist/flexboxgrid';
+@import '../../../node_modules/buefy/lib/buefy';
 @import '../../../node_modules/prismjs/themes/prism';
 @import '../../../node_modules/prismjs/themes/prism-okaidia';
 @import '../../../node_modules/flag-icon-css/sass/_flag-icon';
 
-@import 'modules/common';
-@import 'modules/forms';
-@import 'modules/header';
+//@import 'config/variables';
+//
+///**
+// * Media Breakpoints:
+// *
+// * xs: < 48em
+// * sm: < 62em
+// * md: < 75em
+// * lg: >= 75em
+// */
+//
+//// TODO: move to modules
+//@import 'fonts';
+//
+//.u-round {
+//  border-radius: 50%;
+//}
+//
+//.warning {
+//  background: $brand-warning;
+//}
+//
+//.success {
+//  background: $brand-success;
+//}
+//
+//@import '../../../node_modules/flexboxgrid/dist/flexboxgrid';
+//@import '../../../node_modules/prismjs/themes/prism';
+//@import '../../../node_modules/prismjs/themes/prism-okaidia';
+//@import '../../../node_modules/flag-icon-css/sass/_flag-icon';
+//
+//@import 'modules/common';
+//@import 'modules/forms';
+//@import 'modules/header';
 @import 'modules/accessibility';
-@import 'modules/modal';
-@import 'modules/accordion';
-@import 'modules/tabs';
-@import 'modules/panel';
-@import 'modules/main';
-@import "modules/footnotes";
-@import "modules/footer";
+//@import 'modules/modal';
+//@import 'modules/accordion';
+//@import 'modules/tabs';
+//@import 'modules/panel';
+//@import 'modules/main';
+//@import "modules/footnotes";
+//@import "modules/footer";
