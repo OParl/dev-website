@@ -3,6 +3,25 @@
 @import '../../../node_modules/prismjs/themes/prism-okaidia';
 @import '../../../node_modules/flag-icon-css/sass/_flag-icon';
 
+.height {
+  &--24 {
+    height: 24px;
+  }
+
+  &--48 {
+    height: 48px;
+  }
+
+  &--96 {
+    height: 96px;
+  }
+}
+
+.shape {
+  &--circle {
+    border-radius: 50%;
+  }
+}
 //@import 'config/variables';
 //
 ///**

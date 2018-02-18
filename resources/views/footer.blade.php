@@ -1,23 +1,27 @@
-<footer class="footer">
-    <div class="c-footer col-xs-12 col-md-offset-2 col-md-8">
-        <div class="row">
-            <div class="col-xs-6 col-sm-4 center-sm">
-                <img
-                        src="{{ asset('img/logos/okf.svg') }}"
-                        alt="Logo der OpenKnowledge Foundation Deutschland" height="48"
-                />
-            </div>
-            <div class="col-xs-6 col-sm-4 end-sm">
-                <img src="{{ asset('img/logos/cfg.svg') }}" alt="Logo von Code for Germany" height="48" />
-            </div>
-            <div class="col-xs-12 col-sm-4 first-sm middle-sm">
+<footer class="footer level">
+        <div class="level-left">
+            <div class="level-item">
                 <a href="{{ route('locale.set', ['language' => 'de']) }}" title="Sprache auf Deutsch umstellen.">
-                    <span class="flag-icon flag-icon-de flag-icon-squared u-round"></span>
+                    <span class="flag-icon flag-icon-de flag-icon-squared shape--circle"></span>
                 </a>
+            </div>
+            <div class="level-item">
                 <a href="{{ route('locale.set', ['language' => 'en']) }}" title="Switch language to English.">
-                    <span class="flag-icon flag-icon-gb flag-icon-squared u-round"></span>
+                    <span class="flag-icon flag-icon-gb flag-icon-squared shape--circle"></span>
                 </a>
             </div>
         </div>
-    </div>
+
+        <div class="level-right">
+            <div class="level-item">
+                <img
+                        src="{{ asset('img/logos/okf.svg') }}"
+                        alt="Logo der OpenKnowledge Foundation Deutschland"
+                        class="height--48"
+                />
+            </div>
+            <div class="level-item">
+                <img src="{{ asset('img/logos/cfg.svg') }}" alt="Logo von Code for Germany" class="height--48" />
+            </div>
+        </div>
 </footer>

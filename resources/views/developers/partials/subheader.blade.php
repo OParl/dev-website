@@ -1,8 +1,8 @@
 @foreach ($sections as $section)
     @if (isset($section['current']) && $section['current'])
-        <div class="navbar-item is-active">
+        <div class="level-item is-active">
     @else
-        <div class="navbar-item">
+        <div class="level-item">
     @endif
             @if (isset($section['routeKey']) && !isset($section['params']))
                 <a href="{{ route($section['routeKey'] . '.index') }}">

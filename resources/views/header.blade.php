@@ -25,14 +25,12 @@
             </div>
         </div>
     </nav>
-    <nav class="navbar">
-        <div class="navbar-menu">
-            <div class="navbar-start">
-                @yield('subheader')
-            </div>
-            <div class="navbar-end">
-                @yield('subheader_actions')
-            </div>
+    <nav class="level">
+        <div class="level-left">
+            @yield('subheader')
+        </div>
+        <div class="level-right">
+            @yield('subheader_actions')
         </div>
     </nav>
 </header>
