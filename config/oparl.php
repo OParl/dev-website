@@ -13,7 +13,7 @@ return [
             'latest' => 'master',
         ],
         'liboparl' => [
-            'stable' => '~0.2',
+            'stable' => '~0.4',
             'latest' => 'master',
         ],
         'validator' => [
