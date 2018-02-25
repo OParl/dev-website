@@ -1,10 +1,8 @@
 let Prism = require('!!prismjs?lang=javascript');
-import Vue from 'vue'
+import Vue from './vue-base'
 
-import FModal from './modules/fmodal.vue'
 import FAccordion from './modules/faccordion.vue'
-
-import SpecificationExample from './modules/specification-example.vue'
+import SpecificationExample from './modules/specification-example'
 
 const vm = new Vue({
     el: '#app',

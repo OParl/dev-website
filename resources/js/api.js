@@ -1,5 +1,5 @@
 let Prism = require('!!prismjs?lang=javascript');
-import Vue from 'vue'
+import Vue from './vue-base'
 
 import FAccordion from './modules/faccordion.vue'
 
