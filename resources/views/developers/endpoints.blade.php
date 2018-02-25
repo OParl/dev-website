@@ -5,9 +5,9 @@
 @stop
 
 @section('content')
-    <section class="row">
+    <section class="section">
         @foreach ($endpoints as $endpoint)
-            <div class="col-xs-12 col-sm-6">
+            <div class="card">
                 <div class="panel panel--default">
                     <div class="row">
                         <h2 class="col-xs-11">{{ $endpoint['title'] }}</h2>
