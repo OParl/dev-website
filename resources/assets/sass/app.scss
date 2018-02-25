@@ -1,7 +1,37 @@
-@import '../../../node_modules/buefy/lib/buefy';
 @import '../../../node_modules/prismjs/themes/prism';
-@import '../../../node_modules/prismjs/themes/prism-okaidia';
-@import '../../../node_modules/flag-icon-css/sass/_flag-icon';
+@import '../../../node_modules/prism-themes/themes/prism-vs';
+@import '../../../node_modules/flag-icon-css/sass/flag-icon';
+
+//// Import Bulma's core
+//@import "../../../node_modules/bulma/sass/utilities/_all";
+//
+//// Set your colors
+//$primary: #8c67ef;
+//$primary-invert: findColorInvert($primary);
+//$twitter: #4099FF;
+//$twitter-invert: findColorInvert($twitter);
+//
+//// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+//$colors: (
+//        "white": ($white, $black),
+//        "black": ($black, $white),
+//        "light": ($light, $light-invert),
+//        "dark": ($dark, $dark-invert),
+//        "primary": ($primary, $primary-invert),
+//        "info": ($info, $info-invert),
+//        "success": ($success, $success-invert),
+//        "warning": ($warning, $warning-invert),
+//        "danger": ($danger, $danger-invert),
+//        "twitter": ($twitter, $twitter-invert)
+//);
+//
+//// Links
+//$link: $primary;
+//$link-invert: $primary-invert;
+//$link-focus-border: $primary;
+
+@import '../../../node_modules/buefy/lib/buefy';
+
 
 .height {
   &--24 {
@@ -22,6 +52,32 @@
     border-radius: 50%;
   }
 }
+
+//.content {
+//  h1 {
+//    @extend .is-1 .title;
+//  }
+//
+//  h2 {
+//    @extend .is-2 .title;
+//  }
+//
+//  h3 {
+//    @extend .is-3 .title;
+//  }
+//}
+//
+//.specification {
+//  h2 {
+//    @extend .is-2 .subtitle;
+//  }
+//
+//  h3 {
+//    @extend .is-3 .subtitle;
+//  }
+//}
+
+
 //@import 'config/variables';
 //
 ///**
