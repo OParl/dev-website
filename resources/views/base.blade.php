@@ -36,7 +36,7 @@
         <link rel="shortcut icon" href="{{ asset('/img/favicon.png') }}" />
     </head>
     <body>
-        <div id="app" class="container">
+        <div id="app" class="container" v-cloak>
             <div class="sr-only">
                 <ul>
                     <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
@@ -48,7 +48,9 @@
             @include ('header')
 
             <main id="content" class="content">
-                @yield('content')
+                <div class="container u-pt-0_5">
+                    @yield('content')
+                </div>
             </main>
 
             @include ('footer')

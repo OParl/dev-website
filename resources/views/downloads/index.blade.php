@@ -28,15 +28,24 @@
                             OParl Spezifikation {{ $specificationVersion->getVersion() }}
                         </td>
                         <td>
-                            <select name="format[{{ $specificationVersion->getVersion() }}]" class="pure-input-1-2">
+                            <b-select
+                                    name="format[{{ $specificationVersion->getVersion() }}]"
+                                    placeholder="@lang('app.specification.download.select.title')"
+                                    expanded
+                            >
                                 @foreach ($specificationVersion->getFiles() as $file)
                                     <option value="{{ $file->getExtension() }}">{{ $file->getExtension() }}</option>
                                 @endforeach
-                            </select>
+                            </b-select>
                         </td>
                         <td style="font-size: xx-small; text-align: right">
-                            <button type="submit" class="pure-button" aria-label="Download" name="version" value="{{ $specificationVersion->getVersion() }}">
-                                <img src="{{ asset('img/icons/download.svg') }}" aria-hidden="true">
+                            <button class="button is-dark"
+                                    type="submit"
+                                    aria-label="Download"
+                                    name="version"
+                                    value="{{ $specificationVersion->getVersion() }}"
+                            >
+                                <b-icon icon="download"></b-icon>
                             </button>
                         </td>
                     </tr>
@@ -45,20 +54,6 @@
             </form>
             </tbody>
         </table>
-        {{--<div class="row">--}}
-        {{--<div>--}}
-        {{--<h3>@lang('app.specification.download.singlefile')</h3>--}}
-
-        {{--@include('downloads.specification_singlefile_list')--}}
-        {{--</div>--}}
-
-        {{--<div>--}}
-        {{--<h3>@lang('app.specification.download.archives')</h3>--}}
-        {{--<p>@lang('app.specification.download.archives-info')</p>--}}
-
-        {{--@include('downloads.specification_archives_list')--}}
-        {{--</div>--}}
-        {{--</div>--}}
     </section>
 
     {{--

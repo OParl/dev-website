@@ -44,18 +44,7 @@ return array(
     'specification.download.title'         => 'Spezifikation herunterladen',
     'specification.download.select.title'  => 'Bitte wählen Sie ein Downloadformat aus',
     'specification.download.formatinfo'    => 'Wir stellen die Downloads der Spezifikation in verschiedenen Formaten zur Verfügung. Bitte wählen Sie das von Ihnen gewünschte und die gesuchte Version aus um fortzufahren.',
-    'specification.download.singlefile'    => 'Dateien',
-    'specification.download.archives'      => 'Archive',
     'specification.download.archives-info' => 'Die Archive enthalten immer alle verfügbaren Ausgabeformate.',
-    'specification.download.format.pdf'    => 'PDF',
-    'specification.download.format.epub'   => 'ePub',
-    'specification.download.format.html'   => 'HTML (Alleinstehend)',
-    'specification.download.format.docx'   => 'Microsoft Word',
-    'specification.download.format.odt'    => 'OpenOffice/LibreOffice',
-    'specification.download.format.txt'    => 'Text',
-    'specification.download.format.zip'    => 'Zip',
-    'specification.download.format.targz'  => 'Gzip',
-    'specification.download.format.tarbz2' => 'Bzip2',
 
     'footer.disclaimer' => "macOS ist eine eingetragene Marke von Apple Inc, CA\n",
 

@@ -25,7 +25,7 @@
             </div>
         </div>
     </nav>
-    <nav class="level">
+    <nav class="level u-pt-0_5">
         <div class="level-left">
             @yield('subheader')
         </div>

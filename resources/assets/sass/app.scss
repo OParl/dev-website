@@ -30,8 +30,24 @@
 //$link-invert: $primary-invert;
 //$link-focus-border: $primary;
 
+// @todo: Import from src to be able to use variables
 @import '../../../node_modules/buefy/lib/buefy';
 
+[v-cloak] > * {
+  display: none;
+}
+[v-cloak]::before { content: "loading…" }
+
+$brand-primary: #3498db;
+$brand-success: #5cb85c;
+$brand-info: #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+$brand-hover: lighten($brand-primary, 33%);
+
+.u-pt-0_5 {
+  padding-top: 0.5em;
+}
 
 .height {
   &--24 {
