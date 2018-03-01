@@ -3,9 +3,7 @@
 .env
 /public/js
 /public/css
-/public/fonts
-/public/img
-/public/flags
+/public/images
 
 storage/github
 storage/hub_sync
@@ -19,3 +17,4 @@ tests/assets/spec.git
 tests/js/coverage
 
 !/lib/Server/API/Controllers/MeetingController.php
+public/mix-manifest.json

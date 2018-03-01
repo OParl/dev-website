@@ -2,7 +2,7 @@
     <nav class="navbar is-transparent">
         <div class="navbar-brand">
             <a href="{{ url('/') }}" class="navbar-item">
-                <img src="{{ asset('img/logos/oparl.svg') }}" alt="OParl Logo" height="48"
+                <img src="{{ asset('images/logos/oparl.svg') }}" alt="OParl Logo" height="48"
                      longdesc="'OParl.' in hellblauer Schrift auf weißem Grund.">
             </a>
 

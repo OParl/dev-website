@@ -15,13 +15,13 @@
         <div class="level-right">
             <div class="level-item">
                 <img
-                        src="{{ asset('img/logos/okf.svg') }}"
+                        src="{{ asset('images/logos/okf.svg') }}"
                         alt="Logo der OpenKnowledge Foundation Deutschland"
                         class="height--48"
                 />
             </div>
             <div class="level-item">
-                <img src="{{ asset('img/logos/cfg.svg') }}" alt="Logo von Code for Germany" class="height--48" />
+                <img src="{{ asset('images/logos/cfg.svg') }}" alt="Logo von Code for Germany" class="height--48" />
             </div>
         </div>
 </footer>

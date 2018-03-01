@@ -32,8 +32,8 @@
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <![endif]-->
 
-        <link rel="icon" href="{{ asset('/img/favicon.png') }}" />
-        <link rel="shortcut icon" href="{{ asset('/img/favicon.png') }}" />
+        <link rel="icon" href="{{ asset('/images/favicon.png') }}" />
+        <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}" />
     </head>
     <body>
         <div id="app" class="container" v-cloak>
@@ -56,7 +56,8 @@
             @include ('footer')
         </div>
 
-        <script src="{{ asset('js/common.js') }}"></script>
+        <script src="{{ asset('js/manifest.js') }}"></script>
+        <script src="{{ asset('js/vendor.js') }}"></script>
         @yield ('scripts')
         @include ('piwik')
     </body>
