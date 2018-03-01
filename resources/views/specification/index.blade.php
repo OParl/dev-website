@@ -8,15 +8,18 @@
 
 @section ('subheader_actions')
     <div class="level-item">
-        <b-dropdown v-model="navigation" position="is-bottom-left">
+        <affix relative-element-selector=".specification" class="is-fluid">
+
+        <b-dropdown position="is-bottom-left">
             <a class="navbar-item" slot="trigger">
                 <span>@lang('common.table-of-contents')</span>
                 <b-icon icon="menu-down"></b-icon>
             </a>
-            <b-dropdown-item custom paddingless>
+            <b-dropdown-item custom>
                 {!! $liveView->getTableOfContents() !!}
             </b-dropdown-item>
         </b-dropdown>
+        </affix>
     </div>
 @stop
 

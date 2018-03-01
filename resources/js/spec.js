@@ -4,6 +4,9 @@ import Vue from './vue-base'
 import FAccordion from './modules/faccordion.vue'
 import SpecificationExample from './modules/specification-example'
 
+import VueAffix from 'vue-affix'
+Vue.use(VueAffix);
+
 const vm = new Vue({
     el: '#app',
 
@@ -13,7 +16,7 @@ const vm = new Vue({
 
     components: {
         FAccordion,
-        SpecificationExample
+        SpecificationExample,
     }
 });
 
