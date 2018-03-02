@@ -72,3 +72,7 @@
             <button type="submit" class="pure-button pure-button-primary">Submit</button>
         </form>
 @stop
+
+@section ('scripts')
+    <script type="text/javascript" src="{{ asset('js/developers.js') }}"></script>
+@stop
