@@ -27,14 +27,14 @@
                         @lang('app.contact.mailinglist')
                     </p>
                 </li>
-
-                <li>
-                    <i class="fa fa-info" aria-hidden="true"></i>
-                    <a href="{{ route('contact.index') }}">@lang('app.contact.form_info')</a>
-                    <p>
-                        @lang('app.contact.form')
-                    </p>
-                </li>
+                
+                {{--<li>--}}
+                    {{--<i class="fa fa-info" aria-hidden="true"></i>--}}
+                    {{--<a href="{{ route('contact.index') }}">@lang('app.contact.form_info')</a>--}}
+                    {{--<p>--}}
+                        {{--@lang('app.contact.form')--}}
+                    {{--</p>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </div>
