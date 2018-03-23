@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use EFrane\ConsoleAdditions\Command\Batch;
 use Illuminate\Console\Command;
 
 class SetupCommand extends Command
@@ -20,24 +21,26 @@ class SetupCommand extends Command
             $this->warn('Created new environment file, please remember to configure it!');
         }
 
-        $this->call('key:generate');
-        $this->call('deploy');
-
         try {
-            $mainDBFile = config('database.connections.sqlite.database');
-            $this->info('Creating main database @ ' . $mainDBFile);
-            touch($mainDBFile);
-            $this->call('migrate');
-
-            $demodataDBFile = config('database.connections.sqlite_demo.database');
-            $this->info('Creating demodata database @ ' . $demodataDBFile);
-            touch($demodataDBFile);
-            $this->call('migrate', ['--database' => 'sqlite_demo']);
+            foreach ([config('database.connections.sqlite.database'), config('database.connections.sqlite_demo.database')] as $databaseFile) {
+                $this->info('Creating a database @ ' . $databaseFile);
+                touch($databaseFile);
+            }
         } catch (\Exception $e) {
             $this->error('Errors occured while setting up the databases: ' . $e);
         }
 
-        $this->call('server:populate');
+        try {
+            Batch::create($this->getApplication(), $this->getOutput())
+                ->add('key:generate')
+                ->add('deploy')
+                ->add('migrate')
+                ->add('migrate --database=sqlite_demo')
+                ->add('server:populate')
+                ->run();
+        } catch (\Exception $e) {
+            $this->error('An error occured during primary application setup');
+        }
 
         try {
             $this->call('oparl:init');

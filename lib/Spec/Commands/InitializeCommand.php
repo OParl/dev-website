@@ -8,21 +8,28 @@
 
 namespace OParl\Spec\Commands;
 
+use EFrane\ConsoleAdditions\Command\Batch;
+
 class InitializeCommand extends Command
 {
     protected $signature = 'oparl:init';
 
+    /**
+     * @return int
+     * @throws \Exception
+     */
     public function handle()
     {
-        $this->call('oparl:init:schema');
-
-        $this->call('oparl:update:specification');
+        $batch = Batch::create($this->getApplication(), $this->getOutput())
+            ->add('oparl:init:schema')
+            ->add('oparl:update:specification')
+            ->add('oparl:update:validator');
 
         collect(config('oparl.downloads.specification'))
-            ->each(function ($downloadVersionConstraint) {
-                $this->call('oparl:update:downloads', [$downloadVersionConstraint]);
+            ->each(function ($downloadVersionConstraint) use ($batch) {
+                $batch->add("oparl:update:downloads {$downloadVersionConstraint}");
             });
 
-        $this->call('oparl:update:validator');
+        return $batch->run();
     }
 }
