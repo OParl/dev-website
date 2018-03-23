@@ -21,11 +21,12 @@ class ValidatorController extends Controller
         $canSaveData = (bool) $response->input('save');
 
         // 2) schedule validation job
-        $this->dispatch(new ValidatorRunJob($endpoint, $email, $canSaveData));
+        //$this->dispatch(new ValidatorRunJob($endpoint, $email, $canSaveData));
 
         // 3) success!
-        return redirect()->route('validator.schedule.success')->with('message',
-            trans('app.validation.success', compact('endpoint')))->withInput();
+        session()->flash('message', trans('app.validation.success', compact('endpoint')));
+
+        return redirect()->route('validator.schedule.success');
     }
 
     public function validationScheduleSuccess(Request $request)

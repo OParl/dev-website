@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Endpoint;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Session;
 
 class DevelopersController extends Controller
 {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "891065a43d491247e90ea3fafc1a4e92",
+    "content-hash": "3bbb2a5d1b9ed12e6b68eaaa9665c875",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -895,6 +895,57 @@
             ],
             "description": "Conditionally run processes. This is a wrapper for symfony/process.",
             "time": "2017-02-26T12:32:38+00:00"
+        },
+        {
+            "name": "efrane/console-additions",
+            "version": "v0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eFrane/SymfonyConsoleAdditions.git",
+                "reference": "98c7ee7abfa1f594b75eec17aad0119385905647"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eFrane/SymfonyConsoleAdditions/zipball/98c7ee7abfa1f594b75eec17aad0119385905647",
+                "reference": "98c7ee7abfa1f594b75eec17aad0119385905647",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/console": "^2.7|^3.3"
+            },
+            "require-dev": {
+                "league/flysystem": "^1.0",
+                "phpunit/phpunit": "^6.4"
+            },
+            "suggest": {
+                "league/flysystem": "To use the FlysystemFileOutput"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EFrane\\ConsoleAdditions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stefan Graupner",
+                    "email": "stefan.graupner@gmail.com"
+                }
+            ],
+            "description": "Helper Classes for Symfony Console",
+            "keywords": [
+                "additions",
+                "console",
+                "file output",
+                "multiplexed output",
+                "symfony",
+                "tools"
+            ],
+            "time": "2018-03-11T11:27:45+00:00"
         },
         {
             "name": "efrane/laravel-deploy",
@@ -6686,6 +6737,10 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.6.0|<=7.2",
+        "ext-pdo": "*",
+        "ext-reflection": "*",
+        "ext-spl": "*",
+        "ext-simplexml": "*",
         "ext-calendar": "*",
         "ext-ctype": "*",
         "ext-curl": "*",
@@ -6705,14 +6760,10 @@
         "ext-mysqli": "*",
         "ext-openssl": "*",
         "ext-pcre": "*",
-        "ext-pdo": "*",
         "ext-pdo_mysql": "*",
-        "ext-reflection": "*",
         "ext-session": "*",
         "ext-shmop": "*",
-        "ext-simplexml": "*",
         "ext-sockets": "*",
-        "ext-spl": "*",
         "ext-tokenizer": "*",
         "ext-zlib": "*"
     },

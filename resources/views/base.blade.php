@@ -36,7 +36,7 @@
         <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}" />
     </head>
     <body>
-        <div id="app" class="container" v-cloak>
+        <div id="app" class="container" v-cloak data-messages="{{ json_encode(Session::get('message')) }}">
             <div class="sr-only">
                 <ul>
                     <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>

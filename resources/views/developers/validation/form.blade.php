@@ -5,12 +5,13 @@
 @stop
 
 @section ('content')
-        @if (Session::has('message'))
-            <div class="success">
-                {{ Session::get('message') }}
-            </div>
-        @endif
+    @if (session()->has('message'))
+        <b-message :active="true">
+            {{ session()->get('message') }}
+        </b-message>
+    @endif
 
+    <div class="section">
         <form
                 action="{{ route('validator.schedule') }}"
                 method="post"
@@ -71,6 +72,7 @@
 
             <button type="submit" class="pure-button pure-button-primary">Submit</button>
         </form>
+    </div>
 @stop
 
 @section ('scripts')
