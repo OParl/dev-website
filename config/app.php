@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://dev.oparl.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -163,7 +163,6 @@ return [
 
         Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider::class,
         EFrane\Buildkite\BuildkiteServiceProvider::class,
-        EFrane\Deploy\DeployServiceProvider::class,
         EFrane\Letterpress\Providers\LaravelServiceProvider::class,
         EFrane\Transfugio\TransfugioServiceProvider::class,
 

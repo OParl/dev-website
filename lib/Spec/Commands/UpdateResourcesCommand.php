@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace OParl\Spec\Commands;
 
 use App\Jobs\ResourcesUpdateJob;
 use Illuminate\Console\Command;

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use EFrane\ConsoleAdditions\Command\Batch;
 use Illuminate\Console\Command;
+use Symfony\Component\Process\Process;
 
 class SetupCommand extends Command
 {
@@ -22,7 +23,10 @@ class SetupCommand extends Command
         }
 
         try {
-            foreach ([config('database.connections.sqlite.database'), config('database.connections.sqlite_demo.database')] as $databaseFile) {
+            foreach ([
+                         config('database.connections.sqlite.database'),
+                         config('database.connections.sqlite_demo.database'),
+                     ] as $databaseFile) {
                 $this->info('Creating a database @ ' . $databaseFile);
                 touch($databaseFile);
             }
@@ -33,21 +37,62 @@ class SetupCommand extends Command
         try {
             Batch::create($this->getApplication(), $this->getOutput())
                 ->add('key:generate')
-                ->add('deploy')
                 ->add('migrate')
                 ->add('migrate --database=sqlite_demo')
-                ->add('server:populate')
                 ->run();
         } catch (\Exception $e) {
-            $this->error('An error occured during primary application setup');
+            $this->error('An error occured during primary application setup: ' . $e);
         }
 
         try {
-            $this->call('oparl:init');
+            Batch::create($this->getApplication(), $this->getOutput())
+                ->add('oparl:init')
+                ->add('server:populate')
+                ->run();
         } catch (\Exception $e) {
             $this->error('Errors occured while initializing the OParl components: ' . $e);
         }
 
+        foreach ([
+                     'app',
+                     'framework/cache',
+                     'framework/sessions',
+                     'framework/views',
+                     'logs',
+                 ] as $dir) {
+            $dir = storage_path($dir);
+            if (!is_dir($dir)) {
+                $this->info("Creating {$dir}");
+                mkdir($dir, 0755);
+            }
+
+            if (fileperms($dir) !== 0755) {
+                $this->info("Updating permissions for {$dir}");
+                chmod($dir, 0755);
+            }
+        }
+
+        $this->runExternalCommand('npm install');
+        $nodeEnv = (config('app.env') === 'production') ? 'prod' : 'dev';
+        $this->runExternalCommand("npm run {$nodeEnv}");
+
         $this->call('up');
+    }
+
+    /**
+     * @param        $cmd
+     * @param string $workingDir
+     */
+    protected function runExternalCommand($cmd, $workingDir = '')
+    {
+        $this->info("Executing `{$cmd}`");
+        $workingDir = app_path('../');
+        $process = new Process($cmd, $workingDir);
+        $process->setTimeout(0);
+        $process->run(function ($output, $context) {
+            if ($context === Process::STDERR) {
+                $this->error($output);
+            }
+        });
     }
 }
