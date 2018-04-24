@@ -39,14 +39,16 @@ return array(
     'endpoints.text'  => 'Zur Zeit sind uns die folgenden OParl-Endpunkte bekannt.',
     'endpoints.copy'  => 'Diesen Endpunkt in die Zwischenablage kopieren.',
 
+    'footer.disclaimer' => 'macOS ist eine eingetragene Marke von Apple Inc, CA',
+
+    'imprint' => 'Impressum',
+
     'specification.title' => 'Spezifikation',
 
     'specification.download.title'         => 'Spezifikation herunterladen',
     'specification.download.select.title'  => 'Bitte wählen Sie ein Downloadformat aus',
     'specification.download.formatinfo'    => 'Wir stellen die Downloads der Spezifikation in verschiedenen Formaten zur Verfügung. Bitte wählen Sie das von Ihnen gewünschte und die gesuchte Version aus um fortzufahren.',
     'specification.download.archives-info' => 'Die Archive enthalten immer alle verfügbaren Ausgabeformate.',
-
-    'footer.disclaimer' => "macOS ist eine eingetragene Marke von Apple Inc, CA\n",
 
     'validation.explanation.duration'      => 'Die Natur der Validierung eines OParl-Endpunktes bedingt, dass jedes Element abgerufen und geprüft werden muss. Je nach Größe des Endpunktes kann dies unter Umständen einige Stunden in Anspruch nehmen. Falls Sie jedoch nach 24 Stunden noch keine Nachricht von bot@oparl.org erhalten haben sollten, möchten wir Sie bitten zu uns mit Angabe des von Ihnen beauftragten Endpunktes <a href=":contact_url">Kontakt</a> aufzunehmen.',
     'validation.completed'                 => '[OParl] Validierung für :endpoint abgeschlossen',

@@ -10,6 +10,9 @@
                     <span class="flag-icon flag-icon-gb flag-icon-squared shape--circle"></span>
                 </a>
             </div>
+            <div class="level-item">
+                <a href="https://oparl.org/impressum">@lang('app.imprint')</a>
+            </div>
         </div>
 
         <div class="level-right">
