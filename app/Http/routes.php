@@ -65,8 +65,6 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/validator/in-bearbeitung')->uses('ValidatorController@validationScheduleSuccess')->name('validator.schedule.success');
     $router->get('/validator/{endpoint}', ['uses' => 'ValidatorController@result', 'as' => 'validator.result']);
 
-    $router->get('/_/bk/', 'Hooks\BuildkiteController@index')->name('hooks.bk.index');
-
     $router->get('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index']);
     $router->post('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index.post']);
     $router->get('/_/gh/push/[a-zA-Z.]+', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.push.get']);

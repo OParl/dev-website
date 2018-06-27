@@ -18,7 +18,7 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * Represents a live view of the specification.
  *
- * Provides the necessary modifications to turn
+ * Provides the necessary modifications to turn pandoc version into presentable html
  */
 class LiveView
 {

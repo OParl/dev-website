@@ -162,7 +162,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider::class,
-        EFrane\Buildkite\BuildkiteServiceProvider::class,
         EFrane\Letterpress\Providers\LaravelServiceProvider::class,
         EFrane\Transfugio\TransfugioServiceProvider::class,
 
