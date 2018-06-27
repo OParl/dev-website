@@ -21,10 +21,6 @@ return [
             'stable' => 'production',
             'latest' => 'master',
         ],
-        'schema'        => [
-            'stable' => '~1.1',
-            'latest' => 'master',
-        ],
     ],
 
     /*
