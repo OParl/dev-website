@@ -26,4 +26,5 @@ mix.js('resources/js/spec.js', 'public/js')
     .copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/images/logos/oparl.svg')
     .copy('resources/assets/img/oparl-icon-dev-slackbot.png', 'public/images/logos/oparl-slackbot.png')
     .copy('resources/assets/img/cfg.svg', 'public/images/logos')
-    .copy('resources/assets/img/okf.svg', 'public/images/logos');
+    .copy('resources/assets/img/okf.svg', 'public/images/logos')
+    .version();

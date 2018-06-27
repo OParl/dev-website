@@ -42,8 +42,7 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/downloads/spezifikation-{version}.{format}')
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
-        ->where('version', '(master|1.0)')
-        ->where('format', '(html|docx|odt|txt|pdf|epub|zip|tar.bz2|tar.gz)')
+//        ->where('format', '(html|docx|odt|txt|pdf|epub|zip|tar.bz2|tar.gz)')
         ->middleware('track');
 
     $router->get('/endpunkt')
@@ -74,10 +73,6 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->post('/_/gh/push/{repository}', ['uses' => 'Hooks\GitHubHooksController@push', 'as' => 'hooks.gh.push'])
         ->where('repository', '[a-z-]+');
 
-    $router->get('/_/gl/', ['uses' => 'Hooks\GitLabHooksController@index', 'as' => 'hooks.gl.index']);
-    $router->post('/_/gl/push/{repository}', ['uses' => 'Hooks\GitLabHooksController@push', 'as' => 'hooks.gl.push'])
-        ->where('repository', '[a-z-]+');
-
     $router->get('/_/language/{language}')->name('locale.set')->uses('MiscController@setLocale')->where('language', '(de|en)');
 });
 
@@ -92,9 +87,15 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
  */
 $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router) {
     $router->any('/')->uses('SpecificationController@redirectToIndex');
-    $router->get('/1.0')->uses('SpecificationController@redirectToVersion')->where('version', '1.0');
 
-    $router->get('/1.0.{format}')->uses('DownloadsController@specification')->where('version', '1.0');
+    $router->pattern(
+        'version',
+        sprintf('(%s)', implode('|', array_keys(config('oparl.versions.specification'))))
+    );
+
+    $router->get('/{version}')->uses('SpecificationController@redirectToVersion');
+    $router->get('/{version}.{format}')->uses('DownloadsController@specification');
+
     $router->get('/latest.{format}')->uses('DownloadsController@latestSpecification');
 });
 

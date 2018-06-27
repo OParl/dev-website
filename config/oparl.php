@@ -9,8 +9,8 @@ return [
      */
     'versions'               => [
         'specification' => [
-            'oldstable' => '~1.0',
-            'stable'    => '~1.1',
+            '1.0' => '~1.0',
+            '1.1'    => '~1.1',
             'latest'    => 'master',
         ],
         'liboparl'      => [

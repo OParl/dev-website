@@ -58,7 +58,7 @@ class LiveView
         $this->body = $crawler->filter('body > main')->html();
 
         // rewrite image urls
-        $this->body = preg_replace('/"(.?)(.*images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
+        $this->body = preg_replace('/"(.??)(.*images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
 
         // fix image tags
         $this->body = str_replace('<img ', '<img class="img-responsive"', $this->body);
@@ -141,6 +141,11 @@ class LiveView
         return $this->versionInformation;
     }
 
+    /**
+     * @param $imagePath
+     * @return null|string
+     * @throws FileNotFoundException
+     */
     public function getImage($imagePath)
     {
         $path = "live/images/{$imagePath}.png";
@@ -154,6 +159,10 @@ class LiveView
         return $data;
     }
 
+    /**
+     * @return string
+     * @throws FileNotFoundException
+     */
     public function getRaw()
     {
         return $this->fs->get('live/raw.md');
