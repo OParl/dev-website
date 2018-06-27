@@ -28,15 +28,11 @@
 
         @yield('styles')
 
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <![endif]-->
-
         <link rel="icon" href="{{ asset('/images/favicon.png') }}" />
         <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}" />
     </head>
     <body>
-        <div id="app" class="container" v-cloak data-messages="{{ json_encode(Session::get('message')) }}">
+        <div id="app" class="container" data-messages="{{ json_encode(Session::get('message')) }}">
             <div class="sr-only">
                 <ul>
                     <li><a href="#content" class="sr-only-focusable">Direkt zum Inhalt</a></li>
