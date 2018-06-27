@@ -14,45 +14,6 @@ return [
     |
     */
 
-    'mailgun' => [
-        'domain' => '',
-        'secret' => '',
-    ],
-
-    'mandrill' => [
-        'secret' => '',
-    ],
-
-    'ses' => [
-        'key'    => '',
-        'secret' => '',
-        'region' => 'us-east-1',
-    ],
-
-    'stripe' => [
-        'model'  => 'App\User',
-        'key'    => '',
-        'secret' => '',
-    ],
-
-    // buildkite service config for efrane/buildkite
-    'buildkite' => [
-        'project'      => env('BUILDKITE_PROJECT', ''),
-        'access_token' => env('BUILDKITE_ACCESS_TOKEN', ''),
-    ],
-
-    // akismet service config for efrane/akismet
-    'akismet' => [
-        'key' => env('AKISMET_KEY'),
-    ],
-
-    'repositories' => [
-        'spec' => [
-            'user'       => 'OParl',
-            'repository' => 'spec',
-        ],
-    ],
-
     'slack' => [
         'ci' => [
             'enabled'  => env('SLACK_ENABLED', false),
@@ -64,9 +25,5 @@ return [
             'endpoint' => env('SLACK_ENDPOINT', ''),
             'channel'  => env('SLACK_CHANNEL_VALIDATOR', '#feedback'),
         ],
-    ],
-
-    'gitlab' => [
-        'token' => env('GITLAB_WEBHOOK_SECRET', ''),
     ],
 ];
