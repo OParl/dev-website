@@ -13,6 +13,9 @@
             <div class="level-item">
                 <a href="https://oparl.org/impressum">@lang('app.imprint')</a>
             </div>
+            <div class="level-item">
+                <a href="https://oparl.org/datenschutz/">@lang('app.privacy')</a>
+            </div>
         </div>
 
         <div class="level-right">

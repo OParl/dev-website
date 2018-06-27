@@ -43,6 +43,8 @@ return array(
 
     'imprint' => 'Impressum',
 
+    'privacy' => 'Datenschutz',
+
     'specification.title' => 'Spezifikation',
 
     'specification.download.title'         => 'Spezifikation herunterladen',
