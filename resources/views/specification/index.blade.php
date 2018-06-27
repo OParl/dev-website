@@ -6,26 +6,17 @@
     </div>
 @stop
 
-@section ('subheader_actions')
-    <div class="level-item">
-        <affix relative-element-selector=".specification" class="is-fluid">
-
-        <b-dropdown position="is-bottom-left">
-            <a class="navbar-item" slot="trigger">
-                <span>@lang('common.table-of-contents')</span>
-                <b-icon icon="menu-down"></b-icon>
-            </a>
-            <b-dropdown-item custom>
-                {!! $liveView->getTableOfContents() !!}
-            </b-dropdown-item>
-        </b-dropdown>
-        </affix>
-    </div>
-@stop
-
 @section ('content')
-    <div class="section specification">
-        {!! $liveView->getBody() !!}
+    <div class="columns">
+        <aside class="column is-one-third">
+            <div class="box table-of-contents">
+                <strong>@lang('common.table-of-contents')</strong>
+                {!! $liveView->getTableOfContents() !!}
+            </div>
+        </aside>
+        <main class="column is-two-thirds">
+            {!! $liveView->getBody() !!}
+        </main>
     </div>
 @stop
 
