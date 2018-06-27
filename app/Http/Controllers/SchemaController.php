@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use OParl\Spec\Repositories\SchemaRepository;
 
 class SchemaController extends Controller
 {
+    public function index(SchemaRepository $schemaRepository)
+    {
+        return $schemaRepository->all();
+    }
+
     public function listSchemaVersion(Filesystem $fs, $version)
     {
         $version = config('oparl.schema')[$version];

@@ -118,7 +118,7 @@ $router->group(['domain' => 'schema.'.config('app.url')], function () use ($rout
         )
     );
 
-    $router->get('/')->uses('DevelopersController@redirectToIndex');
+    $router->get('/')->uses('SchemaController@index');
 
     $router->get('/{version}')
         ->name('schema.list')
