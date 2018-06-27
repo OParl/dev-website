@@ -39,10 +39,11 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->name('downloads.request')
         ->uses('DownloadsController@downloadRequest');
 
+
     $router->get('/downloads/spezifikation-{version}.{format}')
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
-//        ->where('format', '(html|docx|odt|txt|pdf|epub|zip|tar.bz2|tar.gz)')
+        ->where('version', sprintf('(%s)', implode('|', array_keys(config('oparl.versions.specification')))))
         ->middleware('track');
 
     $router->get('/endpunkt')
