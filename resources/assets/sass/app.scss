@@ -1,8 +1,8 @@
-@import '../../../node_modules/prismjs/themes/prism';
-@import '../../../node_modules/prism-themes/themes/prism-vs';
-@import '../../../node_modules/flag-icon-css/sass/flag-icon';
+@import '~prismjs/themes/prism';
+@import '~prism-themes/themes/prism-vs.css';
+@import '~flag-icon-css/sass/flag-icon';
 
-@import '../../../node_modules/buefy/lib/buefy';
+@import '~buefy/lib/buefy';
 @import 'modules/accessibility';
 
 [v-cloak] > * {
@@ -42,8 +42,9 @@ $brand-hover: lighten($brand-primary, 33%);
 }
 
 .table-of-contents {
-  height: 85vh;
+  height: 75vh;
   overflow-y: scroll;
-  width: 27%;
-  position: fixed;
+  // TODO: figure out that keeping this fixed thing
+  //width: 27%;
+  //position: fixed;
 }

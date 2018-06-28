@@ -11,9 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/spec.js', 'public/js')
-    .js('resources/js/api.js', 'public/js')
-    .js('resources/js/developers.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js')
     .extract([
         'buefy',
         'vue',

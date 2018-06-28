@@ -54,7 +54,7 @@
 
         <script src="{{ asset('js/manifest.js') }}"></script>
         <script src="{{ asset('js/vendor.js') }}"></script>
-        @yield ('scripts')
+        <script src="{{ asset('js/app.js') }}"></script>
         @include ('piwik')
     </body>
 </html>

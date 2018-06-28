@@ -24,7 +24,3 @@
         </div>
     </section>
 @stop
-
-@section ('scripts')
-    <script type="text/javascript" src="{{ asset('js/developers.js') }}"></script>
-@stop

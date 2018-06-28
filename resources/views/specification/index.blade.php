@@ -16,7 +16,7 @@
                         <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
                     </div>
                 </div>
-                <div class="card-content">
+                <div class="card-content table-of-contents">
                     {!! $liveView->getTableOfContents() !!}
                 </div>
             </b-collapse>
@@ -25,8 +25,4 @@
             {!! $liveView->getBody() !!}
         </main>
     </div>
-@stop
-
-@section ('scripts')
-    <script type="text/javascript" src="{{ asset('/js/spec.js') }}"></script>
 @stop
