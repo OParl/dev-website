@@ -1,5 +1,7 @@
 let Prism = require('!!prismjs?lang=javascript');
 
+import '@fortawesome/fontawesome-free/js/all';
+
 import Vue from 'vue';
 
 import Buefy from 'buefy';

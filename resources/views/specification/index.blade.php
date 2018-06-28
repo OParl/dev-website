@@ -9,11 +9,11 @@
 @section ('content')
     <div class="columns">
         <aside class="column is-one-third">
-            <b-collapse class="card">
+            <b-collapse class="card" :open="false">
                 <div class="card-header" slot="trigger" slot-scope="props">
                     <strong class="card-header-title">@lang('common.table-of-contents')</strong>
                     <div class="card-header-icon">
-                        <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
+                        <b-icon :icon="props.open ? 'expand' : 'compress'"></b-icon>
                     </div>
                 </div>
                 <div class="card-content table-of-contents">
