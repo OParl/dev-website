@@ -23,6 +23,10 @@ const vm = new Vue({
     methods: {
         triggerDownload(download) {
             document.location = '/downloads/spezifikation-' + download.version + '.' + download.format;
+        },
+
+        changeLiveView(version) {
+            console.log({ version })
         }
     },
 
