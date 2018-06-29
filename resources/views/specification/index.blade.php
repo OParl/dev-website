@@ -8,12 +8,11 @@
 
 @section ('subheader_actions')
     <div class="level-item">
-        <b-dropdown>
-            <button class="button" slot="trigger">{{ $liveView->getVersionInformation()['official'] }}</button>
-            @foreach (config('oparl.versions.specification') as $version => $constraint)
-                <b-dropdown-item @click="changeLiveView('{{ $version }}')">{{ $version }}</b-dropdown-item>
-            @endforeach
-        </b-dropdown>
+        <version-selector
+                :versions="{{ json_encode(array_keys(config('oparl.versions.specification'))) }}"
+                :current="liveView.currentVersion.human"
+                @version-change="changeLiveView"
+        ></version-selector>
     </div>
 @stop
 
@@ -21,21 +20,16 @@
     <div class="columns">
         <aside class="column is-one-third">
             <affix relative-element-selector="#spec-content">
-                <b-collapse class="card" :open="false">
-                    <div class="card-header" slot="trigger" slot-scope="props">
-                        <strong class="card-header-title">@lang('common.table-of-contents')</strong>
-                        <div class="card-header-icon">
-                            <b-icon :icon="props.open ? 'expand' : 'compress'"></b-icon>
-                        </div>
-                    </div>
-                    <div class="card-content table-of-contents">
-                        {!! $liveView->getTableOfContents() !!}
-                    </div>
-                </b-collapse>
+                {{--<table-of-contents :html="'{!! $liveView->getTableOfContents()  !!}'"></table-of-contents>--}}
+                <table-of-contents :html="liveView.toc" v-if="!liveView.isLoading"></table-of-contents>
             </affix>
         </aside>
         <div class="column is-two-thirds" id="spec-content">
-            {!! $liveView->getBody() !!}
+            {{--<live-view :html="'{!! $liveView->getBody() !!}'"></live-view>--}}
+            <live-view :html="liveView.body" v-if="!liveView.isLoading"></live-view>
+            <div style="height: 3em;" v-else>
+                <b-loading :is-full-page="false" :active="liveView.isLoading"></b-loading>
+            </div>
         </div>
     </div>
 @stop

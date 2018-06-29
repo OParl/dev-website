@@ -142,14 +142,6 @@ class LiveView
     }
 
     /**
-     * get version for live view version selection
-     */
-    public function getVersion()
-    {
-        return '1.0';
-    }
-
-    /**
      * @param $imagePath
      * @return null|string
      * @throws FileNotFoundException

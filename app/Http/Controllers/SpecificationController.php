@@ -10,14 +10,13 @@ class SpecificationController extends Controller
     /**
      * Show the specification's live copy.
      *
-     * @param LiveView $liveView
      * @return \Illuminate\Http\Response
      */
-    public function index(LiveView $liveView)
+    public function index()
     {
         $title = 'Spezifikation';
 
-        return view('specification.index', compact('title', 'liveView'));
+        return view('specification.index', compact('title'));
     }
 
     public function imageIndex()
