@@ -14,6 +14,7 @@ use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
 use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 use OParl\Spec\Jobs\SpecificationSchemaBuildJob;
 use OParl\Spec\Jobs\ValidatorBuildJob;
+use OParl\Spec\OParlVersions;
 
 /**
  * GitHubPushJob.
@@ -47,22 +48,24 @@ class GitHubPushJob extends Job
     {
         switch ($this->repository) {
             case 'spec':
-                $this->dispatch(new SpecificationLiveVersionBuildJob(config('oparl.versions.specification.stable')));
+                $oparlVersions = new OParlVersions();
 
-                switch ($this->payload['ref']) {
-                    case 'refs/heads/master':
-//                        $this->dispatch(new SpecificationSchemaBuildJob('master'));
-                        $this->dispatch(new SpecificationDownloadsBuildJob('master'));
-                        break;
+                $dispatchedJobs = false;
+                foreach ($oparlVersions->getModule('specification') as $version => $constraint) {
+                    $ref = sprintf('refs/heads/%s', $version);
 
-                    case 'refs/heads/1.0':
-//                        $this->dispatch(new SpecificationSchemaBuildJob('~1.0'));
-                        $this->dispatch(new SpecificationDownloadsBuildJob('~1.0'));
-                        break;
+                    if ($ref === $this->payload['ref']) {
+                        $this->dispatch(new SpecificationDownloadsBuildJob($constraint));
+                        $this->dispatch(new SpecificationLiveVersionBuildJob($constraint));
+                        $this->dispatch(new SpecificationSchemaBuildJob($constraint));
+                    }
 
-                    default:
-                        $log->info("Unknown reference {$this->payload['ref']}, keeping my calm.");
-                        break;
+                    $dispatchedJobs = true;
+                }
+
+                if (false === $dispatchedJobs) {
+                    $log->info("Unknown reference {$this->payload['ref']}, keeping my calm.");
+                    // TODO: this should maybe be a slack notification?!
                 }
 
                 break;
