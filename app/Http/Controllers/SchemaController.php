@@ -14,8 +14,6 @@ class SchemaController extends Controller
 
     public function listSchemaVersion(Filesystem $fs, $version)
     {
-        $version = config('oparl.schema')[$version];
-
         $files = collect($fs->files("schema/{$version}"))->map(function ($file) use ($version) {
             return route('schema.get', [$version, basename($file, '.json')]);
         });
@@ -32,8 +30,6 @@ class SchemaController extends Controller
     {
         // embedded: LegislativeTerm, Membership, AgendaItem, Consultation
         try {
-            $version = config('oparl.schema')[$version];
-
             $loadEntity = $entity;
 
             if ($version === '1.0' && $entity === 'LegislativeTerm') {

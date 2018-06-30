@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use OParl\Spec\Model\LiveView;
+use OParl\Spec\Repositories\LiveViewRepository;
 
 class SpecificationController extends Controller
 {
@@ -24,9 +24,10 @@ class SpecificationController extends Controller
         abort(404);
     }
 
-    public function image(LiveView $liveView, $image)
+    public function image(LiveViewRepository $liveViewRepository, $version, $image)
     {
         try {
+            $liveView = $liveViewRepository->get($version);
             $imageData = $liveView->getImage($image);
         } catch (FileNotFoundException $e) {
             return response(
@@ -39,9 +40,10 @@ class SpecificationController extends Controller
         return response($imageData, 200, ['Content-type' => 'image/png']);
     }
 
-    public function raw(LiveView $liveView)
+    public function raw(LiveViewRepository $liveViewRepository, $version)
     {
         try {
+            $liveView = $liveViewRepository->get($version);
             return response($liveView->getRaw(), 200, ['Content-type' => 'text/plain']);
         } catch (FileNotFoundException $e) {
             return response(
@@ -54,8 +56,7 @@ class SpecificationController extends Controller
 
     public function redirectToVersion($version)
     {
-        // TODO: implement multiple live view versions
-        return $this->redirectToIndex();
+        return redirect()->route('specification.index', ['version' => $version]);
     }
 
     public function redirectToIndex()

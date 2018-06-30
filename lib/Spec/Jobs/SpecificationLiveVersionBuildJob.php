@@ -6,9 +6,12 @@ use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
+use OParl\Spec\OParlVersions;
 
 class SpecificationLiveVersionBuildJob extends SpecificationJob
 {
+    protected $storageName = '';
+
     /**
      * @param Filesystem $fs
      * @param Log        $log
@@ -16,6 +19,9 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
     public function handle(Filesystem $fs, Log $log)
     {
         try {
+            $oparlVersions = new OParlVersions();
+            $this->storageName = $oparlVersions->getVersionForConstraint('specification', $this->treeish);
+
             $hubSync = $this->doUpdate($fs, $log);
 
             $this->notify(SpecificationUpdateNotification::liveVersionUpdateSuccessfulNotification(
@@ -64,15 +70,15 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
      */
     protected function updateHTML(Filesystem $fs, $hubSync)
     {
-        $fs->makeDirectory('live');
+        $fs->makeDirectory($this->getStoragePath(''));
         $newVersion = sprintf('%s/%s.html',
             $hubSync->getPath($this->buildDir),
             $this->buildBasename
         );
 
         if ($fs->exists($newVersion)) {
-            $fs->delete('live/live.html');
-            $fs->copy($newVersion, 'live/live.html');
+            $fs->delete($this->getStoragePath('live.html'));
+            $fs->copy($newVersion, $this->getStoragePath('live.html'));
         }
     }
 
@@ -82,14 +88,14 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
      */
     protected function updateImages(Filesystem $fs, Repository $hubSync)
     {
-        $fs->delete($fs->files('live/images/'));
-        $fs->deleteDirectory('live/images');
-        $fs->makeDirectory('live/images');
+        $fs->delete($fs->files($this->getStoragePath('images/')));
+        $fs->deleteDirectory($this->getStoragePath('images'));
+        $fs->makeDirectory($this->getStoragePath('images'));
 
         collect($fs->files($hubSync->getPath('/build/src/images')))->filter(function ($filename) {
             return ends_with($filename, '.png');
         })->map(function ($filename) use ($fs) {
-            $fs->put('live/images/'.basename($filename), $fs->get($filename));
+            $fs->put($this->getStoragePath('images/'.basename($filename)), $fs->get($filename));
         });
     }
 
@@ -107,7 +113,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
             return $carry.$current;
         }, '');
 
-        $fs->put('live/raw.md', $raw);
+        $fs->put($this->getStoragePath('raw.md'), $raw);
     }
 
     /**
@@ -121,9 +127,17 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
             $official = $this->treeish;
         }
 
-        $fs->put('live/version.json', json_encode([
+        $fs->put($this->getStoragePath('version.json'), json_encode([
             'hash'     => $hubSync->getCurrentHead(),
             'official' => $official,
         ]));
+    }
+
+    protected function getStoragePath($path) {
+        if (starts_with($path, '/')) {
+            $path = substr($path, 1);
+        }
+
+        return sprintf('live/%s/%s', $this->storageName, $path);
     }
 }

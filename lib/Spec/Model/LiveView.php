@@ -29,14 +29,19 @@ class LiveView
 
     protected $body = '';
     protected $tableOfContents = '';
+    protected $loadedVersion = '';
 
-    public function __construct(Filesystem $fs, Log $log)
+    public function __construct(Filesystem $fs, Log $log, $version)
     {
         $this->fs = $fs;
+        $this->loadedVersion = $version;
 
         try {
-            $this->originalHTML = $fs->get('live/live.html');
-            $this->versionInformation = json_decode($fs->get('live/version.json'), true);
+            $this->originalHTML = $fs->get('live/' . $this->loadedVersion . '/live.html');
+            $this->versionInformation = json_decode(
+                $fs->get('live/' . $this->loadedVersion . '/version.json'),
+                true
+            );
         } catch (FileNotFoundException $e) {
             // TODO: send an alert to slack, this is a fatal error and should be solved quickly
             $log->error('Failed to load live version');
@@ -58,7 +63,11 @@ class LiveView
         $this->body = $crawler->filter('body > main')->html();
 
         // rewrite image urls
-        $this->body = preg_replace('/"(.??)(.*images\/)(.+\.png)"/', '"$1/spezifikation/images/$3"', $this->body);
+        $this->body = preg_replace(
+            '/"(.??)(.*images\/)(.+\.png)"/',
+            '"$1/spezifikation/' . $this->loadedVersion .
+            '/images/$3"', $this->body
+        );
 
         // fix image tags
         $this->body = str_replace('<img ', '<img class="img-responsive"', $this->body);
@@ -148,7 +157,7 @@ class LiveView
      */
     public function getImage($imagePath)
     {
-        $path = "live/images/{$imagePath}.png";
+        $path = 'live/' . $this->loadedVersion . '/images/' . $imagePath . '.png';
 
         $data = null;
 
@@ -165,6 +174,6 @@ class LiveView
      */
     public function getRaw()
     {
-        return $this->fs->get('live/raw.md');
+        return $this->fs->get('live/' . $this->loadedVersion . '/raw.md');
     }
 }

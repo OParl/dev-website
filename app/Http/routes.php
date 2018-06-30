@@ -13,6 +13,13 @@
 
 /* @var Illuminate\Routing\Router $router */
 
+$specificationVersions = sprintf(
+    '(%s)',
+    implode('|',
+        array_keys((new \OParl\Spec\OParlVersions())->getModule('specification'))
+    )
+);
+
 /**
  * Route group for dev.oparl.org.
  *
@@ -20,7 +27,7 @@
  * dev.oparl.org except the api/ section which is loaded in via the
  * OParl\Server\ServerServiceProvider.
  */
-$router->group(['domain' => 'dev.'.config('app.url')], function () use ($router) {
+$router->group(['domain' => 'dev.'.config('app.url')], function () use ($router, $specificationVersions) {
     $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
@@ -43,7 +50,7 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
     $router->get('/downloads/spezifikation-{version}.{format}')
         ->name('downloads.specification')
         ->uses('DownloadsController@specification')
-        ->where('version', sprintf('(%s)', implode('|', array_keys(config('oparl.versions.specification')))))
+        ->where('version', $specificationVersions)
         ->middleware('track');
 
     $router->get('/endpunkt')
@@ -53,12 +60,23 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router)
         ->uses('DevelopersController@endpoints');
 
     // Specification
-    $router->get('/spezifikation', ['uses' => 'SpecificationController@index', 'as' => 'specification.index']);
-    $router->get('/spezifikation.md', ['uses' => 'SpecificationController@raw', 'as' => 'specification.raw']);
-    $router->get('/spezifikation/images/',
-        ['uses' => 'SpecificationController@imageIndex', 'as' => 'specification.images']);
-    $router->get('/spezifikation/images/{image}.png', 'SpecificationController@image')
+    $router->get('/spezifikation')
+        ->uses('SpecificationController@index')
+        ->name('specification.index');
+
+    $router->get('/spezifikation-{version}.md')
+        ->uses('SpecificationController@raw')
+        ->name('specification.raw')
+        ->where('version', $specificationVersions);
+
+    $router->get('/spezifikation/{version}/images/')
+        ->uses('SpecificationController@imageIndex')
+        ->name('specification.images');
+
+    $router->get('/spezifikation/{version}/images/{image}.png')
+        ->uses('SpecificationController@image')
         ->name('specification.image')
+        ->where('version', $specificationVersions)
         ->where('image', '[a-zA-Z0-9-._]+');
 
     $router->get('/validator')->uses('ValidatorController@validationForm')->name('validator.index');
@@ -106,17 +124,8 @@ $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router
  *
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
-$router->group(['domain' => 'schema.'.config('app.url')], function () use ($router) {
-    $router->pattern(
-        'version',
-        sprintf(
-        '(%s)',
-            implode(
-                '|',
-                array_keys(config('oparl.schema'))
-            )
-        )
-    );
+$router->group(['domain' => 'schema.'.config('app.url')], function () use ($router, $specificationVersions) {
+    $router->pattern('version', $specificationVersions);
 
     $router->get('/')->uses('SchemaController@index');
 
@@ -129,3 +138,5 @@ $router->group(['domain' => 'schema.'.config('app.url')], function () use ($rout
         ->uses('SchemaController@getSchema')
         ->where('entity', '[A-Za-z]+');
 });
+
+unset($specificationVersions);

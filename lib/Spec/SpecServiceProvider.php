@@ -23,7 +23,6 @@ class SpecServiceProvider extends IlluminateServiceProvider
     {
         $this->commands([
             InitializeCommand::class,
-            InitializeSchemaCommand::class,
 
             UpdateDownloadsCommand::class,
             UpdateLibOParlCommand::class,

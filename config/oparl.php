@@ -9,38 +9,18 @@ return [
      */
     'versions'               => [
         'specification' => [
-            '1.0'    => '~1.0',
-            '1.1'    => '~1.1',
-            'master' => 'master',
+            '1.0'    => '1.0.*',
+            '1.1'    => '1.1.*',
+            'master' => '*',
         ],
         'liboparl'      => [
-            'stable' => '~0.4',
-            'latest' => 'master',
+            'stable' => '0.4.*',
+            'latest' => '*',
         ],
         'validator'     => [
             'stable' => 'production',
             'latest' => 'master',
         ],
-    ],
-
-    /*
-     * These constraints are used to provide downloads for the specified component
-     */
-    'downloads'              => [
-        'specification' => [
-            '~1.0',
-            '~1.1',
-            'master',
-        ],
-    ],
-
-    /*
-     * Mapping of Schema endpoints to version constraints of the specification repository
-     */
-    'schema'                 => [
-        '1.0'    => '~1.0',
-        '1.1'    => '~1.1',
-        'master' => 'master',
     ],
 
     /*

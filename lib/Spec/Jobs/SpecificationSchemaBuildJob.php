@@ -6,10 +6,10 @@ use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
+use OParl\Spec\OParlVersions;
 
 class SpecificationSchemaBuildJob extends SpecificationJob
 {
-    protected $initialConstraint;
 
     /**
      * Handle OParl Schema Updates.
@@ -24,7 +24,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
             $hubSync->clean();
 
             $this->notify(SpecificationUpdateNotification::schemaUpdateSuccesfulNotification(
-                $this->initialConstraint,
+                $this->treeish,
                 $hubSync->getCurrentHead()
             ));
         } catch (\Exception $e) {
@@ -42,8 +42,9 @@ class SpecificationSchemaBuildJob extends SpecificationJob
     {
         $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
 
-        $this->initialConstraint = $this->treeish;
-        $log->info("Beginning Schema Update Job for treeish {$this->initialConstraint}");
+        $oparlVersions = new OParlVersions();
+        $dirname = $oparlVersions->getVersionForConstraint('specification', $this->treeish);
+        $log->info("Beginning Schema Update Job for treeish {$this->treeish}");
 
         try {
             if (!$this->checkoutHubSyncToTreeish($hubSync)) {
@@ -55,11 +56,6 @@ class SpecificationSchemaBuildJob extends SpecificationJob
             $log->error('Branch switch on schema update failed');
 
             throw $e;
-        }
-
-        $dirname = 'master';
-        if (strcmp($this->treeish, 'master') !== 0) {
-            $dirname = substr($this->initialConstraint, 1);
         }
 
         $dirname = $this->createSchemaDirectory($fs, $dirname);

@@ -7,6 +7,7 @@
 namespace OParl\Spec\Repositories;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use OParl\Spec\OParlVersions;
 
 
 /**
@@ -30,7 +31,8 @@ class SchemaRepository
 
     public function all()
     {
-        return collect(config('oparl.schema'))->map(function ($_, $version) {
+        $oparlVersions = new OParlVersions();
+        return collect($oparlVersions->getModule('specification'))->map(function ($_, $version) {
             return route('schema.list', compact('version'));
         })->all();
     }

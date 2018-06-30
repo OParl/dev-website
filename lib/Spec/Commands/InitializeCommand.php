@@ -9,6 +9,7 @@
 namespace OParl\Spec\Commands;
 
 use EFrane\ConsoleAdditions\Command\Batch;
+use OParl\Spec\OParlVersions;
 
 class InitializeCommand extends Command
 {
@@ -20,15 +21,18 @@ class InitializeCommand extends Command
      */
     public function handle()
     {
+        $oparlVersions = new OParlVersions();
+
         $batch = Batch::create($this->getApplication(), $this->getOutput())
-            ->add('oparl:init:schema')
-            ->add('oparl:update:specification')
             ->add('oparl:update:validator');
 
-        collect(config('oparl.downloads.specification'))
-            ->each(function ($downloadVersionConstraint) use ($batch) {
-                $batch->add("oparl:update:downloads {$downloadVersionConstraint}");
-            });
+        collect($oparlVersions->getModule('specification'))->each(
+            function ($specificationConstraint) use ($batch) {
+                $batch->add("oparl:update:downloads {$specificationConstraint}");
+                $batch->add("oparl:update:specification {$specificationConstraint}");
+                $batch->add("oparl:update:schema {$specificationConstraint}");
+            }
+        );
 
         return $batch->run();
     }

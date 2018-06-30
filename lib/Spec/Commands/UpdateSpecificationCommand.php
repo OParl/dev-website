@@ -20,10 +20,14 @@ class UpdateSpecificationCommand extends Command
 
     public function handle()
     {
-        $this->info('Updating specification');
+        try {
+            $treeish = $this->getTreeishOrDefault(config('oparl.versions.specification.master'));
+        } catch (\InvalidArgumentException $e) {
+            return 1;
+        }
 
-        $treeish = $this->getTreeishOrDefault(config('oparl.versions.specification.stable'));
+        $this->info('Updating specification for constraint '.$treeish);
 
-        $this->dispatch(new SpecificationLiveVersionBuildJob($treeish));
+        return $this->dispatch(new SpecificationLiveVersionBuildJob($treeish));
     }
 }

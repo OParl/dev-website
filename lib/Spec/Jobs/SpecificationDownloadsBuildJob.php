@@ -12,6 +12,7 @@ use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Logging\Log;
+use OParl\Spec\OParlVersions;
 
 class SpecificationDownloadsBuildJob extends SpecificationJob
 {
@@ -25,7 +26,8 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
      */
     public function handle(Filesystem $fs, Log $log)
     {
-        $initialConstraint = $this->treeish;
+        $oparlVersions = new OParlVersions();
+        $this->storageName = $oparlVersions->getVersionForConstraint('specification', $this->treeish);
 
         try {
             $hubSync = $this->build($fs, $log);
@@ -39,11 +41,6 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
             );
 
             throw $e;
-        }
-
-        $this->storageName = 'master';
-        if (strcmp($this->treeish, 'master') !== 0) {
-            $this->storageName = substr($initialConstraint, 1);
         }
 
         $downloadsPath = $this->createDownloadsDirectory($fs);
@@ -71,6 +68,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
      * @param Log        $log
      *
      * @return Repository
+     * @throws \ReflectionException
      */
     public function build(Filesystem $fs, Log $log)
     {
@@ -88,7 +86,6 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $currentHead
      *
      * @return string
      */
@@ -107,7 +104,6 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $currentHead
      * @param            $hubSync
      * @param            $downloadsPath
      */
@@ -138,7 +134,6 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $currentHead
      * @param            $hubSync
      * @param            $downloadsPath
      */

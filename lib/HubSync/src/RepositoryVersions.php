@@ -44,9 +44,11 @@ class RepositoryVersions
      */
     public function getLatestMatchingConstraint($constraint)
     {
-        return $this->versions->filter(function ($versionToCheck) use ($constraint) {
+        $matchingVersions = $this->versions->filter(function ($versionToCheck) use ($constraint) {
             return Semver::satisfies($versionToCheck, $constraint);
-        })->last();
+        });
+
+        return $matchingVersions->last();
     }
 
     public function loadVersions()
@@ -55,7 +57,7 @@ class RepositoryVersions
         $output = $this->synchronousProcess($cmd);
 
         $this->versions = collect(explode("\n", $output))->filter(function ($versionToCheck) {
-            $semverRegex = '/v?\d+\.\d+\.\d+-?[a-z0-9_+]*/';
+            $semverRegex = '/v?\d+\.\d+(?:\.\d+)?(?:-[a-z0-9_+]+)?/';
 
             return preg_match($semverRegex, $versionToCheck);
         });

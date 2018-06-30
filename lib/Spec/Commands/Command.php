@@ -22,12 +22,6 @@ class Command extends \Illuminate\Console\Command
             $treeish = $default;
         }
 
-        if ((strcmp($treeish, 'master') !== 0) && !starts_with($treeish, '~')) {
-            $this->error('Constraint must be specified as ~<major>.<minor>');
-
-            return 1;
-        }
-
         return $treeish;
     }
 }

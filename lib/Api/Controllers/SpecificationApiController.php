@@ -7,17 +7,19 @@
 namespace OParl\Website\API\Controllers;
 
 
-use OParl\Spec\Model\LiveView;
+use OParl\Spec\Repositories\LiveViewRepository;
 
 class SpecificationApiController extends ApiController
 {
     /**
-     * @param LiveView $liveView
-     * @param          $version
+     * @param LiveViewRepository $liveViewRepository
+     * @param                    $version
      * @return \Illuminate\Http\JsonResponse
      */
-    public function version(LiveView $liveView, $version)
+    public function version(LiveViewRepository $liveViewRepository, $version)
     {
+        $liveView = $liveViewRepository->get($version);
+
         return response()->json([
             'currentVersion' => $liveView->getVersionInformation()['official'],
             'toc'            => $liveView->getTableOfContents(),

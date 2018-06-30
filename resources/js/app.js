@@ -34,7 +34,8 @@ const vm = new Vue({
                     fetch: ''
                 },
                 body: '',
-                toc: ''
+                toc: '',
+                versionOnLoad: '1.1'
             }
         }
     },
@@ -53,6 +54,7 @@ const vm = new Vue({
         changeLiveView(version) {
             if (this.liveView.currentVersion.fetch !== version) {
                 this.liveView.isLoading = true;
+
                 axios.get('/api/specification/' + version).then(response => {
                     return response.data;
                 }, err => {
@@ -61,6 +63,7 @@ const vm = new Vue({
                     this.liveView.currentVersion.human = data.currentVersion;
                     this.liveView.body = data.body;
                     this.liveView.toc = data.toc;
+                    Prism.highlightAll();
 
                     this.liveView.isLoading = false;
                 });
@@ -69,7 +72,16 @@ const vm = new Vue({
     },
 
     mounted() {
-        this.changeLiveView(1.1);
+        if (document.location.href.indexOf('/spezifikation') > 0) {
+            let version = this.liveView.versionOnLoad;
+
+            if (document.location.search.indexOf('version=') > 0) {
+                version = document.location.search.split('=')[1];
+            }
+
+            this.changeLiveView(version);
+        }
+
         Prism.highlightAll();
     },
 });
