@@ -26,7 +26,11 @@ class TrackNonWebRequest
 
         if (class_exists('\PiwikTracker')) {
             $tracker = new \PiwikTracker(config('piwik.siteId'), config('piwik.url'));
-            $tracker->doTrackPageView('demoapi:'.$request->getRequestUri());
+            try {
+                $tracker->doTrackPageView('demoapi:'.$request->getRequestUri());
+            } catch (\Exception $e) {
+                \Log::warning('Piwik doesn\'t appear to be configured properly.');
+            }
         }
 
         return $response;
