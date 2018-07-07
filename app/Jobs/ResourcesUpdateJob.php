@@ -45,7 +45,7 @@ class ResourcesUpdateJob implements ShouldQueue
     public function handle(Filesystem $fs, Log $log)
     {
         $repo = new Repository($fs, 'oparl_resources', 'https://github.com/OParl/resources.git');
-        //$this->getUpdatedHubSync($repo, $log);
+        $this->getUpdatedHubSync($repo, $log);
 
         // TODO: validate endpoints.yml
         // $this->notify(SpecificationUpdateNotification::resourcesUpdateFailedNotification($this->treeish));
