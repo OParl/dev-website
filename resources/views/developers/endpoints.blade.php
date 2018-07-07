@@ -6,31 +6,18 @@
 
 @section('content')
     <section class="section">
-        <table class="table">
+        <table class="table" v-if="endpoints.length > 0">
             <tbody>
-            @foreach ($endpoints as $endpoint)
-                <tr>
-                    <td>
-                        {{ $endpoint['title'] }}
-                    </td>
-                    <td>
-                        @if (isset($endpoint['description']))
-                            @press($endpoint['description'])
-                        @endif
-                        <pre class="small"><code>{{ $endpoint['url'] }}</code></pre>
-                    </td>
-                    <td>
-                        <button class="button">
-                            <b-icon icon="copy"></b-icon>
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
+                <endpoint-info
+                        v-for="endpoint in endpoints"
+
+                        :key="endpoint.id"
+                        :endpoint="endpoint"
+                ></endpoint-info>
             </tbody>
         </table>
+        <div v-else style="height: 3em">
+            <b-loading :is-full-page="false" :active="endpoints.length == 0"></b-loading>
+        </div>
     </section>
 @endsection
-
-@section ('scripts')
-    <script type="text/javascript" src="{{ asset('js/developers.js') }}"></script>
-@stop

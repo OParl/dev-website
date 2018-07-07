@@ -18,6 +18,7 @@ Vue.use(VueAffix);
 
 import axios from 'axios'
 
+import EndpointInfo from './modules/EndpointInfo.vue'
 import LiveView_LiveView from './modules/LiveView/LiveView.vue'
 import LiveView_TableOfContents from './modules/LiveView/TableOfContents.vue'
 import LiveView_VersionSelector from './modules/LiveView/VersionSelector.vue'
@@ -36,11 +37,13 @@ const vm = new Vue({
                 body: '',
                 toc: '',
                 versionOnLoad: '1.1'
-            }
+            },
+            endpoints: [],
         }
     },
 
     components: {
+        'EndpointInfo': EndpointInfo,
         'LiveView': LiveView_LiveView,
         'TableOfContents': LiveView_TableOfContents,
         'VersionSelector': LiveView_VersionSelector,
@@ -58,7 +61,7 @@ const vm = new Vue({
                 axios.get('/api/specification/' + version).then(response => {
                     return response.data;
                 }, err => {
-                    // handle axios error
+                    // TODO: handle axios error
                 }).then(data => {
                     this.liveView.currentVersion.human = data.currentVersion;
                     this.liveView.body = data.body;
@@ -68,6 +71,16 @@ const vm = new Vue({
                     this.liveView.isLoading = false;
                 });
             }
+        },
+
+        getEndpoints() {
+            axios.get('/api/endpoints').then(response => {
+                return response.data.data;
+            }, err => {
+                // TODO: handle axios error
+            }).then(data => {
+                this.endpoints = data;
+            });
         }
     },
 
@@ -80,6 +93,10 @@ const vm = new Vue({
             }
 
             this.changeLiveView(version);
+        }
+
+        if (document.location.href.indexOf('/endpunkte') > 0) {
+            this.getEndpoints();
         }
 
         Prism.highlightAll();

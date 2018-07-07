@@ -24,7 +24,7 @@
             @endif
         </title>
 
-        <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
 
         @yield('styles')
 
@@ -52,9 +52,9 @@
             @include ('footer')
         </div>
 
-        <script src="{{ asset('js/manifest.js') }}"></script>
-        <script src="{{ asset('js/vendor.js') }}"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ mix('js/manifest.js') }}"></script>
+        <script src="{{ mix('js/vendor.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
         @include ('piwik')
     </body>
 </html>
