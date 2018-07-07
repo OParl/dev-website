@@ -18,7 +18,7 @@
 
         <title>
             @if (isset($title))
-                {{ $title.' - ' }}OParl.org
+                {{ $title . ' - ' }}OParl.org
             @else
                 @yield('title')
             @endif
