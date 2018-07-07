@@ -18,12 +18,14 @@ Vue.use(VueAffix);
 
 import axios from 'axios'
 
-import EndpointInfo from './modules/EndpointInfo.vue'
+import EndpointInfo from './modules/Endpoints/EndpointInfo.vue'
+import EndpointStatistics from './modules/Endpoints/EndpointStatistics.vue'
+
 import LiveView_LiveView from './modules/LiveView/LiveView.vue'
 import LiveView_TableOfContents from './modules/LiveView/TableOfContents.vue'
 import LiveView_VersionSelector from './modules/LiveView/VersionSelector.vue'
 
-const vm = new Vue({
+new Vue({
     el: '#app',
 
     data() {
@@ -44,6 +46,7 @@ const vm = new Vue({
 
     components: {
         'EndpointInfo': EndpointInfo,
+        'EndpointStatistics': EndpointStatistics,
         'LiveView': LiveView_LiveView,
         'TableOfContents': LiveView_TableOfContents,
         'VersionSelector': LiveView_VersionSelector,

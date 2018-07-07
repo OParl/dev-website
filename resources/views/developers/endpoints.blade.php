@@ -20,4 +20,8 @@
             <b-loading :is-full-page="false" :active="endpoints.length == 0"></b-loading>
         </div>
     </section>
+
+    <section class="section">
+        <endpoint-statistics :endpoints="endpoints"></endpoint-statistics>
+    </section>
 @endsection

@@ -46,7 +46,6 @@ class EndpointInfoUpdateJob implements ShouldQueue
         try {
             $endpoint = Endpoint::query()->firstOrCreate([
                 'url'   => $this->endpointData['url'],
-                'title' => $this->endpointData['title'],
             ]);
         } catch (QueryException $e) {
             $log->error('Failed to update endpoint info', $this->endpointData);

@@ -1,7 +1,7 @@
 <template>
     <section>
         <strong>{{ endpoint.title }}</strong>
-        <div v-if="endpoint.description > 0" v-html="endpoint.description"></div>
+        <div v-if="endpoint.description" v-html="endpoint.description"></div>
         <pre class="small"><code>{{ endpoint.url }}</code></pre>
         <br>
         <b-collapse :open="false">
