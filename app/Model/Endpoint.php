@@ -41,7 +41,7 @@ class Endpoint extends Model
 {
     protected $fillable = [
         'url',
-        'name',
+        'title',
         'description',
     ];
 

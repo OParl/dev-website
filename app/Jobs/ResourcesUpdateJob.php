@@ -37,7 +37,10 @@ class ResourcesUpdateJob implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param Filesystem $fs
+     * @param Log        $log
      * @return void
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function handle(Filesystem $fs, Log $log)
     {

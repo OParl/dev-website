@@ -6,6 +6,7 @@ use App\Model\Endpoint;
 use App\Model\EndpointBody;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -44,11 +45,12 @@ class EndpointInfoUpdateJob implements ShouldQueue
 
         try {
             $endpoint = Endpoint::query()->firstOrCreate([
-                'url' => $this->endpointData['url'],
+                'url'   => $this->endpointData['url'],
+                'title' => $this->endpointData['title'],
             ]);
         } catch (QueryException $e) {
             $log->error('Failed to update endpoint info', $this->endpointData);
-
+            $log->error($e->getMessage(), $e->getTrace());
             return;
         }
 
@@ -61,20 +63,38 @@ class EndpointInfoUpdateJob implements ShouldQueue
             $endpoint->description = $this->endpointData['description'];
         }
 
-        // get the endpoint's system
-        $guzzle = new Client();
-        $systemResponse = $guzzle->get($endpoint->url);
-        $systemJson = json_decode((string) $systemResponse->getBody(), true);
-        $endpoint->system = $systemJson;
+        $this->getBodiesFromEndpoint($log, $endpoint);
 
-        // get the endpoint's body list and update the known endpoint bodies
+        $endpoint->endpoint_fetched = Carbon::now();
+
+        $endpoint->save();
+    }
+
+    /**
+     * @param Log $log
+     * @param     $endpoint
+     */
+    protected function getBodiesFromEndpoint(Log $log, $endpoint)
+    {
+        $systemJson = $this->getSystemFromEndpoint($endpoint);
+
+        if (is_null($systemJson)) {
+            $log->warning("System check for '{$endpoint->url}' failed");
+            // TODO: slack notification
+            $this->fail();
+
+            return;
+        }
+
+        $guzzle = new Client();
         $bodyResponse = $guzzle->get($systemJson['body']);
-        $bodyJson = json_decode((string) $bodyResponse->getBody(), true);
+        $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
 
         if (!array_key_exists('data', $bodyJson)) {
-            $endpoint->save();
             $log->error("Endpoint {$endpoint->url} does not appear to have a valid body list.", $bodyJson);
             $this->fail();
+
+            return;
         }
 
         collect($bodyJson['data'])->each(function (array $body) use ($log, $endpoint) {
@@ -98,9 +118,24 @@ class EndpointInfoUpdateJob implements ShouldQueue
 
             $endpointBody->save();
         });
+    }
 
-        $endpoint->endpoint_fetched = Carbon::now();
+    /**
+     * @param $endpoint
+     * @return array
+     */
+    protected function getSystemFromEndpoint($endpoint)
+    {
+        $systemJson = null;
 
-        $endpoint->save();
+        try {
+            $guzzle = new Client();
+            $systemResponse = $guzzle->get($endpoint->url);
+            $systemJson = json_decode((string)$systemResponse->getBody(), true);
+            $endpoint->system = $systemJson;
+        } catch (RequestException $e) {
+        }
+
+        return $systemJson;
     }
 }
