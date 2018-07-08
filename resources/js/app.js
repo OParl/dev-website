@@ -1,4 +1,4 @@
-let Prism = require('!!prismjs?lang=javascript');
+//let Prism = require('!!prismjs?lang=javascript');
 
 import '@fortawesome/fontawesome-free/js/all'
 
@@ -78,7 +78,7 @@ new Vue({
                     this.liveView.body = data.body;
                     this.liveView.toc = data.toc;
 
-                    Prism.highlightAll();
+                    //Prism.highlightAll();
 
                     this.liveView.isLoading = false;
                 });
