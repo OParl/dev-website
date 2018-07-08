@@ -1,31 +1,32 @@
 <template>
     <section>
         <strong>{{ endpoint.title }}</strong>
-        <div v-if="endpoint.description" v-html="endpoint.description"></div>
-        <pre class="small"><code>{{ endpoint.url }}</code></pre>
-        <br>
+        <div v-if="endpoint.formattedDescription" v-html="endpoint.formattedDescription"></div>
+
+        <pre><code>{{ endpoint.url }}</code></pre>
+
         <b-collapse :open="false">
-            <div class="card-header" slot="trigger" slot-scope="props">
-                <strong class="card-header-title">Körperschaften</strong>
-                <div class="card-header-icon">
-                    <b-icon :icon="props.open ? 'expand' : 'compress'"></b-icon>
+            <button class="button" slot="trigger">Körperschaften</button>
+            <div class="notification">
+                <div class="content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Url</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="body in endpoint.bodies">
+                            <td>
+                                {{ body.name }}<br>
+                                <a :href="body.website">{{ body.website }}</a>
+                            </td>
+                            <td>{{ body.oparlURL }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="card-content">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Url</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="body in endpoint.bodies">
-                        <td>{{ body.name }}</td>
-                        <td>{{ body.oparlURL }}</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </b-collapse>
         <br>
@@ -35,10 +36,22 @@
 <script>
     export default {
         name: 'endpoint-info',
+
         props: {
             endpoint: {
                 required: true,
-            }
-        }
+            },
+        },
+
+        methods: {
+            copySuccess(e) {
+                this.$toast.open({
+                    message: "Der Endpunkt wurde in die Zwischenablage kopiert",
+                    //container: '.toast-container',
+                    duration: 5000,
+                    position: 'is-bottom-left'
+                });
+            },
+        },
     }
 </script>

@@ -57,11 +57,13 @@ class Endpoint extends Model
         'id',
         'created_at',
         'updated_at',
+        'description',
         'endpoint_fetched',
     ];
 
     protected $appends = [
         'fetched',
+        'formattedDescription'
     ];
 
     /**
@@ -87,8 +89,16 @@ class Endpoint extends Model
     {
         /** @var Carbon $fetched */
         $fetched = $this->endpoint_fetched;
+
         if (!is_null($fetched)) {
             return $fetched->toIso8601String();
         }
+
+        return '';
+    }
+
+    public function getFormattedDescriptionAttribute()
+    {
+        return $this->description;
     }
 }

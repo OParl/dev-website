@@ -32,6 +32,8 @@
         <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}" />
     </head>
     <body>
+        {{--<div class="toast-container"></div>--}}
+
         <div id="app" class="container" data-messages="{{ json_encode(Session::get('message')) }}">
             <div class="sr-only">
                 <ul>
@@ -43,11 +45,10 @@
 
             @include ('header')
 
-            <main id="content" class="content">
-                <div class="container u-pt-0_5">
-                    @yield('content')
-                </div>
-            </main>
+            <div class="content">
+                @yield('content')
+            </div>
+
 
             @include ('footer')
         </div>

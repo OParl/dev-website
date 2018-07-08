@@ -33,4 +33,5 @@
             @yield('subheader_actions')
         </div>
     </nav>
+    <br>
 </header>

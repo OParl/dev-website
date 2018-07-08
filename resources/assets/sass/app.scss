@@ -21,6 +21,14 @@ $brand-hover: lighten($brand-primary, 33%);
   padding-top: 0.5em;
 }
 
+.toast-container {
+  position: fixed;
+  top: 1em;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
 .height {
   &--24 {
     height: 24px;

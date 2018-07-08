@@ -18,8 +18,9 @@ Vue.use(VueAffix);
 
 import axios from 'axios'
 
-import EndpointInfo from './modules/Endpoints/EndpointInfo.vue'
-import EndpointStatistics from './modules/Endpoints/EndpointStatistics.vue'
+import Endpoints_EndpointInfo from './modules/Endpoints/EndpointInfo.vue'
+import Endpoints_EndpointStatistics from './modules/Endpoints/EndpointStatistics.vue'
+import Endpoints_EndpointListFilter from './modules/Endpoints/EndpointListFilter.vue'
 
 import LiveView_LiveView from './modules/LiveView/LiveView.vue'
 import LiveView_TableOfContents from './modules/LiveView/TableOfContents.vue'
@@ -41,15 +42,22 @@ new Vue({
                 versionOnLoad: '1.1'
             },
             endpoints: [],
+            endpointsBodyFilter: ''
         }
     },
 
-    components: {
-        'EndpointInfo': EndpointInfo,
-        'EndpointStatistics': EndpointStatistics,
-        'LiveView': LiveView_LiveView,
-        'TableOfContents': LiveView_TableOfContents,
-        'VersionSelector': LiveView_VersionSelector,
+    computed: {
+        bodies() {
+            return this.endpoints.map(endpoint => endpoint.bodies).reduce((root, endpointBodyList) => root.concat(endpointBodyList), [])
+        },
+
+        filteredEndpoints() {
+            return this.endpoints.filter(endpoint => {
+                if (null === this.endpointsBodyFilter) return true;
+
+                return endpoint.bodies.filter(body => body.name.match(this.endpointsBodyFilter)).length > 0;
+            });
+        }
     },
 
     methods: {
@@ -69,11 +77,16 @@ new Vue({
                     this.liveView.currentVersion.human = data.currentVersion;
                     this.liveView.body = data.body;
                     this.liveView.toc = data.toc;
+
                     Prism.highlightAll();
 
                     this.liveView.isLoading = false;
                 });
             }
+        },
+
+        filterEndpointsByBody(filter) {
+            this.$set(this, 'endpointsBodyFilter', new RegExp(filter + '.*', 'i'));
         },
 
         getEndpoints() {
@@ -82,7 +95,7 @@ new Vue({
             }, err => {
                 // TODO: handle axios error
             }).then(data => {
-                this.endpoints = data;
+                this.$set(this, 'endpoints', data);
             });
         }
     },
@@ -103,5 +116,14 @@ new Vue({
         }
 
         Prism.highlightAll();
+    },
+
+    components: {
+        'EndpointInfo': Endpoints_EndpointInfo,
+        'EndpointListFilter': Endpoints_EndpointListFilter,
+        'EndpointStatistics': Endpoints_EndpointStatistics,
+        'LiveView': LiveView_LiveView,
+        'TableOfContents': LiveView_TableOfContents,
+        'VersionSelector': LiveView_VersionSelector,
     },
 });

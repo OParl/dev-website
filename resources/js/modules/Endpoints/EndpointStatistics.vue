@@ -3,8 +3,8 @@
         <h2>Endpunkt Statistik</h2>
 
         <ul>
-            <li>Körperschaften gesamt: {{ bodyCount }}</li>
-            <li>Letzte Aktualisierung: {{ latestFetch }}</li>
+            <li>{{ bodyCount }} Körperschaften insgesamt</li>
+            <li>letzte Aktualisierung {{ latestFetch }}</li>
             <li>
                 Hersteller:
 
@@ -30,6 +30,9 @@
 </template>
 
 <script>
+    import moment from 'moment'
+    import 'moment/locale/de'
+
     export default {
         name: "EndpointStatistics",
         props: {
@@ -42,7 +45,8 @@
                 return this.endpoints.reduce((carry, system) => carry + system.bodies.length, 0);
             },
             latestFetch() {
-                return this.endpoints.map(endpoint => endpoint.fetched).sort().pop()
+                const timestamp = this.endpoints.map(endpoint => endpoint.fetched).sort().pop();
+                return moment(timestamp).calendar()
             },
             vendors() {
                 return this.endpoints.map(endpoint => endpoint.system.vendor).filter(

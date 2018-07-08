@@ -5,14 +5,17 @@
 @stop
 
 @section ('content')
-    <section class="section">
-        <h2>@lang('app.developers.about-oparl.title')</h2>
+    <h1>OParl Entwicklerportal</h1>
+
+    <section>
+        <h2 class="subtitle">@lang('app.developers.about-oparl.title')</h2>
         <div>
             <p>@press(trans('app.developers.about-oparl.text'))</p>
         </div>
     </section>
-    <section class="section">
-        <h2>@lang('app.developers.about-dev.title')</h2>
+
+    <section>
+        <h2 class="subtitle">@lang('app.developers.about-dev.title')</h2>
         <div>
             <p>@press(trans('app.developers.about-dev.text'))</p>
             <p>@lang('app.developers.demo')</p>
