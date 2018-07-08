@@ -12,12 +12,6 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .extract([
-        'buefy',
-        'vue',
-        'vue-affix',
-        'vue-clipboard2'
-    ])
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/pdf.scss', 'public/css')
     .copy('resources/assets/brand/icon/oparl-icon.png', 'public/images/favicon.png')
@@ -25,4 +19,10 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/assets/img/oparl-icon-dev-slackbot.png', 'public/images/logos/oparl-slackbot.png')
     .copy('resources/assets/img/cfg.svg', 'public/images/logos')
     .copy('resources/assets/img/okf.svg', 'public/images/logos')
+    .extract([
+        'buefy',
+        'vue',
+        'vue-affix',
+        'vue-clipboard2'
+    ])
     .version();
