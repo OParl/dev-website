@@ -6,11 +6,10 @@ Welcome to the [OParl developer][platform] platform codebase.
 
 ### System Requirements
 
-- php >= 5.6, < 7.1
+- php >= 7.1
 - composer
-- node >= 6.0
+- node >= 8.0
 - npm
-- gulp
 
 Additionally, the requirements for running the [validator][repo:validator] and building the 
 [specification][repo:spec] must be met on the system.
