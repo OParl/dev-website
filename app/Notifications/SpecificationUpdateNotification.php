@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 
@@ -138,6 +139,10 @@ class SpecificationUpdateNotification extends Notification
 
         $message->to(config('services.slack.ci.channel'));
         $message->content($this->message);
+        $message->attachment(function (SlackAttachment $attachment) {
+            $attachment->color(($this->success) ? '#00ff00' : '#ff0000');
+            $attachment->content($this->message);
+        });
 
         return $message;
     }
