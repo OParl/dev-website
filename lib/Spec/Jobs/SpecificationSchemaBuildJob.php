@@ -28,7 +28,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
                 $hubSync->getCurrentHead()
             ));
         } catch (\Exception $e) {
-            $this->notify(SpecificationUpdateNotification::schemaUpdateFailedNotification($this->treeish));
+            $this->notify(SpecificationUpdateNotification::schemaUpdateFailedNotification($this->treeish, $e->getMessage()));
         }
     }
 

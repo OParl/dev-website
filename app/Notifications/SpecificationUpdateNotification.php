@@ -16,7 +16,9 @@ class SpecificationUpdateNotification extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param string $success
+     * @param string $message
+     * @param array  $args
      */
     public function __construct($success, $message, ...$args)
     {
@@ -26,37 +28,6 @@ class SpecificationUpdateNotification extends Notification
         if (count($args) > 0) {
             $this->message = vsprintf($this->message, $args);
         }
-    }
-
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
-     *
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        if (!config('services.slack.ci.enabled')) {
-            return [];
-        }
-
-        return ['slack'];
-    }
-
-    public function toSlack($notifiable)
-    {
-        $message = new SlackMessage();
-        $message->success();
-
-        if (!$this->success) {
-            $message->warning();
-        }
-
-        $message->to(config('services.slack.ci.channel'));
-        $message->content($this->message);
-
-        return $message;
     }
 
     public static function liveVersionUpdateSuccessfulNotification($treeish, $currentHead)
@@ -111,12 +82,13 @@ class SpecificationUpdateNotification extends Notification
         );
     }
 
-    public static function schemaUpdateFailedNotification($treeish)
+    public static function schemaUpdateFailedNotification($treeish, $reason)
     {
         return new self(
             false,
-            'Updating the schema to %s failed',
-            $treeish
+            'Updating the schema to %s failed: %s',
+            $treeish,
+            $reason
         );
     }
 
@@ -137,5 +109,36 @@ class SpecificationUpdateNotification extends Notification
             'Updating the resources to %s failed',
             $treeish
         );
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param mixed $notifiable
+     *
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        if (!config('services.slack.ci.enabled')) {
+            return [];
+        }
+
+        return ['slack'];
+    }
+
+    public function toSlack($notifiable)
+    {
+        $message = new SlackMessage();
+        $message->success();
+
+        if (!$this->success) {
+            $message->warning();
+        }
+
+        $message->to(config('services.slack.ci.channel'));
+        $message->content($this->message);
+
+        return $message;
     }
 }
