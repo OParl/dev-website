@@ -66,7 +66,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
             $fs->put($filename, $fs->get($file));
         });
 
-        $log->info("Finished Schema Update Job for treeish {$this->initialConstraint}");
+        $log->info("Finished Schema Update Job for treeish {$this->treeish}");
 
         return $hubSync;
     }
