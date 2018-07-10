@@ -114,8 +114,6 @@ new Vue({
         if (document.location.href.indexOf('/endpunkte') > 0) {
             this.getEndpoints();
         }
-
-        Prism.highlightAll();
     },
 
     components: {
