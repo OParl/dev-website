@@ -15,8 +15,7 @@ class JobTest extends TestCase
     {
         $sut = new OParlJob();
         $this->assertTrue(method_exists($sut, 'getTreeish'));
-        $this->assertNotNull($sut->getTreeish());
-        $this->assertEquals('master', $sut->getTreeish());
+        $this->assertEquals('', $sut->getTreeish());
     }
 
     public function testGetBuildMode()

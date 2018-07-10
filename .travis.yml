@@ -2,8 +2,8 @@ language: php
 sudo: false
 
 php:
-- 7.0
 - 7.1
+- 7.2
 
 addons:
   apt:
@@ -36,6 +36,8 @@ before_install:
 
 install:
 - pip3 install pyaml
+- npm i -g npm
+
 
 before_script:
 - composer global require hirak/prestissimo
