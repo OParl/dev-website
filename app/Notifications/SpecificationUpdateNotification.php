@@ -139,7 +139,7 @@ class SpecificationUpdateNotification extends Notification
 
         $message->to(config('services.slack.ci.channel'));
         $message->attachment(function (SlackAttachment $attachment) {
-            $attachment->color(($this->success) ? '#00ff00' : '#ff0000');
+            $attachment->color(($this->success) ? '#5e9d5f' : '#b0403f');
             $attachment->content($this->message);
         });
 
