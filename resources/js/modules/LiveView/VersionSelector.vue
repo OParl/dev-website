@@ -1,6 +1,8 @@
 <template>
     <b-dropdown v-if="current">
-        <button class="button" slot="trigger">{{ current }} <b-icon icon="caret-down"></b-icon></button>
+        <button class="button" slot="trigger">
+            {{ current }}&nbsp;<b-icon icon="caret-down"></b-icon>
+        </button>
         <b-dropdown-item
                 v-for="version in versions"
                 :key="version"
