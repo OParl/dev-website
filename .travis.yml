@@ -21,7 +21,7 @@ addons:
     - pandoc-citeproc
     - python3
     - python3-pip
-    - python3.4-venv
+    - python3-yaml
     - texlive-fonts-recommended
     - texlive-generic-recommended
     - texlive-humanities
@@ -30,14 +30,8 @@ addons:
     - texlive-luatex
     - texlive-xetex
 
-before_install:
-- python3 -m venv .spec_build_venv
-- source .spec_build_venv/bin/activate
-
 install:
-- pip3 install pyaml
 - npm i -g npm
-
 
 before_script:
 - composer global require hirak/prestissimo
