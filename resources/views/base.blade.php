@@ -24,6 +24,7 @@
             @endif
         </title>
 
+        <link href="{{ mix('/css/buefy.css') }}" rel="stylesheet" />
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
 
         @yield('styles')

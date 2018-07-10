@@ -14,6 +14,7 @@ let mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/pdf.scss', 'public/css')
+    .copy('node_modules/buefy/lib/buefy.css', 'public/css')
     .copy('resources/assets/brand/icon/oparl-icon.png', 'public/images/favicon.png')
     .copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/images/logos/oparl.svg')
     .copy('resources/assets/img/oparl-icon-dev-slackbot.png', 'public/images/logos/oparl-slackbot.png')
