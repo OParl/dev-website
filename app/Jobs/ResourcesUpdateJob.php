@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Model\Endpoint;
 use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Bus\Queueable;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Collection;
 use OParl\Spec\Jobs\InteractsWithRepositoryTrait;
 use Symfony\Component\Yaml\Yaml;
 
@@ -47,14 +49,53 @@ class ResourcesUpdateJob implements ShouldQueue
         $repo = new Repository($fs, 'oparl_resources', 'https://github.com/OParl/resources.git');
         $this->getUpdatedHubSync($repo, $log);
 
-        // TODO: validate endpoints.yml
-        // $this->notify(SpecificationUpdateNotification::resourcesUpdateFailedNotification($this->treeish));
+        try {
+            $endpointsArray = Yaml::parse($fs->get($repo->getPath('endpoints.yml')));
 
-        collect(Yaml::parse($fs->get($repo->getPath('endpoints.yml'))))->map(function (array $endpoint) {
+            \Validator::make($endpointsArray, [
+                '*.title'       => 'required|string',
+                '*.url'         => 'required|url',
+                '*.description' => 'string',
+            ])->validate();
+        } catch (\Exception $e) {
+            $this->fail($e);
+            $this->notify(
+                SpecificationUpdateNotification::resourcesUpdateFailedNotification(
+                    $repo->getCurrentHead(),
+                    $e->getMessage()
+                )
+            );
+
+            $log->critical($e->getMessage(), $e->getTrace());
+
+            return;
+        }
+
+        $currentEndpoints = collect($endpointsArray);
+
+        $this->invalidateEndpoints($currentEndpoints);
+
+        $currentEndpoints->map(function (array $endpoint) {
             $this->dispatch(new EndpointInfoUpdateJob($endpoint));
         });
 
-        //$this->notify(SpecificationUpdateNotification::resourcesUpdateSuccesfulNotification($repo->getCurrentHead()));
+        $this->notify(
+            SpecificationUpdateNotification::resourcesUpdateSuccesfulNotification(
+                $this->treeish,
+                $repo->getCurrentHead()
+            )
+        );
+    }
+
+    protected function invalidateEndpoints(Collection $currentEndpoints)
+    {
+        $currentEndpointUrls = $currentEndpoints->pluck('url')->toArray();
+
+        Endpoint::all()->filter(function (Endpoint $endpoint) use ($currentEndpointUrls) {
+            return !in_array($endpoint->url, $currentEndpointUrls);
+        })->each(function (Endpoint $endpoint) {
+            $endpoint->delete();
+        });
     }
 
     /**

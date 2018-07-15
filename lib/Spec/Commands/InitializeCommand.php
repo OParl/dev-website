@@ -24,7 +24,8 @@ class InitializeCommand extends Command
         $oparlVersions = new OParlVersions();
 
         $batch = Batch::create($this->getApplication(), $this->getOutput())
-            ->add('oparl:update:validator');
+            ->add('oparl:update:validator')
+            ->add('oparl:update:resources');
 
         collect($oparlVersions->getModule('specification'))->each(
             function ($specificationConstraint) use ($batch) {

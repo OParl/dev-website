@@ -29,7 +29,8 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
                 $hubSync->getCurrentHead()
             ));
         } catch (\RuntimeException $e) {
-            $this->notify(SpecificationUpdateNotification::liveVersionUpdateFailedNotification($this->treeish));
+            $this->notify(SpecificationUpdateNotification::liveVersionUpdateFailedNotification($this->treeish,
+                $e->getMessage()));
         }
     }
 
@@ -82,6 +83,15 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         }
     }
 
+    protected function getStoragePath($path)
+    {
+        if (starts_with($path, '/')) {
+            $path = substr($path, 1);
+        }
+
+        return sprintf('live/%s/%s', $this->storageName, $path);
+    }
+
     /**
      * @param Filesystem $fs
      * @param            $hubSync
@@ -95,7 +105,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         collect($fs->files($hubSync->getPath('/build/src/images')))->filter(function ($filename) {
             return ends_with($filename, '.png');
         })->map(function ($filename) use ($fs) {
-            $fs->put($this->getStoragePath('images/'.basename($filename)), $fs->get($filename));
+            $fs->put($this->getStoragePath('images/' . basename($filename)), $fs->get($filename));
         });
     }
 
@@ -110,7 +120,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         })->map(function ($filename) use ($fs) {
             return $fs->get($filename);
         })->reduce(function ($carry, $current) {
-            return $carry.$current;
+            return $carry . $current;
         }, '');
 
         $fs->put($this->getStoragePath('raw.md'), $raw);
@@ -131,13 +141,5 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
             'hash'     => $hubSync->getCurrentHead(),
             'official' => $official,
         ]));
-    }
-
-    protected function getStoragePath($path) {
-        if (starts_with($path, '/')) {
-            $path = substr($path, 1);
-        }
-
-        return sprintf('live/%s/%s', $this->storageName, $path);
     }
 }

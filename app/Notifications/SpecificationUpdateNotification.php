@@ -42,12 +42,13 @@ class SpecificationUpdateNotification extends Notification
         );
     }
 
-    public static function liveVersionUpdateFailedNotification($treeish)
+    public static function liveVersionUpdateFailedNotification($treeish, $reason)
     {
         return new self(
             false,
-            'Updating the live version to %s failed',
-            $treeish
+            'Updating the live version to %s failed: %s',
+            $treeish,
+            $reason
         );
     }
 
@@ -93,22 +94,34 @@ class SpecificationUpdateNotification extends Notification
         );
     }
 
-    public static function resourcesUpdateSuccesfulNotification($currentHead)
+    public static function resourcesUpdateSuccesfulNotification($treeish, $currentHead)
     {
         return new self(
             true,
-            'Updated resources to <https://github.com/OParl/resources/commit/%s|%s>',
+            'Updated resources for %s to <https://github.com/OParl/resources/commit/%s|%s>',
+            $treeish,
             $currentHead,
             $currentHead
         );
     }
 
-    public static function resourcesUpdateFailedNotification($treeish)
+    public static function resourcesUpdateFailedNotification($treeish, $reason)
     {
         return new self(
             false,
-            'Updating the resources to %s failed',
-            $treeish
+            'Updating the resources to %s failed: %s',
+            $treeish,
+            $reason
+        );
+    }
+
+    public static function endpointInfoUpdateFailedNotification($endpointUrl, $reason)
+    {
+        return new self(
+            false,
+            'Updating the endpoint info for %s failed: %s',
+            $endpointUrl,
+            $reason
         );
     }
 

@@ -4,20 +4,24 @@ namespace App\Jobs;
 
 use App\Model\Endpoint;
 use App\Model\EndpointBody;
+use App\Notifications\SpecificationUpdateNotification;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 class EndpointInfoUpdateJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Notifiable;
 
     protected $endpointData = [];
 
@@ -44,12 +48,13 @@ class EndpointInfoUpdateJob implements ShouldQueue
         $endpoint = null;
 
         try {
-            $endpoint = Endpoint::query()->firstOrCreate([
-                'url'   => $this->endpointData['url'],
+            $endpoint = Endpoint::firstOrNew([
+                'url' => $this->endpointData['url'],
             ]);
         } catch (QueryException $e) {
             $log->error('Failed to update endpoint info', $this->endpointData);
             $log->error($e->getMessage(), $e->getTrace());
+
             return;
         }
 
@@ -62,79 +67,94 @@ class EndpointInfoUpdateJob implements ShouldQueue
             $endpoint->description = $this->endpointData['description'];
         }
 
+        $this->getSystemFromEndpoint($log, $endpoint);
+
+        if (!$endpoint->exists) {
+            // make sure to save a newly endpoint before continuing
+            $endpoint->endpoint_fetched = Carbon::now();
+            $endpoint->save();
+        }
+
         $this->getBodiesFromEndpoint($log, $endpoint);
 
         $endpoint->endpoint_fetched = Carbon::now();
-
         $endpoint->save();
     }
 
     /**
-     * @param Log $log
-     * @param     $endpoint
-     */
-    protected function getBodiesFromEndpoint(Log $log, $endpoint)
-    {
-        $systemJson = $this->getSystemFromEndpoint($endpoint);
-
-        if (is_null($systemJson)) {
-            $log->warning("System check for '{$endpoint->url}' failed");
-            // TODO: slack notification
-            $this->fail();
-
-            return;
-        }
-
-        $guzzle = new Client();
-        $bodyResponse = $guzzle->get($systemJson['body']);
-        $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
-
-        if (!array_key_exists('data', $bodyJson)) {
-            $log->error("Endpoint {$endpoint->url} does not appear to have a valid body list.", $bodyJson);
-            $this->fail();
-
-            return;
-        }
-
-        collect($bodyJson['data'])->each(function (array $body) use ($log, $endpoint) {
-            /** @var EndpointBody $endpointBody */
-            $endpointBody = EndpointBody::query()->firstOrCreate([
-                'endpoint_id' => $endpoint->id,
-                'oparl_id'    => $body['id'],
-            ]);
-
-            try {
-                $endpointBody->name = $body['name'];
-            } catch (\ErrorException $e) {
-                $log->error("Body {$body['id']} does not seem to have a name, this is bad!", $body);
-            }
-
-            if (array_key_exists('website', $body)) {
-                $endpointBody->website = $body['website'];
-            }
-
-            $endpointBody->endpoint()->associate($endpoint);
-
-            $endpointBody->save();
-        });
-    }
-
-    /**
      * @param $endpoint
-     * @return array
      */
-    protected function getSystemFromEndpoint($endpoint)
+    protected function getSystemFromEndpoint(Log $log, Endpoint $endpoint)
     {
-        $systemJson = null;
-
         try {
             $guzzle = new Client();
             $systemResponse = $guzzle->get($endpoint->url);
             $systemJson = json_decode((string)$systemResponse->getBody(), true);
             $endpoint->system = $systemJson;
         } catch (RequestException $e) {
+            $log->warning('Failed to fetch system for ' . $endpoint->url);
+            $this->notify(
+                SpecificationUpdateNotification::endpointInfoUpdateFailedNotification(
+                    $endpoint->url,
+                    $e->getMessage()
+                )
+            );
+
+            $this->fail();
+        }
+    }
+
+    /**
+     * @param Log      $log
+     * @param Endpoint $endpoint
+     */
+    protected function getBodiesFromEndpoint(Log $log, Endpoint $endpoint)
+    {
+        $systemJson = $endpoint->system;
+
+        $guzzle = new Client();
+
+        try {
+            $bodyResponse = $guzzle->get($systemJson['body']);
+            $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
+
+            \Validator::make($bodyJson, [
+                'data'         => 'required|array',
+                'data.*.id'      => 'required|url',
+                'data.*.name'    => 'required|string',
+                'data.*.website' => 'string',
+                'data.*.license' => 'string',
+            ])->validate();
+        } catch (\Exception $e) {
+            $this->fail($e);
+
+            return;
         }
 
-        return $systemJson;
+        collect($bodyJson['data'])->each(function (array $body) use ($log, $endpoint) {
+            /** @var EndpointBody $endpointBody */
+            try {
+                $endpointBody = EndpointBody::whereEndpointId($endpoint->getKey())->whereOparlId($body['id'])->firstOrFail();
+            } catch (ModelNotFoundException $e) {
+                $endpointBody = new EndpointBody([
+                    'name'     => $body['name'],
+                    'oparl_id' => $body['id'],
+                ]);
+
+                $endpointBody->endpoint()->associate($endpoint);
+            }
+
+            $endpointBody->website = (array_key_exists('website', $body)) ? $body['website'] : '';
+            $endpointBody->license = (array_key_exists('license', $body)) ? $body['license'] : '';
+            $endpointBody->json = $body;
+
+            $endpointBody->touch();
+            $endpointBody->save();
+        });
+    }
+
+    public function routeNotificationsForSlack()
+    {
+        return config('services.slack.ci.endpoint');
     }
 }

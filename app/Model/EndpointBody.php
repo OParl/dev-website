@@ -29,7 +29,9 @@ use Illuminate\Database\Eloquent\Model;
 class EndpointBody extends Model
 {
     protected $fillable = [
+        'endpoint_id',
         'oparl_id',
+        'name'
     ];
 
     protected $hidden = [
@@ -44,8 +46,12 @@ class EndpointBody extends Model
         'oparlURL',
     ];
 
+    protected $casts = [
+        'json' => 'array'
+    ];
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|Endpoint
      */
     public function endpoint()
     {

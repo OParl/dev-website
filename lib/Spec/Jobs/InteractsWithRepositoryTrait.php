@@ -113,7 +113,7 @@ trait InteractsWithRepositoryTrait
         $this->runSynchronousCommand($repository->getAbsolutePath(), 'git checkout master');
 
         if (!$repository->update()) {
-            $log->error('Git pull for OParl/spec failed');
+            $log->error("Git pull for {$repository->getRemoteURI()} failed");
         }
 
         return $repository;
