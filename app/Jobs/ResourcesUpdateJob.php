@@ -75,7 +75,7 @@ class ResourcesUpdateJob implements ShouldQueue
 
         $this->invalidateEndpoints($currentEndpoints);
 
-        $currentEndpoints->map(function (array $endpoint) {
+        $currentEndpoints->each(function ($endpoint) {
             $this->dispatch(new EndpointInfoUpdateJob($endpoint));
         });
 
