@@ -7,7 +7,7 @@ use function Swagger\scan;
 /**
  * @SWG\Swagger(
  *     schemes={"https"},
- *     host="dev.oparl.org",
+ *     host=SWAGGER_API_HOST,
  *     basePath="/api/",
  *     @SWG\Info(
  *         title="OParl Developer Platform API",
@@ -30,6 +30,7 @@ class ApiController
      */
     public function swaggerJson()
     {
+        define('SWAGGER_API_HOST', 'dev.' . config('app.url'));
         $swagger = scan([base_path('lib/Api/Controllers'), app_path('Model')]);
 
         return response($swagger, 200, [
