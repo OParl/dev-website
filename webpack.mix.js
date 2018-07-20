@@ -14,7 +14,12 @@ let mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/pdf.scss', 'public/css')
-    .copy('node_modules/buefy/lib/buefy.css', 'public/css')
+    .combine([
+        'node_modules/buefy/lib/buefy.css',
+        'node_modules/prismjs/themes/prism.css',
+        'node_modules/prism-themes/themes/prism-vs.css',
+        'node_modules/swagger-ui/dist/swagger-ui.css'
+    ], 'public/css/vendor.css')
     .copy('resources/assets/brand/icon/oparl-icon.png', 'public/images/favicon.png')
     .copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/images/logos/oparl.svg')
     .copy('resources/assets/img/oparl-icon-dev-slackbot.png', 'public/images/logos/oparl-slackbot.png')

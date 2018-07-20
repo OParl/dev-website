@@ -1,4 +1,4 @@
-//let Prism = require('!!prismjs?lang=javascript');
+let Prism = require('!!prismjs?lang=javascript');
 
 import '@fortawesome/fontawesome-free/js/all'
 
@@ -25,6 +25,8 @@ import Endpoints_EndpointListFilter from './modules/Endpoints/EndpointListFilter
 import LiveView_LiveView from './modules/LiveView/LiveView.vue'
 import LiveView_TableOfContents from './modules/LiveView/TableOfContents.vue'
 import LiveView_VersionSelector from './modules/LiveView/VersionSelector.vue'
+
+import Swagger from './modules/Swagger.vue'
 
 new Vue({
     el: '#app',
@@ -78,7 +80,7 @@ new Vue({
                     this.liveView.body = data.body;
                     this.liveView.toc = data.toc;
 
-                    //Prism.highlightAll();
+                    Prism.highlightAll();
 
                     this.liveView.isLoading = false;
                 });
@@ -123,5 +125,6 @@ new Vue({
         'LiveView': LiveView_LiveView,
         'TableOfContents': LiveView_TableOfContents,
         'VersionSelector': LiveView_VersionSelector,
+        'Swagger': Swagger
     },
 });
