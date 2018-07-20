@@ -46,6 +46,9 @@ class EndpointApiController
                     ? route('api.endpoints.index', ['page' => ++$page])
                     : null,
             ],
+        ], 200, [
+            'Content-Type'                => 'application/json',
+            'Access-Control-Allow-Origin' => '*',
         ]);
     }
 }
