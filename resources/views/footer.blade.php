@@ -16,6 +16,9 @@
             <div class="level-item">
                 <a href="https://oparl.org/datenschutz/">@lang('app.privacy')</a>
             </div>
+            <div class="level-item">
+                <a href="{{ route('api.index') }}">@lang('app.api')</a>
+            </div>
         </div>
 
         <div class="level-right">

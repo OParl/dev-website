@@ -1,6 +1,8 @@
 <?php
 
 return array(
+    'api' => 'API',
+
     'contact.title'       => 'Kontakt',
     'contact.info'        => 'Zur Kontaktaufnahme mit den OParl-Entwicklern gibt es verschiedene Möglichkeiten:',
     'contact.github'      => 'Die Diskussion über die Weiterentwicklung von OParl und das Melden von Fehlern von OParl-Produkten findet in den Projekten unserer GitHub-Organisation statt.',

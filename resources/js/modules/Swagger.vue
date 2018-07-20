@@ -9,7 +9,7 @@
         name: "Swagger",
         mounted() {
             SwaggerUI({
-                domId: this.$el,
+                domNode: this.$el,
                 url: '/api/swagger.json'
             });
         }
