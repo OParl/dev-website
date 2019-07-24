@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "6fecc21f0fdfe0a57153ab4b2da200de",
@@ -870,12 +870,12 @@
             "version": "v0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/eFrane/SymfonyConsoleAdditions.git",
+                "url": "https://github.com/eFrane/ConsoleAdditions.git",
                 "reference": "98c7ee7abfa1f594b75eec17aad0119385905647"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/SymfonyConsoleAdditions/zipball/98c7ee7abfa1f594b75eec17aad0119385905647",
+                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/98c7ee7abfa1f594b75eec17aad0119385905647",
                 "reference": "98c7ee7abfa1f594b75eec17aad0119385905647",
                 "shasum": ""
             },
@@ -1103,9 +1103,9 @@
             "authors": [
                 {
                     "name": "Oscar Otero",
+                    "role": "Developer",
                     "email": "oom@oscarotero.com",
-                    "homepage": "http://oscarotero.com",
-                    "role": "Developer"
+                    "homepage": "http://oscarotero.com"
                 }
             ],
             "description": "PHP library to retrieve page info using oembed, opengraph, etc",
@@ -2652,9 +2652,9 @@
             "authors": [
                 {
                     "name": "Andreas Heigl",
+                    "role": "developer",
                     "email": "andreas@heigl.org",
-                    "homepage": "http://andreas.heigl.org",
-                    "role": "Developer"
+                    "homepage": "http://andreas.heigl.org"
                 }
             ],
             "description": "Word-Hyphenation for PHP based on the TeX-Hyphenation algorithm",
@@ -2667,16 +2667,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.15",
+            "version": "v2.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09"
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/10bcb46e8f3d365170f6de9d05245aa066b81f09",
-                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
                 "shasum": ""
             },
             "require": {
@@ -2712,7 +2712,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-06-08T15:26:40+00:00"
+            "time": "2019-01-03T20:59:08+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -4237,16 +4237,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v3.4.12",
+            "version": "v3.4.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "1c28679fcbb0d9b35e4fd49fbb74d2ca4ea17bce"
+                "reference": "8cfbf75bb3a72963b12c513a73e9247891df24f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/1c28679fcbb0d9b35e4fd49fbb74d2ca4ea17bce",
-                "reference": "1c28679fcbb0d9b35e4fd49fbb74d2ca4ea17bce",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/8cfbf75bb3a72963b12c513a73e9247891df24f8",
+                "reference": "8cfbf75bb3a72963b12c513a73e9247891df24f8",
                 "shasum": ""
             },
             "require": {
@@ -4287,7 +4287,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-06-21T11:10:19+00:00"
+            "time": "2019-06-22T20:10:25+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -4489,16 +4489,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.8.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fe5e94c604826c35a32fa832f35bd036b6799609",
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609",
                 "shasum": ""
             },
             "require": {
@@ -4510,7 +4510,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
@@ -4544,30 +4544,30 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26T10:06:28+00:00"
+            "time": "2019-02-06T07:57:58+00:00"
         },
         {
             "name": "symfony/polyfill-php70",
-            "version": "v1.8.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php70.git",
-                "reference": "77454693d8f10dd23bb24955cffd2d82db1007a6"
+                "reference": "bc4858fb611bda58719124ca079baff854149c89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/77454693d8f10dd23bb24955cffd2d82db1007a6",
-                "reference": "77454693d8f10dd23bb24955cffd2d82db1007a6",
+                "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/bc4858fb611bda58719124ca079baff854149c89",
+                "reference": "bc4858fb611bda58719124ca079baff854149c89",
                 "shasum": ""
             },
             "require": {
-                "paragonie/random_compat": "~1.0|~2.0",
+                "paragonie/random_compat": "~1.0|~2.0|~9.99",
                 "php": ">=5.3.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
@@ -4603,7 +4603,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26T10:06:28+00:00"
+            "time": "2019-02-06T07:57:58+00:00"
         },
         {
             "name": "symfony/process",
@@ -5237,16 +5237,16 @@
             "time": "2017-06-21T11:44:53+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "v1.6.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
+                "url": "https://github.com/bovigo/vfsStream.git",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
+                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "shasum": ""
             },
@@ -5274,8 +5274,8 @@
             "authors": [
                 {
                     "name": "Frank Kleine",
-                    "homepage": "http://frankkleine.de/",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "http://frankkleine.de/"
                 }
             ],
             "description": "Virtual file system to mock the real file system in unit tests.",
@@ -6000,8 +6000,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -6070,6 +6070,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-05-29T13:50:43+00:00"
         },
         {
