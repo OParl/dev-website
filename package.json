@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "axios": "^0.18",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "^3.4.1",
     "buefy": "^0.6.6",
     "cross-env": "^5.2.0",
     "flag-icon-css": "^2.9.0",
