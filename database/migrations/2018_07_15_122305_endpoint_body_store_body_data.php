@@ -16,7 +16,6 @@ class EndpointBodyStoreBodyData extends Migration
         Schema::table('endpoint_bodies', function (Blueprint $table) {
             $table->string('license')->nullable();
             $table->json('json')->nullable();
-            $table->string('website')->nullable();
         });
     }
 
@@ -28,7 +27,7 @@ class EndpointBodyStoreBodyData extends Migration
     public function down()
     {
         Schema::table('endpoint_bodies', function (Blueprint $table) {
-            $table->dropColumn(['json', 'license', 'website']);
+            $table->dropColumn(['json', 'license']);
         });
     }
 }
