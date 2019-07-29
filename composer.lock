@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "6fecc21f0fdfe0a57153ab4b2da200de",
@@ -870,12 +870,12 @@
             "version": "v0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/eFrane/SymfonyConsoleAdditions.git",
+                "url": "https://github.com/eFrane/ConsoleAdditions.git",
                 "reference": "98c7ee7abfa1f594b75eec17aad0119385905647"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/SymfonyConsoleAdditions/zipball/98c7ee7abfa1f594b75eec17aad0119385905647",
+                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/98c7ee7abfa1f594b75eec17aad0119385905647",
                 "reference": "98c7ee7abfa1f594b75eec17aad0119385905647",
                 "shasum": ""
             },
@@ -1103,9 +1103,9 @@
             "authors": [
                 {
                     "name": "Oscar Otero",
+                    "role": "Developer",
                     "email": "oom@oscarotero.com",
-                    "homepage": "http://oscarotero.com",
-                    "role": "Developer"
+                    "homepage": "http://oscarotero.com"
                 }
             ],
             "description": "PHP library to retrieve page info using oembed, opengraph, etc",
@@ -1709,8 +1709,8 @@
             "authors": [
                 {
                     "name": "Jeremy Kendall",
-                    "homepage": "http://about.me/jeremykendall",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "http://about.me/jeremykendall"
                 },
                 {
                     "name": "Contributors",
@@ -2652,9 +2652,9 @@
             "authors": [
                 {
                     "name": "Andreas Heigl",
+                    "role": "developer",
                     "email": "andreas@heigl.org",
-                    "homepage": "http://andreas.heigl.org",
-                    "role": "Developer"
+                    "homepage": "http://andreas.heigl.org"
                 }
             ],
             "description": "Word-Hyphenation for PHP based on the TeX-Hyphenation algorithm",
@@ -3959,16 +3959,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.4.12",
+            "version": "v3.4.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "d2ce52290b648ae33b5301d09bc14ee378612914"
+                "reference": "8ca29297c29b64fb3a1a135e71cb25f67f9fdccf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/d2ce52290b648ae33b5301d09bc14ee378612914",
-                "reference": "d2ce52290b648ae33b5301d09bc14ee378612914",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/8ca29297c29b64fb3a1a135e71cb25f67f9fdccf",
+                "reference": "8ca29297c29b64fb3a1a135e71cb25f67f9fdccf",
                 "shasum": ""
             },
             "require": {
@@ -3994,12 +3994,12 @@
             ],
             "authors": [
                 {
-                    "name": "Jean-François Simon",
-                    "email": "jeanfrancois.simon@sensiolabs.com"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
                 },
                 {
                     "name": "Symfony Community",
@@ -4008,7 +4008,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16T12:49:49+00:00"
+            "time": "2019-01-16T09:39:14+00:00"
         },
         {
             "name": "symfony/debug",
@@ -5237,16 +5237,16 @@
             "time": "2017-06-21T11:44:53+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "v1.6.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
+                "url": "https://github.com/bovigo/vfsStream.git",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
+                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "shasum": ""
             },
@@ -5274,8 +5274,8 @@
             "authors": [
                 {
                     "name": "Frank Kleine",
-                    "homepage": "http://frankkleine.de/",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "http://frankkleine.de/"
                 }
             ],
             "description": "Virtual file system to mock the real file system in unit tests.",
@@ -5730,8 +5730,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -6000,8 +6000,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -6070,6 +6070,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-05-29T13:50:43+00:00"
         },
         {
