@@ -88,6 +88,7 @@ trait InteractsWithRepositoryTrait
      */
     public function runSynchronousCommand($path, $cmd, &$output = null)
     {
+        fwrite(STDERR, "Started `" . $cmd . "`");
         $process = new Process($cmd, $path);
 
         $process->setTimeout(300);
@@ -101,6 +102,8 @@ trait InteractsWithRepositoryTrait
             \Log::error($stdout);
             \Log::error($stderr);
         }
+
+        fwrite(STDERR, "Finished `" . $cmd . "`");
 
         return $process->isSuccessful();
     }
