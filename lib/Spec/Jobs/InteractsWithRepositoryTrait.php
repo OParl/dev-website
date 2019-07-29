@@ -90,14 +90,14 @@ trait InteractsWithRepositoryTrait
     {
         $process = new Process($cmd, $path);
 
-        $process->setTimeout(900);
+        $process->setTimeout(300);
         $process->start();
         $process->wait();
 
         if (!$process->isSuccessful()) {
             $stdout = $process->getOutput();
             $stderr = $process->getErrorOutput();
-            fwrite(STDERR, "Subprocess failed:\n--- Stdout:\n" . $stdout . "\n--- Stderr:\n" . $stderr);
+            fwrite(STDERR, "Subprocess `" . $cmd . "` failed:\n--- Stdout:\n" . $stdout . "\n--- Stderr:\n" . $stderr);
             \Log::error($stdout);
             \Log::error($stderr);
         }
