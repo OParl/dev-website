@@ -95,8 +95,8 @@ trait InteractsWithRepositoryTrait
         $process->wait();
 
         if (!$process->isSuccessful()) {
-            $output = $process->getOutput();
-            \Log::error($output);
+            \Log::error($process->getOutput());
+            \Log::error($process->getErrorOutput());
         }
 
         return $process->getExitCode() === 0;
