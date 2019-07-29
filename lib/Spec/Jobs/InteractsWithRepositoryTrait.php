@@ -95,11 +95,14 @@ trait InteractsWithRepositoryTrait
         $process->wait();
 
         if (!$process->isSuccessful()) {
-            \Log::error($process->getOutput());
-            \Log::error($process->getErrorOutput());
+            $stdout = $process->getOutput();
+            $stderr = $process->getErrorOutput();
+            fwrite(STDERR, "Subprocess failed:\n--- Stdout:\n" . $stdout . "\n--- Stderr:\n" . $stderr);
+            \Log::error($stdout);
+            \Log::error($stderr);
         }
 
-        return $process->getExitCode() === 0;
+        return $process->isSuccessful();
     }
 
     /**
