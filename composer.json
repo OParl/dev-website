@@ -46,7 +46,7 @@
     "doctrine/dbal": "^2.5",
     "dompdf/dompdf": "^0.8.0",
     "efrane/base-x": "^0.2",
-    "efrane/console-additions": "^0.3.0",
+    "efrane/console-additions": "^0.5.0",
     "efrane/letterpress": "dev-master",
     "efrane/transfugio": "^0.7",
     "fzaninotto/faker": "^1.6",

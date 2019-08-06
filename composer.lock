@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fecc21f0fdfe0a57153ab4b2da200de",
+    "content-hash": "ed4196638b526ab1c6194e16a95c0ae6",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -821,27 +821,29 @@
         },
         {
             "name": "efrane/console-additions",
-            "version": "v0.3.1",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/ConsoleAdditions.git",
-                "reference": "48a10fc7c57e8e6b7d753a3732c93ede0caea90e"
+                "reference": "fe9ccd6da8a07627bb697364d5a07f978edc0f4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/48a10fc7c57e8e6b7d753a3732c93ede0caea90e",
-                "reference": "48a10fc7c57e8e6b7d753a3732c93ede0caea90e",
+                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/fe9ccd6da8a07627bb697364d5a07f978edc0f4d",
+                "reference": "fe9ccd6da8a07627bb697364d5a07f978edc0f4d",
                 "shasum": ""
             },
             "require": {
-                "symfony/console": "^2.7|^3.3"
+                "symfony/console": ">=2.7"
             },
             "require-dev": {
                 "league/flysystem": "^1.0",
-                "phpunit/phpunit": "^6.4"
+                "phpunit/phpunit": "^6.4",
+                "symfony/process": ">=2.7"
             },
             "suggest": {
-                "league/flysystem": "To use the FlysystemFileOutput"
+                "league/flysystem": "To use the FlysystemFileOutput",
+                "symfony/process": "To add shell commands to Batch"
             },
             "type": "library",
             "autoload": {
@@ -868,7 +870,7 @@
                 "symfony",
                 "tools"
             ],
-            "time": "2018-07-10T05:31:36+00:00"
+            "time": "2019-07-21T16:31:01+00:00"
         },
         {
             "name": "efrane/letterpress",
@@ -1058,9 +1060,9 @@
             "authors": [
                 {
                     "name": "Oscar Otero",
+                    "role": "Developer",
                     "email": "oom@oscarotero.com",
-                    "homepage": "http://oscarotero.com",
-                    "role": "Developer"
+                    "homepage": "http://oscarotero.com"
                 }
             ],
             "description": "PHP library to retrieve page info using oembed, opengraph, etc",
@@ -1671,8 +1673,8 @@
             "authors": [
                 {
                     "name": "Jeremy Kendall",
-                    "homepage": "http://about.me/jeremykendall",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "http://about.me/jeremykendall"
                 },
                 {
                     "name": "Contributors",
@@ -2667,9 +2669,9 @@
             "authors": [
                 {
                     "name": "Andreas Heigl",
+                    "role": "developer",
                     "email": "andreas@heigl.org",
-                    "homepage": "http://andreas.heigl.org",
-                    "role": "Developer"
+                    "homepage": "http://andreas.heigl.org"
                 }
             ],
             "description": "Word-Hyphenation for PHP based on the TeX-Hyphenation algorithm",
@@ -5277,8 +5279,8 @@
             "authors": [
                 {
                     "name": "Tijs Verkoyen",
-                    "email": "css_to_inline_styles@verkoyen.eu",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "css_to_inline_styles@verkoyen.eu"
                 }
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
@@ -5793,18 +5795,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -6043,8 +6045,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -6091,8 +6093,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sb@sebastian-bergmann.de"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -6133,8 +6135,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Simple template engine.",
@@ -6182,8 +6184,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sb@sebastian-bergmann.de"
                 }
             ],
             "description": "Utility class for timing",
@@ -6937,8 +6939,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
