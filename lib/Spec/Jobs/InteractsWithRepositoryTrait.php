@@ -88,7 +88,6 @@ trait InteractsWithRepositoryTrait
      */
     public function runSynchronousCommand($path, $cmd, &$output = null)
     {
-        fwrite(STDERR, "Started `" . $cmd . "`");
         $process = new Process($cmd, $path);
 
         $process->setTimeout(300);
@@ -98,12 +97,9 @@ trait InteractsWithRepositoryTrait
         if (!$process->isSuccessful()) {
             $stdout = $process->getOutput();
             $stderr = $process->getErrorOutput();
-            fwrite(STDERR, "Subprocess `" . $cmd . "` failed:\n--- Stdout:\n" . $stdout . "\n--- Stderr:\n" . $stderr);
             \Log::error($stdout);
             \Log::error($stderr);
         }
-
-        fwrite(STDERR, "Finished `" . $cmd . "`");
 
         return $process->isSuccessful();
     }
