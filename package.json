@@ -17,7 +17,7 @@
     "prism-themes": "^1.0.1",
     "prismjs": "^1.15.0",
     "vue": "^2.5.16",
-    "vue-affix": "^0.2.4",
+    "vue-affix": "^0.5.2",
     "vue-clipboard2": "0.0.6"
   },
   "babel": {
