@@ -7,7 +7,7 @@
     "vue-loader": "^14.2.3"
   },
   "devDependencies": {
-    "axios": "^0.18",
+    "axios": "^0.19",
     "bootstrap-sass": "^3.3.7",
     "buefy": "^0.8.2",
     "cross-env": "^5.2.0",
