@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd4554fe19d3dd631d31f9fb407620ad",
+    "content-hash": "3ff7d0c2700d0f77429efadd521ebfa7",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -5183,20 +5183,20 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.30",
+            "version": "v4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "051d045c684148060ebfc9affb7e3f5e0899d40b"
+                "reference": "34d29c2acd1ad65688f58452fd48a46bd996d5a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/051d045c684148060ebfc9affb7e3f5e0899d40b",
-                "reference": "051d045c684148060ebfc9affb7e3f5e0899d40b",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/34d29c2acd1ad65688f58452fd48a46bd996d5a6",
+                "reference": "34d29c2acd1ad65688f58452fd48a46bd996d5a6",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8",
+                "php": "^7.1.3",
                 "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
@@ -5211,7 +5211,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "4.3-dev"
                 }
             },
             "autoload": {
@@ -5238,7 +5238,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-24T13:01:31+00:00"
+            "time": "2019-07-24T14:47:54+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -5855,36 +5855,35 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "3.4.3",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "8e72ed3576f6e26baebb2c214a8dba344508e3bd"
+                "reference": "1bf4b5a7cf5fea43288e9283d340f7e1d5b69cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/8e72ed3576f6e26baebb2c214a8dba344508e3bd",
-                "reference": "8e72ed3576f6e26baebb2c214a8dba344508e3bd",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/1bf4b5a7cf5fea43288e9283d340f7e1d5b69cae",
+                "reference": "1bf4b5a7cf5fea43288e9283d340f7e1d5b69cae",
                 "shasum": ""
             },
             "require": {
-                "doctrine/instantiator": "^1.0.1",
+                "doctrine/instantiator": "^1.0.5",
                 "ext-tokenizer": "*",
-                "php": "^5.6 || ^7.0",
+                "php": "^7.1, <7.4",
                 "phpspec/php-diff": "^1.0.0",
-                "phpspec/prophecy": "^1.5",
+                "phpspec/prophecy": "^1.7",
                 "sebastian/exporter": "^1.0 || ^2.0 || ^3.0",
-                "symfony/console": "^2.7 || ^3.0",
-                "symfony/event-dispatcher": "^2.7 || ^3.0",
-                "symfony/finder": "^2.7 || ^3.0",
-                "symfony/process": "^2.7 || ^3.0",
-                "symfony/yaml": "^2.7 || ^3.0"
+                "symfony/console": "^3.4 || ^4.0",
+                "symfony/event-dispatcher": "^3.4 || ^4.0",
+                "symfony/finder": "^3.4 || ^4.0",
+                "symfony/process": "^3.4 || ^4.0",
+                "symfony/yaml": "^3.4 || ^4.0"
             },
             "require-dev": {
                 "behat/behat": "^3.3",
-                "ciaranmcnulty/versionbasedtestskipper": "^0.2.1",
-                "phpunit/phpunit": "^5.5|^6.0",
-                "symfony/filesystem": "^3.0"
+                "phpunit/phpunit": "^5.7 || ^6.0",
+                "symfony/filesystem": "^3.4 || ^4.0"
             },
             "suggest": {
                 "phpspec/nyan-formatters": "Adds Nyan formatters"
@@ -5895,7 +5894,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "5.1.x-dev"
                 }
             },
             "autoload": {
@@ -5922,7 +5921,7 @@
                     "homepage": "https://ciaranmcnulty.com/"
                 }
             ],
-            "description": "Specification-oriented BDD framework for PHP 5.6+",
+            "description": "Specification-oriented BDD framework for PHP 7.1+",
             "homepage": "http://phpspec.net/",
             "keywords": [
                 "BDD",
@@ -5933,7 +5932,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2017-12-06T09:12:11+00:00"
+            "time": "2019-08-05T10:24:38+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -6604,16 +6603,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "234199f4528de6d12aaa58b612e98f7d36adb937"
+                "reference": "06a9a5947f47b3029d76118eb5c22802e5869687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/234199f4528de6d12aaa58b612e98f7d36adb937",
-                "reference": "234199f4528de6d12aaa58b612e98f7d36adb937",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/06a9a5947f47b3029d76118eb5c22802e5869687",
+                "reference": "06a9a5947f47b3029d76118eb5c22802e5869687",
                 "shasum": ""
             },
             "require": {
@@ -6641,6 +6640,10 @@
             ],
             "authors": [
                 {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de"
+                },
+                {
                     "name": "Jeff Welch",
                     "email": "whatthejeff@gmail.com"
                 },
@@ -6649,16 +6652,12 @@
                     "email": "github@wallbash.com"
                 },
                 {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@2bepublished.at"
-                },
-                {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de"
-                },
-                {
                     "name": "Adam Harvey",
                     "email": "aharvey@php.net"
+                },
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
                 }
             ],
             "description": "Provides the functionality to export PHP variables for visualization",
@@ -6667,7 +6666,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2017-04-03T13:19:02+00:00"
+            "time": "2019-08-11T12:43:14+00:00"
         },
         {
             "name": "sebastian/global-state",
