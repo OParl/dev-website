@@ -18,7 +18,7 @@
     "prismjs": "^1.15.0",
     "vue": "^2.5.16",
     "vue-affix": "^0.5.2",
-    "vue-clipboard2": "0.0.6"
+    "vue-clipboard2": "0.3.0"
   },
   "babel": {
     "presets": [
