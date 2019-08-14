@@ -59,7 +59,7 @@
     "predis/predis": "^1.1",
     "symfony/css-selector": "^3.2",
     "symfony/dom-crawler": "^3.2",
-    "zircote/swagger-php": "^2.0"
+    "zircote/swagger-php": "^3.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~6.0",
