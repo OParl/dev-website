@@ -3510,7 +3510,7 @@ img-loader@^3.0.0:
   dependencies:
     loader-utils "^1.1.0"
 
-immutable@^3.7.6, immutable@^3.x.x:
+immutable@^3.8.1, immutable@^3.x.x:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
   integrity sha1-wkOZUUVbs5kT2vKBN28VMOEErfM=
@@ -5771,12 +5771,12 @@ recast@~0.11.12:
     private "~0.1.5"
     source-map "~0.5.0"
 
-redux-immutable@3.0.8:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/redux-immutable/-/redux-immutable-3.0.8.tgz#df5a5d601c88227ba38f474cf82f7d00e56f8c14"
-  integrity sha1-31pdYByIInujj0dM+C99AOVvjBQ=
+redux-immutable@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/redux-immutable/-/redux-immutable-3.1.0.tgz#cafbd686e0711261119b9c28960935dc47a49d0a"
+  integrity sha1-yvvWhuBxEmERm5wolgk13EeknQo=
   dependencies:
-    immutable "^3.7.6"
+    immutable "^3.8.1"
 
 redux@^3.x.x:
   version "3.7.2"
@@ -6526,10 +6526,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swagger-client@^3.9.3:
-  version "3.9.3"
-  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.9.3.tgz#47e1a32fe45529e818da9f33b70661c93b8bb3a8"
-  integrity sha512-MkSI3oi9fBdpmihgY5Eo3XFzhnE/mryYA9siIykTd1y3xtSMXTxoQjXo3hUEUjp3vtdEW/yLMexUsq7fAjrP7Q==
+swagger-client@^3.9.4:
+  version "3.9.4"
+  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.9.4.tgz#9ce181cf117274122a85fcd97d52adce2aa95b8b"
+  integrity sha512-Rd4BrAUQeVIFYqzg7lkJMpd1P/oMVzcXEaKKaD+hfF8x4ZTTElNClCikD2yjFvmRCx0J2eIWs908kQOPkwc63w==
   dependencies:
     "@babel/runtime-corejs2" "^7.0.0"
     "@kyleshockey/object-assign-deep" "^0.4.0"
@@ -6550,10 +6550,10 @@ swagger-client@^3.9.3:
     utf8-bytes "0.0.1"
     utfstring "^2.0.0"
 
-swagger-ui@^3.23.5:
-  version "3.23.5"
-  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.23.5.tgz#d693e56a95c8a988c38607014822bab2d2de670e"
-  integrity sha512-ZfEONJr/dVCnDWneKrMGZYYdAaytnePYmF/kkDY/JJzFUUHbpj2eqyqVaq19U3Dw9iMJh652p6g3Ij7295Wt8Q==
+swagger-ui@^3.23.7:
+  version "3.23.7"
+  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.23.7.tgz#da7e47ec3fe53713dafce1508d76e441c008fb46"
+  integrity sha512-QDqidtv55Vp1mGHM39iiib5prMdf9wJZ/x+98WpqjyFduGBc3yAN69Ed1XVaYlyCNqp6hwuin8VKmVBzoeO8lA==
   dependencies:
     "@babel/runtime-corejs2" "^7.5.5"
     "@braintree/sanitize-url" "^2.0.2"
@@ -6581,11 +6581,11 @@ swagger-ui@^3.23.5:
     react-motion "^0.5.2"
     react-redux "^4.x.x"
     redux "^3.x.x"
-    redux-immutable "3.0.8"
+    redux-immutable "3.1.0"
     remarkable "^1.7.4"
     reselect "^2.5.4"
     serialize-error "^2.1.0"
-    swagger-client "^3.9.3"
+    swagger-client "^3.9.4"
     url-parse "^1.4.7"
     xml-but-prettier "^1.0.1"
     zenscroll "^4.0.2"
