@@ -50,7 +50,7 @@
     "efrane/letterpress": "dev-master",
     "efrane/transfugio": "^0.7",
     "fzaninotto/faker": "^1.6",
-    "graham-campbell/github": "^6.2",
+    "graham-campbell/github": "^8.2",
     "guzzlehttp/guzzle": "^6.2",
     "laravel/framework": "5.5.*",
     "laravel/tinker": "^1.0",
