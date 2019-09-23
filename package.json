@@ -3,7 +3,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0",
     "moment": "^2.22.2",
-    "swagger-ui": "^3.23.5",
+    "swagger-ui": "^3.23.11",
     "vue-loader": "^14.2.3"
   },
   "devDependencies": {
