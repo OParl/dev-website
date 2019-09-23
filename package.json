@@ -11,7 +11,7 @@
     "bootstrap-sass": "^3.3.7",
     "buefy": "^0.8.2",
     "cross-env": "^5.2.0",
-    "flag-icon-css": "^3.3.0",
+    "flag-icon-css": "^3.4.0",
     "laravel-mix": "^4.1",
     "lodash": "^4.17.10",
     "prism-themes": "^1.0.1",
