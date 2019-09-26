@@ -5459,10 +5459,10 @@ prettier@^1.16.0:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
   integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
 
-prism-themes@^1.0.1:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/prism-themes/-/prism-themes-1.1.0.tgz#9f4fadf0c9c7ee415773717ea69c2aaa25aedbfd"
-  integrity sha512-xBkflbKbstGGasW3P68KQzAuObLQeH//I5mn37jKVHVDrRLp4Xct/n8F/tV5h+CKIMa3nDAZ2q0bt8ItSiS72A==
+prism-themes@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/prism-themes/-/prism-themes-1.2.0.tgz#a9f5e5e14a82d7cf4fa77a43f8ddcce72952799e"
+  integrity sha512-Y+xZs8u++9IHPZOIaeQ6itdTuDMNcGv0tMIO8MA6AlV9ZocdBvhy1JU6SE/Yzg+8RwSvWLYDQx85ardSKxo/9g==
 
 prismjs@^1.15.0:
   version "1.17.1"
