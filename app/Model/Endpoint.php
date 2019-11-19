@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Endpoint.
  *
- * * @SWG\Definition(
+ * * @OA\Schema(
  *     type="object",
- *     definition="Endpoint",
+ *     schema="Endpoint",
  *     example={
  *         "url": "https://example.com/api",
  *         "title": "Example.com OParl API",
@@ -20,17 +20,17 @@ use Illuminate\Database\Eloquent\Model;
  *         "url",
  *         "title"
  *     },
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="url",
  *         type="string",
  *         description="The OParl endpoint's entrypoint"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="title",
  *         type="string",
  *         description="The OParl endpoint's name"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="description",
  *         type="string",
  *         description="Optional detailed endpoint description"
@@ -67,7 +67,7 @@ class Endpoint extends Model
     ];
 
     /**
-     * @SWG\Property( property="bodies", type="array", @SWG\Items( ref="#/definitions/EndpointBody" ))
+     * @OA\Property( property="bodies", type="array", @OA\Items( ref="#/components/schemas/EndpointBody" ))
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -77,7 +77,7 @@ class Endpoint extends Model
     }
 
     /**
-     * @SWG\Property(
+     * @OA\Property(
      *   property="fetched",
      *   type="string",
      *   description="ISO 8601-conform timestamp of when this endpoint information was last updated"

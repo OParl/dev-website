@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 class EndpointApiController
 {
     /**
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/endpoints",
      *     tags={ "endpoints" },
      *     summary="list endpoints",
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="200",
      *         description="A listing of known OParl endpoints",
-     *         @SWG\Schema(
-     *              @SWG\Property( property="data", type="array", @SWG\Items( ref="#/definitions/Endpoint" ))
+     *         @OA\Schema(
+     *              @OA\Property( property="data", type="array", @OA\Items( ref="#/definitions/Endpoint" ))
      *         )
      *     )
      * )
