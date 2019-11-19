@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class EndpointBody.
  *
- * @SWG\Definition(
+ * @OA\Schema(
  *     type="object",
- *     definition="EndpointBody",
+ *     schema="EndpointBody",
  *     required={
  *          "oparlURL",
  *          "name",
  *     },
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="name",
  *         type="string",
  *         description="Official name of the body"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="website",
  *         type="string",
  *         description="The body's website"
@@ -59,7 +59,7 @@ class EndpointBody extends Model
     }
 
     /**
-     * @SWG\Property(
+     * @OA\Property(
      *   property="oparlURL",
      *   type="string",
      *   description="Link to the OParl entity referencing this body"

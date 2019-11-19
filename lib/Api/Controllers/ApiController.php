@@ -2,23 +2,21 @@
 
 namespace OParl\Website\Api\Controllers;
 
-use function Swagger\scan;
+use OpenApi\Annotations as OA;
+use function OpenApi\scan;
 
 /**
- * @SWG\Swagger(
- *     schemes={"https"},
- *     host=SWAGGER_API_HOST,
- *     basePath="/api/",
- *     @SWG\Info(
+ * @OA\OpenApi(
+ *     openapi="3.0.0",
+ *     @OA\Info(
  *         title="OParl Developer Platform API",
  *         description="Meta information concerning the OParl ecosystem",
  *         version="0",
- *         @SWG\License(
+ *         @OA\License(
  *             name="CC-4.0-BY",
  *             url="https://creativecommons.org/licenses/by/4.0/"
  *         )
- *     ),
- *     produces={ "application/json" }
+ *     )
  * )
  */
 class ApiController
