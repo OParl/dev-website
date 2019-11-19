@@ -2,7 +2,6 @@
 
 namespace OParl\Website\Api\Controllers;
 
-use OpenApi\Annotations as OA;
 use function OpenApi\scan;
 
 /**
@@ -28,13 +27,17 @@ class ApiController
      */
     public function swaggerJson()
     {
-        define('SWAGGER_API_HOST', 'dev.' . config('app.url'));
+        define('SWAGGER_API_HOST', 'dev.'.config('app.url'));
         $swagger = scan([base_path('lib/Api/Controllers'), app_path('Model')]);
 
-        return response($swagger, 200, [
-            'Content-Type'                => 'application/json',
-            'Access-Control-Allow-Origin' => '*',
-        ]);
+        return response(
+            $swagger,
+            200,
+            [
+                'Content-Type'                 => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+            ]
+        );
     }
 
     /**
