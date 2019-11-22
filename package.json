@@ -22,7 +22,7 @@
     "sass-loader": "8.*",
     "vue": "^2.5.16",
     "vue-affix": "^0.5.2",
-    "vue-clipboard2": "0.3.0"
+    "vue-clipboard2": "0.3.1"
   },
   "engines": {
     "npm": ">= 5.0.0",

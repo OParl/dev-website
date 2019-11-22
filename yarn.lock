@@ -7211,10 +7211,10 @@ vue-affix@^0.5.2:
   resolved "https://registry.yarnpkg.com/vue-affix/-/vue-affix-0.5.2.tgz#1f22f36262e3b867788adb00ae5bc3c3d12ea64b"
   integrity sha512-60TedWOHHuqTpaZsTni9yyc+FwH4qP/Kjt6QegK7Hv1G+tP/CJ7+K1mTRsrEJkjUq55Q0a7hjHTblv+Y+u4o0Q==
 
-vue-clipboard2@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/vue-clipboard2/-/vue-clipboard2-0.3.0.tgz#b04d3f9a2d46f12ca85178445930b38463640b22"
-  integrity sha512-6/Y9NJErWb4LNBLMgsJSdKb7KpF6/jqXagvKlYut6VQzQsNj6515FpwH0r5hhmeJMqaPzf1kxAw8L8Qvw/QBJQ==
+vue-clipboard2@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/vue-clipboard2/-/vue-clipboard2-0.3.1.tgz#6e551fb7bd384889b28b0da3b12289ed6bca4894"
+  integrity sha512-H5S/agEDj0kXjUb5GP2c0hCzIXWRBygaWLN3NEFsaI9I3uWin778SFEMt8QRXiPG+7anyjqWiw2lqcxWUSfkYg==
   dependencies:
     clipboard "^2.0.0"
 
