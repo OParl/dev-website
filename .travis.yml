@@ -28,9 +28,6 @@ addons:
     - texlive-luatex
     - texlive-xetex
 
-install:
-- npm i -g npm
-
 before_script:
 - composer global require hirak/prestissimo
 - composer install --no-interaction --no-scripts --no-suggest

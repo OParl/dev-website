@@ -72,9 +72,9 @@ class SetupCommand extends Command
             }
         }
 
-        $this->runExternalCommand('npm install');
+        $this->runExternalCommand('yarn');
         $nodeEnv = (config('app.env') === 'production') ? 'prod' : 'dev';
-        $this->runExternalCommand("npm run {$nodeEnv}");
+        $this->runExternalCommand("yarn {$nodeEnv}");
 
         $this->call('up');
     }

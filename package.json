@@ -16,9 +16,13 @@
     "lodash": "^4.17.10",
     "prism-themes": "^1.0.1",
     "prismjs": "^1.15.0",
+    "resolve-url-loader": "3.1.0",
+    "sass": "^1.23.6",
+    "sass-loader": "7.*",
     "vue": "^2.5.16",
     "vue-affix": "^0.5.2",
-    "vue-clipboard2": "0.3.0"
+    "vue-clipboard2": "0.3.0",
+    "vue-template-compiler": "^2.6.10"
   },
   "babel": {
     "presets": [
