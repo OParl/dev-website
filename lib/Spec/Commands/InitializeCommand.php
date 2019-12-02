@@ -8,7 +8,7 @@
 
 namespace OParl\Spec\Commands;
 
-use EFrane\ConsoleAdditions\Command\Batch;
+use EFrane\ConsoleAdditions\Batch\Batch;
 use OParl\Spec\OParlVersions;
 
 class InitializeCommand extends Command
