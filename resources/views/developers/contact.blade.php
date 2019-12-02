@@ -10,7 +10,7 @@
 
         <ul class="list-unstyled">
             <li>
-                <i class="fa fa-github" aria-hidden="true"></i>
+                <i class="fab fa-github" aria-hidden="true"></i>
                 <a href="https://github.com/OParl">GitHub</a>
                 <p>
                     @lang('app.contact.github')
