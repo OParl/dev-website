@@ -5,7 +5,7 @@
     "moment": "^2.22.2",
     "swagger-ui": "^3.23.11",
     "vue-loader": "^14.2.3",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.11"
   },
   "devDependencies": {
     "axios": "^0.19",
@@ -20,7 +20,7 @@
     "resolve-url-loader": "3.1.1",
     "sass": "^1.23.7",
     "sass-loader": "8.*",
-    "vue": "^2.5.16",
+    "vue": "^2.6.11",
     "vue-affix": "^0.5.2",
     "vue-clipboard2": "0.3.1"
   },
