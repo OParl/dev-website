@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use EFrane\ConsoleAdditions\Command\Batch;
+use EFrane\ConsoleAdditions\Batch\Batch;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 
@@ -23,10 +23,12 @@ class SetupCommand extends Command
         }
 
         try {
-            foreach ([
-                         config('database.connections.sqlite.database'),
-                         config('database.connections.sqlite_demo.database'),
-                     ] as $databaseFile) {
+            $databaseFiles = [
+                config('database.connections.sqlite.database'),
+                config('database.connections.sqlite_demo.database'),
+            ];
+
+            foreach ($databaseFiles as $databaseFile) {
                 $this->info('Creating a database @ ' . $databaseFile);
                 touch($databaseFile);
             }
@@ -53,13 +55,15 @@ class SetupCommand extends Command
             $this->error('Errors occured while initializing the OParl components: ' . $e);
         }
 
-        foreach ([
-                     'app',
-                     'framework/cache',
-                     'framework/sessions',
-                     'framework/views',
-                     'logs',
-                 ] as $dir) {
+        $requiredDirs = [
+            'app',
+            'framework/cache',
+            'framework/sessions',
+            'framework/views',
+            'logs',
+        ];
+
+        foreach ($requiredDirs as $dir) {
             $dir = storage_path($dir);
             if (!is_dir($dir)) {
                 $this->info("Creating {$dir}");

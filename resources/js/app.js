@@ -10,7 +10,7 @@ import VueClipboard2 from 'vue-clipboard2'
 
 Vue.use(Buefy, {
     defaultContainerElement: '#app',
-    defaultIconPack: 'fas'
+    defaultIconPack: 'fab'
 });
 
 Vue.use(VueClipboard2);

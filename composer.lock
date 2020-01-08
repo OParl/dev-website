@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39a2f80a8e9a61155cc968fb67023310",
+    "content-hash": "7f8770fc482a8a2830021721dbc3695c",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -821,24 +821,24 @@
         },
         {
             "name": "efrane/console-additions",
-            "version": "v0.5.0",
+            "version": "v0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/ConsoleAdditions.git",
-                "reference": "fe9ccd6da8a07627bb697364d5a07f978edc0f4d"
+                "reference": "9338bfc8f1e9dd137eeb9455c1073857795b9241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/fe9ccd6da8a07627bb697364d5a07f978edc0f4d",
-                "reference": "fe9ccd6da8a07627bb697364d5a07f978edc0f4d",
+                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/9338bfc8f1e9dd137eeb9455c1073857795b9241",
+                "reference": "9338bfc8f1e9dd137eeb9455c1073857795b9241",
                 "shasum": ""
             },
             "require": {
-                "symfony/console": ">=2.7"
+                "symfony/console": ">=3.4"
             },
             "require-dev": {
                 "league/flysystem": "^1.0",
-                "phpunit/phpunit": "^6.4",
+                "phpunit/phpunit": "^6.4 || ^8.0",
                 "symfony/process": ">=2.7"
             },
             "suggest": {
@@ -870,7 +870,7 @@
                 "symfony",
                 "tools"
             ],
-            "time": "2019-07-21T16:31:01+00:00"
+            "time": "2019-09-21T16:44:09+00:00"
         },
         {
             "name": "efrane/letterpress",
@@ -3361,6 +3361,7 @@
                 "piwik",
                 "tracker"
             ],
+            "abandoned": "matomo/matomo-php-tracker",
             "time": "2018-10-12T00:37:52+00:00"
         },
         {
@@ -3957,16 +3958,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.30",
+            "version": "v3.4.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "12940f20a816c978860fa4925b3f1bbb27e9ac46"
+                "reference": "17b154f932c5874cdbda6d05796b6490eec9f9f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/12940f20a816c978860fa4925b3f1bbb27e9ac46",
-                "reference": "12940f20a816c978860fa4925b3f1bbb27e9ac46",
+                "url": "https://api.github.com/repos/symfony/console/zipball/17b154f932c5874cdbda6d05796b6490eec9f9f7",
+                "reference": "17b154f932c5874cdbda6d05796b6490eec9f9f7",
                 "shasum": ""
             },
             "require": {
@@ -4025,7 +4026,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-24T14:46:41+00:00"
+            "time": "2019-11-13T07:12:39+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -5712,16 +5713,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031"
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/4eff936d83eb809bde2c57a3cea0ee9643769031",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/b3453f75fd23d9fd41685f2148f4abeacabc6405",
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405",
                 "shasum": ""
             },
             "require": {
@@ -5735,7 +5736,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -5773,7 +5774,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2019-08-07T15:01:07+00:00"
+            "time": "2019-09-30T08:30:27+00:00"
         },
         {
             "name": "myclabs/deep-copy",

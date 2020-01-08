@@ -1,23 +1,23 @@
 {
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.1.0",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "moment": "^2.22.2",
-    "swagger-ui": "^3.23.5",
+    "swagger-ui": "^3.23.11",
     "vue-loader": "^14.2.3",
     "vue-template-compiler": "^2.6.10"
   },
   "devDependencies": {
     "axios": "^0.19",
     "bootstrap-sass": "^3.3.7",
-    "buefy": "^0.8.2",
-    "cross-env": "^5.2.0",
+    "buefy": "^0.8.9",
+    "cross-env": "^6.0.3",
     "flag-icon-css": "^3.3.0",
     "laravel-mix": "^5.0",
     "lodash": "^4.17.10",
     "prism-themes": "^1.0.1",
     "prismjs": "^1.15.0",
-    "resolve-url-loader": "3.1.0",
+    "resolve-url-loader": "3.1.1",
     "sass": "^1.23.7",
     "sass-loader": "8.*",
     "vue": "^2.5.16",
