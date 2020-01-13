@@ -24,4 +24,8 @@
 
     <hr>
     <endpoint-statistics :endpoints="endpoints"></endpoint-statistics>
-@endsection
+@stop
+
+@section ('bundle')
+    <script src="{{ mix('js/endpoints.js') }}"></script>
+@overwrite

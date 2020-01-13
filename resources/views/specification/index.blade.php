@@ -31,3 +31,7 @@
         </div>
     </div>
 @stop
+
+@section ('bundle')
+    <script src="{{ asset('js/spec.js') }}"></script>
+@overwrite
