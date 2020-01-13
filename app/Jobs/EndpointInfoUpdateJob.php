@@ -100,6 +100,9 @@ class EndpointInfoUpdateJob implements ShouldQueue
                 )
             );
 
+            // set system to empty json object in case non could be fetched
+            $endpoint->system = [];
+
             $this->fail();
         }
     }

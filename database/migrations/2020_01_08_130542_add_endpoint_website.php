@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EndpointBodyStoreBodyData extends Migration
+class AddEndpointWebsite extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class EndpointBodyStoreBodyData extends Migration
     public function up()
     {
         Schema::table('endpoint_bodies', function (Blueprint $table) {
-            $table->string('license')->nullable();
-            $table->json('json')->nullable();
+            $table->string('website')->nullable();
         });
     }
 
@@ -27,7 +26,7 @@ class EndpointBodyStoreBodyData extends Migration
     public function down()
     {
         Schema::table('endpoint_bodies', function (Blueprint $table) {
-            // $table->dropColumn(['json', 'license']);
+            $table->dropColumn(['website']);
         });
     }
 }
