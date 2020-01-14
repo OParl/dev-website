@@ -38,7 +38,6 @@ before_script:
 script: vendor/bin/phpunit
 
 after_script:
-- deactivate
 - cat storage/logs/laravel-$(date +"%Y-%m-%d").log
 
 cache:
