@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d8c64e31a263079a0edbcca5b7ecfd2",
+    "content-hash": "2037d49058d98acda21181392f3013d7",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -3347,16 +3347,16 @@
         },
         {
             "name": "piwik/piwik-php-tracker",
-            "version": "1.5.2",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/matomo-php-tracker.git",
-                "reference": "314e6d00039cb9d99837c81cdf4cbcd19f5683e0"
+                "reference": "95eeeb23be256d488b45cc90dda324726574e692"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/matomo-php-tracker/zipball/314e6d00039cb9d99837c81cdf4cbcd19f5683e0",
-                "reference": "314e6d00039cb9d99837c81cdf4cbcd19f5683e0",
+                "url": "https://api.github.com/repos/matomo-org/matomo-php-tracker/zipball/95eeeb23be256d488b45cc90dda324726574e692",
+                "reference": "95eeeb23be256d488b45cc90dda324726574e692",
                 "shasum": ""
             },
             "type": "library",
@@ -3371,20 +3371,21 @@
             ],
             "authors": [
                 {
-                    "name": "The Piwik Team",
-                    "email": "hello@piwik.org",
-                    "homepage": "http://piwik.org/the-piwik-team/"
+                    "name": "The Matomo Team",
+                    "email": "hello@matomo.org",
+                    "homepage": "https://matomo.org/team/"
                 }
             ],
-            "description": "PHP Client for Piwik Analytics Tracking API",
-            "homepage": "http://piwik.org",
+            "description": "PHP Client for Matomo Analytics Tracking API",
+            "homepage": "https://matomo.org",
             "keywords": [
                 "analytics",
+                "matomo",
                 "piwik",
                 "tracker"
             ],
             "abandoned": "matomo/matomo-php-tracker",
-            "time": "2019-12-23T21:48:04+00:00"
+            "time": "2020-01-02T10:10:42+00:00"
         },
         {
             "name": "predis/predis",
