@@ -14,7 +14,9 @@ class AddEndpointWebsite extends Migration
     public function up()
     {
         Schema::table('endpoint_bodies', function (Blueprint $table) {
-            $table->string('website')->nullable();
+            if (!Schema::hasColumn('endpoint_bodies', 'website')) {
+                $table->string('website')->nullable();
+            }
         });
     }
 
