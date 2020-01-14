@@ -41,6 +41,8 @@ class UpdateResourcesCommand extends Command
      */
     public function handle()
     {
+        $this->info('Updating validator');
+
         $this->dispatch(new ResourcesUpdateJob());
 
         return 0;
