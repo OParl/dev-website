@@ -24,8 +24,8 @@ class TrackNonWebRequest
         /* @var \Illuminate\Http\Response $response */
         $response = $next($request);
 
-        if (class_exists('\PiwikTracker')) {
-            $tracker = new \PiwikTracker(config('piwik.siteId'), config('piwik.url'));
+        if (class_exists('\MatomoTracker')) {
+            $tracker = new \MatomoTracker(config('piwik.siteId'), config('piwik.url'));
             try {
                 $tracker->doTrackPageView('demoapi:'.$request->getRequestUri());
             } catch (\Exception $e) {
