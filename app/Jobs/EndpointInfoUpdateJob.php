@@ -88,7 +88,13 @@ class EndpointInfoUpdateJob implements ShouldQueue
     {
         try {
             $guzzle = new Client();
-            $systemResponse = $guzzle->get($endpoint->url);
+
+            $systemResponse = $guzzle->get($endpoint->url, [
+                // fail relatively fast on unreachable systems
+                'connect_timeout' => 5,
+                'timeout' => 2
+            ]);
+
             $systemJson = json_decode((string)$systemResponse->getBody(), true);
             $endpoint->system = $systemJson;
         } catch (RequestException $e) {
