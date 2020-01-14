@@ -41,7 +41,7 @@
     "ext-tokenizer": "*",
     "ext-zlib": "*",
     "barryvdh/laravel-debugbar": "^3.1",
-    "cocur/slugify": "^3.1",
+    "cocur/slugify": "^4.0",
     "composer/semver": "^1.4",
     "doctrine/dbal": "^2.5",
     "dompdf/dompdf": "^0.8.0",
