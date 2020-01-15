@@ -53,7 +53,6 @@ new Vue({
 
   mounted() {
       this.getEndpoints();
-      console.log('Fooooo')
   },
 
   components: {
