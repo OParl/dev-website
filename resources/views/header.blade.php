@@ -25,13 +25,5 @@
             </div>
         </div>
     </nav>
-    <nav class="level u-pt-0_5">
-        <div class="level-left">
-            @yield('subheader')
-        </div>
-        <div class="level-right">
-            @yield('subheader_actions')
-        </div>
-    </nav>
-    <br>
+    @yield('header_extra')
 </header>

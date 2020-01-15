@@ -23,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
 
         $v->composer('header', Header::class);
         $v->composer('piwik', Piwik::class);
-        $v->composer('developers.partials.subheader', DevelopersHeader::class);
 
         // add a @markdown(...) directive which formats value to markdown
         \Blade::directive('markdown', function ($expr) {

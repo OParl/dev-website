@@ -32,19 +32,28 @@ class Header
             'title'    => 'app.developers.title',
             'icon'     => 'fa-home',
         ],
-
         [
             'routeKey' => 'specification',
             'title'    => 'app.specification.title',
             'icon'     => 'fa-book',
         ],
-//
+        [
+            'title'    => 'app.downloads.title',
+            'routeKey' => 'downloads',
+        ],
+//        [
+//            'title'    => 'app.validation.title',
+//            'routeKey' => 'validator',
+//        ],
+        [
+            'title'    => 'app.endpoints.title',
+            'routeKey' => 'endpoints',
+        ],
 //        [
 //            'routeKey' => 'api.oparl',
 //            'title'    => 'app.demo.title',
 //            'icon'     => 'fa-dashboard',
 //        ],
-
         [
             'routeKey' => 'contact',
             'title'    => 'app.contact.title',

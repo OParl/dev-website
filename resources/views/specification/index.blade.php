@@ -1,19 +1,18 @@
 @extends ('base')
 
-@section ('subheader')
-    <div class="level-item">
-        <a href="{{ route('downloads.index') }}">@lang('app.downloads.title')</a>
-    </div>
-@stop
-
-@section ('subheader_actions')
-    <div class="level-item">
-        <version-selector
-                :versions="{{ json_encode(array_keys(config('oparl.versions.specification'))) }}"
-                :current="liveView.currentVersion.human"
-                @version-change="changeLiveView"
-        ></version-selector>
-    </div>
+@section('header_extra')
+    <nav class="level u-pt-0_5">
+        <div class="level-left">&nbsp;</div>
+        <div class="level-right">
+            <div class="level-item">
+                <version-selector
+                        :versions="{{ json_encode(array_keys(config('oparl.versions.specification'))) }}"
+                        :current="liveView.currentVersion.human"
+                        @version-change="changeLiveView"
+                ></version-selector>
+            </div>
+        </div>
+    </nav>
 @stop
 
 @section ('content')

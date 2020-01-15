@@ -1,9 +1,5 @@
 @extends ('base')
 
-@section('subheader')
-    @include('developers.partials.subheader')
-@stop
-
 @section ('content')
     <section>
         <h2>@lang('app.downloads.title') - @lang('app.specification.title')</h2>

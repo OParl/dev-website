@@ -1,9 +1,5 @@
 @extends ('base')
 
-@section ('subheader')
-    @include('developers.partials.subheader')
-@stop
-
 @section ('content')
     <p>
         {{ Session::get('message') }}

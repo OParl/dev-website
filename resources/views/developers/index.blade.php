@@ -1,9 +1,5 @@
 @extends ('base')
 
-@section ('subheader')
-    @include('developers.partials.subheader')
-@stop
-
 @section ('content')
     <h1>OParl Entwicklerportal</h1>
 

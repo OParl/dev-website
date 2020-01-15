@@ -1,23 +1,20 @@
-import '@fortawesome/fontawesome-free/js/all'
-
 import Vue from 'vue'
+
 import Buefy from 'buefy'
-
-Vue.use(Buefy, {
-  defaultContainerElement: '#app',
-  defaultIconPack: 'fab'
-});
-
 import axios from 'axios'
 
 import EndpointInfo from '../modules/Endpoints/EndpointInfo.vue'
 import EndpointStatistics from '../modules/Endpoints/EndpointStatistics.vue'
 import EndpointListFilter from '../modules/Endpoints/EndpointListFilter.vue'
 
+Vue.use(Buefy, {
+  defaultContainerElement: '#app'
+})
+
 new Vue({
   el: '#app',
 
-  data() {
+  data () {
     return {
       endpoints: [],
       endpointsBodyFilter: ''
