@@ -4,13 +4,11 @@ import Vue from 'vue'
 
 import Buefy from 'buefy'
 import VueAffix from 'vue-affix'
-import VueClipboard2 from 'vue-clipboard2'
 
 Vue.use(Buefy, {
   defaultContainerElement: '#app'
 });
 
-Vue.use(VueClipboard2);
 Vue.use(VueAffix);
 
 import axios from 'axios'
@@ -34,6 +32,16 @@ new Vue({
         toc: '',
         versionOnLoad: '1.1'
       }
+    }
+  },
+
+  computed: {
+    affixWidth() {
+      return document.getElementById('toc-container').clientWidth - 20;
+    },
+
+    formattedAffixWidth() {
+      return 'width: ' + this.affixWidth + 'px';
     }
   },
 

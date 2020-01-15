@@ -17,9 +17,12 @@
 
 @section ('content')
     <div class="columns">
-        <aside class="column is-one-third">
-            <affix relative-element-selector="#spec-content">
-                <table-of-contents :html="liveView.toc" v-if="!liveView.isLoading"></table-of-contents>
+        <aside class="column is-one-third" id="toc-container">
+            <affix relative-element-selector="#spec-content" :style="formattedAffixWidth">
+                <table-of-contents
+                        :html="liveView.toc"
+                        v-if="!liveView.isLoading"
+                ></table-of-contents>
             </affix>
         </aside>
         <div class="column is-two-thirds" id="spec-content">
