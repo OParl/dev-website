@@ -11,18 +11,13 @@ let mix = require('laravel-mix')
  |
  */
 
-mix.js('resources/js/bundles/spec.js', 'public/js')
+mix
+  .sass('resources/assets/sass/app.scss', 'public/css', { implementation: require('node-sass') })
+  .sass('resources/assets/sass/pdf.scss', 'public/css', { implementation: require('node-sass') })
+  .js('resources/js/bundles/spec.js', 'public/js')
   .js('resources/js/bundles/swagger.js', 'public/js')
   .js('resources/js/bundles/endpoints.js', 'public/js')
-  .extract([
-    'axios',
-    'buefy',
-    'vue',
-    'vue-affix',
-    'vue-clipboard2'
-  ])
-  .sass('resources/assets/sass/app.scss', 'public/css')
-  .sass('resources/assets/sass/pdf.scss', 'public/css')
+  .extract()
   .combine([
     'node_modules/buefy/lib/buefy.css',
     'node_modules/prismjs/themes/prism.css',
