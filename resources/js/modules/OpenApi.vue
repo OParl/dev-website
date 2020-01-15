@@ -6,11 +6,11 @@
     import SwaggerUI from 'swagger-ui'
 
     export default {
-        name: "Swagger",
+        name: "OpenApi",
         mounted() {
             SwaggerUI({
                 domNode: this.$el,
-                url: '/api/swagger.json'
+                url: '/api/openapi.json'
             });
         }
     }

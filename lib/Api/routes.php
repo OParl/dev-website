@@ -11,9 +11,9 @@ $router->group([
         ->name('index')
         ->uses('ApiController@index');
 
-    $router->get('/swagger.json')
-        ->name('swagger')
-        ->uses('ApiController@swaggerJson');
+    $router->get('/openapi.json')
+        ->name('openApi')
+        ->uses('ApiController@openApiJson');
 
     $router->get('/endpoints')
         ->name('endpoints.index')

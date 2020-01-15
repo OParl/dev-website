@@ -1,9 +1,9 @@
 @extends ('base')
 
 @section ('content')
-    <swagger></swagger>
+    <open-api></open-api>
 @stop
 
 @section ('bundle')
-    <script src="{{ asset('js/swagger.js') }}"></script>
+    <script src="{{ asset('js/api.js') }}"></script>
 @overwrite

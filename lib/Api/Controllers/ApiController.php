@@ -25,13 +25,12 @@ class ApiController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function swaggerJson()
+    public function openApiJson()
     {
-        define('SWAGGER_API_HOST', 'dev.'.config('app.url'));
-        $swagger = scan([base_path('lib/Api/Controllers'), app_path('Model')]);
+        $openApi = scan([base_path('lib/Api/Controllers'), app_path('Model')]);
 
         return response(
-            $swagger,
+            $openApi,
             200,
             [
                 'Content-Type'                 => 'application/json',

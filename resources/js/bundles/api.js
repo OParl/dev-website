@@ -1,11 +1,11 @@
 import Vue from 'vue'
 
-import Swagger from '../modules/Swagger.vue'
+import OpenApi from '../modules/OpenApi.vue'
 
 new Vue({
   el: '#app',
 
   components: {
-    Swagger
+    OpenApi
   },
 });

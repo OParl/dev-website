@@ -12,7 +12,7 @@ let mix = require('laravel-mix')
  */
 
 mix.js('resources/js/bundles/spec.js', 'public/js')
-  .js('resources/js/bundles/swagger.js', 'public/js')
+  .js('resources/js/bundles/api.js', 'public/js')
   .js('resources/js/bundles/endpoints.js', 'public/js')
   .extract([
     'axios',
