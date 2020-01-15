@@ -7,6 +7,7 @@
 
         <b-collapse :open="false">
             <button class="button" slot="trigger">Körperschaften</button>
+            <br>
             <div class="notification">
                 <div class="content">
                     <table>
