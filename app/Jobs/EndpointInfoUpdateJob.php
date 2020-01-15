@@ -127,6 +127,7 @@ class EndpointInfoUpdateJob implements ShouldQueue
             $bodyResponse = $guzzle->get($systemJson['body']);
             $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
 
+            // fixme: This validator call breaks on prod (PHP 7.3)
             \Validator::make($bodyJson, [
                 'data'         => 'required|array',
                 'data.*.id'      => 'required|url',
@@ -135,6 +136,7 @@ class EndpointInfoUpdateJob implements ShouldQueue
                 'data.*.license' => 'string',
             ])->validate();
         } catch (\Exception $e) {
+            $log->error($e->getMessage(), $e->getTrace());
             $this->fail($e);
 
             return;
