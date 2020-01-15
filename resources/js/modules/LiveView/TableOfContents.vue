@@ -3,7 +3,7 @@
         <div class="card-header" slot="trigger" slot-scope="props">
             <strong class="card-header-title">Inhaltsverzeichnis</strong>
             <div class="card-header-icon">
-                <b-icon :icon="props.open ? 'expand' : 'compress'"></b-icon>
+                <i class="fa" :class="props.open ? 'fa-expand' : 'fa-compress'"></i>
             </div>
         </div>
         <div class="card-content table-of-contents" v-html="html"></div>

@@ -1,5 +1,7 @@
 @import '~flag-icon-css/sass/variables';
 @import '~flag-icon-css/sass/flag-icon-base';
+@import '~font-awesome/scss/font-awesome';
+
 @include flag-icon(de);
 @include flag-icon(gb);
 

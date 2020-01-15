@@ -19,3 +19,4 @@ tests/js/coverage
 
 !/lib/Server/API/Controllers/MeetingController.php
 public/mix-manifest.json
+public/fonts
