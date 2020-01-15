@@ -13,9 +13,9 @@ class DevelopersHeader extends Header
             'title'    => 'app.endpoints.title',
             'routeKey' => 'endpoints',
         ],
-        [
-            'title'    => 'app.validation.title',
-            'routeKey' => 'validator',
-        ],
+//        [
+//            'title'    => 'app.validation.title',
+//            'routeKey' => 'validator',
+//        ],
     ];
 }
