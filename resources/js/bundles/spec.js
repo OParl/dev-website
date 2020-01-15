@@ -41,10 +41,6 @@ new Vue({
   },
 
   methods: {
-    triggerDownload(download) {
-      document.location = '/downloads/spezifikation-' + download.version + '.' + download.format;
-    },
-
     changeLiveView(version) {
       if (this.liveView.currentVersion.fetch !== version) {
         this.liveView.isLoading = true;

@@ -27,16 +27,27 @@
                             OParl Spezifikation {{ $specificationVersion->getVersion() }}
                         </td>
                         <td>
-                            <b-select
-                                    name="format[{{ $specificationVersion->getVersion() }}]"
-                                    placeholder="@lang('app.specification.download.select.title')"
-                                    expanded
-                                    @input="triggerDownload"
-                            >
+                            <div class="field is-grouped is-grouped-multiline">
                                 @foreach ($specificationVersion->getFiles() as $file)
-                                    <option :value="{ version: '{{ $specificationVersion->getVersion() }}', format: '{{ $file->getExtension() }}'}">{{ $file->getExtension() }}</option>
+                                    <div class="control">
+                                        <a
+                                                href="{{ route('downloads.specification', ['version' => $specificationVersion->getVersion(), 'extension' => $file->getExtension()]) }}"
+                                                title="@lang('app.specification.download.select.title', ['version' => $specificationVersion->getVersion(), 'format' => $file->getExtension()])"
+                                        >
+
+                                            <div class="tags has-addons">
+                                            <span class="tag">
+
+                                                    {{ $file->getExtension() }}
+
+                                            </span>
+
+                                                <span class="tag is-primary">{{ $specificationVersion->getVersion() }}</span>
+                                            </div>
+                                        </a>
+                                    </div>
                                 @endforeach
-                            </b-select>
+                            </div>
                         </td>
                     </tr>
 
