@@ -21,7 +21,10 @@ class SchemaController extends Controller
         return response()->json(
             $files,
             200,
-            [],
+            [
+                'Content-Type'                => 'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin' => '*',
+            ],
             JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
         );
     }
@@ -58,7 +61,10 @@ class SchemaController extends Controller
             return response()->json(
                 $schema,
                 200,
-                [],
+                [
+                    'Content-Type'                => 'application/json; charset=utf-8',
+                    'Access-Control-Allow-Origin' => '*',
+                ],
                 JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
             );
         } catch (\Exception $e) {
