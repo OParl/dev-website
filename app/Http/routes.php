@@ -28,6 +28,7 @@ $specificationVersions = sprintf(
  * OParl\Server\ServerServiceProvider.
  */
 $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router, $specificationVersions) {
+    $router->get('/favicon.ico', ['uses' => 'MiscController@favicon']);
     $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
 
     $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
