@@ -680,11 +680,6 @@
   resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-3.1.0.tgz#8ff71d51053cd5ee4981e5a501d80a536244f7fd"
   integrity sha512-GcIY79elgB+azP74j8vqkiXz8xLFfIzbQJdlwOPisgbKT00tviJQuEghOXSMVxJ00HoYJbGswr4kcllUc4xCcg==
 
-"@fortawesome/fontawesome-free@^5.11.2":
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.12.0.tgz#8ceb9f09edfb85ea18a6c7bf098f6f5dd5ffd62b"
-  integrity sha512-vKDJUuE2GAdBERaQWmmtsciAMzjwNrROXA5KTGSZvayAsmuTGjam5z6QNqNPCwDfVljLWuov1nEC3mEQf/n6fQ==
-
 "@kyleshockey/object-assign-deep@^0.4.0", "@kyleshockey/object-assign-deep@^0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@kyleshockey/object-assign-deep/-/object-assign-deep-0.4.2.tgz#84900f0eefc372798f4751b5262830b8208922ec"
@@ -6873,10 +6868,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swagger-client@^3.9.6:
-  version "3.9.6"
-  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.9.6.tgz#54a7aa0981453cb5ce612c2eb69592d09112ce83"
-  integrity sha512-aS01VInNv6I+/DVQ++7TCwunYGWM/uiQNNPO0L+1+MfA3r0UEHYc9XJ8aXmrhXCvQ1jdY626ePch3plwhTunUQ==
+swagger-client@^3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.10.0.tgz#97c5ed18149b9bad722d9020e3482f22e2cff602"
+  integrity sha512-XUvqO/jeF+P5gYklN+ThEFq1++XnXV9RTdOpS65B5Y0dHnamxO8v0wG8geVEwIIqKjCYbKQ2Vd67DZMZMeaNvg==
   dependencies:
     "@babel/runtime-corejs2" "^7.0.0"
     "@kyleshockey/object-assign-deep" "^0.4.0"
@@ -6897,10 +6892,10 @@ swagger-client@^3.9.6:
     utf8-bytes "0.0.1"
     utfstring "^2.0.0"
 
-swagger-ui@^3.23.11:
-  version "3.24.3"
-  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.24.3.tgz#1d3ef7fe730084b992fc3274254a5b77771c110c"
-  integrity sha512-mTVRuiu9oLdi3WOvPQ2L7tHGoJ5cI3+d/4Y58OvTJSyIkoFo0ffr6/BNF68JFB8HsaaJc8stU5REepS0dxxq6Q==
+swagger-ui@^3.25.0:
+  version "3.25.0"
+  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.25.0.tgz#0c089f44e011ef01460ae988bcb9ce8829966c81"
+  integrity sha512-OfGWc93d/jqZ3LQC8fCxWm0nKodGFqa1TkxIW5jSmVqoPlEFGKdeGlrVtnINXn3kGNNuvPgNixb6Rp9sB6nC1Q==
   dependencies:
     "@babel/runtime-corejs2" "^7.5.5"
     "@braintree/sanitize-url" "^3.0.0"
@@ -6934,7 +6929,7 @@ swagger-ui@^3.23.11:
     reselect "^2.5.4"
     serialize-error "^2.1.0"
     sha.js "^2.4.11"
-    swagger-client "^3.9.6"
+    swagger-client "^3.10.0"
     url-parse "^1.4.7"
     xml-but-prettier "^1.0.1"
     zenscroll "^4.0.2"
