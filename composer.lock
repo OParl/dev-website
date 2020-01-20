@@ -2215,9 +2215,9 @@
             "authors": [
                 {
                     "name": "Phil Sturgeon",
-                    "role": "Developer",
                     "email": "me@philsturgeon.uk",
-                    "homepage": "http://philsturgeon.uk/"
+                    "homepage": "http://philsturgeon.uk/",
+                    "role": "Developer"
                 }
             ],
             "description": "Handle the output of complex data structures ready for API output.",
@@ -2367,17 +2367,24 @@
         },
         {
             "name": "matomo/matomo-php-tracker",
-            "version": "2.0.1",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/matomo-php-tracker.git",
-                "reference": "95eeeb23be256d488b45cc90dda324726574e692"
+                "reference": "d8a30200b0bd144f38282df9a8cb5da194da9296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/matomo-php-tracker/zipball/95eeeb23be256d488b45cc90dda324726574e692",
-                "reference": "95eeeb23be256d488b45cc90dda324726574e692",
+                "url": "https://api.github.com/repos/matomo-org/matomo-php-tracker/zipball/d8a30200b0bd144f38282df9a8cb5da194da9296",
+                "reference": "d8a30200b0bd144f38282df9a8cb5da194da9296",
                 "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.3"
+            },
+            "suggest": {
+                "ext-curl": "Using this extension to issue the HTTPS request to Matomo"
             },
             "type": "library",
             "autoload": {
@@ -2404,7 +2411,7 @@
                 "piwik",
                 "tracker"
             ],
-            "time": "2020-01-02T10:10:42+00:00"
+            "time": "2020-01-14T19:33:53+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -2587,6 +2594,7 @@
                 "cron",
                 "schedule"
             ],
+            "abandoned": "dragonmantank/cron-expression",
             "time": "2019-12-28T04:23:06+00:00"
         },
         {
@@ -2738,7 +2746,7 @@
                     "name": "Andreas Heigl",
                     "email": "andreas@heigl.org",
                     "homepage": "http://andreas.heigl.org",
-                    "role": "Developer"
+                    "role": "developer"
                 }
             ],
             "description": "Word-Hyphenation for PHP based on the TeX-Hyphenation algorithm",
@@ -6597,8 +6605,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
