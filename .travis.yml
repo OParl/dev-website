@@ -42,7 +42,7 @@ before_script:
 script: vendor/bin/phpunit
 
 after_script:
-- cat storage/logs/laravel-$(date +"%Y-%m-%d").log
+- cat storage/logs/laravel.log
 
 cache:
   apt: true
