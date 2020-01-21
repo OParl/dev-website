@@ -18,9 +18,4 @@ $router->group([
     $router->get('/endpoints')
         ->name('endpoints.index')
         ->uses('EndpointApiController@index');
-
-    $router->get('/specification/{version}')
-        ->name('specification.version')
-        ->where('version', '(master|\d\.\d)')
-        ->uses('SpecificationApiController@version');
 });
