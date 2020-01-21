@@ -64,13 +64,13 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
     }
 
     /**
-     * @param Filesystem $fs
-     * @param Log        $log
+     * @param Filesystem      $fs
+     * @param LoggerInterface $log
      *
      * @return Repository
      * @throws \ReflectionException
      */
-    public function build(Filesystem $fs, Log $log)
+    public function build(Filesystem $fs, LoggerInterface $log)
     {
         $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
         $this->checkoutHubSyncToTreeish($hubSync);
