@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\View\View;
 use OParl\Spec\Repositories\LiveViewRepository;
 
 class SpecificationController extends Controller
@@ -10,13 +12,29 @@ class SpecificationController extends Controller
     /**
      * Show the specification's live copy.
      *
-     * @return \Illuminate\Http\Response
+     * @param LiveViewRepository $liveViewRepository
+     * @param                    $version
+     * @return View
      */
-    public function index()
+    public function index(LiveViewRepository $liveViewRepository, CacheManager $cacheManager, string $version = null)
     {
         $title = 'Spezifikation';
 
-        return view('specification.index', compact('title'));
+        if (null === $version) {
+            $version = config('oparl.specificationDisplayVersion');
+        }
+
+        $liveView = $cacheManager->remember(
+            'liveview.'.$version,
+            30,
+            function () use ($liveViewRepository, $version) {
+                return $liveViewRepository->get($version);
+            }
+        );
+
+        $liveViewVersion = $liveView->getVersionInformation()['official'];
+
+        return view('specification.index', compact('title', 'liveView', 'liveViewVersion'));
     }
 
     public function imageIndex()
@@ -44,6 +62,7 @@ class SpecificationController extends Controller
     {
         try {
             $liveView = $liveViewRepository->get($version);
+
             return response($liveView->getRaw(), 200, ['Content-type' => 'text/plain']);
         } catch (FileNotFoundException $e) {
             return response(

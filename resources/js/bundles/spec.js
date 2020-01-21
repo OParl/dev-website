@@ -1,5 +1,3 @@
-let Prism = require('!!prismjs?lang=javascript');
-
 import Vue from 'vue'
 
 import Buefy from 'buefy'
@@ -10,76 +8,28 @@ Vue.use(Buefy, {
 });
 
 Vue.use(VueAffix);
-
-import axios from 'axios'
-
-import LiveView from '../modules/LiveView/LiveView.vue'
-import VersionSelector from '../modules/LiveView/VersionSelector.vue'
+import VersionSelector from '../modules/LiveView/VersionSelector'
 
 new Vue({
   el: '#app',
 
-  data() {
-    return {
-      liveView: {
-        isLoading: false,
-        currentVersion: {
-          human: '',
-          fetch: ''
-        },
-        body: '',
-        toc: '',
-        versionOnLoad: '1.1'
-      }
-    }
-  },
-
   computed: {
-    affixWidth() {
+    affixWidth () {
       return document.getElementById('toc-container').clientWidth - 20;
     },
 
-    formattedAffixWidth() {
+    formattedAffixWidth () {
       return 'width: ' + this.affixWidth + 'px';
     }
   },
 
   methods: {
     changeLiveView(version) {
-      if (this.liveView.currentVersion.fetch !== version) {
-        this.liveView.isLoading = true;
-
-        axios.get('/api/specification/' + version).then(response => {
-          return response.data;
-        }, err => {
-          // TODO: handle axios error
-        }).then(data => {
-          this.liveView.currentVersion.human = data.currentVersion;
-          this.liveView.body = data.body;
-          this.liveView.toc = data.toc;
-
-          Prism.highlightAll();
-
-          this.liveView.isLoading = false;
-        });
-      }
-    },
-  },
-
-  mounted() {
-    if (document.location.href.indexOf('/spezifikation') > 0) {
-      let version = this.liveView.versionOnLoad;
-
-      if (document.location.search.indexOf('version=') > 0) {
-        version = document.location.search.split('=')[1];
-      }
-
-      this.changeLiveView(version);
+      window.location.pathname = '/spezifikation/' + version;
     }
   },
 
   components: {
-    LiveView,
-    VersionSelector,
-  },
+    VersionSelector
+  }
 });

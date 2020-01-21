@@ -61,7 +61,7 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router,
         ->uses('DevelopersController@endpoints');
 
     // Specification
-    $router->get('/spezifikation')
+    $router->get('/spezifikation/{version?}')
         ->uses('SpecificationController@index')
         ->name('specification.index');
 

@@ -4,6 +4,11 @@ return [
     'specificationBuildMode' => env('OPARL_BUILD_MODE', 'native'),
 
     /*
+     * The default displayed version of the specification at /spezifikation
+     */
+    'specificationDisplayVersion' => '1.1',
+
+    /*
      * These constraints are used for the site-internal functions like displaying
      * the specification's web view or providing the validation service.
      */

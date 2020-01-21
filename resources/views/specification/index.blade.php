@@ -10,20 +10,19 @@
                         <div class="card-header-icon">
                             <version-selector
                                     :versions="{{ json_encode(array_keys(config('oparl.versions.specification'))) }}"
-                                    :current="liveView.currentVersion.human"
+                                    current="{{ $liveViewVersion }}"
                                     @version-change="changeLiveView"
                             ></version-selector>
                         </div>
                     </div>
-                    <div class="card-content table-of-contents" v-html="liveView.toc" v-if="!liveView.isLoading"></div>
+                    <div class="card-content table-of-contents">
+                        {!! $liveView->getTableOfContents() !!}
+                    </div>
                 </div>
             </affix>
         </aside>
         <div class="column is-two-thirds" id="spec-content">
-            <live-view :html="liveView.body" v-if="!liveView.isLoading"></live-view>
-            <div style="height: 3em;" v-else>
-                <b-loading :is-full-page="false" :active="liveView.isLoading"></b-loading>
-            </div>
+            {!! $liveView->getBody() !!}
         </div>
     </div>
 @stop
