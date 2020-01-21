@@ -5,9 +5,9 @@ namespace OParl\Spec\Jobs;
 use App\Jobs\Job;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
+use Psr\Log\LoggerInterface;
 
 class ValidatorBuildJob extends Job implements ShouldQueue
 {
@@ -19,7 +19,7 @@ class ValidatorBuildJob extends Job implements ShouldQueue
         $this->determineTreeish($treeish, 'oparl.versions.validator.stable');
     }
 
-    public function handle(Filesystem $fs, Log $log)
+    public function handle(Filesystem $fs, LoggerInterface $log)
     {
         $this->getUpdatedHubSync($this->getRepository($fs), $log);
     }

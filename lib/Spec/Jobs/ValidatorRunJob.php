@@ -8,9 +8,9 @@ use App\Model\ValidationResult;
 use Carbon\Carbon;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Mail\Mailer;
 use OParl\Spec\Exception\ValidationFailed;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Process\Process;
 
 class ValidatorRunJob extends Job
@@ -44,7 +44,7 @@ class ValidatorRunJob extends Job
         $this->canSaveData = $canSaveData;
     }
 
-    public function handle(Log $log, Filesystem $fs, Mailer $mailer)
+    public function handle(LoggerInterface $log, Filesystem $fs, Mailer $mailer)
     {
         $log->info("Beginning Validation for {$this->endpoint}");
 
@@ -85,7 +85,7 @@ class ValidatorRunJob extends Job
      *
      * @return array
      */
-    protected function runValidator(Log $log, Filesystem $fs)
+    protected function runValidator(LoggerInterface $log, Filesystem $fs)
     {
         $validatorRepo = new Repository($fs, 'oparl_validator', '');
 
@@ -94,7 +94,13 @@ class ValidatorRunJob extends Job
         }
 
         $validationResultFile = storage_path('app/validation/'.uniqid('validation-').'.result');
-        $validatorCmd = sprintf('./validate --porcelain -fjson -o%s "%s"', $validationResultFile, $this->endpoint);
+        $validatorCmd = [
+            './validate',
+            '--porcelain',
+            '-fjson',
+            "-o{$validationResultFile}",
+            $this->endpoint
+        ];
 
         $validator = new Process($validatorCmd);
         $validator->setTimeout(0);

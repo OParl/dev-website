@@ -5,18 +5,18 @@ namespace OParl\Spec\Jobs;
 use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use OParl\Spec\OParlVersions;
+use Psr\Log\LoggerInterface;
 
 class SpecificationLiveVersionBuildJob extends SpecificationJob
 {
     protected $storageName = '';
 
     /**
-     * @param Filesystem $fs
-     * @param Log        $log
+     * @param Filesystem      $fs
+     * @param LoggerInterface $log
      */
-    public function handle(Filesystem $fs, Log $log)
+    public function handle(Filesystem $fs, LoggerInterface $log)
     {
         try {
             $oparlVersions = new OParlVersions();
@@ -24,9 +24,10 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
 
             $hubSync = $this->doUpdate($fs, $log);
 
-            $this->notify(SpecificationUpdateNotification::liveVersionUpdateSuccessfulNotification(
-                $this->treeish,
-                $hubSync->getCurrentHead()
+            $this->notify(
+                SpecificationUpdateNotification::liveVersionUpdateSuccessfulNotification(
+                    $this->treeish,
+                    $hubSync->getCurrentHead()
             ));
         } catch (\RuntimeException $e) {
             $this->notify(SpecificationUpdateNotification::liveVersionUpdateFailedNotification($this->treeish,

@@ -4,8 +4,7 @@ namespace OParl\Spec\Jobs;
 
 use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Process\Process;
 
 trait InteractsWithRepositoryTrait
@@ -106,11 +105,11 @@ trait InteractsWithRepositoryTrait
 
     /**
      * @param Repository $repository
-     * @param Log        $log
+     * @param LoggerInterface        $log
      *
      * @return Repository
      */
-    public function getUpdatedHubSync(Repository $repository, Log $log)
+    public function getUpdatedHubSync(Repository $repository, LoggerInterface $log)
     {
         $this->runSynchronousCommand($repository->getAbsolutePath(), 'git checkout master');
 

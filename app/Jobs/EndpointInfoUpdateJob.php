@@ -9,7 +9,6 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -17,6 +16,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Psr\Log\LoggerInterface;
 
 class EndpointInfoUpdateJob implements ShouldQueue
 {
@@ -38,11 +38,11 @@ class EndpointInfoUpdateJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param Log $log
+     * @param LoggerInterface $log
      *
      * @return void
      */
-    public function handle(Log $log)
+    public function handle(LoggerInterface $log)
     {
         /** @var Endpoint $endpoint */
         $endpoint = null;

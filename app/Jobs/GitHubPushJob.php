@@ -8,13 +8,13 @@
 
 namespace App\Jobs;
 
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
 use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 use OParl\Spec\Jobs\SpecificationSchemaBuildJob;
 use OParl\Spec\Jobs\ValidatorBuildJob;
 use OParl\Spec\OParlVersions;
+use Psr\Log\LoggerInterface;
 
 /**
  * GitHubPushJob.
@@ -44,7 +44,7 @@ class GitHubPushJob extends Job
         $this->payload = $payload;
     }
 
-    public function handle(Log $log)
+    public function handle(LoggerInterface $log)
     {
         switch ($this->repository) {
             case 'spec':

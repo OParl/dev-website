@@ -11,20 +11,20 @@ namespace OParl\Spec\Jobs;
 use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use OParl\Spec\OParlVersions;
+use Psr\Log\LoggerInterface;
 
 class SpecificationDownloadsBuildJob extends SpecificationJob
 {
     protected $storageName = '';
 
     /**
-     * @param Filesystem $fs
-     * @param Log        $log
+     * @param Filesystem      $fs
+     * @param LoggerInterface $log
      *
      * @throws \Exception
      */
-    public function handle(Filesystem $fs, Log $log)
+    public function handle(Filesystem $fs, LoggerInterface $log)
     {
         $oparlVersions = new OParlVersions();
         $this->storageName = $oparlVersions->getVersionForConstraint('specification', $this->treeish);

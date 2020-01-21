@@ -5,8 +5,8 @@ namespace OParl\Spec\Jobs;
 use App\Notifications\SpecificationUpdateNotification;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use OParl\Spec\OParlVersions;
+use Psr\Log\LoggerInterface;
 
 class SpecificationSchemaBuildJob extends SpecificationJob
 {
@@ -14,31 +14,33 @@ class SpecificationSchemaBuildJob extends SpecificationJob
     /**
      * Handle OParl Schema Updates.
      *
-     * @param Filesystem $fs
-     * @param Log        $log
+     * @param Filesystem      $fs
+     * @param LoggerInterface $log
      */
-    public function handle(Filesystem $fs, Log $log)
+    public function handle(Filesystem $fs, LoggerInterface $log)
     {
         try {
             $hubSync = $this->doSchemaUpdate($fs, $log);
             $hubSync->clean();
 
-            $this->notify(SpecificationUpdateNotification::schemaUpdateSuccesfulNotification(
-                $this->treeish,
-                $hubSync->getCurrentHead()
-            ));
+            $this->notify(
+                SpecificationUpdateNotification::schemaUpdateSuccesfulNotification(
+                    $this->treeish,
+                    $hubSync->getCurrentHead()
+                )
+            );
         } catch (\Exception $e) {
             $this->notify(SpecificationUpdateNotification::schemaUpdateFailedNotification($this->treeish, $e->getMessage()));
         }
     }
 
     /**
-     * @param Filesystem $fs
-     * @param Log        $log
+     * @param Filesystem      $fs
+     * @param LoggerInterface $log
      *
      * @return Repository
      */
-    public function doSchemaUpdate(Filesystem $fs, Log $log)
+    public function doSchemaUpdate(Filesystem $fs, LoggerInterface $log)
     {
         $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
 

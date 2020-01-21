@@ -5,9 +5,9 @@ namespace OParl\Spec\Jobs;
 use App\Jobs\Job;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
+use Psr\Log\LoggerInterface;
 
 class LibOParlBuildJob extends Job implements ShouldQueue
 {
@@ -21,7 +21,7 @@ class LibOParlBuildJob extends Job implements ShouldQueue
         $this->prefix = config('oparl.liboparl.prefix');
     }
 
-    public function handle(Filesystem $fs, Log $log)
+    public function handle(Filesystem $fs, LoggerInterface $log)
     {
         $repo = new Repository($fs, 'oparl_liboparl', 'https://github.com/OParl/liboparl.git');
         $repo = $this->getUpdatedHubSync($repo, $log);
