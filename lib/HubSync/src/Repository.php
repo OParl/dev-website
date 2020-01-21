@@ -65,7 +65,7 @@ class Repository
      */
     public function update()
     {
-        if (!$this->fs->exists("{$this->path}/.git/HEAD")) {
+        if (!$this->exists()) {
             $cmd = sprintf(
                 'git clone -q --recursive --recurse-submodules %s %s',
                 $this->remoteURI,
@@ -189,5 +189,13 @@ class Repository
         $revParseCmd = sprintf('git -C %s rev-parse --short %s', $this->getAbsolutePath(), $revision);
 
         return $this->synchronousProcess($revParseCmd);
+    }
+
+    /**
+     * @return bool
+     */
+    public function exists(): bool
+    {
+        return $this->fs->exists("{$this->path}/.git/HEAD");
     }
 }

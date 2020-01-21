@@ -5,6 +5,7 @@ namespace OParl\Spec\Jobs;
 use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 trait InteractsWithRepositoryTrait
@@ -111,7 +112,9 @@ trait InteractsWithRepositoryTrait
      */
     public function getUpdatedHubSync(Repository $repository, LoggerInterface $log)
     {
-        $this->runSynchronousCommand($repository->getAbsolutePath(), 'git checkout master');
+        if ($repository->exists()) {
+            $this->runSynchronousCommand($repository->getAbsolutePath(), 'git checkout master');
+        }
 
         if (!$repository->update()) {
             $log->error("Git pull for {$repository->getRemoteURI()} failed");
