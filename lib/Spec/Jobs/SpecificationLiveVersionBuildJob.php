@@ -36,14 +36,14 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
     }
 
     /**
-     * @param Filesystem $fs
-     * @param Log        $log
-     *
-     * @throws
+     * @param Filesystem      $fs
+     * @param LoggerInterface $log
      *
      * @return \EFrane\HubSync\Repository
+     * @throws
+     *
      */
-    public function doUpdate(Filesystem $fs, Log $log)
+    public function doUpdate(Filesystem $fs, LoggerInterface $log)
     {
         $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
         $this->checkoutHubSyncToTreeish($hubSync);

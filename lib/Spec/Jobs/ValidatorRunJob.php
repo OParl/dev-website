@@ -80,8 +80,8 @@ class ValidatorRunJob extends Job
     }
 
     /**
-     * @param Log        $log
-     * @param Filesystem $fs
+     * @param LoggerInterface $log
+     * @param Filesystem      $fs
      *
      * @return array
      */

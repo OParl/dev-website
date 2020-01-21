@@ -84,16 +84,19 @@ class EndpointInfoUpdateJob implements ShouldQueue
     /**
      * @param $endpoint
      */
-    protected function getSystemFromEndpoint(Log $log, Endpoint $endpoint)
+    protected function getSystemFromEndpoint(LoggerInterface $log, Endpoint $endpoint)
     {
         try {
             $guzzle = new Client();
 
-            $systemResponse = $guzzle->get($endpoint->url, [
-                // fail relatively fast on unreachable systems
-                'connect_timeout' => 5,
-                'timeout' => 2
-            ]);
+            $systemResponse = $guzzle->get(
+                $endpoint->url,
+                [
+                    // fail relatively fast on unreachable systems
+                    'connect_timeout' => 5,
+                    'timeout'         => 2,
+                ]
+            );
 
             $systemJson = json_decode((string)$systemResponse->getBody(), true);
             $endpoint->system = $systemJson;
@@ -114,10 +117,10 @@ class EndpointInfoUpdateJob implements ShouldQueue
     }
 
     /**
-     * @param Log      $log
-     * @param Endpoint $endpoint
+     * @param LoggerInterface $log
+     * @param Endpoint        $endpoint
      */
-    protected function getBodiesFromEndpoint(Log $log, Endpoint $endpoint)
+    protected function getBodiesFromEndpoint(LoggerInterface $log, Endpoint $endpoint)
     {
         $systemJson = $endpoint->system;
 
