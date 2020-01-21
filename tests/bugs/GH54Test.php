@@ -4,6 +4,8 @@ class GH54Test extends TestCase
 {
     public function testLocationPostalCodeIsString()
     {
+        $this->markTestSkipped('Skipped because the demoserver is currently disabled');
+
         /** @var \OParl\Server\Model\Location $location */
         $location = \OParl\Server\Model\Location::first();
         $this->assertInstanceOf(\OParl\Server\Model\Location::class, $location);
@@ -12,6 +14,8 @@ class GH54Test extends TestCase
 
     public function testApiLocationPostalCodeIsString()
     {
+        $this->markTestSkipped('Skipped because the demoserver is currently disabled');
+
         $this->route('get', 'api.oparl.v1.location.show', ['id' => 1]);
 
         $this->assertResponseStatus(200);

@@ -37,7 +37,7 @@ before_script:
 - composer install --no-interaction --no-scripts --no-suggest
 - cp .env.testing .env
 - composer run-script post-install-cmd
-- ./artisan setup
+- ./artisan setup --no-demodata
 
 script: vendor/bin/phpunit
 

@@ -4,12 +4,23 @@ namespace App\Console\Commands;
 
 use EFrane\ConsoleAdditions\Batch\Batch;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Process\Process;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'setup';
+    protected $name = 'setup';
     protected $description = 'Runs all commands necessary for initial setup of the application.';
+
+    public function configure()
+    {
+        $this->addOption(
+            'no-demodata',
+            '',
+            InputOption::VALUE_NONE,
+            "Don't prepare demodata"
+        );
+    }
 
     public function handle()
     {
@@ -47,10 +58,14 @@ class SetupCommand extends Command
         }
 
         try {
-            Batch::create($this->getApplication(), $this->getOutput())
-                ->add('oparl:init')
-                ->add('server:populate')
-                ->run();
+            $dataBatch = Batch::create($this->getApplication(), $this->getOutput())
+                ->add('oparl:init');
+
+            if (!$this->input->getOption('no-demodata')) {
+                $dataBatch->add('server:populate');
+            }
+
+            $dataBatch->run();
         } catch (\Exception $e) {
             $this->error('Errors occured while initializing the OParl components: ' . $e);
         }
