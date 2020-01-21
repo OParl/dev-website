@@ -7,9 +7,9 @@ use Dompdf\Css\Stylesheet;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Psr\Log\LoggerInterface;
 
 class ValidationCompleted extends Mailable
 {
@@ -31,11 +31,11 @@ class ValidationCompleted extends Mailable
     /**
      * Build the message.
      *
-     * @param $log Log
+     * @param LoggerInterface $log
      *
      * @return $this
      */
-    public function build(Log $log)
+    public function build(LoggerInterface $log)
     {
         $validationFilename = sprintf('OParl Validator %s.pdf', Carbon::now()->format('hi-d-m-Y'));
 
@@ -55,7 +55,7 @@ class ValidationCompleted extends Mailable
             ]);
     }
 
-    public function createValidationResultPDF(Log $log)
+    public function createValidationResultPDF(LoggerInterface $log)
     {
         $options = new Options();
         $options->setIsHtml5ParserEnabled(true);

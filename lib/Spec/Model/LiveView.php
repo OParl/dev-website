@@ -11,8 +11,8 @@ namespace OParl\Spec\Model;
 use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use Masterminds\HTML5;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -31,7 +31,7 @@ class LiveView
     protected $tableOfContents = '';
     protected $loadedVersion = '';
 
-    public function __construct(Filesystem $fs, Log $log, $version)
+    public function __construct(Filesystem $fs, LoggerInterface $log, $version)
     {
         $this->fs = $fs;
         $this->loadedVersion = $version;

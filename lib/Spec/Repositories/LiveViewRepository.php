@@ -8,8 +8,8 @@ namespace OParl\Spec\Repositories;
 
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Logging\Log;
 use OParl\Spec\Model\LiveView;
+use Psr\Log\LoggerInterface;
 
 class LiveViewRepository
 {
@@ -19,11 +19,11 @@ class LiveViewRepository
     protected $fs;
 
     /**
-     * @var Log
+     * @var LoggerInterface
      */
     protected $log;
 
-    public function __construct(Filesystem $filesystem, Log $log)
+    public function __construct(Filesystem $filesystem, LoggerInterface $log)
     {
         $this->fs = $filesystem;
         $this->log = $log;
