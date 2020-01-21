@@ -23,6 +23,7 @@ class Header
      *      'params'   => Route parameters, can be used instead of refering to an index route
      *      'routeKey' => Key to a defined route, $routeName.index will be auto-expanded
      * ]
+     * </code>
      *
      * @var array header config
      */

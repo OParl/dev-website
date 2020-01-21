@@ -14,7 +14,6 @@ Vue.use(VueAffix);
 import axios from 'axios'
 
 import LiveView from '../modules/LiveView/LiveView.vue'
-import TableOfContents from '../modules/LiveView/TableOfContents.vue'
 import VersionSelector from '../modules/LiveView/VersionSelector.vue'
 
 new Vue({
@@ -81,7 +80,6 @@ new Vue({
 
   components: {
     LiveView,
-    TableOfContents,
     VersionSelector,
   },
 });

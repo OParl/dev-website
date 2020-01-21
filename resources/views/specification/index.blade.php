@@ -19,10 +19,12 @@
     <div class="columns">
         <aside class="column is-one-third" id="toc-container">
             <affix relative-element-selector="#spec-content" :style="formattedAffixWidth">
-                <table-of-contents
-                        :html="liveView.toc"
-                        v-if="!liveView.isLoading"
-                ></table-of-contents>
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-header-title">Inhaltsverzeichnis</strong>
+                    </div>
+                    <div class="card-content table-of-contents" v-html="liveView.toc" v-if="!liveView.isLoading"></div>
+                </div>
             </affix>
         </aside>
         <div class="column is-two-thirds" id="spec-content">
