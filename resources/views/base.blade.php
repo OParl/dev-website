@@ -58,6 +58,7 @@
         <script src="{{ mix('js/vendor.js') }}"></script>
 
         @section ('bundle')
+            <script src="{{ mix('js/app.js') }}"></script>
         @show
 
         @include ('piwik')

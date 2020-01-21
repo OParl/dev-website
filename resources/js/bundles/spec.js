@@ -1,6 +1,5 @@
-import Vue from 'vue'
-
 import Buefy from 'buefy'
+import Vue from 'vue'
 import VueAffix from 'vue-affix'
 
 Vue.use(Buefy, {

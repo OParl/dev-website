@@ -1,11 +1,9 @@
-import Vue from 'vue'
-
-import Buefy from 'buefy'
 import axios from 'axios'
-
+import Buefy from 'buefy'
 import EndpointInfo from '../modules/Endpoints/EndpointInfo.vue'
 import EndpointStatistics from '../modules/Endpoints/EndpointStatistics.vue'
 import EndpointListFilter from '../modules/Endpoints/EndpointListFilter.vue'
+import Vue from 'vue'
 
 Vue.use(Buefy, {
   defaultContainerElement: '#app'
