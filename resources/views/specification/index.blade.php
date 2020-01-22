@@ -4,21 +4,24 @@
     <div class="columns">
         <aside class="column is-one-third" id="toc-container">
             <affix relative-element-selector="#spec-content" :style="formattedAffixWidth">
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-header-title">Inhaltsverzeichnis</strong>
-                        <div class="card-header-icon">
-                            <version-selector
-                                    :versions="{{ json_encode(array_keys(config('oparl.versions.specification'))) }}"
-                                    current="{{ $liveViewVersion }}"
-                                    @version-change="changeLiveView"
-                            ></version-selector>
+                <nav class="panel table-of-contents" aria-labelledby="toc-header">
+                    <div class="panel-heading">
+                        <div class="columns">
+                            <div class="column is-vcentered">
+                                <strong id="toc-header">Inhaltsverzeichnis</strong>
+                            </div>
+                            <div class="column is-narrow">
+                                <version-selector
+                                        :versions="{{ json_encode(array_keys(config('oparl.versions.specification'))) }}"
+                                        current="{{ $liveViewVersion }}"
+                                        @version-change="changeLiveView"
+                                ></version-selector>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-content table-of-contents">
-                        {!! $liveView->getTableOfContents() !!}
-                    </div>
-                </div>
+                    {!! $liveView->getTableOfContents() !!}
+                    <div style="height: 1vh">&nbsp;</div>
+                </nav>
             </affix>
         </aside>
         <div class="column is-two-thirds" id="spec-content">

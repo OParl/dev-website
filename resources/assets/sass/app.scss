@@ -54,9 +54,6 @@ $brand-hover: lighten($brand-primary, 33%);
 .table-of-contents {
   height: 75vh;
   overflow-y: scroll;
-  // TODO: figure out that keeping this fixed thing
-  //width: 27%;
-  //position: fixed;
 }
 
 @import "~buefy/dist/buefy.css";
