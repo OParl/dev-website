@@ -1,6 +1,6 @@
-@import '~flag-icon-css/sass/variables';
-@import '~flag-icon-css/sass/flag-icon-base';
-@import '~font-awesome/scss/font-awesome';
+@import '../../node_modules/flag-icon-css/sass/variables';
+@import '../../node_modules/flag-icon-css/sass/flag-icon-base';
+@import '../../node_modules/font-awesome/scss/font-awesome';
 
 @include flag-icon(de);
 @include flag-icon(gb);
@@ -56,5 +56,5 @@ $brand-hover: lighten($brand-primary, 33%);
   overflow-y: scroll;
 }
 
-@import "~buefy/dist/buefy.css";
+@import "../../node_modules/buefy/dist/buefy.css";
 

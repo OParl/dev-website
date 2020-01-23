@@ -22,17 +22,17 @@ mix.js('resources/js/bundles/spec.js', 'public/js')
     'vue-affix',
     'vue-clipboard2'
   ])
-  .sass('resources/assets/sass/app.scss', 'public/css')
-  .sass('resources/assets/sass/pdf.scss', 'public/css')
+  .sass('resources/sass/app.scss', 'public/css')
+  .sass('resources/sass/pdf.scss', 'public/css')
   .combine([
     'node_modules/buefy/lib/buefy.css',
     'node_modules/prismjs/themes/prism.css',
     'node_modules/prism-themes/themes/prism-vs.css',
     'node_modules/swagger-ui/dist/swagger-ui.css'
   ], 'public/css/vendor.css')
-  .copy('resources/assets/brand/icon/oparl-icon.png', 'public/images/favicon.png')
-  .copy('resources/assets/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/images/logos/oparl.svg')
-  .copy('resources/assets/img/oparl-icon-dev-slackbot.png', 'public/images/logos/oparl-slackbot.png')
-  .copy('resources/assets/img/cfg.svg', 'public/images/logos')
-  .copy('resources/assets/img/okf.svg', 'public/images/logos')
+  .copy('resources/brand/icon/oparl-icon.png', 'public/images/favicon.png')
+  .copy('resources/brand/wortmarke/oparl-wortmarke-rgb.svg', 'public/images/logos/oparl.svg')
+  .copy('resources/img/oparl-icon-dev-slackbot.png', 'public/images/logos/oparl-slackbot.png')
+  .copy('resources/img/cfg.svg', 'public/images/logos')
+  .copy('resources/img/okf.svg', 'public/images/logos')
   .version()

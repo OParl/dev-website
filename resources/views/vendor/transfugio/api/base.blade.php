@@ -21,7 +21,7 @@
 
     @if (isset($paginationCode))
     <div class="row text-center">
-        {!! $paginationCode or '' !!}
+        {!! $paginationCode ?? '' !!}
     </div>
     @endif
 @stop
