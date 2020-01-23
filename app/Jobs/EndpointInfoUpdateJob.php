@@ -75,7 +75,9 @@ class EndpointInfoUpdateJob implements ShouldQueue
             $endpoint->save();
         }
 
-        $this->getBodiesFromEndpoint($log, $endpoint);
+        if ('' !== $endpoint->system) {
+            $this->getBodiesFromEndpoint($log, $endpoint);
+        }
 
         $endpoint->endpoint_fetched = Carbon::now();
         $endpoint->save();
@@ -124,23 +126,27 @@ class EndpointInfoUpdateJob implements ShouldQueue
     {
         $systemJson = $endpoint->system;
 
+        if (!array_key_exists('body', $systemJson)) {
+            $log->debug('System '.$endpoint->url.' is missing body list');
+            return;
+        }
+
         $guzzle = new Client();
 
-        try {
-            $bodyResponse = $guzzle->get($systemJson['body']);
-            $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
+        $bodyResponse = $guzzle->get($systemJson['body']);
+        $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
 
-            // fixme: This validator call breaks on prod (PHP 7.3)
-            \Validator::make($bodyJson, [
-                'data'         => 'required|array',
-                'data.*.id'      => 'required|url',
-                'data.*.name'    => 'required|string',
-                'data.*.website' => 'string',
-                'data.*.license' => 'string',
-            ])->validate();
-        } catch (\Exception $e) {
-            $log->error($e->getMessage(), $e->getTrace());
-            $this->fail($e);
+        $validator = \Validator::make($bodyJson, [
+            'data'         => 'required|array',
+            'data.*.id'      => 'required|url',
+            'data.*.name'    => 'string',
+            'data.*.website' => 'string',
+            'data.*.license' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            $log->debug('Validation failed for Body list of ' . $endpoint->url, $validator->errors()->all());
+            $this->fail();
 
             return;
         }
@@ -151,7 +157,7 @@ class EndpointInfoUpdateJob implements ShouldQueue
                 $endpointBody = EndpointBody::whereEndpointId($endpoint->getKey())->whereOparlId($body['id'])->firstOrFail();
             } catch (ModelNotFoundException $e) {
                 $endpointBody = new EndpointBody([
-                    'name'     => $body['name'],
+                    'name'     => (array_key_exists('name', $body)) ? $body['name'] : $body['id'], // If there is no name, the id is at least another string uniquely identifying the body
                     'oparl_id' => $body['id'],
                 ]);
 

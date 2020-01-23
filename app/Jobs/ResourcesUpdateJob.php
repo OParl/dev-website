@@ -49,24 +49,24 @@ class ResourcesUpdateJob implements ShouldQueue
         $repo = new Repository($fs, 'oparl_resources', 'https://github.com/OParl/resources.git');
         $this->getUpdatedHubSync($repo, $log);
 
-        try {
-            $endpointsArray = Yaml::parse($fs->get($repo->getPath('endpoints.yml')));
+        $endpointsArray = Yaml::parse($fs->get($repo->getPath('endpoints.yml')));
 
-            \Validator::make($endpointsArray, [
-                '*.title'       => 'required|string',
-                '*.url'         => 'required|url',
-                '*.description' => 'string',
-            ])->validate();
-        } catch (\Exception $e) {
-            $this->fail($e);
+        $validator = \Validator::make($endpointsArray, [
+            '*.title'       => 'required|string',
+            '*.url'         => 'required|url',
+            '*.description' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            $log->debug('Failed validating endpoints.yml', $validator->errors()->all());
+
+            $this->fail();
             $this->notify(
                 SpecificationUpdateNotification::resourcesUpdateFailedNotification(
                     $repo->getCurrentHead(),
-                    $e->getMessage()
+                    'endpoints.yml contains errors'
                 )
             );
-
-            $log->critical($e->getMessage(), $e->getTrace());
 
             return;
         }
