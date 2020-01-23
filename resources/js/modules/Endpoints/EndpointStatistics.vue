@@ -30,8 +30,8 @@
 </template>
 
 <script>
-    import moment from 'moment'
-    import 'moment/locale/de'
+    import { formatRelative, parseISO } from 'date-fns'
+    import de from 'date-fns/locale/de'
 
     export default {
         name: "EndpointStatistics",
@@ -46,7 +46,12 @@
             },
             latestFetch() {
                 const timestamp = this.endpoints.map(endpoint => endpoint.fetched).sort().pop();
-                return moment(timestamp).calendar()
+
+                if (undefined !== timestamp) {
+                    return formatRelative(parseISO(timestamp), new Date(), { locale: de })
+                }
+
+                return ''
             },
             vendors() {
                 return this.endpoints.map(endpoint => endpoint.system.vendor).filter(

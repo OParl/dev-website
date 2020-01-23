@@ -26,7 +26,7 @@ new Vue({
 
     filteredEndpoints() {
       return this.endpoints.filter(endpoint => {
-        if (null === this.endpointsBodyFilter) return true;
+        if (null === this.endpointsBodyFilter || '' === this.endpointsBodyFilter) return true;
 
         return endpoint.bodies.filter(body => body.name.match(this.endpointsBodyFilter)).length > 0;
       });

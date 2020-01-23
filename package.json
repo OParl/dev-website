@@ -1,8 +1,8 @@
 {
   "private": true,
   "dependencies": {
+    "date-fns": "^2.9.0",
     "font-awesome": "^4.7.0",
-    "moment": "^2.22.2",
     "swagger-ui": "^3.25.0",
     "vue-loader": "^14.2.3",
     "vue-sliding-pagination": "^1.0.3",
@@ -30,12 +30,12 @@
     "node": ">= 8.1.0"
   },
   "scripts": {
-    "dev": "npm run development",
+    "dev": "yarn development",
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch-poll": "npm run watch -- --watch-poll",
+    "watch-poll": "yarn watch -- --watch-poll",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
+    "prod": "yarn production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   }
 }
