@@ -7,18 +7,15 @@
 namespace App\Http\Controllers;
 
 
-use App\Model\Endpoint;
-use Illuminate\Contracts\Filesystem\Filesystem;
-
 class EndpointsController
 {
-    public function index(Filesystem $fs)
+    public function index()
     {
-        $endpoints = Endpoint::all();
-
-        return view('developers.endpoints', [
-            'title'     => trans('app.endpoints.title'),
-            'endpoints' => $endpoints,
-        ]);
+        return view(
+            'endpoints.index',
+            [
+                'title' => trans('app.endpoints.title'),
+            ]
+        );
     }
 }

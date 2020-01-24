@@ -26,11 +26,11 @@
                 <img
                         src="{{ asset('images/logos/okf.svg') }}"
                         alt="Logo der OpenKnowledge Foundation Deutschland"
-                        class="height--48"
+                        style="height: 48px"
                 />
             </div>
             <div class="level-item">
-                <img src="{{ asset('images/logos/cfg.svg') }}" alt="Logo von Code for Germany" class="height--48" />
+                <img src="{{ asset('images/logos/cfg.svg') }}" alt="Logo von Code for Germany" style="height: 48px" />
             </div>
         </div>
 </footer>

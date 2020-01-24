@@ -1,60 +1,36 @@
-@import '../../node_modules/flag-icon-css/sass/variables';
-@import '../../node_modules/flag-icon-css/sass/flag-icon-base';
-@import '../../node_modules/font-awesome/scss/font-awesome';
 
-@include flag-icon(de);
-@include flag-icon(gb);
+$primary: #3498db;
+$success: #5cb85c;
+$info: #5bc0de;
+$warning: #f0ad4e;
+$danger: #d9534f;
+$hover: lighten($primary, 33%);
 
-@import 'modules/accessibility';
+@import "~bulma/bulma";
+
+@import '~font-awesome/scss/font-awesome';
+
+$sliding-pagination-background-primary: $white;
+$sliding-pagination-background-secondary: $grey-lighter;
+$sliding-pagination-foreground-primary: $black;
+$sliding-pagination-foreground-secondary: $primary;
+
+@import "~vue-sliding-pagination/dist/style/sliding-pagination";
 
 [v-cloak] > * {
   display: none;
 }
 [v-cloak]::before { content: "loading…" }
 
-$brand-primary: #3498db;
-$brand-success: #5cb85c;
-$brand-info: #5bc0de;
-$brand-warning: #f0ad4e;
-$brand-danger: #d9534f;
-$brand-hover: lighten($brand-primary, 33%);
-
-.u-pt-0_5 {
-  padding-top: 0.5em;
-}
-
-.toast-container {
-  position: fixed;
-  top: 1em;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-
-.height {
-  &--24 {
-    height: 24px;
-  }
-
-  &--48 {
-    height: 48px;
-  }
-
-  &--96 {
-    height: 96px;
-  }
-}
-
-.shape {
-  &--circle {
-    border-radius: 50%;
-  }
-}
 
 .table-of-contents {
   height: 75vh;
   overflow-y: scroll;
 }
 
-@import "../../node_modules/buefy/dist/buefy.css";
+@import '~flag-icon-css/sass/variables';
+@import '~flag-icon-css/sass/flag-icon-base';
+@include flag-icon(de);
+@include flag-icon(gb);
 
+@import '~vuelayers/lib/style.css';

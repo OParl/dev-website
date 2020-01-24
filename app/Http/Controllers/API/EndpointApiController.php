@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Model\Endpoint;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EndpointApiController
@@ -27,6 +28,12 @@ class EndpointApiController
      *     ),
      *     @OA\Parameter(
      *         in="query",
+     *         name="limit",
+     *         description="Number or results per page",
+     *         example="limit=25"
+     *     ),
+     *     @OA\Parameter(
+     *         in="query",
      *         name="include",
      *         description="Include related resources, currently only used for known OParl:Body resources on the endpoint",
      *         example="include=bodies"
@@ -35,24 +42,29 @@ class EndpointApiController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $page = 0;
-        $itemsPerPage = 25;
+        $limit = 25;
+        $page = 1;
+
+        if ($request->has('limit')) {
+            $requestedLimit = intval($request->get('limit'));
+            $limit = ($requestedLimit < 100) ? $requestedLimit : $limit;
+        }
 
         if ($request->has('page')) {
             $page = intval($request->get('page'));
         }
 
         if ($request->has('include') && 'bodies' === $request->get('include')) {
-            $endpoints = Endpoint::with('bodies')->get()->forPage($page, $itemsPerPage);
+            $endpoints = Endpoint::with('bodies')->get()->forPage($page, $limit);
         } else {
-            $endpoints = Endpoint::all()->forPage($page, $itemsPerPage);
+            $endpoints = Endpoint::all()->forPage($page, $limit);
         }
 
-        $pageCount = floor($endpoints->count() / $itemsPerPage);
+        $pageCount = floor(Endpoint::count() / $limit);
 
         return response()->json([
             'data' => $endpoints,
@@ -95,6 +107,7 @@ class EndpointApiController
      * )
      *
      * @param $id
+     * @return JsonResponse
      */
     public function endpoint(Request $request, $id)
     {
@@ -104,12 +117,61 @@ class EndpointApiController
             $endpoint = Endpoint::find($id);
         }
 
-        return response()->json([
-            'data' => $endpoint,
-            'meta' => []
-        ], 200, [
-            'Content-Type'                => 'application/json',
-            'Access-Control-Allow-Origin' => '*',
-        ]);
+        return response()->json(
+            [
+                'data' => $endpoint,
+                'meta' => [],
+            ],
+            200,
+            [
+                'Content-Type'                => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+            ]
+        );
+    }
+
+    public function statistics()
+    {
+        $endpoints = Endpoint::with('bodies')->get();
+
+        $statistics = [
+            'systemCount' => $endpoints->count(),
+            'bodyCount'   => $endpoints->reduce(
+                static function (int $carry, Endpoint $current) {
+                    return $carry + $current->bodies->count();
+                },
+                0
+            ),
+            'latestFetch' => $endpoints->pluck('fetched')->sort()->pop(),
+            'vendors'     => $endpoints
+                ->map(
+                    static function (Endpoint $endpoint) {
+                        if ([] === $endpoint->system || !array_key_exists('vendor', $endpoint->system)) {
+                            return null;
+                        }
+
+                        return $endpoint->system['vendor'];
+                    }
+                )
+                ->filter(
+                    static function ($value) {
+                        return is_string($value);
+                    }
+                )
+                ->unique()
+                ->values(),
+        ];
+
+        return response()->json(
+            [
+                'data' => $statistics,
+                'meta' => [],
+            ],
+            200,
+            [
+                'Content-Type'                => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+            ]
+        );
     }
 }

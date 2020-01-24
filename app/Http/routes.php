@@ -220,7 +220,6 @@ $router->group([
         ->uses('ApiController@index');
 
     $router->get('/openapi.json')
-        ->name('openApi')
         ->uses('ApiController@openApiJson');
 
     $router->get('/endpoints')
@@ -231,6 +230,9 @@ $router->group([
         ->name('endpoints.get')
         ->where('id', '\d+')
         ->uses('EndpointApiController@endpoint');
+
+    $router->get('/endpoints/statistics')
+        ->uses('EndpointApiController@statistics');
 });
 
 /**

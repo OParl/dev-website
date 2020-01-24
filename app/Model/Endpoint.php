@@ -40,6 +40,11 @@ use Illuminate\Database\Eloquent\Model;
  *         property="description",
  *         type="string",
  *         description="Optional detailed endpoint description"
+ *     ),
+ *     @OA\Property(
+ *         property="bodyCount",
+ *         type="int",
+ *         description="Number of bodies available on endpoint"
  *     )
  * )
  */
@@ -67,7 +72,8 @@ class Endpoint extends Model
 
     protected $appends = [
         'fetched',
-        'formattedDescription'
+        'formattedDescription',
+        'bodyCount'
     ];
 
     /**
@@ -104,5 +110,9 @@ class Endpoint extends Model
     public function getFormattedDescriptionAttribute()
     {
         return $this->description;
+    }
+
+    public function getBodyCountAttribute() {
+        return $this->bodies()->count();
     }
 }

@@ -3,10 +3,12 @@
   "dependencies": {
     "date-fns": "^2.9.0",
     "font-awesome": "^4.7.0",
+    "proj4": "^2.6.0",
     "swagger-ui": "^3.25.0",
     "vue-loader": "^14.2.3",
     "vue-sliding-pagination": "^1.0.3",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "vuelayers": "^0.11.21"
   },
   "devDependencies": {
     "axios": "^0.19",
