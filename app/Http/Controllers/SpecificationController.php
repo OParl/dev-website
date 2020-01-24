@@ -10,13 +10,33 @@ use OParl\Spec\Repositories\LiveViewRepository;
 class SpecificationController extends Controller
 {
     /**
+     * @var CacheManager
+     */
+    protected $cacheManager;
+
+    /**
+     * @var LiveViewRepository
+     */
+    protected $liveViewRepository;
+
+    /**
+     * SpecificationController constructor.
+     * @param CacheManager       $cacheManager
+     * @param LiveViewRepository $liveViewRepository
+     */
+    public function __construct(CacheManager $cacheManager, LiveViewRepository $liveViewRepository)
+    {
+        $this->cacheManager = $cacheManager;
+        $this->liveViewRepository = $liveViewRepository;
+    }
+
+    /**
      * Show the specification's live copy.
      *
-     * @param LiveViewRepository $liveViewRepository
      * @param                    $version
      * @return View
      */
-    public function index(LiveViewRepository $liveViewRepository, CacheManager $cacheManager, string $version = null)
+    public function index(string $version = null)
     {
         $title = 'Spezifikation';
 
@@ -24,11 +44,11 @@ class SpecificationController extends Controller
             $version = config('oparl.specificationDisplayVersion');
         }
 
-        $liveView = $cacheManager->remember(
+        $liveView = $this->cacheManager->remember(
             'liveview.'.$version,
             30,
-            function () use ($liveViewRepository, $version) {
-                return $liveViewRepository->get($version);
+            function () use ($version) {
+                return $this->liveViewRepository->get($version);
             }
         );
 
@@ -42,10 +62,10 @@ class SpecificationController extends Controller
         abort(404);
     }
 
-    public function image(LiveViewRepository $liveViewRepository, $version, $image)
+    public function image($version, $image)
     {
         try {
-            $liveView = $liveViewRepository->get($version);
+            $liveView = $this->liveViewRepository->get($version);
             $imageData = $liveView->getImage($image);
         } catch (FileNotFoundException $e) {
             return response(
@@ -58,10 +78,10 @@ class SpecificationController extends Controller
         return response($imageData, 200, ['Content-type' => 'image/png']);
     }
 
-    public function raw(LiveViewRepository $liveViewRepository, $version)
+    public function raw($version)
     {
         try {
-            $liveView = $liveViewRepository->get($version);
+            $liveView = $this->liveViewRepository->get($version);
 
             return response($liveView->getRaw(), 200, ['Content-type' => 'text/plain']);
         } catch (FileNotFoundException $e) {
