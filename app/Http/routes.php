@@ -209,7 +209,7 @@ unset($specificationVersions);
  */
 /* @var Illuminate\Routing\Router $router */
 $router->group([
-    'namespace'  => '\OParl\Website\API\Controllers',
+    'namespace'  => 'API',
     'as'         => 'api.',
     'domain'     => 'dev.'.config('app.url'),
     'prefix'     => '/api/',

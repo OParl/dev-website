@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Website\API\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Model\Endpoint;
 use Illuminate\Http\Request;

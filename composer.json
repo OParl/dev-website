@@ -76,7 +76,6 @@
       "App\\": "app/",
       "OParl\\Spec\\": "lib/Spec/",
       "OParl\\Server\\": "lib/Server",
-      "OParl\\Website\\API\\": "lib/Api/",
       "EFrane\\HubSync\\": "lib/HubSync/src"
     }
   },

@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Website\Api\Controllers;
+namespace App\Http\Controllers\API;
 
 use function OpenApi\scan;
 
