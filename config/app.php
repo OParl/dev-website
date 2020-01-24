@@ -167,7 +167,6 @@ return [
 
         OParl\Spec\SpecServiceProvider::class,
         OParl\Server\ServerServiceProvider::class,
-        OParl\Website\API\ApiServiceProvider::class,
     ],
 
     /*
