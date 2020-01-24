@@ -77,7 +77,7 @@ $router->group(
 
         $router->get('/endpunkte')
             ->name('endpoints.index')
-            ->uses('DevelopersController@endpoints');
+            ->uses('EndpointsController@index');
 
         // Specification
         $router->get('/spezifikation/{version?}')

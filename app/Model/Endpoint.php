@@ -17,9 +17,15 @@ use Illuminate\Database\Eloquent\Model;
  *         "description": "This is a cool OParl API"
  *     },
  *     required={
+ *         "id",
  *         "url",
  *         "title"
  *     },
+ *     @OA\Property(
+ *         property="id",
+ *         type="int",
+ *         description="Endpoint id on this api"
+ *     ),
  *     @OA\Property(
  *         property="url",
  *         type="string",
@@ -54,10 +60,8 @@ class Endpoint extends Model
     ];
 
     protected $hidden = [
-        'id',
         'created_at',
         'updated_at',
-        'description',
         'endpoint_fetched',
     ];
 

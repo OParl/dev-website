@@ -39,7 +39,7 @@ new Vue({
     },
 
     getEndpoints() {
-      axios.get('/api/endpoints').then(response => {
+      axios.get('/api/endpoints?include=bodies').then(response => {
         return response.data.data;
       }, err => {
         // TODO: handle axios error

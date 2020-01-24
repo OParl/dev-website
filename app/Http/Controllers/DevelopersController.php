@@ -26,14 +26,4 @@ class DevelopersController extends Controller
     {
         return redirect()->route('developers.index');
     }
-
-    public function endpoints(Filesystem $fs)
-    {
-        $endpoints = Endpoint::all();
-
-        return view('developers.endpoints', [
-            'title'     => trans('app.endpoints.title'),
-            'endpoints' => $endpoints,
-        ]);
-    }
 }
