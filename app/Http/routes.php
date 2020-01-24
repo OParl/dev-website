@@ -15,7 +15,8 @@
 
 $specificationVersions = sprintf(
     '(%s)',
-    implode('|',
+    implode(
+        '|',
         array_keys((new \OParl\Spec\OParlVersions())->getModule('specification'))
     )
 );
@@ -27,72 +28,122 @@ $specificationVersions = sprintf(
  * dev.oparl.org except the api/ section which is loaded in via the
  * OParl\Server\ServerServiceProvider.
  */
-$router->group(['domain' => 'dev.'.config('app.url')], function () use ($router, $specificationVersions) {
-    $router->get('/favicon.ico', ['uses' => 'MiscController@favicon']);
-    $router->get('/', ['uses' => 'DevelopersController@index', 'as' => 'developers.index']);
+$router->group(
+    [
+        'domain' => 'dev.'.config('app.url'),
+    ],
+    function () use ($router, $specificationVersions) {
+        $router->get('/favicon.ico')
+            ->uses('MiscController@favicon');
 
-    $router->get('/contact', ['uses' => 'DevelopersController@contact', 'as' => 'contact.index']);
+        $router->get('/')
+            ->name('developers.index')
+            ->uses('DevelopersController@index');
 
-    // Dummy file controller for API demo
-    $router->pattern('filename', '[a-z0-9]{3,12}');
-    $router->get('/demo/{filename}.pdf', ['uses' => 'DummyFileController@show', 'as' => 'dummyfile.show']);
-    $router->get('/demo/f/{filename}.pdf', ['uses' => 'DummyFileController@serve', 'as' => 'dummyfile.serve']);
+        $router->get('/contact')
+            ->name('contact.index')
+            ->uses('DevelopersController@contact');
 
-    // Downloads
-    $router->get('/downloads/')
-        ->name('downloads.index')
-        ->uses('DownloadsController@index');
+        // Dummy file controller for API demo
+        $router->pattern('filename', '[a-z0-9]{3,12}');
+        $router->get('/demo/{filename}.pdf')
+            ->name('dummyfile.show')
+            ->uses('DummyFileController@show');
 
-    $router->post('/downloads')
-        ->name('downloads.request')
-        ->uses('DownloadsController@downloadRequest');
+        $router->get('/demo/f/{filename}.pdf')
+            ->name('dummyfile.serve')
+            ->uses('DummyFileController@serve');
+
+        // Downloads
+        $router->get('/downloads/')
+            ->name('downloads.index')
+            ->uses('DownloadsController@index');
+
+        $router->post('/downloads')
+            ->name('downloads.request')
+            ->uses('DownloadsController@downloadRequest');
 
 
-    $router->get('/downloads/spezifikation-{version}.{format}')
-        ->name('downloads.specification')
-        ->uses('DownloadsController@specification')
-        ->where('version', $specificationVersions)
-        ->middleware('track');
+        $router->get('/downloads/spezifikation-{version}.{format}')
+            ->name('downloads.specification')
+            ->uses('DownloadsController@specification')
+            ->where('version', $specificationVersions)
+            ->middleware('track');
 
-    $router->get('/endpunkt')
-        ->uses('RedirectController@fuzzy');
-    $router->get('/endpunkte')
-        ->name('endpoints.index')
-        ->uses('DevelopersController@endpoints');
+        // Endpoint listing
 
-    // Specification
-    $router->get('/spezifikation/{version?}')
-        ->uses('SpecificationController@index')
-        ->name('specification.index');
+        $router->get('/endpunkt')
+            ->uses('RedirectController@fuzzy');
 
-    $router->get('/spezifikation-{version}.md')
-        ->uses('SpecificationController@raw')
-        ->name('specification.raw')
-        ->where('version', $specificationVersions);
+        $router->get('/endpunkte')
+            ->name('endpoints.index')
+            ->uses('DevelopersController@endpoints');
 
-    $router->get('/spezifikation/{version}/images/')
-        ->uses('SpecificationController@imageIndex')
-        ->name('specification.images');
+        // Specification
+        $router->get('/spezifikation/{version?}')
+            ->uses('SpecificationController@index')
+            ->name('specification.index');
 
-    $router->get('/spezifikation/{version}/images/{image}.png')
-        ->uses('SpecificationController@image')
-        ->name('specification.image')
-        ->where('version', $specificationVersions)
-        ->where('image', '[a-zA-Z0-9-._]+');
+        $router->get('/spezifikation-{version}.md')
+            ->uses('SpecificationController@raw')
+            ->name('specification.raw')
+            ->where('version', $specificationVersions);
 
-    $router->get('/validator')->uses('ValidatorController@validationForm')->name('validator.index');
-    $router->post('/validator')->uses('ValidatorController@scheduleValidation')->name('validator.schedule');
-    $router->get('/validator/in-bearbeitung')->uses('ValidatorController@validationScheduleSuccess')->name('validator.schedule.success');
-    $router->get('/validator/{endpoint}', ['uses' => 'ValidatorController@result', 'as' => 'validator.result']);
+        $router->get('/spezifikation/{version}/images/')
+            ->uses('SpecificationController@imageIndex')
+            ->name('specification.images');
 
-    $router->get('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index']);
-    $router->post('/_/gh/', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.index.post']);
-    $router->get('/_/gh/push/[a-zA-Z.]+', ['uses' => 'Hooks\GitHubHooksController@index', 'as' => 'hooks.gh.push.get']);
-    $router->post('/_/gh/push/{repository}', ['uses' => 'Hooks\GitHubHooksController@push', 'as' => 'hooks.gh.push'])
-        ->where('repository', '[a-z-]+');
+        $router->get('/spezifikation/{version}/images/{image}.png')
+            ->name('specification.image')
+            ->where('version', $specificationVersions)
+            ->where('image', '[a-zA-Z0-9-._]+')
+            ->uses('SpecificationController@image');
 
-    $router->get('/_/language/{language}')->name('locale.set')->uses('MiscController@setLocale')->where('language', '(de|en)');
-});
+        // Validator
+
+        $router->get('/validator')
+            ->name('validator.index')
+            ->uses('ValidatorController@validationForm');
+
+        $router->post('/validator')
+            ->name('validator.schedule')
+            ->uses('ValidatorController@scheduleValidation');
+
+        $router->get('/validator/in-bearbeitung')
+            ->name('validator.schedule.success')
+            ->uses('ValidatorController@validationScheduleSuccess');
+
+        $router->get('/validator/{endpoint}')
+            ->name('validator.result')
+            ->uses('ValidatorController@result');
+
+        // GitHub Hooks
+
+        $router->get('/_/gh/')
+            ->name('hooks.gh.index')
+            ->uses('Hooks\GitHubHooksController@index');
+
+        $router->post('/_/gh/')
+            ->name('hooks.gh.post')
+            ->uses('Hooks\GitHubHooksController@index');
+
+        $router->get('/_/gh/push/[a-zA-Z.]+')
+            ->name('hooks.gh.push.get')
+            ->uses('Hooks\GitHubHooksController@index');
+
+        $router->post('/_/gh/push/{repository}')
+            ->name('hooks.gh.push')
+            ->where('repository', '[a-z-]+')
+            ->uses('Hooks\GitHubHooksController@push');
+
+        // Locale switching
+
+        $router->get('/_/language/{language}')->name('locale.set')->uses('MiscController@setLocale')->where(
+            'language',
+            '(de|en)'
+        );
+    }
+);
 
 /*
  * Route group for spec.oparl.org
@@ -103,19 +154,26 @@ $router->group(['domain' => 'dev.'.config('app.url')], function () use ($router,
  * Additionally, short links to downloads of the stable and
  * the latest unstable specification versions are provided.
  */
-$router->group(['domain' => 'spec.'.config('app.url')], function () use ($router) {
-    $router->any('/')->uses('SpecificationController@redirectToIndex');
+$router->group(
+    ['domain' => 'spec.'.config('app.url')],
+    function () use ($router) {
+        $router->any('/')
+            ->uses('SpecificationController@redirectToIndex');
 
-    $router->pattern(
-        'version',
-        sprintf('(%s)', implode('|', array_keys(config('oparl.versions.specification'))))
-    );
+        $router->pattern(
+            'version',
+            sprintf('(%s)', implode('|', array_keys(config('oparl.versions.specification'))))
+        );
 
-    $router->get('/{version}')->uses('SpecificationController@redirectToVersion');
-    $router->get('/{version}.{format}')->uses('DownloadsController@specification');
+        $router->get('/{version}')
+            ->uses('SpecificationController@redirectToVersion');
+        $router->get('/{version}.{format}')
+            ->uses('DownloadsController@specification');
 
-    $router->get('/latest.{format}')->uses('DownloadsController@latestSpecification');
-});
+        $router->get('/latest.{format}')
+            ->uses('DownloadsController@latestSpecification');
+    }
+);
 
 /*
  * Route group for schema.oparl.org
@@ -125,19 +183,23 @@ $router->group(['domain' => 'spec.'.config('app.url')], function () use ($router
  *
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
-$router->group(['domain' => 'schema.'.config('app.url')], function () use ($router, $specificationVersions) {
-    $router->pattern('version', $specificationVersions);
+$router->group(
+    ['domain' => 'schema.'.config('app.url')],
+    function () use ($router, $specificationVersions) {
+        $router->pattern('version', $specificationVersions);
 
-    $router->get('/')->uses('SchemaController@index');
+        $router->any('/')
+            ->uses('SchemaController@index');
 
-    $router->get('/{version}')
-        ->name('schema.list')
-        ->uses('SchemaController@listSchemaVersion');
+        $router->get('/{version}')
+            ->name('schema.list')
+            ->uses('SchemaController@listSchemaVersion');
 
-    $router->get('/{version}/{entity}')
-        ->name('schema.get')
-        ->uses('SchemaController@getSchema')
-        ->where('entity', '[A-Za-z]+');
-});
+        $router->get('/{version}/{entity}')
+            ->name('schema.get')
+            ->where('entity', '[A-Za-z]+')
+            ->uses('SchemaController@getSchema');
+    }
+);
 
 unset($specificationVersions);
