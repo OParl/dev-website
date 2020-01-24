@@ -233,3 +233,32 @@ $router->group([
         ->uses('EndpointApiController@endpoint');
 });
 
+/**
+ * Route group for demoserver API
+ */
+$router->group([
+    'namespace'  => '\OParl\Server\API\Controllers',
+    'as'         => 'api.oparl.v1.',
+    'domain'     => 'dev.'.config('app.url'),
+    'prefix'     => 'api/oparl/v1/',
+    'middleware' => ['track', 'bindings'],
+], function () use ($router) {
+    $router->get('/')
+        ->name('index')
+        ->uses('RootController@index');
+
+    $apiOnlyIndexAndShow = ['only' => ['index', 'show']];
+
+    $router->resource('system', 'SystemController', $apiOnlyIndexAndShow);
+    $router->resource('body', 'BodyController', $apiOnlyIndexAndShow);
+    $router->resource('legislativeterm', 'LegislativeTermController', $apiOnlyIndexAndShow);
+    $router->resource('agendaitem', 'AgendaItemController', $apiOnlyIndexAndShow);
+    $router->resource('person', 'PersonController', $apiOnlyIndexAndShow);
+    $router->resource('meeting', 'MeetingController', $apiOnlyIndexAndShow);
+    $router->resource('organization', 'OrganizationController', $apiOnlyIndexAndShow);
+    $router->resource('membership', 'MembershipController', $apiOnlyIndexAndShow);
+    $router->resource('paper', 'PaperController', $apiOnlyIndexAndShow);
+    $router->resource('consultation', 'ConsultationController', $apiOnlyIndexAndShow);
+    $router->resource('location', 'LocationController', $apiOnlyIndexAndShow);
+    $router->resource('file', 'FileController', $apiOnlyIndexAndShow);
+});
