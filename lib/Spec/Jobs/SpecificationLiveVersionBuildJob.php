@@ -121,10 +121,10 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         })->map(function ($filename) use ($fs) {
             return $fs->get($filename);
         })->reduce(function ($carry, $current) {
-            return $carry . $current;
+            return $carry."\n".$current;
         }, '');
 
-        $fs->put($this->getStoragePath('raw.md'), $raw);
+        $fs->put($this->getStoragePath('raw.md'), trim($raw));
     }
 
     /**
