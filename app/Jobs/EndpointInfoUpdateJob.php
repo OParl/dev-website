@@ -23,6 +23,8 @@ class EndpointInfoUpdateJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     use Notifiable;
 
+    const CONNECT_TIMEOUT = 5;
+    const RECEIVE_TIMEOUT = 2;
     protected $endpointData = [];
 
     /**
@@ -48,9 +50,11 @@ class EndpointInfoUpdateJob implements ShouldQueue
         $endpoint = null;
 
         try {
-            $endpoint = Endpoint::firstOrNew([
-                'url' => $this->endpointData['url'],
-            ]);
+            $endpoint = Endpoint::firstOrNew(
+                [
+                    'url' => $this->endpointData['url'],
+                ]
+            );
         } catch (QueryException $e) {
             $log->error('Failed to update endpoint info', $this->endpointData);
             $log->error($e->getMessage(), $e->getTrace());
@@ -95,15 +99,15 @@ class EndpointInfoUpdateJob implements ShouldQueue
                 $endpoint->url,
                 [
                     // fail relatively fast on unreachable systems
-                    'connect_timeout' => 5,
-                    'timeout'         => 2,
+                    'connect_timeout' => self::CONNECT_TIMEOUT,
+                    'timeout'         => self::RECEIVE_TIMEOUT,
                 ]
             );
 
             $systemJson = json_decode((string)$systemResponse->getBody(), true);
             $endpoint->system = $systemJson;
         } catch (RequestException $e) {
-            $log->warning('Failed to fetch system for ' . $endpoint->url);
+            $log->warning('Failed to fetch system for '.$endpoint->url);
             $this->notify(
                 SpecificationUpdateNotification::endpointInfoUpdateFailedNotification(
                     $endpoint->url,
@@ -128,49 +132,75 @@ class EndpointInfoUpdateJob implements ShouldQueue
 
         if (!array_key_exists('body', $systemJson)) {
             $log->debug('System '.$endpoint->url.' is missing body list');
+
             return;
         }
 
-        $guzzle = new Client();
+        try {
+            $guzzle = new Client();
 
-        $bodyResponse = $guzzle->get($systemJson['body']);
-        $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
+            $bodyResponse = $guzzle->get(
+                $systemJson['body'],
+                [
+                    // fail relatively fast on unreachable systems
+                    'connect_timeout' => self::CONNECT_TIMEOUT,
+                    'timeout'         => self::RECEIVE_TIMEOUT,
+                ]
+            );
 
-        $validator = \Validator::make($bodyJson, [
-            'data'         => 'required|array',
-            'data.*.id'      => 'required|url',
-            'data.*.name'    => 'string',
-            'data.*.website' => 'string',
-            'data.*.license' => 'string',
-        ]);
+            $bodyJson = json_decode((string)$bodyResponse->getBody(), true);
+        } catch (RequestException $e) {
+            $log->debug('Failed to fetch body for system '.$systemJson['id']);
+            $this->fail($e);
+
+            return;
+        }
+
+        $validator = \Validator::make(
+            $bodyJson,
+            [
+                'data'           => 'required|array',
+                'data.*.id'      => 'required|url',
+                'data.*.name'    => 'string',
+                'data.*.website' => 'string',
+                'data.*.license' => 'string',
+            ]
+        );
 
         if ($validator->fails()) {
-            $log->debug('Validation failed for Body list of ' . $endpoint->url, $validator->errors()->all());
+            $log->debug('Validation failed for Body list of '.$endpoint->url, $validator->errors()->all());
             $this->fail();
 
             return;
         }
 
-        collect($bodyJson['data'])->each(function (array $body) use ($log, $endpoint) {
-            /** @var EndpointBody $endpointBody */
-            try {
-                $endpointBody = EndpointBody::whereEndpointId($endpoint->getKey())->whereOparlId($body['id'])->firstOrFail();
-            } catch (ModelNotFoundException $e) {
-                $endpointBody = new EndpointBody([
-                    'name'     => (array_key_exists('name', $body)) ? $body['name'] : $body['id'], // If there is no name, the id is at least another string uniquely identifying the body
-                    'oparl_id' => $body['id'],
-                ]);
+        collect($bodyJson['data'])->each(
+            function (array $body) use ($log, $endpoint) {
+                /** @var EndpointBody $endpointBody */
+                try {
+                    $endpointBody = EndpointBody::whereEndpointId($endpoint->getKey())->whereOparlId(
+                        $body['id']
+                    )->firstOrFail();
+                } catch (ModelNotFoundException $e) {
+                    $endpointBody = new EndpointBody(
+                        [
+                            'name'     => (array_key_exists('name', $body)) ? $body['name'] : $body['id'],
+                            // If there is no name, the id is at least another string uniquely identifying the body
+                            'oparl_id' => $body['id'],
+                        ]
+                    );
 
-                $endpointBody->endpoint()->associate($endpoint);
+                    $endpointBody->endpoint()->associate($endpoint);
+                }
+
+                $endpointBody->website = (array_key_exists('website', $body)) ? $body['website'] : '';
+                $endpointBody->license = (array_key_exists('license', $body)) ? $body['license'] : '';
+                $endpointBody->json = $body;
+
+                $endpointBody->touch();
+                $endpointBody->save();
             }
-
-            $endpointBody->website = (array_key_exists('website', $body)) ? $body['website'] : '';
-            $endpointBody->license = (array_key_exists('license', $body)) ? $body['license'] : '';
-            $endpointBody->json = $body;
-
-            $endpointBody->touch();
-            $endpointBody->save();
-        });
+        );
     }
 
     public function routeNotificationsForSlack()
