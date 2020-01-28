@@ -67,7 +67,7 @@
     "phpunit/phpunit": "~7.0",
     "mockery/mockery": "^1.2",
     "mikey179/vfsstream": "^1.6",
-    "laravel/browser-kit-testing": "4.*"
+    "laravel/browser-kit-testing": "5.*"
   },
   "autoload": {
     "classmap": [
