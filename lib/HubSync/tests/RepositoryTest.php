@@ -25,7 +25,7 @@ class RepositoryTest extends TestCase
         exec($cmd);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

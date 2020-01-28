@@ -46,7 +46,7 @@ class SpecificationController extends Controller
 
         $liveView = $this->cacheManager->remember(
             'liveview.'.$version,
-            30,
+            1800,
             function () use ($version) {
                 return $this->liveViewRepository->get($version);
             }

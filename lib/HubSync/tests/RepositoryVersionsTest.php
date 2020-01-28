@@ -18,7 +18,7 @@ class RepositoryVersionsTest extends TestCase
      */
     protected $repo;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ class RepositoryVersionsTest extends TestCase
         $this->repo->update();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->repo->remove();
     }

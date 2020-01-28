@@ -7,7 +7,7 @@ class DownloadTest extends TestCase
      */
     protected $fs = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->app = $this->createApplication();
 
