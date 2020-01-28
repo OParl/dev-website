@@ -124,7 +124,7 @@ $router->group(
             ->uses('Hooks\GitHubHooksController@index');
 
         $router->post('/_/gh/')
-            ->name('hooks.gh.post')
+            ->name('hooks.gh.index.post')
             ->uses('Hooks\GitHubHooksController@index');
 
         $router->get('/_/gh/push/[a-zA-Z.]+')
