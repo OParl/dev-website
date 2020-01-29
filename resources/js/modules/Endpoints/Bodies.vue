@@ -64,6 +64,9 @@
           .then(response => response.data)
           .then(data => {
             this.$set(this, 'endpoint', data.data)
+
+            // scroll to top after loading
+            scrollTo({ top: 0, behavior: 'smooth' })
           })
       }
     },
