@@ -10,13 +10,13 @@
               </button>
             </div>
           </div>
-          <div class="level-item">
-            <div class="control">
-              <button class="button" @click="toggleState('statistics')">
-                Statistik
-              </button>
-            </div>
-          </div>
+<!--          <div class="level-item">-->
+<!--            <div class="control">-->
+<!--              <button class="button" @click="toggleState('statistics')">-->
+<!--                Statistik-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
 
         <div class="level-right">
@@ -98,7 +98,7 @@
   import { formatRelative, parseISO } from 'date-fns'
   import de from 'date-fns/locale/de'
   import Bodies from './Bodies'
-  import Overview from './Overview'
+  // import Overview from './Overview'
   import Statistics from './Statistics'
   import SlidingPagination from 'vue-sliding-pagination'
 
@@ -119,7 +119,8 @@
       detailComponent () {
         switch (this.state) {
           case 'overview':
-            return Overview.name
+            return Statistics.name
+          // return Overview.name
 
           case 'statistics':
             return Statistics.name
@@ -140,7 +141,7 @@
       },
 
       loadPage (page) {
-        return axios.get('/api/endpoints?limit=10&page=' + page)
+        return axios.get('/api/endpoints?limit=40&page=' + page)
           .then(response => response.data)
           .then(data => {
             this.$set(this, 'endpoints', data.data)
@@ -167,7 +168,7 @@
 
     components: {
       Bodies,
-      Overview,
+      // Overview,
       SlidingPagination,
       Statistics
     }
