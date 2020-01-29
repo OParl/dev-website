@@ -59,9 +59,9 @@ class EndpointApiController
         }
 
         if ($request->has('include') && 'bodies' === $request->get('include')) {
-            $endpoints = Endpoint::with('bodies')->get()->forPage($page, $limit);
+            $endpoints = Endpoint::with('bodies')->orderBy('title')->get()->forPage($page, $limit);
         } else {
-            $endpoints = Endpoint::all()->forPage($page, $limit);
+            $endpoints = Endpoint::orderBy('title')->get()->forPage($page, $limit);
         }
 
         $pageCount = floor(Endpoint::count() / $limit);
@@ -159,6 +159,7 @@ class EndpointApiController
                     }
                 )
                 ->unique()
+                ->sort()
                 ->values(),
         ];
 
