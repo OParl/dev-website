@@ -10,23 +10,24 @@
         <vl-source-osm></vl-source-osm>
       </vl-layer-tile>
 
-      <vl-feature v-for="location in locations" :key="location.id" :id="location.id">
-        <vl-geom-point :coordinates="location.geojson.geometry.coordinates"></vl-geom-point>
-      </vl-feature>
+<!--      <vl-feature v-for="area in areas" :key="area.id" :id="area.id">-->
+<!--        <vl-geom-polygon :coordinates="areaCoordinates(area)"></vl-geom-polygon>-->
+<!--      </vl-feature>-->
     </vl-map>
   </section>
 </template>
 
 <script>
   import axios from 'axios'
+  import simplify from 'simplify-geojson'
   import Vue from 'vue'
-  import { Map, TileLayer, OsmSource, Feature, PointGeom } from 'vuelayers'
+  import { Map, TileLayer, OsmSource, Feature, PolygonGeom } from 'vuelayers'
 
   Vue.use(Map)
   Vue.use(TileLayer)
   Vue.use(OsmSource)
   Vue.use(Feature)
-  Vue.use(PointGeom)
+  Vue.use(PolygonGeom)
 
   export default {
     name: 'Overview',
@@ -36,16 +37,23 @@
         zoom: 6,
         center: [9.270, 50.228],
         rotation: 0,
-        locations: []
+        areas: []
+      }
+    },
+
+    methods: {
+      areaCoordinates (area) {
+        console.log(simplify(area.geojson, 40))
+
+        return []
+        // return area.geojson.geometry.coordinates;
       }
     },
 
     mounted () {
-      axios.get('/api/endpoints/1?include=bodies')
-        .then(response => response.data.data.bodies)
-        .then(bodies => bodies.filter(body => undefined !== body.json.location && undefined !== body.json.location.geojson))
-        .then(bodies => bodies.map(body => body.json.location))
-        .then(locations => this.locations = locations)
+      axios.get('/api/endpoints/areas')
+        .then(response => response.data.data)
+        .then(areas => this.areas = areas)
     }
   }
 </script>

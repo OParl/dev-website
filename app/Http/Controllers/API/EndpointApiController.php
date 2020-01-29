@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Model\Endpoint;
+use App\Services\EndpointLocator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class EndpointApiController
 {
@@ -35,8 +37,8 @@ class EndpointApiController
      *     @OA\Parameter(
      *         in="query",
      *         name="include",
-     *         description="Include related resources, currently only used for known OParl:Body resources on the endpoint",
-     *         example="include=bodies"
+     *         description="Include related resources, currently only used for known OParl:Body resources on the
+     *     endpoint", example="include=bodies"
      *     )
      * )
      *
@@ -66,19 +68,23 @@ class EndpointApiController
 
         $pageCount = floor(Endpoint::count() / $limit);
 
-        return response()->json([
-            'data' => $endpoints,
-            'meta' => [
-                'page'  => $page,
-                'total' => $pageCount,
-                'next'  => ($pageCount > $page)
-                    ? route('api.endpoints.index', ['page' => ++$page])
-                    : null,
+        return response()->json(
+            [
+                'data' => $endpoints,
+                'meta' => [
+                    'page'  => $page,
+                    'total' => $pageCount,
+                    'next'  => ($pageCount > $page)
+                        ? route('api.endpoints.index', ['page' => ++$page])
+                        : null,
+                ],
             ],
-        ], 200, [
-            'Content-Type'                => 'application/json',
-            'Access-Control-Allow-Origin' => '*',
-        ]);
+            Response::HTTP_OK,
+            [
+                'Content-Type'                => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+            ]
+        );
     }
 
     /**
@@ -101,8 +107,8 @@ class EndpointApiController
      *     @OA\Parameter(
      *         in="query",
      *         name="include",
-     *         description="Include related resources, currently only used for known OParl:Body resources on the endpoint",
-     *         example="include=bodies"
+     *         description="Include related resources, currently only used for known OParl:Body resources on the
+     *     endpoint", example="include=bodies"
      *     )
      * )
      *
@@ -122,7 +128,7 @@ class EndpointApiController
                 'data' => $endpoint,
                 'meta' => [],
             ],
-            200,
+            Response::HTTP_OK,
             [
                 'Content-Type'                => 'application/json',
                 'Access-Control-Allow-Origin' => '*',
@@ -168,11 +174,31 @@ class EndpointApiController
                 'data' => $statistics,
                 'meta' => [],
             ],
-            200,
+            Response::HTTP_OK,
             [
                 'Content-Type'                => 'application/json',
                 'Access-Control-Allow-Origin' => '*',
             ]
+        );
+    }
+
+    public function areas(EndpointLocator $endpointLocator)
+    {
+        $endpoints = Endpoint::all();
+
+        $areas = [
+            [
+                'id' => 1,
+                'geojson' => $endpointLocator->lookup(1739381)
+            ]
+        ];
+
+        return response()->json(
+            [
+                'data' => $areas,
+                'meta' => [],
+            ],
+            Response::HTTP_OK
         );
     }
 }

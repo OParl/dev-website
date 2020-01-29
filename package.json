@@ -4,6 +4,7 @@
     "date-fns": "^2.9.0",
     "font-awesome": "^4.7.0",
     "proj4": "^2.6.0",
+    "simplify-geojson": "^1.0.3",
     "swagger-ui": "^3.25.0",
     "vue-loader": "^14.2.3",
     "vue-sliding-pagination": "^1.0.3",

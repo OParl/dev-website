@@ -233,6 +233,9 @@ $router->group([
 
     $router->get('/endpoints/statistics')
         ->uses('EndpointApiController@statistics');
+
+    $router->get('/endpoints/areas')
+        ->uses('EndpointApiController@areas');
 });
 
 /**
