@@ -6,11 +6,12 @@
  * Time: 23:55.
  */
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class Command extends \Illuminate\Console\Command
+abstract class SpecCommand extends Command
 {
     use DispatchesJobs;
 

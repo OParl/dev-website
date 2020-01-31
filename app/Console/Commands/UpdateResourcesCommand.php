@@ -1,15 +1,11 @@
 <?php
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
 use App\Jobs\ResourcesUpdateJob;
-use Illuminate\Console\Command;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class UpdateResourcesCommand extends Command
+class UpdateResourcesCommand extends SpecCommand
 {
-    use DispatchesJobs;
-
     /**
      * The name and signature of the console command.
      *

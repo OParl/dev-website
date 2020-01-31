@@ -1,10 +1,10 @@
 <?php
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
 use OParl\Spec\Jobs\SpecificationSchemaBuildJob;
 
-class UpdateSchemaCommand extends Command
+class UpdateSchemaSpecCommand extends SpecCommand
 {
     protected $signature = 'oparl:update:schema {treeish?}';
     protected $description = 'Force-update the schema assets';

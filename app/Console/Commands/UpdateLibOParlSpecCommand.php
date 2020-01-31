@@ -1,10 +1,10 @@
 <?php
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
 use OParl\Spec\Jobs\LibOParlBuildJob;
 
-class UpdateLibOParlCommand extends Command
+class UpdateLibOParlSpecCommand extends SpecCommand
 {
     protected $signature = 'oparl:update:liboparl';
     protected $description = 'Update the liboparl build on the server';

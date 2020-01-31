@@ -6,14 +6,14 @@
  * Time: 12:12.
  */
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
 use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
 
 /**
  * Class UpdateSpecificationCommand.
  */
-class UpdateSpecificationCommand extends Command
+class UpdateSpecificationSpecCommand extends SpecCommand
 {
     protected $signature = 'oparl:update:specification {treeish?}';
     protected $description = "Force-update the specifications' HTML and assets";

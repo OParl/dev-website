@@ -1,10 +1,10 @@
 <?php
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
 use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
 
-class UpdateDownloadsCommand extends Command
+class UpdateDownloadsSpecCommand extends SpecCommand
 {
     protected $signature = 'oparl:update:downloads {treeish?}';
     protected $description = "Force-update the site's spec downloads";

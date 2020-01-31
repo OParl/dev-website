@@ -6,12 +6,12 @@
  * Time: 14:39.
  */
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
 use EFrane\ConsoleAdditions\Batch\Batch;
 use OParl\Spec\OParlVersions;
 
-class InitializeCommand extends Command
+class InitializeSpecCommand extends SpecCommand
 {
     protected $signature = 'oparl:init';
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace OParl\Spec\Commands;
+namespace App\Console\Commands;
 
 use OParl\Spec\Jobs\ValidatorBuildJob;
 
-class UpdateValidatorCommand extends Command
+class UpdateValidatorSpecCommand extends SpecCommand
 {
     protected $signature = 'oparl:update:validator {treeish?}';
     protected $description = 'Update the oparl validator';
