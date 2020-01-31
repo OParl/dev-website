@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\API\Transformers;
+namespace App\Transformers;
 
 use OParl\Server\Model\Membership;
 

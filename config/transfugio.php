@@ -6,7 +6,7 @@ return [
     'modelNamespace' => 'OParl\\Server\\Model\\',
 
     'transformers' => [
-        'serializer' => OParl\Server\API\Serializer::class,
+        'serializer' => \App\Services\Serializer::class,
 
         'namespace'    => 'OParl\\Server\\API\\Transformers',
         'classPattern' => '[:modelName]Transformer',

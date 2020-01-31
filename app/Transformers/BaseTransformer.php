@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\API\Transformers;
+namespace App\Transformers;
 
 use EFrane\Transfugio\Transformers\BaseTransformer as TransfugioBaseTransformer;
 use OParl\Server\Model\BaseModel;

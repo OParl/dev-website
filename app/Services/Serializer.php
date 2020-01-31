@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\API;
+namespace App\Services;
 
 use EFrane\Transfugio\Transformers\SanitizedArraySerializer;
 use League\Fractal\Pagination\PaginatorInterface;

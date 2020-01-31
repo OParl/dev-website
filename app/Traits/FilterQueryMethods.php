@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\API;
+namespace App\Traits;
 
 use EFrane\Transfugio\Query\QueryService;
 use EFrane\Transfugio\Query\ValueExpression;
