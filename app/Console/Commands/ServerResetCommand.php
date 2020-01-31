@@ -1,13 +1,13 @@
 <?php
 
-namespace OParl\Server\Commands;
+namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
 /**
  * Clear the server data.
  */
-class ResetCommand extends Command
+class ServerResetCommand extends Command
 {
     protected $name = 'server:reset';
     protected $description = "Reset the demoserver's database";

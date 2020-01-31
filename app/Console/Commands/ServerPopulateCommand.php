@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\Commands;
+namespace App\Console\Commands;
 
 use Faker\Generator;
 use Illuminate\Console\Command;
@@ -21,7 +21,7 @@ use OParl\Server\Model\Person;
 use OParl\Server\Model\System;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-class PopulateCommand extends Command
+class ServerPopulateCommand extends Command
 {
     protected $signature = 'server:populate 
         {--refresh : Delete and regenerate all existing data (this includes running any missing db migrations)}';
@@ -276,7 +276,7 @@ class PopulateCommand extends Command
     protected function updateDynamicAmounts($amountsDynamic, $amounts)
     {
         $amounts = collect($amountsDynamic)->map(function ($minmax) {
-            list($min, $max) = $minmax;
+            [$min, $max] = $minmax;
 
             return $this->faker->numberBetween($min, $max);
         })->merge($amounts)->toArray();
