@@ -4,7 +4,7 @@
  * @author Stefan "eFrane" Graupner <stefan.graupner@gmail.com>
  */
 
-namespace OParl\Spec\Repositories;
+namespace App\Repositories;
 
 use App\Services\OParlVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;

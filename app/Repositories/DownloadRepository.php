@@ -6,7 +6,7 @@
  * Time: 11:54.
  */
 
-namespace OParl\Spec\Repositories;
+namespace App\Repositories;
 
 use App\Model\DownloadVersion;
 use Illuminate\Contracts\Filesystem\Filesystem;

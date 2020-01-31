@@ -6,7 +6,7 @@
  * Time: 11:20.
  */
 
-namespace OParl\Spec\Repositories;
+namespace App\Repositories;
 
 /**
  * Class SpecificationDownloadRepository.

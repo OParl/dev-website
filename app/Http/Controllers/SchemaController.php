@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SchemaRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\Repositories\SchemaRepository;
 
 class SchemaController extends Controller
 {

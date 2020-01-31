@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\LiveViewRepository;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\View\View;
-use OParl\Spec\Repositories\LiveViewRepository;
 
 class SpecificationController extends Controller
 {

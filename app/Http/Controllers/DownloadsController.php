@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DownloadRequest;
+use App\Repositories\SpecificationDownloadRepository;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use OParl\Spec\Repositories\SpecificationDownloadRepository;
 
 class DownloadsController extends Controller
 {
