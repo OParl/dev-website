@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use OParl\Spec\Jobs\ValidatorBuildJob;
+use App\Jobs\ValidatorBuildJob;
 
 class UpdateValidatorSpecCommand extends SpecCommand
 {

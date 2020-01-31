@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use OParl\Spec\Jobs\LibOParlBuildJob;
+use App\Jobs\LibOParlBuildJob;
 
 class UpdateLibOParlSpecCommand extends SpecCommand
 {

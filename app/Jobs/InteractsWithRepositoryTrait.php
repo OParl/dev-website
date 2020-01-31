@@ -1,11 +1,10 @@
 <?php
 
-namespace OParl\Spec\Jobs;
+namespace App\Jobs;
 
 use EFrane\HubSync\Repository;
 use EFrane\HubSync\RepositoryVersions;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 trait InteractsWithRepositoryTrait

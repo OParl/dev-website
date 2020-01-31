@@ -10,10 +10,6 @@ namespace App\Jobs;
 
 use App\Services\OParlVersions;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
-use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
-use OParl\Spec\Jobs\SpecificationSchemaBuildJob;
-use OParl\Spec\Jobs\ValidatorBuildJob;
 use Psr\Log\LoggerInterface;
 
 /**

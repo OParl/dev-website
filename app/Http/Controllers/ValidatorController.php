@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidationRequest;
 use Illuminate\Http\Request;
-use OParl\Spec\Jobs\ValidatorRunJob;
 
 class ValidatorController extends Controller
 {

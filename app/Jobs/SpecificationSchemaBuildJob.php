@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Spec\Jobs;
+namespace App\Jobs;
 
 use App\Notifications\SpecificationUpdateNotification;
 use App\Services\OParlVersions;

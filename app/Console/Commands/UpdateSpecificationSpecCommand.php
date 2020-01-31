@@ -8,7 +8,7 @@
 
 namespace App\Console\Commands;
 
-use OParl\Spec\Jobs\SpecificationLiveVersionBuildJob;
+use App\Jobs\SpecificationLiveVersionBuildJob;
 
 /**
  * Class UpdateSpecificationCommand.

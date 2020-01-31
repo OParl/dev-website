@@ -1,8 +1,7 @@
 <?php
 
-namespace OParl\Spec\Jobs;
+namespace App\Jobs;
 
-use App\Jobs\Job;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;

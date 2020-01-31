@@ -12,7 +12,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
-use OParl\Spec\Jobs\InteractsWithRepositoryTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Yaml\Yaml;
 

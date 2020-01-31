@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use OParl\Spec\Jobs\SpecificationDownloadsBuildJob;
+use App\Jobs\SpecificationDownloadsBuildJob;
 
 class UpdateDownloadsSpecCommand extends SpecCommand
 {

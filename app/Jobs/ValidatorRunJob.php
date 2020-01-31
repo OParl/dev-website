@@ -1,9 +1,8 @@
 <?php
 
-namespace OParl\Spec\Jobs;
+namespace App\Jobs;
 
 use App\Exceptions\ValidationFailed;
-use App\Jobs\Job;
 use App\Mail\ValidationCompleted;
 use App\Model\ValidationResult;
 use Carbon\Carbon;

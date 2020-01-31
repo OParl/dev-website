@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use OParl\Spec\Jobs\SpecificationSchemaBuildJob;
+use App\Jobs\SpecificationSchemaBuildJob;
 
 class UpdateSchemaSpecCommand extends SpecCommand
 {
