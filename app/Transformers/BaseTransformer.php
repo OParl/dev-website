@@ -4,7 +4,7 @@ namespace App\Transformers;
 
 use EFrane\Transfugio\Transformers\BaseTransformer as TransfugioBaseTransformer;
 use OParl\Server\Model\OParl10BaseModel;
-use OParl\Server\Model\System;
+use OParl\Server\Model\OParl10System;
 
 class BaseTransformer extends TransfugioBaseTransformer
 {
@@ -28,7 +28,7 @@ class BaseTransformer extends TransfugioBaseTransformer
         ];
 
         // TODO: should system get an optional keyword property?
-        if (!$entity instanceof System) {
+        if (!$entity instanceof OParl10System) {
             $default['keyword'] = $entity->keywords->pluck('human_name');
         }
 

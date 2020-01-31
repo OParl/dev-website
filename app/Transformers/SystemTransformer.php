@@ -2,11 +2,11 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\System;
+use OParl\Server\Model\OParl10System;
 
 class SystemTransformer extends BaseTransformer
 {
-    public function transform(System $system)
+    public function transform(OParl10System $system)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($system), [
             'oparlVersion'       => 'https://schema.oparl.org/1.0/',

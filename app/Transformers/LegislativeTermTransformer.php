@@ -2,11 +2,11 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\LegislativeTerm;
+use OParl\Server\Model\OParl10LegislativeTerm;
 
 class LegislativeTermTransformer extends BaseTransformer
 {
-    public function transform(LegislativeTerm $legislativeTerm)
+    public function transform(OParl10LegislativeTerm $legislativeTerm)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($legislativeTerm), [
             'name'      => $legislativeTerm->name,

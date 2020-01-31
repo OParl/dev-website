@@ -2,11 +2,11 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\AgendaItem;
+use OParl\Server\Model\OParl10AgendaItem;
 
 class AgendaItemTransformer extends BaseTransformer
 {
-    public function transform(AgendaItem $agendaItem)
+    public function transform(OParl10AgendaItem $agendaItem)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($agendaItem), [
             'meeting'        => route('api.oparl.v1.meeting.show', $agendaItem->meeting),

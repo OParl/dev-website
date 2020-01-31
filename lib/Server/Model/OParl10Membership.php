@@ -2,8 +2,10 @@
 
 namespace OParl\Server\Model;
 
-class Membership extends OParl10BaseModel
+class OParl10Membership extends OParl10BaseModel
 {
+    protected $table = 'memberships';
+
     protected $dates = [
         'start_date',
         'end_date',
@@ -16,16 +18,16 @@ class Membership extends OParl10BaseModel
 
     public function person()
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(OParl10Person::class);
     }
 
     public function organization()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(OParl10Organization::class);
     }
 
     public function keywords()
     {
-        return $this->belongsToMany(Keyword::class, 'oparl_keywords_memberships', 'membership_id', 'keyword_id');
+        return $this->belongsToMany(OParl10Keyword::class, 'oparl_keywords_memberships', 'membership_id', 'keyword_id');
     }
 }

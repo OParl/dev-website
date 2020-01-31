@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\Meeting;
+use OParl\Server\Model\OParl10Meeting;
 
 class MeetingTransformer extends BaseTransformer
 {
@@ -28,7 +28,7 @@ class MeetingTransformer extends BaseTransformer
         $this->agendaItemTransformer = (new AgendaItemTransformer())->setIncluded(true);
     }
 
-    public function transform(Meeting $meeting)
+    public function transform(OParl10Meeting $meeting)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($meeting), [
             'name'         => $meeting->name,
@@ -49,7 +49,7 @@ class MeetingTransformer extends BaseTransformer
         return $this->cleanupData($data, $meeting);
     }
 
-    public function includeLocation(Meeting $meeting)
+    public function includeLocation(OParl10Meeting $meeting)
     {
         if (!$meeting->location) {
             return;
@@ -58,7 +58,7 @@ class MeetingTransformer extends BaseTransformer
         return $this->item($meeting->location, $this->locationTransformer);
     }
 
-    public function includeInvitation(Meeting $meeting)
+    public function includeInvitation(OParl10Meeting $meeting)
     {
         if (!$meeting->invitation) {
             return;
@@ -67,7 +67,7 @@ class MeetingTransformer extends BaseTransformer
         return $this->item($meeting->invitation, $this->fileTransformer);
     }
 
-    public function includeResultsProtocol(Meeting $meeting)
+    public function includeResultsProtocol(OParl10Meeting $meeting)
     {
         if (!$meeting->resultsProtocol) {
             return;
@@ -76,7 +76,7 @@ class MeetingTransformer extends BaseTransformer
         return $this->item($meeting->resultsProtocol, $this->fileTransformer);
     }
 
-    public function includeVerbatimProtocol(Meeting $meeting)
+    public function includeVerbatimProtocol(OParl10Meeting $meeting)
     {
         if (!$meeting->verbatimProtocol) {
             return;
@@ -85,12 +85,12 @@ class MeetingTransformer extends BaseTransformer
         return $this->item($meeting->verbatimProtocol, $this->fileTransformer);
     }
 
-    public function includeAuxiliaryFile(Meeting $meeting)
+    public function includeAuxiliaryFile(OParl10Meeting $meeting)
     {
         return $this->collection($meeting->auxiliaryFiles, $this->fileTransformer, 'included');
     }
 
-    public function includeAgendaItem(Meeting $meeting)
+    public function includeAgendaItem(OParl10Meeting $meeting)
     {
         return $this->collection($meeting->agendaItems, $this->agendaItemTransformer, 'included');
     }

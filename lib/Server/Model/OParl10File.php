@@ -2,13 +2,12 @@
 
 namespace OParl\Server\Model;
 
-use Illuminate\Filesystem\Filesystem;
-
 /**
  * Class File.
  */
-class File extends OParl10BaseModel
+class OParl10File extends OParl10BaseModel
 {
+    protected $table = 'files';
     protected $dates = ['date'];
 
     public static function boot()
@@ -23,7 +22,7 @@ class File extends OParl10BaseModel
 
     public function keywords()
     {
-        return $this->belongsToMany(Keyword::class, 'oparl_keywords_files', 'file_id', 'keyword_id');
+        return $this->belongsToMany(OParl10Keyword::class, 'oparl_keywords_files', 'file_id', 'keyword_id');
     }
 
     public function masterFile()

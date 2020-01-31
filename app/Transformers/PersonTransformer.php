@@ -2,13 +2,13 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\Person;
+use OParl\Server\Model\OParl10Person;
 
 class PersonTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['membership'];
 
-    public function transform(Person $person)
+    public function transform(OParl10Person $person)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($person), [
             'body'          => route('api.oparl.v1.body.show', $person->body_id),
@@ -30,7 +30,7 @@ class PersonTransformer extends BaseTransformer
         return $this->cleanupData($data, $person);
     }
 
-    public function includeLocation(Person $person)
+    public function includeLocation(OParl10Person $person)
     {
         if (!$person->location) {
             return;
@@ -39,7 +39,7 @@ class PersonTransformer extends BaseTransformer
         return $this->item($person->location, new LocationTransformer(true));
     }
 
-    public function includeMembership(Person $person)
+    public function includeMembership(OParl10Person $person)
     {
         return $this->collection($person->memberships, new MembershipTransformer(true), 'included');
     }

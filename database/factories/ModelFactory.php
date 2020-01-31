@@ -12,12 +12,12 @@
 use Carbon\Carbon;
 use Cocur\Slugify\Slugify;
 use EFrane\BaseX\BaseX;
-use OParl\Server\Model\Keyword;
+use OParl\Server\Model\OParl10Keyword;
 
 $slugify = Slugify::create();
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-$factory->define(OParl\Server\Model\System::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10System::class, function (Faker\Generator $faker) {
     return [
         'name'          => 'OParl Demoserver',
         'oparl_version' => '1.0-dev',
@@ -28,7 +28,7 @@ $factory->define(OParl\Server\Model\System::class, function (Faker\Generator $fa
     ];
 });
 
-$factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $faker) use ($slugify) {
+$factory->define(OParl\Server\Model\OParl10Body::class, function (Faker\Generator $faker) use ($slugify) {
     $names = [
         'Bezirksamt',
         'Kommunalverwaltung',
@@ -66,7 +66,7 @@ $factory->define(OParl\Server\Model\Body::class, function (Faker\Generator $fake
     ];
 });
 
-$factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10LegislativeTerm::class, function (Faker\Generator $faker) {
     $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
     $startDate->hour = 0;
@@ -87,7 +87,7 @@ $factory->define(OParl\Server\Model\LegislativeTerm::class, function (Faker\Gene
     return $data;
 });
 
-$factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10AgendaItem::class, function (Faker\Generator $faker) {
     $number = $faker->numberBetween(101, 999);
 
     if ($faker->boolean()) {
@@ -117,7 +117,7 @@ $factory->define(OParl\Server\Model\AgendaItem::class, function (Faker\Generator
     ];
 });
 
-$factory->define(OParl\Server\Model\Consultation::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10Consultation::class, function (Faker\Generator $faker) {
     $roles = ['Anhörung', 'Entscheidung', 'Kenntnisnahme', 'Vorberatung'];
 
     return [
@@ -126,8 +126,8 @@ $factory->define(OParl\Server\Model\Consultation::class, function (Faker\Generat
     ];
 });
 
-$factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $faker) use ($slugify) {
-    $existingHumanNames = Keyword::all()->pluck('human_name');
+$factory->define(OParl\Server\Model\OParl10Keyword::class, function (Faker\Generator $faker) use ($slugify) {
+    $existingHumanNames = OParl10Keyword::all()->pluck('human_name');
 
     do {
         $humanName = $faker->words($faker->numberBetween(1, 3), true);
@@ -138,7 +138,7 @@ $factory->define(OParl\Server\Model\Keyword::class, function (Faker\Generator $f
     ];
 });
 
-$factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10Location::class, function (Faker\Generator $faker) {
     $geometry = json_encode([
         'type'        => 'point',
         'coordinates' => [
@@ -158,7 +158,7 @@ $factory->define(OParl\Server\Model\Location::class, function (Faker\Generator $
     ];
 });
 
-$factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10Meeting::class, function (Faker\Generator $faker) {
     $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
     $startDate->hour = $faker->numberBetween(9, 17);
@@ -176,7 +176,7 @@ $factory->define(OParl\Server\Model\Meeting::class, function (Faker\Generator $f
     ];
 });
 
-$factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10Membership::class, function (Faker\Generator $faker) {
     $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
     $startDate->hour = 0;
@@ -191,7 +191,7 @@ $factory->define(OParl\Server\Model\Membership::class, function (Faker\Generator
     ];
 });
 
-$factory->define(OParl\Server\Model\Organization::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10Organization::class, function (Faker\Generator $faker) {
     $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
 
     do {
@@ -246,7 +246,7 @@ $factory->define(OParl\Server\Model\Organization::class, function (Faker\Generat
     ];
 });
 
-$factory->define(OParl\Server\Model\Paper::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10Paper::class, function (Faker\Generator $faker) {
     return [
         'name'           => $faker->sentence,
         'reference'      => $faker->word,
@@ -263,7 +263,7 @@ $factory->define(OParl\Server\Model\Paper::class, function (Faker\Generator $fak
     ];
 });
 
-$factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10Person::class, function (Faker\Generator $faker) {
     $gender = $faker->boolean(30) ? 0 : 1;
     $genderString = ($gender) ? 'female' : 'male';
 
@@ -294,7 +294,7 @@ $factory->define(OParl\Server\Model\Person::class, function (Faker\Generator $fa
     ];
 });
 
-$factory->define(OParl\Server\Model\File::class, function (Faker\Generator $faker) {
+$factory->define(OParl\Server\Model\OParl10File::class, function (Faker\Generator $faker) {
     $fileName = base_path('resources/documents/dummyfile.pdf');
     $sha1 = sha1_file($fileName);
 

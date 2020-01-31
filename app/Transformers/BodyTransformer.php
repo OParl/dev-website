@@ -2,13 +2,13 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\Body;
+use OParl\Server\Model\OParl10Body;
 
 class BodyTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['legislativeTerm', 'location'];
 
-    public function transform(Body $body)
+    public function transform(OParl10Body $body)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($body), [
             'system'            => route('api.oparl.v1.system.show', $body->system),
@@ -35,12 +35,12 @@ class BodyTransformer extends BaseTransformer
         return $this->cleanupData($data, $body);
     }
 
-    public function includeLegislativeTerm(Body $body)
+    public function includeLegislativeTerm(OParl10Body $body)
     {
         return $this->collection($body->legislativeTerms, new LegislativeTermTransformer(true), 'included');
     }
 
-    public function includeLocation(Body $body)
+    public function includeLocation(OParl10Body $body)
     {
         if (!$body->location) {
             return;

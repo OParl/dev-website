@@ -2,11 +2,11 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\Membership;
+use OParl\Server\Model\OParl10Membership;
 
 class MembershipTransformer extends BaseTransformer
 {
-    public function transform(Membership $membership)
+    public function transform(OParl10Membership $membership)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($membership), [
             'organization' => route('api.oparl.v1.organization.show', $membership->organization),

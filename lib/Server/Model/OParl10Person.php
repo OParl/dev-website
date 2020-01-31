@@ -2,8 +2,10 @@
 
 namespace OParl\Server\Model;
 
-class Person extends OParl10BaseModel
+class OParl10Person extends OParl10BaseModel
 {
+    protected $table = 'people';
+
     protected $casts = [
         'title' => 'array',
         'phone' => 'array',
@@ -19,16 +21,16 @@ class Person extends OParl10BaseModel
 
     public function memberships()
     {
-        return $this->hasMany(Membership::class);
+        return $this->hasMany(OParl10Membership::class);
     }
 
     public function location()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(OParl10Location::class);
     }
 
     public function keywords()
     {
-        return $this->belongsToMany(Keyword::class, 'oparl_keywords_people', 'person_id', 'keyword_id');
+        return $this->belongsToMany(OParl10Keyword::class, 'oparl_keywords_people', 'person_id', 'keyword_id');
     }
 }

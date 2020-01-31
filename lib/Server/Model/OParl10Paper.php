@@ -2,26 +2,28 @@
 
 namespace OParl\Server\Model;
 
-class Paper extends OParl10BaseModel
+class OParl10Paper extends OParl10BaseModel
 {
+    protected $table = 'papers';
+
     protected $dates = ['published_date'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|Body
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|OParl10Body
      */
     public function body()
     {
-        return $this->belongsTo(Body::class);
+        return $this->belongsTo(OParl10Body::class);
     }
 
     public function mainFile()
     {
-        return $this->belongsTo(File::class, 'main_file_id');
+        return $this->belongsTo(OParl10File::class, 'main_file_id');
     }
 
     public function auxiliaryFiles()
     {
-        return $this->belongsToMany(File::class, 'oparl_papers_auxiliary_files', 'paper_id', 'auxiliary_file_id');
+        return $this->belongsToMany(OParl10File::class, 'oparl_papers_auxiliary_files', 'paper_id', 'auxiliary_file_id');
     }
 
     public function relatedPapers()
@@ -43,31 +45,31 @@ class Paper extends OParl10BaseModel
 
     public function locations()
     {
-        return $this->belongsToMany(Location::class, 'oparl_papers_locations', 'paper_id', 'location_id');
+        return $this->belongsToMany(OParl10Location::class, 'oparl_papers_locations', 'paper_id', 'location_id');
     }
 
     public function consultations()
     {
-        return $this->hasMany(Consultation::class);
+        return $this->hasMany(OParl10Consultation::class);
     }
 
     public function originatorPeople()
     {
-        return $this->belongsToMany(Person::class, 'oparl_papers_originator_people', 'paper_id', 'person_id');
+        return $this->belongsToMany(OParl10Person::class, 'oparl_papers_originator_people', 'paper_id', 'person_id');
     }
 
     public function originatorOrganizations()
     {
-        return $this->belongsToMany(Organization::class, 'oparl_papers_originator_organizations', 'paper_id', 'organization_id');
+        return $this->belongsToMany(OParl10Organization::class, 'oparl_papers_originator_organizations', 'paper_id', 'organization_id');
     }
 
     public function underDirectionOfOrganizations()
     {
-        return $this->belongsToMany(Organization::class, 'oparl_papers_under_direction_of_organizations', 'paper_id', 'organization_id');
+        return $this->belongsToMany(OParl10Organization::class, 'oparl_papers_under_direction_of_organizations', 'paper_id', 'organization_id');
     }
 
     public function keywords()
     {
-        return $this->belongsToMany(Keyword::class, 'oparl_keywords_papers', 'paper_id', 'keyword_id');
+        return $this->belongsToMany(OParl10Keyword::class, 'oparl_keywords_papers', 'paper_id', 'keyword_id');
     }
 }

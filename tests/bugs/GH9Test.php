@@ -6,7 +6,7 @@ class GH9Test extends TestCase
     {
         $this->markTestSkipped('Skipped because the demoserver is currently disabled');
 
-        $orgas = \OParl\Server\Model\Organization::where('body_id', '=', 1)->get();
+        $orgas = \OParl\Server\Model\OParl10Organization::where('body_id', '=', 1)->get();
 
         $this->assertTrue($orgas->count() > 0);
     }

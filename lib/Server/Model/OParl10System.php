@@ -5,14 +5,16 @@ namespace OParl\Server\Model;
 /**
  * Class System.
  */
-class System extends OParl10BaseModel
+class OParl10System extends OParl10BaseModel
 {
+    protected $table = 'systems';
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function bodies()
     {
-        return $this->hasMany(Body::class, 'system_id', 'id');
+        return $this->hasMany(OParl10Body::class, 'system_id', 'id');
     }
 
     /**

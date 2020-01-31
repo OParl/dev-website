@@ -2,13 +2,13 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\Organization;
+use OParl\Server\Model\OParl10Organization;
 
 class OrganizationTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['location'];
 
-    public function transform(Organization $organization)
+    public function transform(OParl10Organization $organization)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($organization), [
             'body'              => route('api.oparl.v1.body.show', $organization->body_id),
@@ -30,7 +30,7 @@ class OrganizationTransformer extends BaseTransformer
         return $this->cleanupData($data, $organization);
     }
 
-    public function includeLocation(Organization $organization)
+    public function includeLocation(OParl10Organization $organization)
     {
         if (!$organization->location) {
             return;

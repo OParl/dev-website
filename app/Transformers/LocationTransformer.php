@@ -2,11 +2,11 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\Location;
+use OParl\Server\Model\OParl10Location;
 
 class LocationTransformer extends BaseTransformer
 {
-    public function transform(Location $location)
+    public function transform(OParl10Location $location)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($location), [
             'description'   => $location->description,

@@ -2,11 +2,11 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\File;
+use OParl\Server\Model\OParl10File;
 
 class FileTransformer extends BaseTransformer
 {
-    public function transform(File $file)
+    public function transform(OParl10File $file)
     {
         $data = array_merge($this->getDefaultAttributesForEntity($file), [
             'name'         => $file->name,

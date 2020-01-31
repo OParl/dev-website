@@ -7,8 +7,10 @@ use Cocur\Slugify\Slugify;
 /**
  * Class Keyword.
  */
-class Keyword extends OParl10BaseModel
+class OParl10Keyword extends OParl10BaseModel
 {
+    protected $table = 'keywords';
+
     public function getNameAttribute()
     {
         if (is_null($this->attributes['name'])) {
