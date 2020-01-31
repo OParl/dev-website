@@ -4,7 +4,7 @@
  * @author Stefan "eFrane" Graupner <stefan.graupner@gmail.com>
  */
 
-namespace OParl\Spec;
+namespace App\Services;
 
 
 class OParlVersions

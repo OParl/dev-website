@@ -17,7 +17,7 @@ $specificationVersions = sprintf(
     '(%s)',
     implode(
         '|',
-        array_keys((new \OParl\Spec\OParlVersions())->getModule('specification'))
+        array_keys((new \App\Services\OParlVersions())->getModule('specification'))
     )
 );
 

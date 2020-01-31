@@ -6,8 +6,8 @@
 
 namespace OParl\Spec\Repositories;
 
+use App\Services\OParlVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\OParlVersions;
 
 
 /**

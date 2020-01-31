@@ -8,8 +8,8 @@
 
 namespace App\Console\Commands;
 
+use App\Services\OParlVersions;
 use EFrane\ConsoleAdditions\Batch\Batch;
-use OParl\Spec\OParlVersions;
 
 class InitializeSpecCommand extends SpecCommand
 {

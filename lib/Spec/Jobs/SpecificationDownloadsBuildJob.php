@@ -9,9 +9,9 @@
 namespace OParl\Spec\Jobs;
 
 use App\Notifications\SpecificationUpdateNotification;
+use App\Services\OParlVersions;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\OParlVersions;
 use Psr\Log\LoggerInterface;
 
 class SpecificationDownloadsBuildJob extends SpecificationJob
