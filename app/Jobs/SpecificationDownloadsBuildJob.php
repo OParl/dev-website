@@ -9,8 +9,8 @@
 namespace App\Jobs;
 
 use App\Notifications\SpecificationUpdateNotification;
+use App\Services\HubSync\Repository;
 use App\Services\OParlVersions;
-use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Psr\Log\LoggerInterface;
 

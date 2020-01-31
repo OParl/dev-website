@@ -1,6 +1,6 @@
 <?php
 
-namespace EFrane\HubSync;
+namespace App\Services\HubSync;
 
 use Composer\Semver\Semver;
 use Illuminate\Support\Collection;

@@ -13,7 +13,7 @@
             <directory>./tests/api/</directory>
         </testsuite>
         <testsuite name="HubSync">
-            <directory>./lib/HubSync/tests/</directory>
+            <directory>./tests/hubsync/</directory>
         </testsuite>
         <testsuite name="Core">
             <directory>./tests/core/</directory>

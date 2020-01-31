@@ -1,6 +1,6 @@
 <?php
 
-use EFrane\HubSync\RepositoryVersions;
+use App\Services\HubSync\RepositoryVersions;
 
 /**
  * Class RepositoryVersionsTest.
@@ -14,7 +14,7 @@ class RepositoryVersionsTest extends TestCase
     protected $localName = 'test';
 
     /**
-     * @var \EFrane\HubSync\Repository
+     * @var \App\Services\HubSync\Repository
      */
     protected $repo;
 
@@ -23,7 +23,7 @@ class RepositoryVersionsTest extends TestCase
         parent::setUp();
 
         $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
-        $this->repo = new \EFrane\HubSync\Repository($fs, $this->localName, $this->remoteURI);
+        $this->repo = new \App\Services\HubSync\Repository($fs, $this->localName, $this->remoteURI);
         $this->repo->update();
     }
 

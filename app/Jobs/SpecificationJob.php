@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use EFrane\HubSync\Repository;
+use App\Services\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;

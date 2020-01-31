@@ -7,21 +7,21 @@ class RepositoryTest extends TestCase
     protected $localName = 'test';
 
     /**
-     * @var \EFrane\HubSync\Repository
+     * @var \App\Services\HubSync\Repository
      */
     protected $repo;
 
     public static function setUpBeforeClass()
     {
         // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__.'/../../../storage/app/hub_sync/test');
+        $cmd = sprintf('rm -rf %s', __DIR__.'/../storage/app/hub_sync/test');
         exec($cmd);
     }
 
     public static function tearDownAfterClass()
     {
         // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__.'/../../../storage/app/hub_sync/test');
+        $cmd = sprintf('rm -rf %s', __DIR__.'/../storage/app/hub_sync/test');
         exec($cmd);
     }
 
@@ -30,7 +30,7 @@ class RepositoryTest extends TestCase
         parent::setUp();
 
         $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
-        $this->repo = new \EFrane\HubSync\Repository($fs, $this->localName, $this->remoteURI);
+        $this->repo = new \App\Services\HubSync\Repository($fs, $this->localName, $this->remoteURI);
     }
 
     public function testGetRemoteURI()

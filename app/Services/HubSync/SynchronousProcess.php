@@ -6,7 +6,7 @@
  * Time: 09:57.
  */
 
-namespace EFrane\HubSync;
+namespace App\Services\HubSync;
 
 use Symfony\Component\Process\Process as SymfonyProcess;
 

@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use App\Model\Endpoint;
 use App\Notifications\SpecificationUpdateNotification;
-use EFrane\HubSync\Repository;
+use App\Services\HubSync\Repository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;

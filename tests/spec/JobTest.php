@@ -97,8 +97,8 @@ class JobTest extends TestCase
     {
         $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
 
-        /** @var \EFrane\HubSync\Repository|PHPUnit_Framework_MockObject_MockObject $sut */
-        $repo = $this->getMockBuilder(\EFrane\HubSync\Repository::class)
+        /** @var \App\Services\HubSync\Repository|PHPUnit_Framework_MockObject_MockObject $sut */
+        $repo = $this->getMockBuilder(\App\Services\HubSync\Repository::class)
             ->setMethods(['clean'])
             ->setConstructorArgs([$fs, 'test', 'tests/assets/test.git'])
             ->getMock();
@@ -128,14 +128,14 @@ class JobTest extends TestCase
     }
 
     /**
-     * @return \EFrane\HubSync\Repository
+     * @return \App\Services\HubSync\Repository
      */
     public function repositoryProvider()
     {
         $fs = $this->app->make(\Illuminate\Contracts\Filesystem\Filesystem::class);
 
-        /** @var \EFrane\HubSync\Repository $repo */
-        $repo = new \EFrane\HubSync\Repository($fs, 'test', 'tests/assets/test.git');
+        /** @var \App\Services\HubSync\Repository $repo */
+        $repo = new \App\Services\HubSync\Repository($fs, 'test', 'tests/assets/test.git');
         $repo->update();
 
         return $repo;

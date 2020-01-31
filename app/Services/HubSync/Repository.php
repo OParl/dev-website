@@ -1,6 +1,6 @@
 <?php
 
-namespace EFrane\HubSync;
+namespace App\Services\HubSync;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
