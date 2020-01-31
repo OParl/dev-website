@@ -2,6 +2,7 @@
 
 namespace OParl\Spec\Jobs;
 
+use App\Exceptions\ValidationFailed;
 use App\Jobs\Job;
 use App\Mail\ValidationCompleted;
 use App\Model\ValidationResult;
@@ -9,7 +10,6 @@ use Carbon\Carbon;
 use EFrane\HubSync\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Mail\Mailer;
-use OParl\Spec\Exception\ValidationFailed;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Process\Process;
 
