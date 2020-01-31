@@ -2,9 +2,9 @@
 
 namespace OParl\Server\Model;
 
+use App\Exceptions\ConnectionNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Server\Exceptions\ConnectionNotFoundException;
 
 /**
  * Class BaseModel.
