@@ -6,7 +6,7 @@
  * Time: 11:21.
  */
 
-namespace OParl\Spec\Model;
+namespace App\Model;
 
 use EFrane\Letterpress\Letterpress;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;

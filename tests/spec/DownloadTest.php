@@ -16,7 +16,7 @@ class DownloadTest extends TestCase
 
     public function testGetFilename()
     {
-        $sut = new \OParl\Spec\Model\Download($this->fs, 'filename');
+        $sut = new \App\Model\Download($this->fs, 'filename');
         $this->assertEquals('filename', $sut->getFilename());
     }
 
@@ -25,7 +25,7 @@ class DownloadTest extends TestCase
         $filename = '__test_file';
         $this->fs->put($filename, '');
 
-        $sut = new \OParl\Spec\Model\Download($this->fs, $filename);
+        $sut = new \App\Model\Download($this->fs, $filename);
 
         $info = $sut->getInfo();
 
@@ -41,14 +41,14 @@ class DownloadTest extends TestCase
 
         $this->fs->put($filename, $content);
 
-        $sut = new \OParl\Spec\Model\Download($this->fs, $filename);
+        $sut = new \App\Model\Download($this->fs, $filename);
 
         $this->assertEquals($content, $sut->getData());
     }
 
     public function testToString()
     {
-        $sut = new \OParl\Spec\Model\Download($this->fs, 'filename');
+        $sut = new \App\Model\Download($this->fs, 'filename');
         $this->assertEquals('filename', (string) $sut);
     }
 }

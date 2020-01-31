@@ -8,9 +8,9 @@
 
 namespace OParl\Spec\Repositories;
 
+use App\Model\DownloadVersion;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
-use OParl\Spec\Model\DownloadVersion;
 
 /**
  * Class DownloadRepository.

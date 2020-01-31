@@ -7,8 +7,8 @@
 namespace OParl\Spec\Repositories;
 
 
+use App\Model\LiveView;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use OParl\Spec\Model\LiveView;
 use Psr\Log\LoggerInterface;
 
 class LiveViewRepository

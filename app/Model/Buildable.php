@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Spec\Model;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 

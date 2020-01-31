@@ -6,7 +6,7 @@
  * Time: 10:57.
  */
 
-namespace OParl\Spec\Model;
+namespace App\Model;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 

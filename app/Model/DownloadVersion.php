@@ -6,7 +6,7 @@
  * Time: 10:26.
  */
 
-namespace OParl\Spec\Model;
+namespace App\Model;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
