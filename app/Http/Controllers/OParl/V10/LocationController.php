@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\API\Controllers;
+namespace App\Http\Controllers\OParl\V10;
 
 use EFrane\Transfugio\Http\APIController;
 use EFrane\Transfugio\Http\Method\IndexPaginatedTrait;

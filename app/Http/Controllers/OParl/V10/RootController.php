@@ -1,9 +1,8 @@
 <?php
 
-namespace OParl\Server\API\Controllers;
+namespace App\Http\Controllers\OParl\V10;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 
 class RootController extends Controller

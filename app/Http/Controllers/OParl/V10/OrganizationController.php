@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\API\Controllers;
+namespace App\Http\Controllers\OParl\V10;
 
 use EFrane\Transfugio\Http\APIController;
 use EFrane\Transfugio\Http\Method\IndexPaginatedTrait;
@@ -9,7 +9,7 @@ use EFrane\Transfugio\Query\QueryService;
 use EFrane\Transfugio\Query\ValueExpression;
 use OParl\Server\API\FilterQueryMethods;
 
-class BodyController extends APIController
+class OrganizationController extends APIController
 {
     use IndexPaginatedTrait;
     use ShowItemTrait;
@@ -20,8 +20,8 @@ class BodyController extends APIController
         return ['created_since', 'created_until', 'modified_since', 'modified_until'];
     }
 
-    public function querySystem(QueryService &$query, ValueExpression $valueExpression)
+    protected function queryBody(QueryService &$query, ValueExpression $valueExpression)
     {
-        $query->where('system_id', $valueExpression->getExpression(), $valueExpression->getValue());
+        $query->where('body_id', $valueExpression->getExpression(), $valueExpression->getValue());
     }
 }

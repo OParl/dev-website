@@ -1,13 +1,13 @@
 <?php
 
-namespace OParl\Server\API\Controllers;
+namespace App\Http\Controllers\OParl\V10;
 
 use EFrane\Transfugio\Http\APIController;
 use EFrane\Transfugio\Http\Method\IndexPaginatedTrait;
 use EFrane\Transfugio\Http\Method\ShowItemTrait;
 use OParl\Server\API\FilterQueryMethods;
 
-class AgendaItemController extends APIController
+class LegislativeTermController extends APIController
 {
     use IndexPaginatedTrait;
     use ShowItemTrait;

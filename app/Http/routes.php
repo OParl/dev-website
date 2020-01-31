@@ -239,7 +239,7 @@ $router->group([
  * Route group for demoserver API
  */
 $router->group([
-    'namespace'  => '\OParl\Server\API\Controllers',
+    'namespace'  => 'OParl\V10',
     'as'         => 'api.oparl.v1.',
     'domain'     => 'dev.'.config('app.url'),
     'prefix'     => 'api/oparl/v1/',
