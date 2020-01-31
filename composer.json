@@ -75,7 +75,6 @@
     ],
     "psr-4": {
       "App\\": "app/",
-      "OParl\\Spec\\": "lib/Spec/",
       "OParl\\Server\\": "lib/Server",
       "EFrane\\HubSync\\": "lib/HubSync/src"
     }

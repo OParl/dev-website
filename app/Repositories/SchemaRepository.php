@@ -14,8 +14,6 @@ use Illuminate\Contracts\Filesystem\Filesystem;
  * Class SchemaRepository
  *
  * Operations on stored schema files
- *
- * @package OParl\Spec\Repositories
  */
 class SchemaRepository
 {
