@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class Membership extends BaseModel
+class Membership extends OParl10BaseModel
 {
     protected $dates = [
         'start_date',

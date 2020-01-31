@@ -5,7 +5,7 @@ namespace OParl\Server\Model;
 /**
  * Class System.
  */
-class System extends BaseModel
+class System extends OParl10BaseModel
 {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

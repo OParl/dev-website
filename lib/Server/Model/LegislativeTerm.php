@@ -5,7 +5,7 @@ namespace OParl\Server\Model;
 /**
  * Class LegislativeTerm.
  */
-class LegislativeTerm extends BaseModel
+class LegislativeTerm extends OParl10BaseModel
 {
     protected $dates = ['start_date', 'end_date'];
 

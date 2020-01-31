@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class AgendaItem extends BaseModel
+class AgendaItem extends OParl10BaseModel
 {
     public function meeting()
     {

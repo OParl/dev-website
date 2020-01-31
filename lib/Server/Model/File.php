@@ -7,7 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 /**
  * Class File.
  */
-class File extends BaseModel
+class File extends OParl10BaseModel
 {
     protected $dates = ['date'];
 

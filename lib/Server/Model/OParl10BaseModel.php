@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class BaseModel.
  */
-class BaseModel extends Model
+class OParl10BaseModel extends Model
 {
     use SoftDeletes;
 

@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class Paper extends BaseModel
+class Paper extends OParl10BaseModel
 {
     protected $dates = ['published_date'];
 

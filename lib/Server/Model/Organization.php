@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class Organization extends BaseModel
+class Organization extends OParl10BaseModel
 {
     protected $casts = [
         'external_body' => 'array',

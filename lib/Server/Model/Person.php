@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class Person extends BaseModel
+class Person extends OParl10BaseModel
 {
     protected $casts = [
         'title' => 'array',

@@ -7,7 +7,7 @@ use Cocur\Slugify\Slugify;
 /**
  * Class Keyword.
  */
-class Keyword extends BaseModel
+class Keyword extends OParl10BaseModel
 {
     public function getNameAttribute()
     {

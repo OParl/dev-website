@@ -3,12 +3,12 @@
 namespace App\Transformers;
 
 use EFrane\Transfugio\Transformers\BaseTransformer as TransfugioBaseTransformer;
-use OParl\Server\Model\BaseModel;
+use OParl\Server\Model\OParl10BaseModel;
 use OParl\Server\Model\System;
 
 class BaseTransformer extends TransfugioBaseTransformer
 {
-    protected function getDefaultAttributesForEntity(BaseModel $entity)
+    protected function getDefaultAttributesForEntity(OParl10BaseModel $entity)
     {
         $entityName = $entity->getModelName();
         $EntityName = ucfirst(class_basename($entity));
@@ -37,7 +37,7 @@ class BaseTransformer extends TransfugioBaseTransformer
         return $attributes;
     }
 
-    public function cleanupData(array $attributes, BaseModel $entity)
+    public function cleanupData(array $attributes, OParl10BaseModel $entity)
     {
         if ($entity->trashed()) {
             $attributes = array_only($attributes, ['id', 'type', 'created', 'modified', 'deleted']);

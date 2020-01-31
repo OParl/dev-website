@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class Location extends BaseModel
+class Location extends OParl10BaseModel
 {
     public function bodies()
     {

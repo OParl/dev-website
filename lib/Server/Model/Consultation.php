@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class Consultation extends BaseModel
+class Consultation extends OParl10BaseModel
 {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|Paper

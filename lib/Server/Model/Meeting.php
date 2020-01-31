@@ -2,7 +2,7 @@
 
 namespace OParl\Server\Model;
 
-class Meeting extends BaseModel
+class Meeting extends OParl10BaseModel
 {
     protected $casts = [
         'cancelled' => 'boolean',
