@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Transformers;
+namespace App\Http\Transformers;
 
 use App\Model\OParl10AgendaItem;
 
