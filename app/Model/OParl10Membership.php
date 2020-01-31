@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\Model;
+namespace App\Model;
 
 class OParl10Membership extends OParl10BaseModel
 {

@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10File;
+use App\Model\OParl10File;
 
 class FileTransformer extends BaseTransformer
 {

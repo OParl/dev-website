@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Person;
+use App\Model\OParl10Person;
 
 class PersonTransformer extends BaseTransformer
 {

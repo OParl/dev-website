@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\Model;
+namespace App\Model;
 
 class OParl10AgendaItem extends OParl10BaseModel
 {

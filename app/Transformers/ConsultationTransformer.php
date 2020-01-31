@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Consultation;
+use App\Model\OParl10Consultation;
 
 class ConsultationTransformer extends BaseTransformer
 {

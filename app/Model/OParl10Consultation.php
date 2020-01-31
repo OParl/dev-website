@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\Model;
+namespace App\Model;
 
 class OParl10Consultation extends OParl10BaseModel
 {

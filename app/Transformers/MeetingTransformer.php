@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Meeting;
+use App\Model\OParl10Meeting;
 
 class MeetingTransformer extends BaseTransformer
 {

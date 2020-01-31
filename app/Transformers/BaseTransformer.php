@@ -2,9 +2,9 @@
 
 namespace App\Transformers;
 
+use App\Model\OParl10BaseModel;
+use App\Model\OParl10System;
 use EFrane\Transfugio\Transformers\BaseTransformer as TransfugioBaseTransformer;
-use OParl\Server\Model\OParl10BaseModel;
-use OParl\Server\Model\OParl10System;
 
 class BaseTransformer extends TransfugioBaseTransformer
 {

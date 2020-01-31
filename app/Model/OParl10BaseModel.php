@@ -1,6 +1,6 @@
 <?php
 
-namespace OParl\Server\Model;
+namespace App\Model;
 
 use App\Exceptions\ConnectionNotFoundException;
 use Illuminate\Database\Eloquent\Model;

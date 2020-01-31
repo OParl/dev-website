@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Paper;
+use App\Model\OParl10Paper;
 
 class PaperTransformer extends BaseTransformer
 {

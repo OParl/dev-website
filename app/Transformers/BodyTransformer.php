@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Body;
+use App\Model\OParl10Body;
 
 class BodyTransformer extends BaseTransformer
 {

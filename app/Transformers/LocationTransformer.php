@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Location;
+use App\Model\OParl10Location;
 
 class LocationTransformer extends BaseTransformer
 {

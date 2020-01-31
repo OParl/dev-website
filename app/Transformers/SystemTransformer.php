@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10System;
+use App\Model\OParl10System;
 
 class SystemTransformer extends BaseTransformer
 {

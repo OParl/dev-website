@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10LegislativeTerm;
+use App\Model\OParl10LegislativeTerm;
 
 class LegislativeTermTransformer extends BaseTransformer
 {

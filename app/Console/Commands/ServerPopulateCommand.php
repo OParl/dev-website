@@ -2,23 +2,23 @@
 
 namespace App\Console\Commands;
 
+use App\Model\OParl10AgendaItem;
+use App\Model\OParl10Body;
+use App\Model\OParl10Consultation;
+use App\Model\OParl10File;
+use App\Model\OParl10Keyword;
+use App\Model\OParl10LegislativeTerm;
+use App\Model\OParl10Location;
+use App\Model\OParl10Meeting;
+use App\Model\OParl10Membership;
+use App\Model\OParl10Organization;
+use App\Model\OParl10Paper;
+use App\Model\OParl10Person;
+use App\Model\OParl10System;
 use Faker\Generator;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use OParl\Server\Model\OParl10AgendaItem;
-use OParl\Server\Model\OParl10Body;
-use OParl\Server\Model\OParl10Consultation;
-use OParl\Server\Model\OParl10File;
-use OParl\Server\Model\OParl10Keyword;
-use OParl\Server\Model\OParl10LegislativeTerm;
-use OParl\Server\Model\OParl10Location;
-use OParl\Server\Model\OParl10Meeting;
-use OParl\Server\Model\OParl10Membership;
-use OParl\Server\Model\OParl10Organization;
-use OParl\Server\Model\OParl10Paper;
-use OParl\Server\Model\OParl10Person;
-use OParl\Server\Model\OParl10System;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class ServerPopulateCommand extends Command

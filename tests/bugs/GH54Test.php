@@ -6,9 +6,9 @@ class GH54Test extends TestCase
     {
         $this->markTestSkipped('Skipped because the demoserver is currently disabled');
 
-        /** @var \OParl\Server\Model\OParl10Location $location */
-        $location = \OParl\Server\Model\OParl10Location::first();
-        $this->assertInstanceOf(\OParl\Server\Model\OParl10Location::class, $location);
+        /** @var \App\Model\OParl10Location $location */
+        $location = \App\Model\OParl10Location::first();
+        $this->assertInstanceOf(\App\Model\OParl10Location::class, $location);
         $this->assertTrue(is_string($location->postal_code));
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Organization;
+use App\Model\OParl10Organization;
 
 class OrganizationTransformer extends BaseTransformer
 {

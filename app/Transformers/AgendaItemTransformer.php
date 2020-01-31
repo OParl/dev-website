@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10AgendaItem;
+use App\Model\OParl10AgendaItem;
 
 class AgendaItemTransformer extends BaseTransformer
 {

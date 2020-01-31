@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use OParl\Server\Model\OParl10Membership;
+use App\Model\OParl10Membership;
 
 class MembershipTransformer extends BaseTransformer
 {
