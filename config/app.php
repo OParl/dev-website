@@ -164,8 +164,6 @@ return [
         Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider::class,
         EFrane\Letterpress\Providers\LaravelServiceProvider::class,
         EFrane\Transfugio\TransfugioServiceProvider::class,
-
-        OParl\Server\ServerServiceProvider::class,
     ],
 
     /*
