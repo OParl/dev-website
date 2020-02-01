@@ -3,19 +3,16 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 
 class Header
 {
-    public function compose(View $view)
-    {
-        return $view->with('sections', $this->getSections());
-    }
-
     /**
      * The header sections.
      *
      * Format:
+     * 
      * <code>
      * [
      *      'icon'     => Displayed link icon (REQUIRED)
@@ -43,31 +40,36 @@ class Header
             'title'    => 'app.downloads.title',
             'routeKey' => 'downloads',
         ],
-//        [
-//            'title'    => 'app.validation.title',
-//            'routeKey' => 'validator',
-//        ],
         [
             'title'    => 'app.endpoints.title',
             'routeKey' => 'endpoints',
         ],
-//        [
-//            'routeKey' => 'api.oparl',
-//            'title'    => 'app.demo.title',
-//            'icon'     => 'fa-dashboard',
-//        ],
         [
             'routeKey' => 'contact',
             'title'    => 'app.contact.title',
             'icon'     => 'fa-comment',
         ],
     ];
+    /**
+     * @var Router
+     */
+    protected $router;
 
-    protected function getSections()
+    public function __construct(Router $router)
     {
-        $currentRouteName = \Route::currentRouteName();
+        $this->router = $router;
+    }
 
-        $sections = collect($this->sections)->map(function ($section) use ($currentRouteName) {
+    public function compose(View $view)
+    {
+        return $view->with('sections', $this->getSections($this->router));
+    }
+
+    protected function getSections(Router $router)
+    {
+        $currentRouteName = $router->currentRouteName();
+
+        return collect($this->sections)->map(function ($section) use ($currentRouteName) {
             if (isset($section['routeKey']) && Str::startsWith($currentRouteName, $section['routeKey'])) {
                 $section['current'] = true;
             }
@@ -82,7 +84,5 @@ class Header
 
             return $section;
         })->toArray();
-
-        return $sections;
     }
 }
