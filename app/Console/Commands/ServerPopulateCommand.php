@@ -17,6 +17,7 @@ use App\Model\OParl10Person;
 use App\Model\OParl10System;
 use Faker\Generator;
 use Illuminate\Console\Command;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -32,11 +33,11 @@ class ServerPopulateCommand extends Command
      */
     protected $faker = null;
 
-    public function handle(Generator $faker)
+    public function handle(Generator $faker, DatabaseManager $databaseManager)
     {
         $this->faker = $faker;
 
-        \DB::connection()->disableQueryLog();
+        $databaseManager->connection(config('database.demo_default'))->disableQueryLog();
         Model::unguard();
 
         if ($this->option('refresh')) {
@@ -48,7 +49,7 @@ class ServerPopulateCommand extends Command
         $this->generateData();
 
         Model::reguard();
-        \DB::connection()->enableQueryLog();
+        $databaseManager->connection(config('database.demo_default'))->enableQueryLog();
 
         return 0;
     }
