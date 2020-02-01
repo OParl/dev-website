@@ -1,21 +1,27 @@
 <?php
 
+use App\Services\Serializer;
+use EFrane\Transfugio\Transformers\Formatter\DateISO8601;
+use EFrane\Transfugio\Transformers\Formatter\DateTimeISO8601;
+use EFrane\Transfugio\Transformers\Formatter\EMailURI;
+use EFrane\Transfugio\Transformers\Formatter\HttpURI;
+
 return [
     'itemsPerPage'   => 100,
     'rootURL'        => 'api/oparl/v1/',
     'modelNamespace' => 'OParl\\Server\\Model\\',
 
     'transformers' => [
-        'serializer' => \App\Services\Serializer::class,
+        'serializer' => Serializer::class,
 
-        'namespace'    => 'OParl\\Server\\API\\Transformers',
+        'namespace'    => 'OParl\\Server\\API\\Transformers\\OParl\\V10',
         'classPattern' => '[:modelName]Transformer',
 
         'formatHelpers' => [
-            'email'    => 'EFrane\Transfugio\Transformers\Formatter\EMailURI',
-            'date'     => 'EFrane\Transfugio\Transformers\Formatter\DateISO8601',
-            'datetime' => 'EFrane\Transfugio\Transformers\Formatter\DateTimeISO8601',
-            'url'      => 'EFrane\Transfugio\Transformers\Formatter\HttpURI',
+            'email'    => EMailURI::class,
+            'date'     => DateISO8601::class,
+            'datetime' => DateTimeISO8601::class,
+            'url'      => HttpURI::class,
         ],
 
         'recursionLimit' => 2,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Transformers;
+namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Location;
 
