@@ -10,23 +10,17 @@ use Illuminate\View\View;
 class SpecificationController extends Controller
 {
     /**
-     * @var CacheManager
-     */
-    protected $cacheManager;
-
-    /**
      * @var LiveViewRepository
      */
     protected $liveViewRepository;
 
     /**
      * SpecificationController constructor.
-     * @param CacheManager       $cacheManager
+     *
      * @param LiveViewRepository $liveViewRepository
      */
-    public function __construct(CacheManager $cacheManager, LiveViewRepository $liveViewRepository)
+    public function __construct(LiveViewRepository $liveViewRepository)
     {
-        $this->cacheManager = $cacheManager;
         $this->liveViewRepository = $liveViewRepository;
     }
 
@@ -44,14 +38,8 @@ class SpecificationController extends Controller
             $version = config('oparl.specificationDisplayVersion');
         }
 
-        $liveView = $this->cacheManager->remember(
-            'liveview.'.$version,
-            1800,
-            function () use ($version) {
-                return $this->liveViewRepository->get($version);
-            }
-        );
-
+        // TODO: handle live view not loadable exception
+        $liveView = $this->liveViewRepository->get($version);
         $liveViewVersion = $liveView->getVersionInformation()['official'];
 
         return view('specification.index', compact('title', 'liveView', 'liveViewVersion'));
