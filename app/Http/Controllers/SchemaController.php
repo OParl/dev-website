@@ -37,15 +37,15 @@ class SchemaController extends Controller
 
             return $this->jsonResponse($schema);
         } catch (FileNotFoundException $e) {
-            return response('File not found.', 404, ['Content-type' => 'text/plain']);
+            return $this->jsonResponse(['error' => 'File not found'], Response::HTTP_NOT_FOUND);
         }
     }
 
-    protected function jsonResponse(array $responseData): JsonResponse
+    protected function jsonResponse(array $responseData, $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json(
             $responseData,
-            Response::HTTP_OK,
+            $status,
             [
                 'Content-Type'                => 'application/json; charset=utf-8',
                 'Access-Control-Allow-Origin' => '*',
