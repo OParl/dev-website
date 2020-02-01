@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Paper;
 
-class PaperTransformer extends BaseTransformer
+class OParl10PaperTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['location', 'consultation', 'mainFile'];
 
@@ -31,16 +31,16 @@ class PaperTransformer extends BaseTransformer
 
     public function includeLocation(OParl10Paper $paper)
     {
-        return $this->collection($paper->locations, new LocationTransformer(true), 'included');
+        return $this->collection($paper->locations, new OParl10LocationTransformer(true), 'included');
     }
 
     public function includeConsultation(OParl10Paper $paper)
     {
-        return $this->collection($paper->consultations, new ConsultationTransformer(true), 'included');
+        return $this->collection($paper->consultations, new OParl10ConsultationTransformer(true), 'included');
     }
 
     public function includeMainFile(OParl10Paper $paper)
     {
-        return $this->item($paper->mainFile, new FileTransformer(true), 'included');
+        return $this->item($paper->mainFile, new OParl10FileTransformer(true), 'included');
     }
 }

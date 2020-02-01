@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Location;
 
-class LocationTransformer extends BaseTransformer
+class OParl10LocationTransformer extends BaseTransformer
 {
     public function transform(OParl10Location $location)
     {

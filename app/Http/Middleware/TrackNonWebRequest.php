@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use MatomoTracker;
+use Psr\Log\LoggerInterface;
 
 /**
  * This middleware can be used to track
@@ -11,6 +13,16 @@ use Closure;
  */
 class TrackNonWebRequest
 {
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -24,13 +36,12 @@ class TrackNonWebRequest
         /* @var \Illuminate\Http\Response $response */
         $response = $next($request);
 
-        if (class_exists('\MatomoTracker')) {
-            $tracker = new \MatomoTracker(config('piwik.siteId'), config('piwik.url'));
-            try {
-                $tracker->doTrackPageView('demoapi:'.$request->getRequestUri());
-            } catch (\Exception $e) {
-                \Log::warning('Piwik doesn\'t appear to be configured properly.');
-            }
+        $tracker = new MatomoTracker(config('piwik.siteId'), config('piwik.url'));
+
+        try {
+            $tracker->doTrackPageView('demoapi:'.$request->getRequestUri());
+        } catch (\Exception $e) {
+            $this->logger->warning('Piwik doesn\'t appear to be configured properly.');
         }
 
         return $response;

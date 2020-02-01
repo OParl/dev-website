@@ -30,6 +30,6 @@ class OParl10System extends OParl10BaseModel
      */
     public function getProductAttribute()
     {
-        return route('api.oparl.index');
+        return 'OParl 1.0 Demoserver @ dev.oparl.org';
     }
 }

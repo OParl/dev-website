@@ -10,7 +10,7 @@ class BaseTransformer extends TransfugioBaseTransformer
 {
     protected function getDefaultAttributesForEntity(OParl10BaseModel $entity)
     {
-        $entityName = $entity->getModelName();
+        $entityName = str_replace('oparl10', '', $entity->getModelName());
         $EntityName = ucfirst(class_basename($entity));
 
         $default = [

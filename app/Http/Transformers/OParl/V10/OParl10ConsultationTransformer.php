@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Consultation;
 
-class ConsultationTransformer extends BaseTransformer
+class OParl10ConsultationTransformer extends BaseTransformer
 {
     public function transform(OParl10Consultation $consultation)
     {

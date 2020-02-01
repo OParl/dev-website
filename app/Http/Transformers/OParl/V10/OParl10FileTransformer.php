@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10File;
 
-class FileTransformer extends BaseTransformer
+class OParl10FileTransformer extends BaseTransformer
 {
     public function transform(OParl10File $file)
     {

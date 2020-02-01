@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Person;
 
-class PersonTransformer extends BaseTransformer
+class OParl10PersonTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['membership'];
 
@@ -36,11 +36,11 @@ class PersonTransformer extends BaseTransformer
             return;
         }
 
-        return $this->item($person->location, new LocationTransformer(true));
+        return $this->item($person->location, new OParl10LocationTransformer(true));
     }
 
     public function includeMembership(OParl10Person $person)
     {
-        return $this->collection($person->memberships, new MembershipTransformer(true), 'included');
+        return $this->collection($person->memberships, new OParl10MembershipTransformer(true), 'included');
     }
 }

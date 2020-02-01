@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10System;
 
-class SystemTransformer extends BaseTransformer
+class OParl10SystemTransformer extends BaseTransformer
 {
     public function transform(OParl10System $system)
     {

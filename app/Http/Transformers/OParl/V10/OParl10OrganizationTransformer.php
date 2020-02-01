@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Organization;
 
-class OrganizationTransformer extends BaseTransformer
+class OParl10OrganizationTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['location'];
 
@@ -36,6 +36,6 @@ class OrganizationTransformer extends BaseTransformer
             return;
         }
 
-        return $this->item($organization->location, new LocationTransformer(true));
+        return $this->item($organization->location, new OParl10LocationTransformer(true));
     }
 }

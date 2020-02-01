@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10AgendaItem;
 
-class AgendaItemTransformer extends BaseTransformer
+class OParl10AgendaItemTransformer extends BaseTransformer
 {
     public function transform(OParl10AgendaItem $agendaItem)
     {

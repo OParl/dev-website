@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Meeting;
 
-class MeetingTransformer extends BaseTransformer
+class OParl10MeetingTransformer extends BaseTransformer
 {
     protected $defaultIncludes = [
         'location',
@@ -23,9 +23,9 @@ class MeetingTransformer extends BaseTransformer
     {
         parent::__construct($included);
 
-        $this->locationTransformer = (new LocationTransformer())->setIncluded(true);
-        $this->fileTransformer = (new FileTransformer())->setIncluded(true);
-        $this->agendaItemTransformer = (new AgendaItemTransformer())->setIncluded(true);
+        $this->locationTransformer = (new OParl10LocationTransformer())->setIncluded(true);
+        $this->fileTransformer = (new OParl10FileTransformer())->setIncluded(true);
+        $this->agendaItemTransformer = (new OParl10AgendaItemTransformer())->setIncluded(true);
     }
 
     public function transform(OParl10Meeting $meeting)

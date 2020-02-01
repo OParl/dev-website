@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Body;
 
-class BodyTransformer extends BaseTransformer
+class OParl10BodyTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['legislativeTerm', 'location'];
 
@@ -37,7 +37,7 @@ class BodyTransformer extends BaseTransformer
 
     public function includeLegislativeTerm(OParl10Body $body)
     {
-        return $this->collection($body->legislativeTerms, new LegislativeTermTransformer(true), 'included');
+        return $this->collection($body->legislativeTerms, new OParl10LegislativeTermTransformer(true), 'included');
     }
 
     public function includeLocation(OParl10Body $body)
@@ -46,6 +46,6 @@ class BodyTransformer extends BaseTransformer
             return;
         }
 
-        return $this->item($body->location, new LocationTransformer(true));
+        return $this->item($body->location, new OParl10LocationTransformer(true));
     }
 }

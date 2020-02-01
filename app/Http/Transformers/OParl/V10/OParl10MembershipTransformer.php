@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Membership;
 
-class MembershipTransformer extends BaseTransformer
+class OParl10MembershipTransformer extends BaseTransformer
 {
     public function transform(OParl10Membership $membership)
     {

@@ -14,7 +14,7 @@ return [
     'transformers' => [
         'serializer' => Serializer::class,
 
-        'namespace'    => 'OParl\\Server\\API\\Transformers\\OParl\\V10',
+        'namespace'    => 'App\Http\Transformers\OParl\V10',
         'classPattern' => '[:modelName]Transformer',
 
         'formatHelpers' => [

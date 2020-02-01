@@ -4,7 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10LegislativeTerm;
 
-class LegislativeTermTransformer extends BaseTransformer
+class OParl10LegislativeTermTransformer extends BaseTransformer
 {
     public function transform(OParl10LegislativeTerm $legislativeTerm)
     {
