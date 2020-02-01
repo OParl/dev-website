@@ -62,7 +62,7 @@ class SchemaRepository
      * @param $requestedEntity
      * @return string
      */
-    public function mapRequestedEntityForOParlVersion10(string $requestedEntity): string
+    protected function mapRequestedEntityForOParlVersion10(string $requestedEntity): string
     {
         switch ($requestedEntity) {
             case 'LegislativeTerm':
@@ -76,6 +76,9 @@ class SchemaRepository
 
             case 'Consultation':
                 return 'Paper';
+
+            default:
+                return $requestedEntity;
         }
     }
 
