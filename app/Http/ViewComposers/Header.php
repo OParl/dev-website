@@ -6,13 +6,13 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 
-class Header
+class Header implements ViewComposer
 {
     /**
      * The header sections.
      *
      * Format:
-     * 
+     *
      * <code>
      * [
      *      'icon'     => Displayed link icon (REQUIRED)
