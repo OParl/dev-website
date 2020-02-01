@@ -6,6 +6,7 @@ use App\Notifications\SpecificationUpdateNotification;
 use App\Services\HubSync\Repository;
 use App\Services\OParlVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Psr\Log\LoggerInterface;
 
 class SpecificationLiveVersionBuildJob extends SpecificationJob
@@ -86,7 +87,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
 
     protected function getStoragePath($path)
     {
-        if (starts_with($path, '/')) {
+        if (Str::startsWith($path, '/')) {
             $path = substr($path, 1);
         }
 

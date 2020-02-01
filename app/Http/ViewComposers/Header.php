@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 
 class Header
 {
@@ -67,7 +68,7 @@ class Header
         $currentRouteName = \Route::currentRouteName();
 
         $sections = collect($this->sections)->map(function ($section) use ($currentRouteName) {
-            if (isset($section['routeKey']) && starts_with($currentRouteName, $section['routeKey'])) {
+            if (isset($section['routeKey']) && Str::startsWith($currentRouteName, $section['routeKey'])) {
                 $section['current'] = true;
             }
 

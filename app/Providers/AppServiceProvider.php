@@ -8,6 +8,7 @@ use App\Http\ViewComposers\Piwik;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -57,7 +58,7 @@ LPMARKUP;
                 $content = file_get_contents($filename);
 
                 $mime = mime_content_type($filename);
-                if (starts_with($mime, 'image/')) {
+                if (Str::startsWith($mime, 'image/')) {
                     $type = pathinfo($filename, PATHINFO_EXTENSION);
                     $content = base64_encode($content);
 

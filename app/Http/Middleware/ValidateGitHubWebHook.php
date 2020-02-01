@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Str;
 
 class ValidateGitHubWebHook
 {
@@ -24,7 +25,7 @@ class ValidateGitHubWebHook
         }
 
         // appears to be from github
-        if (!starts_with($request->header('user-agent'), 'GitHub-Hookshot/')) {
+        if (!Str::startsWith($request->header('user-agent'), 'GitHub-Hookshot/')) {
             return $errorResponse;
         }
         if (!$request->header('x-github-event')) {
