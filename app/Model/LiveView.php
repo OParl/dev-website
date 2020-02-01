@@ -13,6 +13,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Masterminds\HTML5;
 use Psr\Log\LoggerInterface;
+use SplFileInfo;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -121,22 +122,27 @@ class LiveView
         return $this->versionInformation['hash'];
     }
 
+    public function hasImage($image): bool
+    {
+        $path = $this->formatImagePath($image);
+
+        return $this->fs->exists($path);
+    }
+
     /**
      * @param $imagePath
-     * @return null|string
-     * @throws FileNotFoundException
+     * @return string
      */
-    public function getImage($imagePath)
+    protected function formatImagePath($imagePath): string
     {
-        $path = 'live/' . $this->loadedVersion . '/images/' . $imagePath . '.png';
+        return 'live/'.$this->loadedVersion.'/images/'.$imagePath.'.png';
+    }
 
-        $data = null;
+    public function getImage($image)
+    {
+        $imagePath = $this->formatImagePath($image);
 
-        if ($this->fs->exists($path)) {
-            $data = $this->fs->get($path);
-        }
-
-        return $data;
+        return new SplFileInfo(storage_path('app/'.$imagePath));
     }
 
     /**
