@@ -13,7 +13,8 @@
                             <div class="column is-narrow">
                                 <version-selector
                                         :versions="{{ json_encode(array_keys(config('oparl.versions.specification'))) }}"
-                                        current="{{ $liveViewVersion }}"
+                                        current-official="{{$liveView->getOfficialVersion() }}"
+                                        current-hash="{{ $liveView->getGitHash() }}"
                                         @version-change="changeLiveView"
                                 ></version-selector>
                             </div>

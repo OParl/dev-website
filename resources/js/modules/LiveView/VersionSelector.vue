@@ -1,7 +1,7 @@
 <template>
-    <b-dropdown v-if="current">
+    <b-dropdown v-if="currentOfficial">
         <button class="button" slot="trigger">
-            {{ current }}&nbsp;<i class="fa fa-caret-down"></i>
+            <span :title="'Git Hash: ' + currentHash">{{ currentOfficial }}</span>&nbsp;<i class="fa fa-caret-down"></i>
         </button>
         <b-dropdown-item
                 v-for="version in versions"
@@ -21,7 +21,11 @@
                 type: Array,
                 required: true
             },
-            current: {
+            currentOfficial: {
+                type: String,
+                required: true
+            },
+            currentHash: {
                 type: String,
                 required: true
             }

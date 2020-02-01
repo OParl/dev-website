@@ -32,17 +32,16 @@ class SpecificationController extends Controller
      */
     public function index(string $version = null)
     {
-        $title = 'Spezifikation';
-
         if (null === $version) {
             $version = config('oparl.specificationDisplayVersion');
         }
 
+        $title = 'Spezifikation '.$version;
+
         // TODO: handle live view not loadable exception
         $liveView = $this->liveViewRepository->get($version);
-        $liveViewVersion = $liveView->getVersionInformation()['official'];
 
-        return view('specification.index', compact('title', 'liveView', 'liveViewVersion'));
+        return view('specification.index', compact('title', 'liveView'));
     }
 
     public function imageIndex()

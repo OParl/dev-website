@@ -111,9 +111,14 @@ class LiveView
         return $this->tableOfContents;
     }
 
-    public function getVersionInformation()
+    public function getOfficialVersion(): string
     {
-        return $this->versionInformation;
+        return $this->versionInformation['official'];
+    }
+
+    public function getGitHash(): string
+    {
+        return $this->versionInformation['hash'];
     }
 
     /**
@@ -145,7 +150,7 @@ class LiveView
 
     protected function reformatBody(): void
     {
-// rewrite image urls
+        // rewrite image urls
         $this->body = preg_replace(
             '/"(.??)(.*images\/)(.+\.png)"/',
             '"$1/spezifikation/'.$this->loadedVersion.
@@ -181,7 +186,7 @@ class LiveView
         $this->body = $letterpress->typofix($this->body);
 
         // route for the following link rewrites
-        $route = route('specification.index', ['version' => $this->getVersionInformation()['official']]);
+        $route = route('specification.index', ['version' => $this->getOfficialVersion()]);
 
         // fix footnote links
         $this->body = str_replace('class="footnotes"', 'class="c-footnotes"', $this->body);
