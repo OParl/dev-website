@@ -15,6 +15,8 @@ use Psr\Log\LoggerInterface;
 
 class LiveViewRepository
 {
+    const CACHE_DURATION = 43200; // Keep live views cached for half a day
+
     /**
      * @var Filesystem
      */
@@ -46,13 +48,12 @@ class LiveViewRepository
     {
         return $this->cacheManager->remember(
             'liveview.'.$version,
-            1800,
+            self::CACHE_DURATION,
             function () use ($version) {
                 if ($this->fs->exists('live/' . $version)) {
                     return new LiveView($this->fs, $this->log, $version);
                 }
 
-                // TODO: throw suitable exception
                 throw LiveViewException::notLoadable($version);
             }
         );

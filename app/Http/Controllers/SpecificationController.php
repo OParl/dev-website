@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\LiveViewException;
 use App\Repositories\LiveViewRepository;
-use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\File\Stream;
 
 class SpecificationController extends Controller
 {
@@ -41,22 +39,25 @@ class SpecificationController extends Controller
 
         $title = 'Spezifikation '.$version;
 
-        // TODO: handle live view not loadable exception
-        $liveView = $this->liveViewRepository->get($version);
+        try {
+            $liveView = $this->liveViewRepository->get($version);
 
-        return view('specification.index', compact('title', 'liveView'));
+            return view('specification.index', compact('title', 'liveView'));
+        } catch (LiveViewException $e) {
+            abort(Response::HTTP_NOT_FOUND, $e->getMessage());
+        }
     }
 
     public function imageIndex()
     {
-        abort(404);
+        abort(Response::HTTP_NOT_FOUND);
     }
 
     public function image($version, $image)
     {
         $imageNotFoundResponse = response(
             "{$image} was not found on the server.",
-            404,
+            Response::HTTP_NOT_FOUND,
             ['Content-type' => 'text/plain']
         );
 
