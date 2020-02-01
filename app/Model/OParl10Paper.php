@@ -50,7 +50,7 @@ class OParl10Paper extends OParl10BaseModel
 
     public function consultations()
     {
-        return $this->hasMany(OParl10Consultation::class);
+        return $this->hasMany(OParl10Consultation::class, 'paper_id', 'id');
     }
 
     public function originatorPeople()

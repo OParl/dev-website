@@ -37,7 +37,8 @@ class ServerPopulateCommand extends Command
     {
         $this->faker = $faker;
 
-        $databaseManager->connection(config('database.demo_default'))->disableQueryLog();
+        $databaseManager->setDefaultConnection(config('database.demo_default'));
+        $databaseManager->connection()->disableQueryLog();
         Model::unguard();
 
         if ($this->option('refresh')) {
@@ -49,7 +50,7 @@ class ServerPopulateCommand extends Command
         $this->generateData();
 
         Model::reguard();
-        $databaseManager->connection(config('database.demo_default'))->enableQueryLog();
+        $databaseManager->connection()->enableQueryLog();
 
         return 0;
     }
@@ -203,7 +204,7 @@ class ServerPopulateCommand extends Command
         }
 
         $this->info('Adding participants to Meetings');
-        $progressBar = new ProgressBar($this->output, OParl10Meeting::all()->count());
+        $progressBar = new ProgressBar($this->output, OParl10Meeting::count());
         foreach (OParl10Meeting::all() as $meeting) {
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
@@ -221,8 +222,8 @@ class ServerPopulateCommand extends Command
 
         $this->line('');
 
-        $this->info('Adding AgendaItems to Meetings');
-        $progressBar = new ProgressBar($this->output, OParl10Meeting::all()->count());
+        $this->info('Adding agenda items to Meetings');
+        $progressBar = new ProgressBar($this->output, OParl10Meeting::count());
         foreach (OParl10Meeting::all() as $meeting) {
             $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
@@ -235,8 +236,9 @@ class ServerPopulateCommand extends Command
                     /* @var OParl10Consultation $consultation */
                     $consultation = factory(OParl10Consultation::class)->create();
                     $consultation->meeting()->associate($meeting);
-                    $item->consultation()->save($consultation);
                     $consultation->agendaItem()->associate($item);
+
+                    $consultation->save();
 
                     $numberOfConsultationOrgas = $this->faker->numberBetween(1, $meetingOrgas->count());
                     $consultationOrgas = $meetingOrgas->random($numberOfConsultationOrgas);
@@ -254,13 +256,17 @@ class ServerPopulateCommand extends Command
         $this->info('Adding Papers to Consultations');
         $progressBar = new ProgressBar($this->output, OParl10Consultation::count());
         foreach (OParl10Consultation::all() as $consultation) {
-            /* @var OParl10Consultation $consultation */
-            $consultation->paper()->associate(OParl10Paper::all()->random());
-            $consultation->paper->body()->associate($consultation->organizations->first()->body);
-            $consultation->save();
+            /** @var OParl10Paper $paper */
+            $paper = OParl10Paper::all()->random();
+            $paper->consultations()->save($consultation);
+
+//            /* @var OParl10Consultation $consultation */
+//            $consultation->paper()->associate();
+//            $consultation->paper->body()->associate($consultation->organizations->first()->body);
+//            $consultation->save();
 
             // explicit free()
-            $consultation = null;
+            unset($consultation);
 
             $progressBar->advance();
         }
@@ -318,7 +324,7 @@ class ServerPopulateCommand extends Command
             return collect();
         }
 
-        $currentKeywordCount = OParl10Keyword::all()->count();
+        $currentKeywordCount = OParl10Keyword::count();
         if ($currentKeywordCount < $amount) {
             factory(OParl10Keyword::class, $amount)->create();
         }

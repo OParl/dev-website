@@ -9,7 +9,7 @@ use EFrane\Transfugio\Transformers\Formatter\HttpURI;
 return [
     'itemsPerPage'   => 100,
     'rootURL'        => 'api/oparl/v1/',
-    'modelNamespace' => 'OParl\\Server\\Model\\',
+    'modelNamespace' => 'App\\Model\\OParl10',
 
     'transformers' => [
         'serializer' => Serializer::class,

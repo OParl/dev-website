@@ -8,7 +8,11 @@ class OParl10AgendaItem extends OParl10BaseModel
 
     public function meeting()
     {
-        return $this->belongsTo(OParl10Meeting::class);
+        return $this->belongsTo(
+            OParl10Meeting::class,
+            'id',
+            'meeting_id'
+        );
     }
 
     public function keywords()
@@ -18,6 +22,6 @@ class OParl10AgendaItem extends OParl10BaseModel
 
     public function consultation()
     {
-        return $this->hasOne(OParl10Consultation::class);
+        return $this->hasOne(OParl10Consultation::class, 'agenda_item_id', 'consultation_id');
     }
 }

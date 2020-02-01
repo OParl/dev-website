@@ -54,7 +54,7 @@ class OParl10Meeting extends OParl10BaseModel
 
     public function agendaItems()
     {
-        return $this->hasMany(OParl10AgendaItem::class);
+        return $this->hasMany(OParl10AgendaItem::class, 'meeting_id');
     }
 
     public function keywords()

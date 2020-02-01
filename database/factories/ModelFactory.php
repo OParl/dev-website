@@ -26,7 +26,7 @@ $factory->define(
 
         'contact_name'  => $faker->name,
         'contact_email' => $faker->email,
-        'website'       => route('api.oparl.index'),
+        'website'       => route('api.oparl.v1.index'),
     ];
 });
 

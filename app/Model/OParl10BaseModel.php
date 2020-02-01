@@ -5,6 +5,7 @@ namespace App\Model;
 use App\Exceptions\ConnectionNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 /**
  * Class BaseModel.
@@ -58,7 +59,11 @@ class OParl10BaseModel extends Model
     {
         $table = parent::getTable();
 
-        return self::$modelConfiguration['prefix'].$table;
+        if (!Str::startsWith($table, self::$modelConfiguration['prefix'])) {
+            $table = self::$modelConfiguration['prefix'].$table;
+        }
+
+        return $table;
     }
 
     public function getModelName()

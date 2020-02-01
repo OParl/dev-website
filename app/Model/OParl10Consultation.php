@@ -11,12 +11,12 @@ class OParl10Consultation extends OParl10BaseModel
      */
     public function paper()
     {
-        return $this->belongsTo(OParl10Paper::class);
+        return $this->belongsTo(OParl10Paper::class, 'paper_id', 'id');
     }
 
     public function agendaItem()
     {
-        return $this->belongsTo(OParl10AgendaItem::class);
+        return $this->belongsTo(OParl10AgendaItem::class, 'agenda_item_id', 'id');
     }
 
     /**
@@ -24,16 +24,26 @@ class OParl10Consultation extends OParl10BaseModel
      */
     public function meeting()
     {
-        return $this->belongsTo(OParl10Meeting::class);
+        return $this->belongsTo(OParl10Meeting::class, 'meeting_id', 'id');
     }
 
     public function keywords()
     {
-        return $this->belongsToMany(OParl10Keyword::class, 'oparl_keywords_consultations', 'consultation_id', 'keyword_id');
+        return $this->belongsToMany(
+            OParl10Keyword::class,
+            'oparl_keywords_consultations',
+            'consultation_id',
+            'keyword_id'
+        );
     }
 
     public function organizations()
     {
-        return $this->belongsToMany(OParl10Organization::class, 'oparl_consultations_organizations', 'consultation_id', 'organization_id');
+        return $this->belongsToMany(
+            OParl10Organization::class,
+            'oparl_consultations_organizations',
+            'consultation_id',
+            'organization_id'
+        );
     }
 }
