@@ -82,6 +82,12 @@ class SchemaRepository
         }
     }
 
+    /**
+     * @param $version
+     * @param $entity
+     * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     public function loadSchemaForEntity($version, $entity): array
     {
         $loadEntity = $entity;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\SchemaRepository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -35,7 +36,7 @@ class SchemaController extends Controller
             $schema = $this->schemaRepository->loadSchemaForEntity($version, $entity);
 
             return $this->jsonResponse($schema);
-        } catch (\Exception $e) {
+        } catch (FileNotFoundException $e) {
             return response('File not found.', 404, ['Content-type' => 'text/plain']);
         }
     }
