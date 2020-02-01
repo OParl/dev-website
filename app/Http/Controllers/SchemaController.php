@@ -4,71 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Repositories\SchemaRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class SchemaController extends Controller
 {
-    public function index(SchemaRepository $schemaRepository)
+    /**
+     * @var SchemaRepository
+     */
+    protected $schemaRepository;
+
+    public function __construct(SchemaRepository $schemaRepository)
     {
-        return $schemaRepository->all();
+        $this->schemaRepository = $schemaRepository;
     }
 
-    public function listSchemaVersion(Filesystem $fs, $version)
+    public function index()
     {
-        $files = collect($fs->files("schema/{$version}"))->map(function ($file) use ($version) {
-            return route('schema.get', [$version, basename($file, '.json')]);
-        });
+        return $this->jsonResponse($this->schemaRepository->all());
+    }
 
-        return response()->json(
-            $files,
-            200,
-            [
-                'Content-Type'                => 'application/json; charset=utf-8',
-                'Access-Control-Allow-Origin' => '*',
-            ],
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
-        );
+    public function listSchemaVersion($version)
+    {
+        return $this->jsonResponse($this->schemaRepository->getVersion($version));
     }
 
     public function getSchema(Filesystem $fs, $version, $entity)
     {
-        // embedded: LegislativeTerm, Membership, AgendaItem, Consultation
         try {
-            $loadEntity = $entity;
+            $schema = $this->schemaRepository->loadSchemaForEntity($version, $entity);
 
-            if ($version === '1.0' && $entity === 'LegislativeTerm') {
-                $loadEntity = 'Body';
-            }
-
-            if ($version === '1.0' && $entity === 'Membership') {
-                $loadEntity = 'Person';
-            }
-
-            if ($version === '1.0' && $entity === 'AgendaItem') {
-                $loadEntity = 'Meeting';
-            }
-
-            if ($version === '1.0' && $entity === 'Consultation') {
-                $loadEntity = 'Paper';
-            }
-
-            $schema = $fs->get("schema/{$version}/$loadEntity.json");
-            $schema = json_decode($schema, true);
-
-            if ($entity !== $loadEntity) {
-                $schema = $schema['properties'][lcfirst($entity)];
-            }
-
-            return response()->json(
-                $schema,
-                200,
-                [
-                    'Content-Type'                => 'application/json; charset=utf-8',
-                    'Access-Control-Allow-Origin' => '*',
-                ],
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-            );
+            return $this->jsonResponse($schema);
         } catch (\Exception $e) {
             return response('File not found.', 404, ['Content-type' => 'text/plain']);
         }
+    }
+
+    protected function jsonResponse(array $responseData): JsonResponse
+    {
+        return response()->json(
+            $responseData,
+            Response::HTTP_OK,
+            [
+                'Content-Type'                => 'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin' => '*',
+            ],
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        );
     }
 }
