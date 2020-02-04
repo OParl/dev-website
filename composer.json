@@ -59,6 +59,7 @@
     "matomo/matomo-php-tracker": "^2.0",
     "php-http/guzzle6-adapter": "^1.1",
     "predis/predis": "^1.1",
+    "sentry/sentry-laravel": "^1.6",
     "symfony/css-selector": "^4.0",
     "symfony/dom-crawler": "^4.0",
     "zircote/swagger-php": "^3.0"
