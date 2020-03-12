@@ -1519,10 +1519,10 @@ btoa@1.1.2:
   resolved "https://registry.yarnpkg.com/btoa/-/btoa-1.1.2.tgz#3e40b81663f81d2dd6596a4cb714a8dc16cfabe0"
   integrity sha1-PkC4FmP4HS3WWWpMtxSo3BbPq+A=
 
-buefy@^0.8.10:
-  version "0.8.10"
-  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.8.10.tgz#e00a9e9ced4babcf01ada300c451fafced2a2b42"
-  integrity sha512-Lw/UP3Ku7o+oqam9TIoRMG5SrytGQwXWAoxAtqt6Wb9eSsMEqp/5o+jZnz8oteR06YWgjdSIfOv2YeEdjEkQCg==
+buefy@^0.8.13:
+  version "0.8.13"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.8.13.tgz#90ce1645807c15d81f584dc78a2090a0feb7a70b"
+  integrity sha512-SpJq1Bl569mT6YujrEpyqn1al6U2PcBBQkVdgdKFrW+zjh1BAcs3+sNx7+r0tPSBsLYsSU2ZZsfkFzWOnOTX8A==
   dependencies:
     bulma "0.7.5"
 
