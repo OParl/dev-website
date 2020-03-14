@@ -189,7 +189,7 @@ class EndpointApiController
         $areas = [
             [
                 'id' => 1,
-                'geojson' => $endpointLocator->lookup(1739381)
+                'geojson' => $endpointLocator->lookup(67333)
             ]
         ];
 

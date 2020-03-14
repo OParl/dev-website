@@ -18,14 +18,20 @@ class EndpointLocator
      */
     protected $cacheManager;
 
-    public function __construct(CacheManager $cacheManager)
+    /**
+     * @var GeoJSONSimplifier
+     */
+    protected $simplifier;
+
+    public function __construct(CacheManager $cacheManager, GeoJSONSimplifier $simplifier)
     {
         $this->cacheManager = $cacheManager;
+        $this->simplifier = $simplifier;
     }
 
     public function lookup(int $openStreetMapRelationId): array
     {
-        return $this->cacheManager->remember(
+        $geoJson = $this->cacheManager->remember(
             'endpoint_location:'.$openStreetMapRelationId,
             3600,
             function () use ($openStreetMapRelationId) {
@@ -45,6 +51,8 @@ class EndpointLocator
                 return $this->toGeoJSON($responseString);
             }
         );
+
+        return $this->simplifier->simplify($geoJson, 0.1);
     }
 
     protected function toGeoJSON(string $responseString): array
