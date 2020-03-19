@@ -52,7 +52,7 @@
     "fideloper/proxy": "^4.0",
     "fzaninotto/faker": "^1.6",
     "guzzlehttp/guzzle": "^6.2",
-    "laravel/framework": "5.8.*",
+    "laravel/framework": "6.18.*",
     "laravel/slack-notification-channel": "^2.0",
     "laravel/tinker": "^1.0",
     "matomo/matomo-php-tracker": "^2.0",
