@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -74,12 +75,12 @@ class EndpointInfoUpdateJob implements ShouldQueue
         $this->getSystemFromEndpoint($log, $endpoint);
 
         if (!$endpoint->exists) {
-            // make sure to save a newly endpoint before continuing
+            // make sure to save a newly created endpoint before continuing
             $endpoint->endpoint_fetched = Carbon::now();
             $endpoint->save();
         }
 
-        if ('' !== $endpoint->system) {
+        if (!is_array($endpoint->system)) {
             $this->getBodiesFromEndpoint($log, $endpoint);
         }
 
@@ -105,6 +106,15 @@ class EndpointInfoUpdateJob implements ShouldQueue
             );
 
             $systemJson = json_decode((string)$systemResponse->getBody(), true);
+
+            if (!is_array($systemJson)) {
+                $endpoint->system = [];
+
+                $this->fail();
+
+                return;
+            }
+
             $endpoint->system = $systemJson;
         } catch (RequestException $e) {
             $log->warning('Failed to fetch system for '.$endpoint->url);
@@ -156,6 +166,7 @@ class EndpointInfoUpdateJob implements ShouldQueue
             return;
         }
 
+        /** @var Validator $validator */
         $validator = \Validator::make(
             $bodyJson,
             [
