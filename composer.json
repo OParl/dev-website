@@ -51,7 +51,6 @@
     "efrane/transfugio": "^0.7",
     "fideloper/proxy": "^4.0",
     "fzaninotto/faker": "^1.6",
-    "graham-campbell/github": "^8.4",
     "guzzlehttp/guzzle": "^6.2",
     "laravel/framework": "5.8.*",
     "laravel/slack-notification-channel": "^2.0",
