@@ -1,5 +1,11 @@
 <?php
 
+function remove_test_repo() {
+    // remove test repo
+    $cmd = sprintf('rm -rf %s', __DIR__.'/../storage/app/hub_sync/test');
+    exec($cmd);
+}
+
 class RepositoryTest extends TestCase
 {
     protected $remoteURI = 'tests/assets/test.git';
@@ -13,16 +19,12 @@ class RepositoryTest extends TestCase
 
     public static function setUpBeforeClass()
     {
-        // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__.'/../storage/app/hub_sync/test');
-        exec($cmd);
+        remove_test_repo();
     }
 
     public static function tearDownAfterClass()
     {
-        // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__.'/../storage/app/hub_sync/test');
-        exec($cmd);
+        remove_test_repo();
     }
 
     public function setUp(): void
