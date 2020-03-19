@@ -66,7 +66,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
         $needsStringReplacement = false;
 
         collect($fs->files($hubSync->getPath('schema/')))
-            ->filter(function ($file) use (&$needsStringReplacement) {
+            ->filter(static function ($file) use (&$needsStringReplacement) {
                 if ('strings.yml' !== basename($file)) {
                     return true;
                 }
@@ -74,7 +74,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
                 $needsStringReplacement = true;
                 return false;
             })
-            ->each(function ($file) use ($fs, $schemaDir) {
+            ->each(static function ($file) use ($fs, $schemaDir) {
             $filename = $schemaDir.'/'.basename($file);
 
             $fs->put($filename, $fs->get($file));
@@ -121,7 +121,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
         $strings = $this->loadStrings($hubSync, $fs);
 
         collect($fs->files($schemaDir))
-            ->each(function ($schemaFile) use ($fs, $strings) {
+            ->each(static function ($schemaFile) use ($fs, $strings) {
                 $content = $fs->get($schemaFile);
 
                 preg_match_all('/\{\{.+\}\}/i', $content, $translatables);
