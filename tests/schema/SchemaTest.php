@@ -66,7 +66,7 @@ class SchemaTest extends TestCase
     public function testTitle_1_0($name)
     {
         $this->route('get', 'schema.get', ['1.0', $name]);
-        $this->assertContains('"title": "'.$name.'"', $this->response->getContent());
+        $this->assertStringContainsString('"title": "'.$name.'"', $this->response->getContent());
     }
 
     /**
@@ -77,7 +77,7 @@ class SchemaTest extends TestCase
     public function testTitle_master($name)
     {
         $this->route('get', 'schema.get', ['master', $name]);
-        $this->assertContains('"title": "'.$name.'"', $this->response->getContent());
+        $this->assertStringContainsString('"title": "'.$name.'"', $this->response->getContent());
     }
 
     public function schemaNames()
