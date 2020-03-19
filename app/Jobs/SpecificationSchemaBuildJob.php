@@ -7,6 +7,7 @@ use App\Services\HubSync\Repository;
 use App\Services\OParlVersions;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class SpecificationSchemaBuildJob extends SpecificationJob
 {
@@ -45,7 +46,7 @@ class SpecificationSchemaBuildJob extends SpecificationJob
         $hubSync = $this->getUpdatedHubSync($this->getRepository($fs), $log);
 
         $oparlVersions = new OParlVersions();
-        $dirname = $oparlVersions->getVersionForConstraint('specification', $this->treeish);
+        $authoritativeVersion = $oparlVersions->getVersionForConstraint('specification', $this->treeish);
         $log->info("Beginning Schema Update Job for treeish {$this->treeish}");
 
         try {
@@ -60,13 +61,28 @@ class SpecificationSchemaBuildJob extends SpecificationJob
             throw $e;
         }
 
-        $dirname = $this->createSchemaDirectory($fs, $dirname);
+        $schemaDir = $this->createOrPruneSchemaDirectory($fs, $authoritativeVersion);
 
-        collect($fs->files($hubSync->getPath('schema/')))->each(function ($file) use ($fs, $dirname) {
-            $filename = $dirname.'/'.basename($file);
+        $needsStringReplacement = false;
+
+        collect($fs->files($hubSync->getPath('schema/')))
+            ->filter(function ($file) use (&$needsStringReplacement) {
+                if ('strings.yml' !== basename($file)) {
+                    return true;
+                }
+
+                $needsStringReplacement = true;
+                return false;
+            })
+            ->each(function ($file) use ($fs, $schemaDir) {
+            $filename = $schemaDir.'/'.basename($file);
 
             $fs->put($filename, $fs->get($file));
         });
+
+        if ($needsStringReplacement) {
+            $this->translateSrings($hubSync, $fs, $schemaDir);
+        }
 
         $log->info("Finished Schema Update Job for treeish {$this->treeish}");
 
@@ -83,16 +99,54 @@ class SpecificationSchemaBuildJob extends SpecificationJob
      *
      * @return string
      */
-    public function createSchemaDirectory(Filesystem $fs, $authoritativeVersion)
+    public function createOrPruneSchemaDirectory(Filesystem $fs, $authoritativeVersion)
     {
         $schemaPath = 'schema/'.$authoritativeVersion;
 
-        if (!$fs->exists($schemaPath)) {
-            $fs->makeDirectory($schemaPath);
-
-            return $schemaPath;
+        if ($fs->exists($schemaPath)) {
+            $fs->deleteDirectory($schemaPath);
         }
 
+        $fs->makeDirectory($schemaPath);
+
         return $schemaPath;
+    }
+
+    /**
+     * @param Repository $hubSync
+     * @param string     $schemaDir
+     */
+    protected function translateSrings(Repository $hubSync, Filesystem $fs, string $schemaDir)
+    {
+        $strings = $this->loadStrings($hubSync, $fs);
+
+        collect($fs->files($schemaDir))
+            ->each(function ($schemaFile) use ($fs, $strings) {
+                $content = $fs->get($schemaFile);
+
+                preg_match_all('/\{\{.+\}\}/i', $content, $translatables);
+
+                foreach ($translatables[0] as $translatable) {
+                    $translatableKey = trim(str_replace(['{{', '}}'], '', $translatable));
+
+                    if (array_key_exists($translatableKey, $strings)) {
+                        $translated = addslashes(str_replace("\n", '\n', trim($strings[$translatableKey])));
+                        $content = str_replace($translatable, $translated, $content);
+                    }
+                }
+
+                $fs->put($schemaFile, $content);
+            });
+
+
+    }
+
+    protected function loadStrings(Repository $hubSync, Filesystem $fs)
+    {
+        $stringsFile = $hubSync->getPath('schema/strings.yml');
+        // This is going to break eventually when we have multiple translations
+        $strings = Yaml::parse($fs->get($stringsFile))['de'];
+
+        return $strings;
     }
 }
