@@ -6,10 +6,11 @@
     "proj4": "^2.6.0",
     "simplify-geojson": "^1.0.3",
     "swagger-ui": "^3.25.0",
-    "vue-loader": "^14.2.3",
-    "vue-sliding-pagination": "^1.0.3",
-    "vue-template-compiler": "^2.6.10",
-    "vuelayers": "^0.11.21"
+    "vue": "^2.5.16",
+    "vuelayers": "^0.11.21",
+    "vue-affix": "^0.5.2",
+    "vue-clipboard2": "0.3.1",
+    "vue-sliding-pagination": "^1.0.4"
   },
   "devDependencies": {
     "axios": "^0.19",
@@ -24,9 +25,8 @@
     "resolve-url-loader": "3.1.1",
     "sass": "^1.25.0",
     "sass-loader": "8.*",
-    "vue": "^2.5.16",
-    "vue-affix": "^0.5.2",
-    "vue-clipboard2": "0.3.1"
+    "vue-loader": "^14.2.3",
+    "vue-template-compiler": "^2.6.10"
   },
   "engines": {
     "npm": ">= 5.0.0",

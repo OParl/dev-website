@@ -105,7 +105,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         $fs->makeDirectory($this->getStoragePath('images'));
 
         collect($fs->files($hubSync->getPath('/build/src/images')))->filter(function ($filename) {
-            return ends_with($filename, '.png');
+            return Str::endsWith($filename, '.png');
         })->map(function ($filename) use ($fs) {
             $fs->put($this->getStoragePath('images/' . basename($filename)), $fs->get($filename));
         });
@@ -118,7 +118,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
     protected function updateConcatenatedMarkdownVersion(Filesystem $fs, Repository $hubSync)
     {
         $raw = collect($fs->files($hubSync->getPath('/src')))->filter(function ($filename) {
-            return ends_with($filename, '.md');
+            return Str::endsWith($filename, '.md');
         })->map(function ($filename) use ($fs) {
             return $fs->get($filename);
         })->reduce(function ($carry, $current) {

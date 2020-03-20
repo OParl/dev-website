@@ -27,7 +27,7 @@ class ApiController
      */
     public function openApiJson()
     {
-        $openApi = scan([base_path('lib/Api/Controllers'), app_path('Model')]);
+        $openApi = scan([base_path('app/Http/Controllers/API'), app_path('Model')]);
 
         return response(
             $openApi,

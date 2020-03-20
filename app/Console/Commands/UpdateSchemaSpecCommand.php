@@ -15,7 +15,7 @@ class UpdateSchemaSpecCommand extends SpecCommand
 
         $this->info("Updating schema assets for constraint '{$constraint}'");
 
-        $this->dispatch(new SpecificationSchemaBuildJob($constraint));
+        $this->dispatchNow(new SpecificationSchemaBuildJob($constraint));
 
         return 0;
     }

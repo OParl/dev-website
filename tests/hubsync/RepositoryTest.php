@@ -11,20 +11,6 @@ class RepositoryTest extends TestCase
      */
     protected $repo;
 
-    public static function setUpBeforeClass()
-    {
-        // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__.'/../storage/app/hub_sync/test');
-        exec($cmd);
-    }
-
-    public static function tearDownAfterClass()
-    {
-        // remove test repo
-        $cmd = sprintf('rm -rf %s', __DIR__.'/../storage/app/hub_sync/test');
-        exec($cmd);
-    }
-
     public function setUp(): void
     {
         parent::setUp();

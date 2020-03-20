@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class DownloadVersion
 {
@@ -87,7 +88,7 @@ class DownloadVersion
     public function getFileForExtension($extension)
     {
         $file = $this->files->filter(function (Download $file) use ($extension) {
-            return ends_with($file->getFilename(), $extension);
+            return Str::endsWith($file->getFilename(), $extension);
         });
 
         if ($file->count() !== 1) {
