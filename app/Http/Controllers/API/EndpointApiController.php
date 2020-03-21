@@ -181,24 +181,4 @@ class EndpointApiController
             ]
         );
     }
-
-    public function areas(EndpointLocator $endpointLocator)
-    {
-        $endpoints = Endpoint::all();
-
-        $areas = [
-            [
-                'id' => 1,
-                'geojson' => $endpointLocator->lookup(67333)
-            ]
-        ];
-
-        return response()->json(
-            [
-                'data' => $areas,
-                'meta' => [],
-            ],
-            Response::HTTP_OK
-        );
-    }
 }
