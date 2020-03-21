@@ -3,13 +3,13 @@
     <div class="column is-two-fifths">
       <div class="level">
         <div class="level-left">
-          <div class="level-item">
-            <div class="control">
-              <button class="button" @click="toggleState('overview')">
-                Überblick
-              </button>
-            </div>
-          </div>
+<!--          <div class="level-item">-->
+<!--            <div class="control">-->
+<!--              <button class="button" @click="toggleState('overview')">-->
+<!--                Überblick-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
           <div class="level-item">
             <div class="control">
               <button class="button" @click="toggleState('statistics')">
@@ -108,10 +108,11 @@
     data () {
       return {
         endpoints: [],
+        endpointsPerPage: 10,
         selectedEndpoint: null,
         page: 1,
         total: 1,
-        state: 'overview'
+        state: 'statistics'
       }
     },
 
@@ -140,7 +141,7 @@
       },
 
       loadPage (page) {
-        return axios.get('/api/endpoints?limit=40&page=' + page)
+        return axios.get(`/api/endpoints?limit=${this.endpointsPerPage}&page=${page}`)
           .then(response => response.data)
           .then(data => {
             this.$set(this, 'endpoints', data.data)
