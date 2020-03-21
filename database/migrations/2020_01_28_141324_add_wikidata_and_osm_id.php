@@ -13,7 +13,10 @@ class AddWikidataAndOsmId extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('endpoints', function (Blueprint $blueprint) {
+            $blueprint->string('wikidata', 20)->nullable();
+            $blueprint->integer('osm')->nullable();
+        });
     }
 
     /**
@@ -23,6 +26,8 @@ class AddWikidataAndOsmId extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('endpoints', function (Blueprint $blueprint) {
+            $blueprint->dropColumn(['wikidata', 'osm']);
+        });
     }
 }

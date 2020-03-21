@@ -32,6 +32,16 @@ use Illuminate\Database\Eloquent\Model;
  *         description="The OParl endpoint's entrypoint"
  *     ),
  *     @OA\Property(
+ *         property="osm",
+ *         type="int",
+ *         description="Optional: A corresponding OpenStreetMap relation for the endpoint"
+ *     ),
+ *     @OA\Property(
+ *         property="wikidata",
+ *         type="string",
+ *         description="Optional: A corresponding Wikidata item for the endpoint"
+ *     ),
+ *     @OA\Property(
  *         property="title",
  *         type="string",
  *         description="The OParl endpoint's name"
@@ -58,6 +68,7 @@ class Endpoint extends Model
 
     protected $casts = [
         'system' => 'array',
+        'osm' => 'integer'
     ];
 
     protected $dates = [

@@ -72,6 +72,14 @@ class EndpointInfoUpdateJob implements ShouldQueue
             $endpoint->description = $this->endpointData['description'];
         }
 
+        if (array_key_exists('osm', $this->endpointData)) {
+            $endpoint->osm = (int)$this->endpointData['osm'];
+        }
+
+        if (array_key_exists('wd', $this->endpointData)) {
+            $endpoint->wikidata = $this->endpointData['wd'];
+        }
+
         $this->getSystemFromEndpoint($log, $endpoint);
 
         if (!$endpoint->exists) {
