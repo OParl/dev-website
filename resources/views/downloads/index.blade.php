@@ -27,7 +27,7 @@
                                 @foreach ($specificationVersion->getFiles() as $file)
                                     <div class="control">
                                         <a
-                                                href="{{ route('downloads.specification', ['version' => $specificationVersion->getVersion(), 'extension' => $file->getExtension()]) }}"
+                                                href="{{ route('downloads.specification', ['version' => $specificationVersion->getVersion(), 'format' => $file->getExtension()]) }}"
                                                 title="@lang('app.specification.download.select.title', ['version' => $specificationVersion->getVersion(), 'format' => $file->getExtension()])"
                                         >
 
