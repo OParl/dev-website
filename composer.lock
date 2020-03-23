@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1960cf64b0b72535a990ee91dbb55866",
+    "content-hash": "ad28a5468225c20a701594c542ec5381",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2403,16 +2403,16 @@
         },
         {
             "name": "markrogoyski/math-php",
-            "version": "v0.57.0",
+            "version": "v0.61.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markrogoyski/math-php.git",
-                "reference": "cde06c9ae9b036b1eddacd7c9547078cfc0fbfbf"
+                "reference": "afab181dbc7917667fd4e0c2cd167fb0a57ac042"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/cde06c9ae9b036b1eddacd7c9547078cfc0fbfbf",
-                "reference": "cde06c9ae9b036b1eddacd7c9547078cfc0fbfbf",
+                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/afab181dbc7917667fd4e0c2cd167fb0a57ac042",
+                "reference": "afab181dbc7917667fd4e0c2cd167fb0a57ac042",
                 "shasum": ""
             },
             "require": {
@@ -2472,7 +2472,7 @@
                 "regressions",
                 "statistics"
             ],
-            "time": "2020-01-07T16:09:45+00:00"
+            "time": "2020-03-22T04:11:48+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -3002,7 +3002,7 @@
                     "name": "Andreas Heigl",
                     "email": "andreas@heigl.org",
                     "homepage": "http://andreas.heigl.org",
-                    "role": "Developer"
+                    "role": "developer"
                 }
             ],
             "description": "Word-Hyphenation for PHP based on the TeX-Hyphenation algorithm",
