@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1960cf64b0b72535a990ee91dbb55866",
+    "content-hash": "10f32be5216e1b2cfcfee3c0d403edbb",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2405,16 +2405,16 @@
         },
         {
             "name": "markrogoyski/math-php",
-            "version": "v0.57.0",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markrogoyski/math-php.git",
-                "reference": "cde06c9ae9b036b1eddacd7c9547078cfc0fbfbf"
+                "reference": "8c28bc8358bd217a52be0868500514bb4dec9416"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/cde06c9ae9b036b1eddacd7c9547078cfc0fbfbf",
-                "reference": "cde06c9ae9b036b1eddacd7c9547078cfc0fbfbf",
+                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/8c28bc8358bd217a52be0868500514bb4dec9416",
+                "reference": "8c28bc8358bd217a52be0868500514bb4dec9416",
                 "shasum": ""
             },
             "require": {
@@ -2474,7 +2474,7 @@
                 "regressions",
                 "statistics"
             ],
-            "time": "2020-01-07T16:09:45+00:00"
+            "time": "2020-04-14T05:17:30+00:00"
         },
         {
             "name": "masterminds/html5",
