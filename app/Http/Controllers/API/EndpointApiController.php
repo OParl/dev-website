@@ -74,6 +74,7 @@ class EndpointApiController
                 'meta' => [
                     'page'  => $page,
                     'total' => $pageCount,
+                    'self' => route('api.endpoints.index', ['page' => $page, 'limit' => $limit]),
                     'next'  => ($pageCount > $page)
                         ? route('api.endpoints.index', ['page' => ++$page, 'limit' => $limit])
                         : null,
