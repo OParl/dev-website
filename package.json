@@ -3,7 +3,7 @@
   "dependencies": {
     "date-fns": "^2.9.0",
     "font-awesome": "^4.7.0",
-    "proj4": "^2.6.0",
+    "proj4": "^2.6.1",
     "simplify-geojson": "^1.0.3",
     "swagger-ui": "^3.25.0",
     "vue": "^2.5.16",
