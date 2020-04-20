@@ -21,7 +21,7 @@
     "laravel-mix": "^5.0",
     "lodash": "^4.17.10",
     "prism-themes": "^1.4.0",
-    "prismjs": "^1.19.0",
+    "prismjs": "^1.20.0",
     "resolve-url-loader": "3.1.1",
     "sass": "^1.25.0",
     "sass-loader": "8.*",
