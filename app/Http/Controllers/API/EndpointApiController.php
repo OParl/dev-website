@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Model\Endpoint;
-use App\Services\EndpointLocator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -70,11 +69,11 @@ class EndpointApiController
 
         return response()->json(
             [
-                'data' => $endpoints,
+                'data' => array_values($endpoints->toArray()),
                 'meta' => [
                     'page'  => $page,
                     'total' => $pageCount,
-                    'self' => route('api.endpoints.index', ['page' => $page, 'limit' => $limit]),
+                    'self'  => route('api.endpoints.index', ['page' => $page, 'limit' => $limit]),
                     'next'  => ($pageCount > $page)
                         ? route('api.endpoints.index', ['page' => ++$page, 'limit' => $limit])
                         : null,

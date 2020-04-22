@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -57,6 +58,11 @@ use Illuminate\Database\Eloquent\Model;
  *         description="Number of bodies available on endpoint"
  *     )
  * )
+ *
+ * @method Endpoint find(mixed $id)
+ * @method Endpoint orderBy(string $field)
+ * @method Collection get()
+ * @method int count()
  */
 class Endpoint extends Model
 {
