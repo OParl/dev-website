@@ -9,6 +9,8 @@ use Illuminate\Http\Response;
 
 class EndpointApiController
 {
+    const DEFAULT_LIMIT = 25;
+
     /**
      * @OA\Get(
      *     path="/api/endpoints",
@@ -47,7 +49,7 @@ class EndpointApiController
      */
     public function index(Request $request)
     {
-        $limit = 25;
+        $limit = self::DEFAULT_LIMIT;
         $page = 1;
 
         if ($request->has('limit')) {
