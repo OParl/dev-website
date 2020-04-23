@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\EndpointApiController;
 use App\Model\Endpoint;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Created by PhpStorm.
@@ -11,12 +12,14 @@ use App\Model\Endpoint;
  */
 class EndpointsTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function setUp(): void
     {
         parent::setUp();
 
         if (Endpoint::all()->count() === 0) {
-            factory(Endpoint::class, 50)->make();
+            factory(Endpoint::class, 50)->create();
         }
     }
 
