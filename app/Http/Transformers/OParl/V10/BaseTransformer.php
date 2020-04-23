@@ -5,6 +5,7 @@ namespace App\Http\Transformers\OParl\V10;
 use App\Model\OParl10BaseModel;
 use App\Model\OParl10System;
 use EFrane\Transfugio\Transformers\BaseTransformer as TransfugioBaseTransformer;
+use Illuminate\Support\Arr;
 
 class BaseTransformer extends TransfugioBaseTransformer
 {
@@ -40,7 +41,7 @@ class BaseTransformer extends TransfugioBaseTransformer
     public function cleanupData(array $attributes, OParl10BaseModel $entity)
     {
         if ($entity->trashed()) {
-            $attributes = array_only($attributes, ['id', 'type', 'created', 'modified', 'deleted']);
+            $attributes = Arr::only($attributes, ['id', 'type', 'created', 'modified', 'deleted']);
             $attributes['modified'] = $this->formatDateTime($entity->deleted_at);
             $this->setDefaultIncludes([]);
         }
