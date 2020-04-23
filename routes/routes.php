@@ -11,7 +11,8 @@
 |
 */
 
-/* @var Illuminate\Routing\Router $router */
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 
 $specificationVersions = sprintf(
     '(%s)',
@@ -28,11 +29,11 @@ $specificationVersions = sprintf(
  * dev.oparl.org except the api/ section which is loaded in via the
  * OParl\Server\ServerServiceProvider.
  */
-$router->group(
+Route::group(
     [
         'domain' => 'dev.'.config('app.url'),
     ],
-    function () use ($router, $specificationVersions) {
+    function (Router $router) use ($specificationVersions) {
         $router->get('/favicon.ico')
             ->uses('MiscController@favicon');
 
@@ -183,9 +184,9 @@ $router->group(
  *
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
-$router->group(
+Route::group(
     ['domain' => 'schema.'.config('app.url')],
-    function () use ($router, $specificationVersions) {
+    function (Router $router) use ($specificationVersions) {
         $router->pattern('version', $specificationVersions);
 
         $router->any('/')
@@ -207,14 +208,13 @@ unset($specificationVersions);
 /**
  * Route group for the Metadata API
  */
-/* @var Illuminate\Routing\Router $router */
-$router->group([
+Route::group([
     'namespace'  => 'API',
     'as'         => 'api.',
     'domain'     => 'dev.'.config('app.url'),
     'prefix'     => '/api/',
     'middleware' => ['track'],
-], function () use ($router) {
+], function (Router $router) {
     $router->get('/')
         ->name('index')
         ->uses('ApiController@index');
@@ -241,13 +241,13 @@ $router->group([
 /**
  * Route group for demoserver API
  */
-$router->group([
+Route::group([
     'namespace'  => 'OParl\V10',
     'as'         => 'api.oparl.v1.',
     'domain'     => 'dev.'.config('app.url'),
     'prefix'     => 'api/oparl/v1/',
     'middleware' => ['track', 'bindings'],
-], function () use ($router) {
+], function (Router $router) {
     $router->get('/')
         ->name('index')
         ->uses('RootController@index');
