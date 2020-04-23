@@ -10,38 +10,54 @@
 |
 */
 
+use App\Model\OParl10AgendaItem;
+use App\Model\OParl10Body;
+use App\Model\OParl10Consultation;
+use App\Model\OParl10File;
 use App\Model\OParl10Keyword;
+use App\Model\OParl10LegislativeTerm;
+use App\Model\OParl10Location;
+use App\Model\OParl10Meeting;
+use App\Model\OParl10Membership;
+use App\Model\OParl10Organization;
+use App\Model\OParl10Paper;
+use App\Model\OParl10Person;
+use App\Model\OParl10System;
 use Carbon\Carbon;
 use Cocur\Slugify\Slugify;
 use EFrane\BaseX\BaseX;
+use Illuminate\Database\Eloquent\Factory;
 
 $slugify = Slugify::create();
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+/* @var $factory Factory */
 $factory->define(
-    App\Model\OParl10System::class, function (Faker\Generator $faker) {
-    return [
-        'name'          => 'OParl Demoserver',
-        'oparl_version' => '1.0-dev',
+    OParl10System::class,
+    function (Faker\Generator $faker) {
+        return [
+            'name'          => 'OParl Demoserver',
+            'oparl_version' => '1.0-dev',
 
-        'contact_name'  => $faker->name,
-        'contact_email' => $faker->email,
-        'website'       => route('api.oparl.v1.index'),
-    ];
-});
+            'contact_name'  => $faker->name,
+            'contact_email' => $faker->email,
+            'website'       => route('api.oparl.v1.index'),
+        ];
+    });
 
 $factory->define(
-    App\Model\OParl10Body::class, function (Faker\Generator $faker) use ($slugify) {
-    $names = [
-        'Bezirksamt',
-        'Kommunalverwaltung',
-        'Rathaus',
-    ];
+    OParl10Body::class,
+    function (Faker\Generator $faker) use ($slugify) {
+        $names = [
+            'Bezirksamt',
+            'Kommunalverwaltung',
+            'Rathaus',
+        ];
 
-    $name = $faker->randomElement($names).' '.($faker->optional() ? $faker->city : $faker->country);
+        $name = $faker->randomElement($names).' '.($faker->optional() ? $faker->city : $faker->country);
 
-    $equivalentBody = collect(
-        range(0, $faker->numberBetween(0, 5)))
+        $equivalentBody = collect(
+            range(0, $faker->numberBetween(0, 5))
+        )
         ->map(function () use ($faker) {
             return $faker->url;
         })->toArray();
@@ -70,17 +86,18 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10LegislativeTerm::class, function (Faker\Generator $faker) {
-    $startDate = Carbon::instance($faker->dateTimeThisCentury);
+    OParl10LegislativeTerm::class,
+    function (Faker\Generator $faker) {
+        $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
-    $startDate->hour = 0;
-    $startDate->minute = 0;
-    $startDate->second = 0;
+        $startDate->hour = 0;
+        $startDate->minute = 0;
+        $startDate->second = 0;
 
-    $data = [
-        'name' => sprintf('%s. Wahlperiode', BaseX::toRoman($faker->numberBetween(10, 60))),
+        $data = [
+            'name' => sprintf('%s. Wahlperiode', BaseX::toRoman($faker->numberBetween(10, 60))),
 
-        'start_date' => $startDate,
+            'start_date' => $startDate,
         'end_date'   => Carbon::instance($startDate)->addYears($faker->numberBetween(1, 5)),
     ];
 
@@ -92,17 +109,18 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10AgendaItem::class, function (Faker\Generator $faker) {
-    $number = $faker->numberBetween(101, 999);
+    OParl10AgendaItem::class,
+    function (Faker\Generator $faker) {
+        $number = $faker->numberBetween(101, 999);
 
-    if ($faker->boolean()) {
-        $number = BaseX::toRoman($number);
-    }
+        if ($faker->boolean()) {
+            $number = BaseX::toRoman($number);
+        }
 
-    $results = [
-        'Vertagt',
-        'Unverändert beschlossen',
-        'Abgelehnt',
+        $results = [
+            'Vertagt',
+            'Unverändert beschlossen',
+            'Abgelehnt',
     ];
 
     $start = Carbon::instance($faker->dateTimeThisCentury);
@@ -123,41 +141,46 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10Consultation::class, function (Faker\Generator $faker) {
-    $roles = ['Anhörung', 'Entscheidung', 'Kenntnisnahme', 'Vorberatung'];
+    OParl10Consultation::class,
+    function (Faker\Generator $faker) {
+        $roles = ['Anhörung', 'Entscheidung', 'Kenntnisnahme', 'Vorberatung'];
 
-    return [
-        'authoritative' => $faker->boolean(),
-        'role'          => $faker->randomElement($roles),
-    ];
-});
-
-$factory->define(
-    App\Model\OParl10Keyword::class, function (Faker\Generator $faker) use ($slugify) {
-    $existingHumanNames = OParl10Keyword::all()->pluck('human_name');
-
-    do {
-        $humanName = $faker->words($faker->numberBetween(1, 3), true);
-    } while ($existingHumanNames->has($humanName));
-
-    return [
-        'human_name' => $humanName,
-    ];
-});
+        return [
+            'authoritative' => $faker->boolean(),
+            'role'          => $faker->randomElement($roles),
+        ];
+    });
 
 $factory->define(
-    App\Model\OParl10Location::class, function (Faker\Generator $faker) {
-    $geometry = json_encode([
-        'type'        => 'point',
-        'coordinates' => [
-            $faker->latitude,
-            $faker->longitude,
-        ],
-    ]);
+    OParl10Keyword::class,
+    function (Faker\Generator $faker) use ($slugify) {
+        $existingHumanNames = OParl10Keyword::all()->pluck('human_name');
 
-    $postalCode = sprintf('%05d', $faker->numberBetween(10000, 17000) - 1000);
+        do {
+            $humanName = $faker->words($faker->numberBetween(1, 3), true);
+        } while ($existingHumanNames->has($humanName));
 
-    return [
+        return [
+            'human_name' => $humanName,
+        ];
+    });
+
+$factory->define(
+    OParl10Location::class,
+    function (Faker\Generator $faker) {
+        $geometry = json_encode(
+            [
+                'type'        => 'point',
+                'coordinates' => [
+                    $faker->latitude,
+                    $faker->longitude,
+                ],
+            ]
+        );
+
+        $postalCode = sprintf('%05d', $faker->numberBetween(10000, 17000) - 1000);
+
+        return [
         'description'    => $faker->sentence(),
         'geometry'       => $geometry,
         'street_address' => $faker->streetAddress,
@@ -167,17 +190,18 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10Meeting::class, function (Faker\Generator $faker) {
-    $startDate = Carbon::instance($faker->dateTimeThisCentury);
+    OParl10Meeting::class,
+    function (Faker\Generator $faker) {
+        $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
-    $startDate->hour = $faker->numberBetween(9, 17);
-    $startDate->minute = $faker->randomElement([0, 15, 30, 45]);
-    $startDate->second = 0;
+        $startDate->hour = $faker->numberBetween(9, 17);
+        $startDate->minute = $faker->randomElement([0, 15, 30, 45]);
+        $startDate->second = 0;
 
-    $meetingState = $faker->randomElement(['terminiert', 'eingeladen', 'durchgeführt']);
+        $meetingState = $faker->randomElement(['terminiert', 'eingeladen', 'durchgeführt']);
 
-    return [
-        'name'          => $faker->word,
+        return [
+            'name'      => $faker->word,
         'meeting_state' => $meetingState,
         'cancelled'     => $faker->boolean(),
         'start'         => $startDate,
@@ -186,33 +210,35 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10Membership::class, function (Faker\Generator $faker) {
-    $startDate = Carbon::instance($faker->dateTimeThisCentury);
+    OParl10Membership::class,
+    function (Faker\Generator $faker) {
+        $startDate = Carbon::instance($faker->dateTimeThisCentury);
 
-    $startDate->hour = 0;
-    $startDate->minute = 0;
-    $startDate->second = 0;
+        $startDate->hour = 0;
+        $startDate->minute = 0;
+        $startDate->second = 0;
 
-    return [
-        'role'         => $faker->colorName,
-        'voting_right' => $faker->boolean(),
-        'start_date'   => $startDate,
+        return [
+            'role'         => $faker->colorName,
+            'voting_right' => $faker->boolean(),
+            'start_date'   => $startDate,
         'end_date'     => Carbon::instance($startDate)->addMonths($faker->numberBetween(5, 25)),
     ];
 });
 
 $factory->define(
-    App\Model\OParl10Organization::class, function (Faker\Generator $faker) {
-    $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
+    OParl10Organization::class,
+    function (Faker\Generator $faker) {
+        $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
 
-    do {
-        $shortNameNumber = $faker->numberBetween(100, 999);
-    } while ($shortNameNumber < 0);
+        do {
+            $shortNameNumber = $faker->numberBetween(100, 999);
+        } while ($shortNameNumber < 0);
 
-    $shortName = 'O-'.BaseX::toRoman($shortNameNumber);
+        $shortName = 'O-'.BaseX::toRoman($shortNameNumber);
 
-    $organizationTypes = [
-        'externes Gremium',
+        $organizationTypes = [
+            'externes Gremium',
         'Fraktion',
         'Gremium',
         'Institution',
@@ -258,17 +284,19 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10Paper::class, function (Faker\Generator $faker) {
-    return [
-        'name'           => $faker->sentence,
-        'reference'      => $faker->word,
-        'published_date' => $faker->dateTimeThisDecade,
-        'paper_type'     => $faker->randomElement([
-            'Beschluss',
-            'Plan',
-            'Verordnung',
-            'Vorschlag',
-            'Eingabe',
+    OParl10Paper::class,
+    function (Faker\Generator $faker) {
+        return [
+            'name'           => $faker->sentence,
+            'reference'      => $faker->word,
+            'published_date' => $faker->dateTimeThisDecade,
+            'paper_type'     => $faker->randomElement(
+                [
+                    'Beschluss',
+                    'Plan',
+                    'Verordnung',
+                    'Vorschlag',
+                    'Eingabe',
             'Protokoll',
             'Kurzprotokoll',
         ]),
@@ -276,17 +304,18 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10Person::class, function (Faker\Generator $faker) {
-    $gender = $faker->boolean(30) ? 0 : 1;
-    $genderString = ($gender) ? 'female' : 'male';
+    OParl10Person::class,
+    function (Faker\Generator $faker) {
+        $gender = $faker->boolean(30) ? 0 : 1;
+        $genderString = ($gender) ? 'female' : 'male';
 
-    if ($faker->numberBetween(0, 5) == 3) {
-        $genderString = 'other';
-    }
+        if ($faker->numberBetween(0, 5) == 3) {
+            $genderString = 'other';
+        }
 
-    $amountOfTitles = $faker->numberBetween(0, 3);
-    if ($amountOfTitles == 0) {
-        $titles = [];
+        $amountOfTitles = $faker->numberBetween(0, 3);
+        if ($amountOfTitles == 0) {
+            $titles = [];
     } else {
         $titles = range(1, $amountOfTitles);
     }
@@ -308,16 +337,17 @@ $factory->define(
 });
 
 $factory->define(
-    App\Model\OParl10File::class, function (Faker\Generator $faker) {
-    $fileName = base_path('resources/documents/dummyfile.pdf');
-    $sha1 = sha1_file($fileName);
+    OParl10File::class,
+    function (Faker\Generator $faker) {
+        $fileName = base_path('resources/documents/dummyfile.pdf');
+        $sha1 = sha1_file($fileName);
 
-    return [
-        'storage_file_name' => $fileName,
-        'mime_type'         => 'application/pdf',
-        'sha1_checksum'     => $sha1,
-        'text'              => $faker->realText(800),
-        'file_name'         => $faker->randomAscii($faker->numberBetween(3, 12)),
-        'name'              => $faker->randomAscii($faker->numberBetween(10, 20)),
+        return [
+            'storage_file_name' => $fileName,
+            'mime_type'         => 'application/pdf',
+            'sha1_checksum'     => $sha1,
+            'text'              => $faker->realText(800),
+            'file_name'         => $faker->randomAscii($faker->numberBetween(3, 12)),
+            'name'              => $faker->randomAscii($faker->numberBetween(10, 20)),
     ];
 });
