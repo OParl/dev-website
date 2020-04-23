@@ -10,6 +10,7 @@
 |
 */
 
+use App\Model\Endpoint;
 use App\Model\OParl10AgendaItem;
 use App\Model\OParl10Body;
 use App\Model\OParl10Consultation;
@@ -351,3 +352,14 @@ $factory->define(
             'name'              => $faker->randomAscii($faker->numberBetween(10, 20)),
     ];
 });
+
+$factory->define(
+    Endpoint::class,
+    function (Faker\Generator $faker) {
+        return [
+            'url' => $faker->url,
+            'title' => $faker->sentence,
+            'description' => $faker->text,
+        ];
+    }
+);

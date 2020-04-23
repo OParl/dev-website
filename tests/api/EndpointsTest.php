@@ -1,4 +1,7 @@
 <?php
+
+use App\Model\Endpoint;
+
 /**
  * Created by PhpStorm.
  * User: sgraupner
@@ -7,6 +10,15 @@
  */
 class EndpointsTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        if (Endpoint::all()->count() === 0) {
+            factory(Endpoint::class, 50)->make();
+        }
+    }
+
     public function testEndpointIndex()
     {
         $this->route('get', 'api.endpoints.index');
