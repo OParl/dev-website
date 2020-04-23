@@ -159,6 +159,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\ConfigServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider::class,
