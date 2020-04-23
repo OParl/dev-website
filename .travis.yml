@@ -33,13 +33,15 @@ addons:
     - texlive-xetex
 
 before_script:
-- composer global require hirak/prestissimo
-- composer install --no-interaction --no-scripts --no-suggest
-- cp .env.testing .env
-- composer run-script post-install-cmd
-- ./artisan setup --no-demodata
+  - composer global require hirak/prestissimo
+  - composer install --no-interaction --no-scripts --no-suggest
+  - cp .env.testing .env
+  - composer run-script post-install-cmd
+  - ./artisan setup --no-demodata
 
-script: vendor/bin/phpunit
+script:
+  - vendor/bin/phpstan analyse
+  - vendor/bin/phpunit
 
 after_script:
 - cat storage/logs/laravel.log
