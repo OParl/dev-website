@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\EndpointApiController;
 use App\Model\Endpoint;
 
 /**
@@ -23,10 +24,10 @@ class EndpointsTest extends TestCase
     {
         return [
             'no limit => default, default page' => [
-                [], 25
+                [], EndpointApiController::DEFAULT_LIMIT
             ],
             'no limit => default, first page' => [
-                ['page' => 1], 25
+                ['page' => 1], EndpointApiController::DEFAULT_LIMIT
             ],
             'limit 1, default page' => [
                 ['limit' => 1], 1
