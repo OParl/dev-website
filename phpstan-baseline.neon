@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Undefined variable\\: \\$factory$#"
+			count: 14
+			path: database/factories/ModelFactory.php
+
