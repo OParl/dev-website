@@ -19,12 +19,6 @@ class EndpointsTest extends TestCase
         }
     }
 
-    public function testEndpointIndex()
-    {
-        $this->route('get', 'api.endpoints.index');
-        $this->assertResponseOk();
-    }
-
     public function limitProvider(): array
     {
         return [
@@ -48,8 +42,10 @@ class EndpointsTest extends TestCase
 
     /**
      * @dataProvider limitProvider
+     * @param array $params
+     * @param int $count
      */
-    public function testLimit($params, $count)
+    public function testLimit(array $params, int $count): void
     {
         $this->route('get', 'api.endpoints.index', $params);
         $this->assertResponseOk();
