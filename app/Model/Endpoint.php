@@ -61,6 +61,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method Endpoint find(mixed $id)
  * @method Endpoint orderBy(string $field)
+ * @method Endpoint firstOrNew(array $attributes)
  * @method Collection get()
  * @method int count()
  */
