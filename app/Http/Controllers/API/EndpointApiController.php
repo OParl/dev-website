@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 class EndpointApiController
 {
     const DEFAULT_LIMIT = 25;
+    const MAXIMUM_LIMIT = 100;
 
     /**
      * @OA\Get(
@@ -55,7 +56,7 @@ class EndpointApiController
 
         if ($request->has('limit')) {
             $requestedLimit = intval($request->get('limit'));
-            $limit = ($requestedLimit < 100) ? $requestedLimit : $limit;
+            $limit = ($requestedLimit < self::MAXIMUM_LIMIT) ? $requestedLimit : self::MAXIMUM_LIMIT;
         }
 
         if ($request->has('page')) {
