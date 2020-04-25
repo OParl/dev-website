@@ -67,16 +67,18 @@ class EndpointApiController
             $endpoints = Endpoint::orderBy('title')->get()->forPage($page, $limit);
         }
 
-        $pageCount = floor(Endpoint::count() / $limit);
+        $endpointCount = Endpoint::count();
+        $pageCount = ceil($endpointCount / $limit);
 
         return response()->json(
             [
                 'data' => array_values($endpoints->toArray()),
                 'meta' => [
-                    'page'  => $page,
-                    'total' => $pageCount,
-                    'self'  => route('api.endpoints.index', ['page' => $page, 'limit' => $limit]),
-                    'next'  => ($pageCount > $page)
+                    'page'       => $page,
+                    'total'      => $endpointCount,
+                    'totalPages' => $pageCount,
+                    'self'       => route('api.endpoints.index', ['page' => $page, 'limit' => $limit]),
+                    'next'       => ($pageCount > $page)
                         ? route('api.endpoints.index', ['page' => ++$page, 'limit' => $limit])
                         : null,
                 ],
