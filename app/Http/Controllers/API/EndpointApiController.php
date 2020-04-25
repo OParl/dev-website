@@ -122,10 +122,14 @@ class EndpointApiController
      */
     public function endpoint(Request $request, $id)
     {
-        if ($request->has('include') && 'bodies' === $request->get('include')) {
-            $endpoint = Endpoint::with('bodies')->find($id);
-        } else {
-            $endpoint = Endpoint::find($id);
+        try {
+            if ($request->has('include') && 'bodies' === $request->get('include')) {
+                $endpoint = Endpoint::with('bodies')->find($id);
+            } else {
+                $endpoint = Endpoint::find($id);
+            }
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Not found.'], Response::HTTP_NOT_FOUND);
         }
 
         return response()->json(
