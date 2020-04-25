@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Model\Endpoint;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -27,19 +28,19 @@ class EndpointApiController
      *         in="query",
      *         name="page",
      *         description="Page of the result set",
-     *         example="page=1"
+     *         example="1"
      *     ),
      *     @OA\Parameter(
      *         in="query",
      *         name="limit",
      *         description="Number or results per page",
-     *         example="limit=25"
+     *         example="25"
      *     ),
      *     @OA\Parameter(
      *         in="query",
      *         name="include",
      *         description="Include related resources, currently only used for known OParl:Body resources on the
-     *     endpoint", example="include=bodies"
+     *     endpoint", example="bodies"
      *     )
      * )
      *
@@ -112,7 +113,7 @@ class EndpointApiController
      *         in="query",
      *         name="include",
      *         description="Include related resources, currently only used for known OParl:Body resources on the
-     *     endpoint", example="include=bodies"
+     *     endpoint", example="bodies"
      *     )
      * )
      *
