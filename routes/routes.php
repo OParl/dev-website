@@ -31,7 +31,8 @@ $specificationVersions = sprintf(
  */
 Route::group(
     [
-        'domain' => 'dev.'.config('app.url'),
+        'domain'     => 'dev.'.config('app.url'),
+        'middleware' => 'web',
     ],
     function (Router $router) use ($specificationVersions) {
         $router->get('/favicon.ico')
@@ -155,9 +156,9 @@ Route::group(
  * Additionally, short links to downloads of the stable and
  * the latest unstable specification versions are provided.
  */
-$router->group(
+Route::group(
     ['domain' => 'spec.'.config('app.url')],
-    function () use ($router) {
+    function (Router $router) {
         $router->any('/')
             ->uses('SpecificationController@redirectToIndex');
 
@@ -185,7 +186,10 @@ $router->group(
  * Direct access to schema.oparl.org is redirected to dev.oparl.org
  */
 Route::group(
-    ['domain' => 'schema.'.config('app.url')],
+    [
+        'domain'     => 'schema.'.config('app.url'),
+        'middleware' => ['throttle:60,1', 'track'],
+    ],
     function (Router $router) use ($specificationVersions) {
         $router->pattern('version', $specificationVersions);
 
@@ -208,13 +212,14 @@ unset($specificationVersions);
 /**
  * Route group for the Metadata API
  */
-Route::group([
-    'namespace'  => 'API',
-    'as'         => 'api.',
-    'domain'     => 'dev.'.config('app.url'),
-    'prefix'     => '/api/',
-    'middleware' => ['track'],
-], function (Router $router) {
+Route::group(
+    [
+        'namespace'  => 'API',
+        'as'         => 'api.',
+        'domain'     => 'dev.'.config('app.url'),
+        'prefix'     => '/api/',
+        'middleware' => ['api'],
+    ], function (Router $router) {
     $router->get('/')
         ->name('index')
         ->uses('ApiController@index');
@@ -241,13 +246,14 @@ Route::group([
 /**
  * Route group for demoserver API
  */
-Route::group([
-    'namespace'  => 'OParl\V10',
-    'as'         => 'api.oparl.v1.',
-    'domain'     => 'dev.'.config('app.url'),
-    'prefix'     => 'api/oparl/v1/',
-    'middleware' => ['track', 'bindings'],
-], function (Router $router) {
+Route::group(
+    [
+        'namespace'  => 'OParl\V10',
+        'as'         => 'api.oparl.v1.',
+        'domain'     => 'dev.'.config('app.url'),
+        'prefix'     => 'api/oparl/v1/',
+        'middleware' => ['api'],
+    ], function (Router $router) {
     $router->get('/')
         ->name('index')
         ->uses('RootController@index');
