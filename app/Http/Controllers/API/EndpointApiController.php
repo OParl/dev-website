@@ -69,6 +69,10 @@ class EndpointApiController
             $endpoints = Endpoint::orderBy('title')->get()->forPage($page, $limit);
         }
 
+        if (0 === $endpoints->count()) {
+            return response()->json(['error' => 'Not found.'], Response::HTTP_NOT_FOUND);
+        }
+
         $endpointCount = Endpoint::count();
         $pageCount = ceil($endpointCount / $limit);
 
