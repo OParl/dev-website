@@ -18,6 +18,7 @@ use App\Model\OParl10System;
 use Faker\Generator;
 use Illuminate\Console\Command;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -31,11 +32,17 @@ class ServerPopulateCommand extends Command
     /**
      * @var \Faker\Generator
      */
-    protected $faker = null;
+    protected $faker;
 
-    public function handle(Generator $faker, DatabaseManager $databaseManager)
+    /**
+     * @var Factory
+     */
+    protected $factory;
+
+    public function handle(Generator $faker, DatabaseManager $databaseManager, Factory $factory)
     {
         $this->faker = $faker;
+        $this->factory = $factory;
 
         $databaseManager->setDefaultConnection(config('database.demo_default'));
         $databaseManager->connection()->disableQueryLog();
@@ -58,7 +65,7 @@ class ServerPopulateCommand extends Command
     protected function generateData()
     {
         $this->info('Creating a System');
-        $system = factory(OParl10System::class, 1)->create()->first();
+        $system = $this->factory->of(OParl10System::class, 1)->create()->first();
 
         $amounts = [
             'body'  => 3,
@@ -79,17 +86,18 @@ class ServerPopulateCommand extends Command
             'meeting.participants' => [1, 5],
         ];
 
-        collect(factory(OParl10Body::class, $amounts['body'])->create())->map(function (OParl10Body $body) use (
-            $system,
-            $amounts,
-            $amountsDynamic
-        ) {
-            $this->line("\nCreating base data for Body ".$body->id."\n");
+        collect($this->factory->of(OParl10Body::class, $amounts['body'])->create())->map(
+            function (OParl10Body $body) use (
+                $system,
+                $amounts,
+                $amountsDynamic
+            ) {
+                $this->line("\nCreating base data for Body ".$body->id."\n");
 
-            $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
+                $amounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
 
-            /* @var OParl10System $system */
-            $system->bodies()->save($body);
+                /* @var OParl10System $system */
+                $system->bodies()->save($body);
 
             /* LegislativeTerm */
             $body->legislativeTerms()->saveMany($this->getSomeLegislativeTerms($amounts['legislativeTerm']));
@@ -112,7 +120,7 @@ class ServerPopulateCommand extends Command
 
                 $orga->people->each(function ($person) use ($orga) {
                     /* @var OParl10Membership $membership */
-                    $membership = factory(OParl10Membership::class)->create();
+                    $membership = $this->factory->of(OParl10Membership::class)->create();
                     $membership->organization()->associate($orga);
                     $membership->person()->associate($person);
 
@@ -145,10 +153,12 @@ class ServerPopulateCommand extends Command
         $this->info('Creating File entities');
         $progressBar = new ProgressBar($this->output, $amounts['file']);
         /* @var Collection $files */
-        $files = factory(OParl10File::class, $amounts['file'])->create();
-        $files->each(function () use ($progressBar) {
-            $progressBar->advance();
-        });
+        $files = $this->factory->of(OParl10File::class, $amounts['file'])->create();
+        $files->each(
+            function () use ($progressBar) {
+                $progressBar->advance();
+            }
+        );
         $this->line('');
 
         /* Paper */
@@ -156,7 +166,7 @@ class ServerPopulateCommand extends Command
         $bodies = OParl10Body::all();
         $progressBar = new ProgressBar($this->output, $bodies->count() * $amounts['paper']);
         OParl10Body::all()->each(function (OParl10Body $body) use ($progressBar, $amounts) {
-            factory(OParl10Paper::class, $amounts['paper'])->create()->each(function ($paper) use ($body, $progressBar) {
+            $this->factory->of(OParl10Paper::class, $amounts['paper'])->create()->each(function ($paper) use ($body, $progressBar) {
                 /* @var OParl10Paper $paper */
                 $paper->mainFile()->associate(OParl10File::all()->random());
                 $paper->body()->associate($body);
@@ -174,7 +184,7 @@ class ServerPopulateCommand extends Command
             $meetingAmounts = $this->updateDynamicAmounts($amountsDynamic, $amounts);
             $progressBar = new ProgressBar($this->output, $meetingAmounts['meeting']);
 
-            $meetings = factory(OParl10Meeting::class, $meetingAmounts['meeting'])->create();
+            $meetings = $this->factory->of(OParl10Meeting::class, $meetingAmounts['meeting'])->create();
 
             foreach ($meetings as $meeting) {
                 /* @var OParl10Meeting $meeting */
@@ -230,11 +240,11 @@ class ServerPopulateCommand extends Command
             $meetingOrgas = $meeting->organizations;
 
             /* AgendaItem */
-            factory(OParl10AgendaItem::class, $amounts['meeting.items'])
+            $this->factory->of(OParl10AgendaItem::class, $amounts['meeting.items'])
                 ->create()
-                ->each(function (OParl10AgendaItem $item) use ($meeting, $meetingOrgas, $files) {
+                ->each(function (OParl10AgendaItem $item) use ($meeting, $meetingOrgas) {
                     /* @var OParl10Consultation $consultation */
-                    $consultation = factory(OParl10Consultation::class)->create();
+                    $consultation = $this->factory->of(OParl10Consultation::class)->create();
                     $consultation->meeting()->associate($meeting);
                     $consultation->agendaItem()->associate($item);
 
@@ -286,15 +296,17 @@ class ServerPopulateCommand extends Command
             [$min, $max] = $minmax;
 
             return $this->faker->numberBetween($min, $max);
-        })->merge($amounts)->toArray();
+        }
+        )->merge($amounts)->toArray();
 
         return $amounts;
     }
 
     /**
+     * @param int     $amount
      * @return Collection
-     **/
-    protected function getSomeLegislativeTerms($amount)
+     */
+    protected function getSomeLegislativeTerms(int $amount)
     {
         $progressBar = new ProgressBar($this->output, $amount);
         $this->info('Creating LegislativeTerm entities');
@@ -302,12 +314,14 @@ class ServerPopulateCommand extends Command
         /* @var $legislativeTerms Collection */
         $legislativeTerms = collect();
 
-        factory(OParl10LegislativeTerm::class, $amount)->create()->each(function (
-            OParl10LegislativeTerm $term
-        ) use ($legislativeTerms, $progressBar) {
-            $legislativeTerms->push($term);
-            $progressBar->advance();
-        });
+        $this->factory->of(OParl10LegislativeTerm::class, $amount)->create()->each(
+            function (
+                OParl10LegislativeTerm $term
+            ) use ($legislativeTerms, $progressBar) {
+                $legislativeTerms->push($term);
+                $progressBar->advance();
+            }
+        );
 
         return $legislativeTerms;
     }
@@ -326,7 +340,7 @@ class ServerPopulateCommand extends Command
 
         $currentKeywordCount = OParl10Keyword::count();
         if ($currentKeywordCount < $amount) {
-            factory(OParl10Keyword::class, $amount)->create();
+            $this->factory->of(OParl10Keyword::class, $amount)->create();
         }
 
         $keywordOrKeywords = OParl10Keyword::all()->random($amount);
@@ -342,7 +356,7 @@ class ServerPopulateCommand extends Command
 
         $locations = OParl10Location::all();
         if ($locations->count() == 0 || $willGenerateNewLocation) {
-            $location = factory(OParl10Location::class)->create();
+            $location = $this->factory->of(OParl10Location::class)->create();
         } else {
             $location = $locations->random();
         }
@@ -360,7 +374,7 @@ class ServerPopulateCommand extends Command
 
         // NOTE: it may be valuable to make it possible to fetch some existing people
         //       or only existing people with this method too
-        factory(OParl10Person::class, $amount)->create()->each(function (
+        $this->factory->of(OParl10Person::class, $amount)->create()->each(function (
             OParl10Person $person
         ) use ($people, $progressBar) {
             $person->keywords()->saveMany($this->getSomeKeywords());
@@ -383,7 +397,7 @@ class ServerPopulateCommand extends Command
         $progressBar = new ProgressBar($this->output, $amount);
 
         $organizations = collect();
-        factory(OParl10Organization::class, $amount)->create()->each(function (
+        $this->factory->of(OParl10Organization::class, $amount)->create()->each(function (
             OParl10Organization $organization
         ) use ($organizations, $progressBar) {
             $organizations->push($organization);
