@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\EndpointApiController;
 use App\Model\Endpoint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Created by PhpStorm.
@@ -58,5 +59,45 @@ class EndpointsTest extends TestCase
 
         $this->assertCount($count, $data['data']);
         $this->assertIsArray($data['data']);
+    }
+
+    public function testLinks()
+    {
+        $initialRequest = $this->doGetJson($this->app['url']->route('api.endpoints.index'));
+
+        $this->assertArrayHasKey('self', $initialRequest['meta']);
+        $this->assertArrayHasKey('next', $initialRequest['meta']);
+
+        $selfRequest = $this->doGetJson($initialRequest['meta']['self']);
+
+        $this->assertArrayHasKey('self', $selfRequest['meta']);
+        $this->assertArrayHasKey('next', $selfRequest['meta']);
+
+        $nextRequest = $selfRequest;
+        while (null !== $nextRequest['meta']['next']) {
+            $nextRequest = $this->doGetJson($nextRequest['meta']['next']);
+
+            $this->assertArrayHasKey('self', $nextRequest['meta']);
+            $this->assertArrayHasKey('next', $nextRequest['meta']);
+        }
+
+        $errorRequest = $this->route(
+            'get',
+            'api.endpoints.index',
+            ['page' => $nextRequest['meta']['page'] + 1, 'limit' => $nextRequest['meta']['perPage']]
+        );
+
+        $this->assertResponseStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertEquals('{"error":"Not found."}', $errorRequest->getContent());
+    }
+
+    protected function doGetJson($uri): array
+    {
+        $this->get($uri);
+
+        $this->assertResponseOk();
+
+        return json_decode($this->response->getContent(), true);
     }
 }
