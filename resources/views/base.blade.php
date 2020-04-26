@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-        <base href="{{ \Request::url() }}">
+        <base href="{{ $base['requestUrl'] }}">
 
         <meta charset="utf-8" />
 

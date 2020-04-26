@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\Base;
 use App\Http\ViewComposers\DevelopersHeader;
 use App\Http\ViewComposers\Header;
 use App\Http\ViewComposers\Piwik;
@@ -22,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         /* @var \Illuminate\View\View v */
         $v = view();
 
+        $v->composer('*', Base::class);
         $v->composer('header', Header::class);
         $v->composer('piwik', Piwik::class);
 
