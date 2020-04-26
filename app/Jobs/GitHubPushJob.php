@@ -66,10 +66,6 @@ class GitHubPushJob extends Job
 
                 break;
 
-            case 'dev-website':
-                // TODO: subtree-split lib/Server to OParl/php-reference-server
-                break;
-
             case 'validator':
                 $this->dispatch(new ValidatorBuildJob());
                 break;
