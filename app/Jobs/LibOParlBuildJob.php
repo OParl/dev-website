@@ -15,7 +15,7 @@ class LibOParlBuildJob extends Job implements ShouldQueue
 
     protected $prefix = '';
 
-    public function __construct($treeish = '')
+    public function __construct()
     {
         $this->prefix = config('oparl.liboparl.prefix');
     }

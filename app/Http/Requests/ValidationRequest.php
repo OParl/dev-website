@@ -51,9 +51,9 @@ class ValidationRequest extends FormRequest
                 'timeout' => 10,
             ]);
 
-            try {
-                $endpoint = $this->request->get('endpoint');
+            $endpoint = $this->request->get('endpoint');
 
+            try {
                 $response = $client->request('get', $endpoint);
 
                 if ($response->getStatusCode() !== 200) {

@@ -118,7 +118,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
             'txt',
         ];
 
-        collect($downloadableFormats)->map(function ($format) use ($hubSync) {
+        collect($downloadableFormats)->map(function ($format) {
             return [
                 'build'   => sprintf('%s/%s.%s', $this->buildDir, $this->buildBasename, $format),
                 'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),
@@ -145,7 +145,7 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
             'tar.bz2',
         ];
 
-        collect($downloadableArchives)->map(function ($format) use ($hubSync) {
+        collect($downloadableArchives)->map(function ($format) {
             return [
                 'build'   => sprintf('%s.%s', $this->buildDir, $format),
                 'storage' => sprintf('OParl-%s.%s', $this->storageName, $format),

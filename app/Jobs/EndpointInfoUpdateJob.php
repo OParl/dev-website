@@ -194,7 +194,7 @@ class EndpointInfoUpdateJob implements ShouldQueue
         }
 
         collect($bodyJson['data'])->each(
-            function (array $body) use ($log, $endpoint) {
+            function (array $body) use ($endpoint) {
                 /** @var EndpointBody $endpointBody */
                 try {
                     $endpointBody = EndpointBody::whereEndpointId($endpoint->getKey())->whereOparlId(

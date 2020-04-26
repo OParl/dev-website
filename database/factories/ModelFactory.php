@@ -154,7 +154,7 @@ $factory->define(
 
 $factory->define(
     OParl10Keyword::class,
-    function (Faker\Generator $faker) use ($slugify) {
+    function (Faker\Generator $faker) {
         $existingHumanNames = OParl10Keyword::pluck('human_name');
 
         do {

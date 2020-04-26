@@ -71,7 +71,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
      * @param Filesystem $fs
      * @param            $hubSync
      */
-    protected function updateHTML(Filesystem $fs, $hubSync)
+    protected function updateHTML(Filesystem $fs, Repository $hubSync)
     {
         $fs->makeDirectory($this->getStoragePath(''));
         $newVersion = sprintf('%s/%s.html',

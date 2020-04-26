@@ -7,6 +7,12 @@ use App\Model\OParl10System;
 use EFrane\Transfugio\Transformers\BaseTransformer as TransfugioBaseTransformer;
 use Illuminate\Support\Arr;
 
+/**
+ * Class BaseTransformer
+ *
+ * @method string formatDateTime(\DateTime $dateTime)
+ * @method string formatDate(\DateTime $dateTime)
+ */
 class BaseTransformer extends TransfugioBaseTransformer
 {
     protected function getDefaultAttributesForEntity(OParl10BaseModel $entity)
