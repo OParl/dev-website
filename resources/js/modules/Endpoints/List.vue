@@ -146,7 +146,7 @@
           .then(data => {
             this.$set(this, 'endpoints', data.data)
             this.page  = data.meta.page
-            this.total = data.meta.total
+            this.total = data.meta.totalPages
           })
       },
 
