@@ -9,3 +9,6 @@ parameters:
         - app
         - config
         - database
+
+    excludes_analyse:
+    	- database/migrations
