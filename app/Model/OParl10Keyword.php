@@ -3,9 +3,12 @@
 namespace App\Model;
 
 use Cocur\Slugify\Slugify;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Keyword.
+ *
+ * @method Collection pluck($fields)
  */
 class OParl10Keyword extends OParl10BaseModel
 {
