@@ -10,7 +10,7 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(ResourcesUpdateJob::class)->saturdays();
+        $schedule->job(ResourcesUpdateJob::class)->saturdays();
     }
 
     protected function commands()
