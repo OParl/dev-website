@@ -7610,10 +7610,10 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-sliding-pagination@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/vue-sliding-pagination/-/vue-sliding-pagination-1.0.6.tgz#b3ba166b95bb125945374b538879eeffb2652f4b"
-  integrity sha512-gabG318POwmb4a6ajo0elESFo3JZ0GmuEIfobqV8gbfsnCIe7Ye3fcdRto7isRmiKaTnMUDSpTkxM8/4zzxEzQ==
+vue-sliding-pagination@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue-sliding-pagination/-/vue-sliding-pagination-1.1.0.tgz#6eef2d24dbf16778db74403ea88c8fa18d535f5e"
+  integrity sha512-Q98wi7dbrlFyhVYqFM3eqrchdBe+0yKBCQtnAxtL0m7pA5Hm7eOopCJV+ndzIM834u4d1UC90wVV3Lj0vwJy3w==
   dependencies:
     vue ">=2.4"
 
