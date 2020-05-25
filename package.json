@@ -10,7 +10,7 @@
     "vuelayers": "^0.11.23",
     "vue-affix": "^0.5.2",
     "vue-clipboard2": "0.3.1",
-    "vue-sliding-pagination": "^1.0.6"
+    "vue-sliding-pagination": "^1.1.0"
   },
   "devDependencies": {
     "axios": "^0.19",
