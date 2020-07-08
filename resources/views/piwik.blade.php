@@ -4,7 +4,7 @@
 
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
-
+        _paq.push(['disableCookies']);
         (function () {
             var u = "{{ $url}}";
             _paq.push(['setTrackerUrl', u + 'piwik.php']);
