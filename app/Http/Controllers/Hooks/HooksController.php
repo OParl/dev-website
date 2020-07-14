@@ -8,6 +8,6 @@ class HooksController extends Controller
 {
     public function index()
     {
-        return abort(400);
+        abort(400);
     }
 }
