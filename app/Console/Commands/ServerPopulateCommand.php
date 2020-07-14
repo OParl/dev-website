@@ -73,6 +73,7 @@ class ServerPopulateCommand extends Command
         $this->info('Creating a System');
         $system = $this->factory->of(OParl10System::class, 1)->create()->first();
 
+        /** @var array<string, int> $amounts */
         $amounts = [
             'body'  => 3,
             'paper' => 100,
@@ -80,6 +81,7 @@ class ServerPopulateCommand extends Command
         ];
 
         // all following are defined per body
+        /** @var array<string, array<int, int>> $amountsDynamic */
         $amountsDynamic = [
             'legislativeTerm' => [1, 10],
             'people'          => [20, 100],
@@ -291,12 +293,12 @@ class ServerPopulateCommand extends Command
     }
 
     /**
-     * @param int $amountsDynamic
-     * @param int $amounts
+     * @param array<string, array<int, int>> $amountsDynamic
+     * @param array<string, int> $amounts
      *
-     * @return array<int, int>
+     * @return array<string, int>
      */
-    protected function updateDynamicAmounts(int $amountsDynamic, int $amounts): array
+    protected function updateDynamicAmounts(array $amountsDynamic, array $amounts): array
     {
         $amounts = collect($amountsDynamic)->map(function ($minmax) {
             [$min, $max] = $minmax;

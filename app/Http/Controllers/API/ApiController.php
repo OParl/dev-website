@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\View\View;
 use function OpenApi\scan;
 
 /**
@@ -42,7 +43,7 @@ class ApiController
     /**
      * Index page for the api.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return View
      */
     public function index()
     {

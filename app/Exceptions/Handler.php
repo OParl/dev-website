@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -25,11 +27,12 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param \Exception $e
+     * @param Exception $e
      *
      * @return void
+     * @throws Exception
      */
-    public function report(Exception $e)
+    public function report(Exception $e): void
     {
         if (app()->bound('sentry') && $this->shouldReport($e)) {
             app('sentry')->captureException($e);
@@ -41,10 +44,11 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Exception               $e
+     * @param Request   $request
+     * @param Exception $e
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws Exception
      */
     public function render($request, Exception $e)
     {
