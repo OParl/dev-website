@@ -21,15 +21,7 @@ class DownloadsController extends Controller
         $version,
         $format
     ) {
-        /* @var \Illuminate\Contracts\Validation\Validator $validator */
-        $validator = \Validator::make(compact('format'), [
-            'version' => 'string',
-            'format'  => 'in:pdf,txt,odt,docx,html,epub,zip,tar.gz,tar.bz2',
-        ]);
-
-        abort_if($validator->fails(), 403);
-
-        if (strcmp($version, 'latest') !== 0) {
+         if (strcmp($version, 'latest') !== 0) {
             $download = $specificationDownloadRepository->getVersion($version);
         } else {
             $download = $specificationDownloadRepository->getVersion('master');

@@ -11,6 +11,7 @@
 |
 */
 
+use App\Services\OParlVersions;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,7 @@ $specificationVersions = sprintf(
     '(%s)',
     implode(
         '|',
-        array_keys((new \App\Services\OParlVersions())->getModule('specification'))
+        array_keys((new OParlVersions())->getModule('specification'))
     )
 );
 
@@ -70,6 +71,7 @@ Route::group(
             ->name('downloads.specification')
             ->uses('DownloadsController@specification')
             ->where('version', $specificationVersions)
+            ->where('format', '(pdf|txt|odt|docx|html|epub|zip|tar.gz|tar.bz2)')
             ->middleware('track');
 
         // Endpoint listing
