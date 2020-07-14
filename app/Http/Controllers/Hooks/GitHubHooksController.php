@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sgraupner
- * Date: 07/10/2016
- * Time: 18:29.
- */
 
 namespace App\Http\Controllers\Hooks;
 
@@ -24,7 +18,7 @@ class GitHubHooksController extends HooksController
         $allowedRepositories = collect(config('oparl.repositories.github'));
 
         if (!$allowedRepositories->contains($repository)) {
-            return abort(400);
+            abort(400);
         }
 
         $ghEvent = $request->header('x-github-event');
