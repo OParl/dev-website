@@ -21,22 +21,22 @@ use EFrane\Transfugio\Query\ValueExpression;
  */
 trait FilterQueryMethods
 {
-    public function queryCreatedSince(QueryService &$query, ValueExpression $valueExpression)
+    public function queryCreatedSince(QueryService &$query, ValueExpression $valueExpression): void
     {
         $query->where('created_at', '>=', $valueExpression->getValue());
     }
 
-    public function queryCreatedUntil(QueryService &$query, ValueExpression $valueExpression)
+    public function queryCreatedUntil(QueryService &$query, ValueExpression $valueExpression): void
     {
         $query->where('created_at', '<=', $valueExpression->getValue());
     }
 
-    public function queryModifiedSince(QueryService &$query, ValueExpression $valueExpression)
+    public function queryModifiedSince(QueryService &$query, ValueExpression $valueExpression): void
     {
         $query->where('updated_at', '>=', $valueExpression->getValue());
     }
 
-    public function queryModifiedUntil(QueryService &$query, ValueExpression $valueExpression)
+    public function queryModifiedUntil(QueryService &$query, ValueExpression $valueExpression): void
     {
         $query->where('updated_at', '<=', $valueExpression->getValue());
     }
