@@ -2,11 +2,18 @@
 
 namespace App\Model;
 
+use Carbon\Carbon;
+
+/**
+ * Class OParl10Paper
+ *
+ * @property Carbon $date
+ */
 class OParl10Paper extends OParl10BaseModel
 {
     protected $table = 'papers';
 
-    protected $dates = ['published_date'];
+    protected $dates = ['date', 'published_date'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|OParl10Body

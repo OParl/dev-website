@@ -2,6 +2,11 @@
 
 namespace App\Model;
 
+/**
+ * Class OParl10Organization
+ *
+ * @property string $organizationType;
+ */
 class OParl10Organization extends OParl10BaseModel
 {
     protected $table = 'organizations';

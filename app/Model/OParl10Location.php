@@ -2,9 +2,18 @@
 
 namespace App\Model;
 
+/**
+ * Class OParl10Location
+ *
+ * @property array $geojson
+ */
 class OParl10Location extends OParl10BaseModel
 {
     protected $table = 'locations';
+
+    protected $casts = [
+        'geojson' => 'array'
+    ];
 
     public function bodies()
     {

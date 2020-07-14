@@ -27,7 +27,7 @@ class OParl10FileTransformer extends BaseTransformer
             'license'     => $file->license,
             'fileLicense' => $file->file_license,
             'meeting'     => ($file->meeting) ? route('api.oparl.v1.meeting.show', $file->meeting) : null,
-            'agendaItem'  => ($file->agenda_item) ? route('api.oparl.v1.agendaitem.show', $file->agendaItem) : null,
+            'agendaItem'  => ($file->agendaItem) ? route('api.oparl.v1.agendaitem.show', $file->agendaItem) : null,
             'paper'       => ($file->paper) ? route('api.oparl.v1.paper.show', $file->paper) : null,
         ]);
 

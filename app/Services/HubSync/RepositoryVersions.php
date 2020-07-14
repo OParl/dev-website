@@ -36,13 +36,13 @@ class RepositoryVersions
     }
 
     /**
-     * @param $constraint
+     * @param string $constraint
      *
      * @throws \UnexpectedValueException
      *
      * @return mixed
      */
-    public function getLatestMatchingConstraint($constraint)
+    public function getLatestMatchingConstraint(string $constraint)
     {
         $matchingVersions = $this->versions->filter(function ($versionToCheck) use ($constraint) {
             return Semver::satisfies($versionToCheck, $constraint);

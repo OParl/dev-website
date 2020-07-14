@@ -39,6 +39,12 @@ class ServerPopulateCommand extends Command
      */
     protected $factory;
 
+    /**
+     * @param Generator       $faker
+     * @param DatabaseManager $databaseManager
+     * @param Factory         $factory
+     * @return int
+     */
     public function handle(Generator $faker, DatabaseManager $databaseManager, Factory $factory)
     {
         $this->faker = $faker;
@@ -62,7 +68,7 @@ class ServerPopulateCommand extends Command
         return 0;
     }
 
-    protected function generateData()
+    protected function generateData(): void
     {
         $this->info('Creating a System');
         $system = $this->factory->of(OParl10System::class, 1)->create()->first();
@@ -285,12 +291,12 @@ class ServerPopulateCommand extends Command
     }
 
     /**
-     * @param $amountsDynamic
-     * @param $amounts
+     * @param int $amountsDynamic
+     * @param int $amounts
      *
-     * @return array
+     * @return array<int, int>
      */
-    protected function updateDynamicAmounts($amountsDynamic, $amounts)
+    protected function updateDynamicAmounts(int $amountsDynamic, int $amounts): array
     {
         $amounts = collect($amountsDynamic)->map(function ($minmax) {
             [$min, $max] = $minmax;
@@ -306,7 +312,7 @@ class ServerPopulateCommand extends Command
      * @param int     $amount
      * @return Collection
      */
-    protected function getSomeLegislativeTerms(int $amount)
+    protected function getSomeLegislativeTerms(int $amount): Collection
     {
         $progressBar = new ProgressBar($this->output, $amount);
         $this->info('Creating LegislativeTerm entities');
@@ -326,7 +332,11 @@ class ServerPopulateCommand extends Command
         return $legislativeTerms;
     }
 
-    protected function getSomeKeywords($maxNb = 5)
+    /**
+     * @param int $maxNb
+     * @return OParl10Keyword[]|\Illuminate\Database\Eloquent\Collection|Collection
+     */
+    protected function getSomeKeywords($maxNb = 5): Collection
     {
         if ($maxNb < 0) {
             throw new \InvalidArgumentException('$maxNb must be greater than or equal to 0');
@@ -348,7 +358,10 @@ class ServerPopulateCommand extends Command
         return ($keywordOrKeywords instanceof Collection) ? $keywordOrKeywords : collect([$keywordOrKeywords]);
     }
 
-    protected function getLocation()
+    /**
+     * @return OParl10Location
+     */
+    protected function getLocation(): OParl10Location
     {
         // NOTE: Raising this value increases the spreading of different locations over all entities
         // NOTE: It also increases the total time needed for db population
@@ -364,7 +377,7 @@ class ServerPopulateCommand extends Command
         return $location;
     }
 
-    protected function getSomePeople($amount)
+    protected function getSomePeople(int $amount): Collection
     {
         $progressBar = new ProgressBar($this->output, $amount);
         $this->info('Creating People entities');

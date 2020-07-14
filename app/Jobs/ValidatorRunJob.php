@@ -134,9 +134,9 @@ class ValidatorRunJob extends Job
     }
 
     /**
-     * @param $json
+     * @param array $json
      */
-    protected function saveResult($json)
+    protected function saveResult(array $json)
     {
         if ($this->canSaveData) {
             $result = new ValidationResult();

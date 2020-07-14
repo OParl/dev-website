@@ -28,7 +28,7 @@ class SpecificationController extends Controller
     /**
      * Show the specification's live copy.
      *
-     * @param                    $version
+     * @param string $version
      * @return View
      */
     public function index(string $version = null)

@@ -3,12 +3,18 @@
 namespace App\Model;
 
 use App\Exceptions\ConnectionNotFoundException;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 /**
  * Class BaseModel.
+ *
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $deleted_at
+ * @property mixed  $keywords
  */
 class OParl10BaseModel extends Model
 {

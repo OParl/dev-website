@@ -4,6 +4,7 @@ namespace App\Http\Transformers\OParl\V10;
 
 use App\Model\OParl10Person;
 
+
 class OParl10PersonTransformer extends BaseTransformer
 {
     protected $defaultIncludes = ['membership'];

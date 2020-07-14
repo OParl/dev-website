@@ -21,7 +21,6 @@ class ValidationCompleted extends Mailable
      * Create a new message instance.
      *
      * @param array  $validationResult
-     * @param string $recipient
      */
     public function __construct($validationResult)
     {

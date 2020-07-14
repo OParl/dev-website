@@ -68,11 +68,13 @@ class LiveView
     }
 
     /**
-     * @param $html
+     * @param string $html
+     * @param string $fromLanguage
+     * @param string $toLanguage
      *
      * @return mixed
-     **/
-    protected function fixCodeTag(&$html, $fromLanguage, $toLanguage = '')
+     */
+    protected function fixCodeTag(string &$html, string $fromLanguage, string $toLanguage = '')
     {
         if ($toLanguage == '') {
             $toLanguage = $fromLanguage;
@@ -130,10 +132,10 @@ class LiveView
     }
 
     /**
-     * @param $imagePath
+     * @param string $imagePath
      * @return string
      */
-    protected function formatImagePath($imagePath): string
+    protected function formatImagePath(string $imagePath): string
     {
         return 'live/'.$this->loadedVersion.'/images/'.$imagePath.'.png';
     }

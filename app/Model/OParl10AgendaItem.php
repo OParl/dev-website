@@ -2,6 +2,11 @@
 
 namespace App\Model;
 
+/**
+ * Class OParl10AgendaItem
+ *
+ * @property string $resolutionText
+ */
 class OParl10AgendaItem extends OParl10BaseModel
 {
     protected $table = 'agenda_items';

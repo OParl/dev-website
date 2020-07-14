@@ -33,17 +33,10 @@ class LibOParlBuildJob extends Job implements ShouldQueue
 
         $meson = "meson -Dbuild_valadoc=false -Dbuild_test=false --prefix={$this->prefix}";
         if (!file_exists($buildDir.'/build.ninja')) {
-            $success = $this->runSynchronousCommand($buildDir, $meson, $output);
-
-            if (!$success) {
-                $log->error($output);
-            }
+            $this->runSynchronousCommand($buildDir, $meson);
         }
 
         $ninja = 'ninja install';
-        $success = $this->runSynchronousCommand($buildDir, $ninja, $output);
-        if (!$success) {
-            $log->error($output);
-        }
+        $this->runSynchronousCommand($buildDir, $ninja);
     }
 }

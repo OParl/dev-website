@@ -99,10 +99,10 @@ class SetupCommand extends Command
     }
 
     /**
-     * @param        $cmd
+     * @param string $cmd
      * @param string $workingDir
      */
-    protected function runExternalCommand($cmd, $workingDir = '')
+    protected function runExternalCommand(string $cmd, string $workingDir = '')
     {
         $this->info("Executing `{$cmd}`");
         $workingDir = app_path('../');

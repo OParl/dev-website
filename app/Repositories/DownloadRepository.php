@@ -62,10 +62,10 @@ abstract class DownloadRepository
     }
 
     /**
-     * @param $version
+     * @param string $version
      * @return DownloadVersion
      */
-    public function getVersion($version)
+    public function getVersion(string $version)
     {
         return $this->versions->filter(function (DownloadVersion $downloadVersion) use ($version) {
             return $downloadVersion->isVersion($version);

@@ -11,6 +11,9 @@ use Psr\Log\LoggerInterface;
 
 class SpecificationLiveVersionBuildJob extends SpecificationJob
 {
+    /**
+     * @var string
+     */
     protected $storageName = '';
 
     /**
@@ -41,8 +44,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
      * @param LoggerInterface $log
      *
      * @return \App\Services\HubSync\Repository
-     * @throws
-     *
+     * @throws \ReflectionException
      */
     public function doUpdate(Filesystem $fs, LoggerInterface $log)
     {
@@ -69,9 +71,9 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $hubSync
+     * @param Repository $hubSync
      */
-    protected function updateHTML(Filesystem $fs, Repository $hubSync)
+    protected function updateHTML(Filesystem $fs, Repository $hubSync): void
     {
         $fs->makeDirectory($this->getStoragePath(''));
         $newVersion = sprintf('%s/%s.html',
@@ -85,7 +87,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
         }
     }
 
-    protected function getStoragePath($path)
+    protected function getStoragePath(string $path): string
     {
         if (Str::startsWith($path, '/')) {
             $path = substr($path, 1);
@@ -96,7 +98,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $hubSync
+     * @param Repository $hubSync
      */
     protected function updateImages(Filesystem $fs, Repository $hubSync)
     {
@@ -113,7 +115,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $hubSync
+     * @param Repository $hubSync
      */
     protected function updateConcatenatedMarkdownVersion(Filesystem $fs, Repository $hubSync)
     {
@@ -130,7 +132,7 @@ class SpecificationLiveVersionBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $hubSync
+     * @param Repository $hubSync
      */
     protected function updateVersionMetaInfo(Filesystem $fs, Repository $hubSync)
     {

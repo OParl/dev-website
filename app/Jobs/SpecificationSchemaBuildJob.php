@@ -95,11 +95,11 @@ class SpecificationSchemaBuildJob extends SpecificationJob
      * Schema directories
      *
      * @param Filesystem $fs
-     * @param $authoritativeVersion
+     * @param string $authoritativeVersion
      *
      * @return string
      */
-    public function createOrPruneSchemaDirectory(Filesystem $fs, $authoritativeVersion)
+    public function createOrPruneSchemaDirectory(Filesystem $fs, string $authoritativeVersion)
     {
         $schemaPath = 'schema/'.$authoritativeVersion;
 

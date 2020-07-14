@@ -104,10 +104,10 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $hubSync
-     * @param            $downloadsPath
+     * @param Repository $hubSync
+     * @param string $downloadsPath
      */
-    public function provideDownloadableFiles(Filesystem $fs, Repository $hubSync, $downloadsPath)
+    public function provideDownloadableFiles(Filesystem $fs, Repository $hubSync, string $downloadsPath)
     {
         $downloadableFormats = [
             'pdf',
@@ -134,10 +134,10 @@ class SpecificationDownloadsBuildJob extends SpecificationJob
 
     /**
      * @param Filesystem $fs
-     * @param            $hubSync
-     * @param            $downloadsPath
+     * @param Repository $hubSync
+     * @param string $downloadsPath
      */
-    public function provideDownloadableArchives(Filesystem $fs, Repository $hubSync, $downloadsPath)
+    public function provideDownloadableArchives(Filesystem $fs, Repository $hubSync, string $downloadsPath)
     {
         $downloadableArchives = [
             'zip',

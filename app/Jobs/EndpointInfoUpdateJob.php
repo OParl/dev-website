@@ -97,7 +97,8 @@ class EndpointInfoUpdateJob implements ShouldQueue
     }
 
     /**
-     * @param $endpoint
+     * @param LoggerInterface $log
+     * @param Endpoint        $endpoint
      */
     protected function getSystemFromEndpoint(LoggerInterface $log, Endpoint $endpoint)
     {

@@ -1,7 +1,10 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "/^Variable \\$factory might not be defined.$/"
-			count: 14
-			path: database/factories/ModelFactory.php
+		- message: "/^Variable \\$factory might not be defined.$/"
+		  count: 14
+		  path: database/factories/ModelFactory.php
+
+		- message: "/^Call to an undefined method Faker\\\\Generator::.+()$/"
+		  count: 2
+		  path: database/factories/ModelFactory.php
 

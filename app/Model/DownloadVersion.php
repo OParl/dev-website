@@ -27,7 +27,7 @@ class DownloadVersion
      */
     protected $files = null;
 
-    public function __construct(Filesystem $fs, $identifier, $version)
+    public function __construct(Filesystem $fs, string $identifier, string $version)
     {
         $this->fs = $fs;
         $this->path = "downloads/{$identifier}/{$version}";
@@ -52,11 +52,11 @@ class DownloadVersion
     }
 
     /**
-     * @param $version
+     * @param string $version
      *
      * @return bool
      */
-    public function isVersion($version)
+    public function isVersion(string $version)
     {
         return strcmp($this->version, $version) === 0;
     }
@@ -79,13 +79,13 @@ class DownloadVersion
     }
 
     /**
-     * @param $extension
+     * @param string $extension
      *
      * @throws FileNotFoundException
      *
      * @return Download
      */
-    public function getFileForExtension($extension)
+    public function getFileForExtension(string $extension)
     {
         $file = $this->files->filter(function (Download $file) use ($extension) {
             return Str::endsWith($file->getFilename(), $extension);

@@ -41,18 +41,18 @@ class SpecificationJob extends Job implements ShouldQueue
     /**
      * @return string slack url
      */
-    public function routeNotificationForSlack()
+    public function routeNotificationForSlack(): string
     {
         return config('services.slack.ci.endpoint');
     }
 
     /**
-     * @param $cmd
+     * @param string $cmd
      * @param array ...$args
      *
      * @return string
      */
-    public function prepareCommand($cmd, ...$args)
+    public function prepareCommand($cmd, ...$args): string
     {
         if (count($args) > 0) {
             $cmd = vsprintf($cmd, $args);

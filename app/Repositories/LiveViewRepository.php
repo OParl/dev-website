@@ -40,11 +40,11 @@ class LiveViewRepository
     }
 
     /**
-     * @param $version
+     * @param string $version
      * @return LiveView
      * @throws LiveViewException
      */
-    public function get($version): LiveView
+    public function get(string $version): LiveView
     {
         return $this->cacheManager->remember(
             'liveview.'.$version,

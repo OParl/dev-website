@@ -2,6 +2,12 @@
 
 namespace App\Model;
 
+/**
+ * Class OParl10Person
+ *
+ * @property OParl10Location $location
+ * @property string $status
+ */
 class OParl10Person extends OParl10BaseModel
 {
     protected $table = 'people';

@@ -59,7 +59,7 @@ class SchemaRepository
      * If e.g. the schema for oparl:LegislativeTerm is requested,
      * the schema for oparl:Body must be returned instead.
      *
-     * @param $requestedEntity
+     * @param string $requestedEntity
      * @return string
      */
     protected function mapRequestedEntityForOParlVersion10(string $requestedEntity): string
@@ -83,9 +83,9 @@ class SchemaRepository
     }
 
     /**
-     * @param $version
-     * @param $entity
-     * @return array
+     * @param string $version
+     * @param string $entity
+     * @return array<string,mixed>
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function loadSchemaForEntity($version, $entity): array

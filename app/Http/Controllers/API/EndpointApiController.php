@@ -123,10 +123,10 @@ class EndpointApiController
      *     )
      * )
      *
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      */
-    public function endpoint(Request $request, $id)
+    public function endpoint(Request $request, int $id)
     {
         try {
             if ($request->has('include') && 'bodies' === $request->get('include')) {

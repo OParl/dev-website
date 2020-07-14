@@ -18,7 +18,7 @@ trait InteractsWithRepositoryTrait
      * @param string $treeish
      * @param string $default config option for the default constraint
      */
-    public function determineTreeish($treeish, $default)
+    public function determineTreeish(string $treeish, string $default)
     {
         $this->treeish = $treeish;
 
@@ -45,7 +45,7 @@ trait InteractsWithRepositoryTrait
      * @return bool command success
      * @throws \ReflectionException
      */
-    public function runCleanRepositoryCommand(Repository $repository, $cmd, ...$args)
+    public function runCleanRepositoryCommand(Repository $repository, string $cmd, ...$args)
     {
         $runRepositoryCommand = new \ReflectionMethod($this, 'runRepositoryCommand');
         $result = $runRepositoryCommand->invokeArgs($this, array_merge([$repository, $cmd], $args));
@@ -57,13 +57,13 @@ trait InteractsWithRepositoryTrait
 
     /**
      * @param Repository $repository
-     * @param            $cmd
+     * @param string     $cmd
      * @param array      ...$args
      *
      * @return bool
      * @throws \ReflectionException
      */
-    public function runRepositoryCommand(Repository $repository, $cmd, ...$args)
+    public function runRepositoryCommand(Repository $repository, string $cmd, ...$args)
     {
         array_unshift($args, $cmd);
 
@@ -80,12 +80,12 @@ trait InteractsWithRepositoryTrait
      *
      * Requires a working directory.
      *
-     * @param $path
-     * @param $cmd
+     * @param string $path
+     * @param string $cmd
      *
      * @return bool
      */
-    public function runSynchronousCommand($path, $cmd, &$output = null)
+    public function runSynchronousCommand(string $path, string $cmd)
     {
         $process = new Process($cmd, $path);
 
@@ -128,7 +128,7 @@ trait InteractsWithRepositoryTrait
      *
      * @return bool
      */
-    public function checkoutHubSyncToTreeish(Repository $hubSync, $selectMostRecentVersion = true)
+    public function checkoutHubSyncToTreeish(Repository $hubSync, bool $selectMostRecentVersion = true)
     {
         if ($this->treeish !== $hubSync->getCurrentTreeish() && is_string($this->treeish)) {
             if ($selectMostRecentVersion) {
@@ -149,12 +149,12 @@ trait InteractsWithRepositoryTrait
     }
 
     /**
-     * @param $cmd
-     * @param array ...$args
+     * @param string $cmd
+     * @param array<int,string> ...$args
      *
      * @return string
      */
-    public function prepareCommand($cmd, ...$args)
+    public function prepareCommand(string $cmd, ...$args)
     {
         if (count($args) > 0) {
             $cmd = vsprintf($cmd, $args);
