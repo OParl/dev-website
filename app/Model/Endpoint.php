@@ -64,6 +64,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method Endpoint firstOrNew(array $attributes)
  * @method Collection get()
  * @method int count()
+ *
+ * @property Carbon|null $endpoint_fetched;
  */
 class Endpoint extends Model
 {
@@ -115,7 +117,6 @@ class Endpoint extends Model
      */
     public function getFetchedAttribute()
     {
-        /** @var Carbon $fetched */
         $fetched = $this->endpoint_fetched;
 
         if (!is_null($fetched)) {

@@ -5,9 +5,9 @@ namespace App\Model;
 /**
  * Class File.
  *
- * @property-read OParl10Meeting $meeting
- * @property-read OParl10AgendaItem $agendaItem
- * @property-read OParl10Paper $paper
+ * @property-read OParl10Meeting|null $meeting
+ * @property-read OParl10AgendaItem|null $agendaItem
+ * @property-read OParl10Paper|null $paper
  */
 class OParl10File extends OParl10BaseModel
 {

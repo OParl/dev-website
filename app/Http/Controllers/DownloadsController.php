@@ -36,8 +36,6 @@ class DownloadsController extends Controller
         } catch (FileNotFoundException $e) {
             abort(404);
         }
-
-        return redirect()->back();
     }
 
     public function latestSpecification($format)

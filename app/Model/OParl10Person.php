@@ -5,7 +5,7 @@ namespace App\Model;
 /**
  * Class OParl10Person
  *
- * @property OParl10Location $location
+ * @property OParl10Location|null $location
  * @property string $status
  */
 class OParl10Person extends OParl10BaseModel
