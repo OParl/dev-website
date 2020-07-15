@@ -230,7 +230,9 @@ $factory->define(
 $factory->define(
     OParl10Organization::class,
     function (Faker\Generator $faker) {
-        $name = ucfirst(implode(' ', $faker->words($faker->numberBetween(3, 8))));
+        /** @var array<int, string> $words */
+        $words = $faker->words($faker->numberBetween(3, 8));
+        $name = ucfirst(implode(' ', $words));
 
         do {
             $shortNameNumber = $faker->numberBetween(100, 999);
