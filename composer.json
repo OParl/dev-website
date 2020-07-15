@@ -48,7 +48,6 @@
     "efrane/base-x": "^0.2",
     "efrane/console-additions": "^0.6.1",
     "efrane/letterpress": "dev-master",
-    "efrane/transfugio": "^0.7",
     "fideloper/proxy": "^4.0",
     "fzaninotto/faker": "^1.6",
     "guzzlehttp/guzzle": "^6.2",

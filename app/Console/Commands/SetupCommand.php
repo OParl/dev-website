@@ -12,16 +12,6 @@ class SetupCommand extends Command
     protected $name = 'setup';
     protected $description = 'Runs all commands necessary for initial setup of the application.';
 
-    public function configure()
-    {
-        $this->addOption(
-            'no-demodata',
-            '',
-            InputOption::VALUE_NONE,
-            "Don't prepare demodata"
-        );
-    }
-
     public function handle()
     {
         $this->info('Setting up the application...');
@@ -36,7 +26,6 @@ class SetupCommand extends Command
         try {
             $databaseFiles = [
                 config('database.connections.sqlite.database'),
-                config('database.connections.sqlite_demo.database'),
             ];
 
             foreach ($databaseFiles as $databaseFile) {
@@ -51,7 +40,6 @@ class SetupCommand extends Command
             Batch::create($this->getApplication(), $this->getOutput())
                 ->add('key:generate')
                 ->add('migrate')
-                ->add('migrate --database=sqlite_demo')
                 ->run();
         } catch (\Exception $e) {
             $this->error('An error occured during primary application setup: ' . $e);
@@ -60,10 +48,6 @@ class SetupCommand extends Command
         try {
             $dataBatch = Batch::create($this->getApplication(), $this->getOutput())
                 ->add('oparl:init');
-
-            if (!$this->input->getOption('no-demodata')) {
-                $dataBatch->add('server:populate');
-            }
 
             $dataBatch->run();
         } catch (\Exception $e) {

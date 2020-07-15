@@ -27,7 +27,6 @@ return [
     */
 
     'default'      => env('DB_DEFAULT', 'sqlite'),
-    'demo_default' => env('DB_DEMO_DEFAULT', 'sqlite_demo'),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,13 +50,6 @@ return [
         'sqlite' => [
             'driver'   => 'sqlite',
             'database' => storage_path().'/database.sqlite',
-            'prefix'   => '',
-        ],
-
-        // oparl api demo data
-        'sqlite_demo' => [
-            'driver'   => 'sqlite',
-            'database' => storage_path().'/demodata.sqlite',
             'prefix'   => '',
         ],
 

@@ -53,11 +53,6 @@ related config options such as the application encryption key or the webhook sec
 | DB_DATABASE              |                         | Database name for mysql connection      |
 | DB_USERNAME              |                         | User name for mysql connection          |
 | DB_PASSWORD              |                         |                                         |
-| DB_DEMO_DEFAULT          | `sqlite_demo`           | Select db type for test data db         |
-| DB_DEMO_HOST             |                         |                                         |
-| DB_DEMO_DATABASE         |                         |                                         |
-| DB_DEMO_USERNAME         |                         |                                         |
-| DB_DEMO_PASSWORD         |                         |                                         |
 | ------------------------ | ----------------------- | --------------------------------------- |
 | CACHE_DRIVER             | `file`                  | Storage driver for the app cache        |
 | SESSION_DRIVER           | `file`                  | Storage driver for sessions             |
@@ -103,11 +98,7 @@ framework updates broke not-yet-updated third party packages. The third party pa
 [Packagist][packagist] and [npmjs][npmjs] are regularily checked for updates.
 
 The development plaform itself is unversioned as it is under continuous development. The validator,
-liboparl and the specification however follow the [Semantic Versioning][semver] specification. Additionally,
-the reference and test API implementations of OParl have versioned endpoints at 
-`https://dev.oparl.org/api/oparl/<version>/`. Check #46 for future plans on this.
-
-Other provided API methods will eventually be documented using Swagger. See #47 on documentation status.
+liboparl and the specification however follow the [Semantic Versioning][semver] specification. 
 
 ## License
 
