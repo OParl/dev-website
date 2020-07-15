@@ -17,11 +17,11 @@ class SpecificationUpdateNotification extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param string $success
+     * @param bool $success
      * @param string $message
      * @param array  $args
      */
-    public function __construct($success, $message, ...$args)
+    public function __construct(bool $success, string $message, ...$args)
     {
         $this->success = $success;
         $this->message = $message;

@@ -31,7 +31,7 @@ class ApiController
         $openApi = scan([base_path('app/Http/Controllers/API'), app_path('Model')]);
 
         return response(
-            $openApi,
+            $openApi->toJson(),
             200,
             [
                 'Content-Type'                 => 'application/json',
