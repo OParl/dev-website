@@ -75,18 +75,18 @@ class SetupCommand extends Command
             }
         }
 
-        $this->runExternalCommand('yarn');
+        $this->runExternalCommand(['yarn']);
         $nodeEnv = (config('app.env') === 'production') ? 'prod' : 'dev';
-        $this->runExternalCommand("yarn {$nodeEnv}");
+        $this->runExternalCommand(['yarn', $nodeEnv]);
 
         $this->call('up');
     }
 
     /**
-     * @param string $cmd
+     * @param array  $cmd
      * @param string $workingDir
      */
-    protected function runExternalCommand(string $cmd, string $workingDir = '')
+    protected function runExternalCommand(array $cmd, string $workingDir = '')
     {
         $this->info("Executing `{$cmd}`");
         $workingDir = app_path('../');
