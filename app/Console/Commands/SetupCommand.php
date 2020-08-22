@@ -88,7 +88,6 @@ class SetupCommand extends Command
      */
     protected function runExternalCommand(array $cmd, string $workingDir = '')
     {
-        $this->info("Executing `{$cmd}`");
         $workingDir = app_path('../');
         $process = new Process($cmd, $workingDir);
         $process->setTimeout(0);
