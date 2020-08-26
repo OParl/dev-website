@@ -2411,16 +2411,16 @@
         },
         {
             "name": "markrogoyski/math-php",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markrogoyski/math-php.git",
-                "reference": "8fb4c6e97b7eb1c911a76efcafe9942e43228da4"
+                "reference": "7ee80ef7f84a87854a25faa4c4d7d05fb8cc08cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/8fb4c6e97b7eb1c911a76efcafe9942e43228da4",
-                "reference": "8fb4c6e97b7eb1c911a76efcafe9942e43228da4",
+                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/7ee80ef7f84a87854a25faa4c4d7d05fb8cc08cf",
+                "reference": "7ee80ef7f84a87854a25faa4c4d7d05fb8cc08cf",
                 "shasum": ""
             },
             "require": {
@@ -2480,7 +2480,7 @@
                 "regressions",
                 "statistics"
             ],
-            "time": "2020-07-25T05:34:43+00:00"
+            "time": "2020-08-25T05:43:38+00:00"
         },
         {
             "name": "masterminds/html5",
