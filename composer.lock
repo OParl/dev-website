@@ -7566,16 +7566,16 @@
         },
         {
             "name": "laravel/browser-kit-testing",
-            "version": "v5.1.3",
+            "version": "v5.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/browser-kit-testing.git",
-                "reference": "cb0cf22cf38fe8796842adc8b9ad550ded2a1377"
+                "reference": "7664a30d2dbabcdb0315bfaa867fef2df8cb8fb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/browser-kit-testing/zipball/cb0cf22cf38fe8796842adc8b9ad550ded2a1377",
-                "reference": "cb0cf22cf38fe8796842adc8b9ad550ded2a1377",
+                "url": "https://api.github.com/repos/laravel/browser-kit-testing/zipball/7664a30d2dbabcdb0315bfaa867fef2df8cb8fb1",
+                "reference": "7664a30d2dbabcdb0315bfaa867fef2df8cb8fb1",
                 "shasum": ""
             },
             "require": {
@@ -7587,7 +7587,7 @@
                 "illuminate/support": "~5.7.0|~5.8.0|^6.0",
                 "mockery/mockery": "^1.0",
                 "php": ">=7.1.3",
-                "phpunit/phpunit": "^7.0|^8.0",
+                "phpunit/phpunit": "^7.5|^8.0",
                 "symfony/console": "^4.2",
                 "symfony/css-selector": "^4.2",
                 "symfony/dom-crawler": "^4.2",
@@ -7600,7 +7600,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0-dev"
+                    "dev-master": "5.x-dev"
                 }
             },
             "autoload": {
@@ -7623,7 +7623,7 @@
                 "laravel",
                 "testing"
             ],
-            "time": "2019-07-30T14:57:44+00:00"
+            "time": "2020-08-25T16:54:44+00:00"
         },
         {
             "name": "league/fractal",
