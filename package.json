@@ -6,7 +6,7 @@
     "proj4": "^2.6.2",
     "simplify-geojson": "^1.0.3",
     "swagger-ui": "^3.32.5",
-    "vue": "^2.5.16",
+    "vue": "^2.6.12",
     "vuelayers": "^0.11.27",
     "vue-affix": "^0.5.2",
     "vue-clipboard2": "0.3.1",
@@ -26,7 +26,7 @@
     "sass": "^1.26.10",
     "sass-loader": "9.*",
     "vue-loader": "^14.2.3",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.12"
   },
   "engines": {
     "npm": ">= 5.0.0",
