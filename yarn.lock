@@ -4851,22 +4851,12 @@ minimatch@^3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.7.tgz#dc4c620253c542eda0d2eb91c3c6a971a11e63e7"
-  integrity sha1-3ExiAlPFQu2g0uuRw8apcaEeY+c=
-
 minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
   integrity sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
 
-minimist@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
-  integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
-
-minimist@^1.2.5:
+minimist@1.2.5, minimist@^1.2.0, minimist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
@@ -6416,11 +6406,6 @@ regenerator-runtime@^0.11.0:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
   integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
-regenerator-runtime@^0.13.2:
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
-  integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
-
 regenerator-runtime@^0.13.4:
   version "0.13.5"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
@@ -6918,13 +6903,13 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simplify-geojson@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/simplify-geojson/-/simplify-geojson-1.0.3.tgz#4f9ed4f0f62be86d38526bcdcae072b0e9df5ef4"
-  integrity sha1-T57U8PYr6G04UmvNyuBysOnfXvQ=
+simplify-geojson@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/simplify-geojson/-/simplify-geojson-1.0.4.tgz#5f61bd90003f67a0ae575b40552b13868f45a325"
+  integrity sha512-vBqLzitQ57pFFtiX21QtYxMzRm10bWsTrPVjMGaDGEcDmrEwsIPK5o8FvFHh/xZHNzw947lvDwAFNk4OMhAhVw==
   dependencies:
     concat-stream "~1.4.1"
-    minimist "0.0.7"
+    minimist "1.2.5"
     simplify-geometry "0.0.2"
 
 simplify-geometry@0.0.2:

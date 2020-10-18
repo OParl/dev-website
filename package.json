@@ -4,7 +4,7 @@
     "date-fns": "^2.16.1",
     "font-awesome": "^4.7.0",
     "proj4": "^2.6.2",
-    "simplify-geojson": "^1.0.3",
+    "simplify-geojson": "^1.0.4",
     "swagger-ui": "^3.35.2",
     "vue": "^2.6.12",
     "vuelayers": "^0.11.27",
