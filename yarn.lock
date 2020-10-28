@@ -7316,10 +7316,10 @@ swagger-client@=3.11.1:
     traverse "~0.6.6"
     url "~0.11.0"
 
-swagger-ui@^3.35.2:
-  version "3.35.2"
-  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.35.2.tgz#3ab5fa9f4fe5448ef0ecac35dbc6ba5d2e7c2475"
-  integrity sha512-LXUxkGWU1vKLVK5z8EUncPskCKva5LiReOFZxYqy3hWrByGBLPeMp8OcD8IVfw6/tCb+FeEMHgOn1szAIDASzg==
+swagger-ui@^3.36.0:
+  version "3.36.0"
+  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.36.0.tgz#61e9b8214b036574514dfdb85ea3e8b7e49f2671"
+  integrity sha512-gdAPUllYjLlcu4Yw3pix1QmErqSpBgORwjWyu/wjQgl311JfDhBorj2YfzjjM7ri8kzCw/+h0eB675ycic0zpw==
   dependencies:
     "@babel/runtime-corejs3" "^7.11.2"
     "@braintree/sanitize-url" "^5.0.0"
