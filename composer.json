@@ -51,7 +51,7 @@
     "fideloper/proxy": "^4.0",
     "fzaninotto/faker": "^1.6",
     "guzzlehttp/guzzle": "^6.2",
-    "laravel/framework": "6.18.*",
+    "laravel/framework": "6.19.*",
     "laravel/horizon": "3.7.2",
     "laravel/slack-notification-channel": "^2.0",
     "laravel/tinker": "^2.4",
