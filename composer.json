@@ -43,7 +43,7 @@
     "barryvdh/laravel-debugbar": "^3.1",
     "cocur/slugify": "^4.0",
     "composer/semver": "^1.4",
-    "doctrine/dbal": "^2.5",
+    "doctrine/dbal": "^3.0",
     "dompdf/dompdf": "^0.8.0",
     "efrane/base-x": "^0.2",
     "efrane/console-additions": "^0.6.1",
