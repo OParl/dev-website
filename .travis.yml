@@ -41,6 +41,7 @@ before_script:
 script:
   - vendor/bin/phpstan analyse
   - vendor/bin/phpunit
+  - yarn dev
 
 after_script:
 - cat storage/logs/laravel.log
