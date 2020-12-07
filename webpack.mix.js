@@ -12,7 +12,6 @@ let mix = require('laravel-mix')
  */
 
 mix.js('resources/js/bundles/spec.js', 'public/js')
-  .js('resources/js/bundles/api.js', 'public/js')
   .js('resources/js/bundles/app.js', 'public/js')
   .js('resources/js/bundles/endpoints.js', 'public/js')
   .extract([
@@ -25,7 +24,7 @@ mix.js('resources/js/bundles/spec.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css')
   .sass('resources/sass/pdf.scss', 'public/css')
   .combine([
-    'node_modules/buefy/lib/buefy.css',
+    'node_modules/buefy/dist/buefy.css',
     'node_modules/prismjs/themes/prism.css',
     'node_modules/prism-themes/themes/prism-vs.css',
     'node_modules/swagger-ui/dist/swagger-ui.css'

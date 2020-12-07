@@ -7,12 +7,13 @@
     "simplify-geojson": "^1.0.4",
     "swagger-ui": "^3.37.2",
     "vue": "^2.6.12",
-    "vuelayers": "^0.11.28",
     "vue-affix": "^0.5.2",
     "vue-clipboard2": "0.3.1",
-    "vue-sliding-pagination": "^1.1.0"
+    "vue-sliding-pagination": "^1.1.0",
+    "vuelayers": "^0.11.28"
   },
   "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.4",
     "axios": "^0.21",
     "bootstrap-sass": "^3.3.7",
     "buefy": "^0.9.4",
