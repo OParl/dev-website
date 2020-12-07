@@ -37,6 +37,7 @@ before_script:
   - cp .env.testing .env
   - composer run-script post-install-cmd
   - ./artisan setup
+  - yarn
 
 script:
   - vendor/bin/phpstan analyse
