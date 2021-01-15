@@ -5,7 +5,7 @@
     "font-awesome": "^4.7.0",
     "proj4": "^2.6.3",
     "simplify-geojson": "^1.0.4",
-    "swagger-ui": "^3.37.2",
+    "swagger-ui": "^3.40.0",
     "vue": "^2.6.12",
     "vue-affix": "^0.5.2",
     "vue-clipboard2": "0.3.1",
