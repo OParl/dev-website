@@ -70,7 +70,7 @@
     "mikey179/vfsstream": "^1.6",
     "mockery/mockery": "^1.2",
     "nunomaduro/larastan": "^0.6.1",
-    "phpunit/phpunit": "~8.5"
+    "phpunit/phpunit": "~9.5"
   },
   "autoload": {
     "classmap": [
