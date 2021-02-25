@@ -783,10 +783,10 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime-corejs3@^7.11.2", "@babel/runtime-corejs3@^7.12.5", "@babel/runtime-corejs3@^7.7.4":
-  version "7.12.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.12.5.tgz#ffee91da0eb4c6dae080774e94ba606368e414f4"
-  integrity sha512-roGr54CsTmNPPzZoCP1AmDXuBoNao7tnSA83TXTwt+UK5QVyh1DIJnrgYRPWKCF2flqZQXwa7Yr8v7VmLzF0YQ==
+"@babel/runtime-corejs3@^7.11.2", "@babel/runtime-corejs3@^7.13.6", "@babel/runtime-corejs3@^7.7.4":
+  version "7.13.7"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.13.7.tgz#f47f882b62961c1ada113dbafc717c69c18a9b09"
+  integrity sha512-zkDsGGSRU2YyYTXkPfcxuYuCVc6xBOeH1ZMh72ywBvmrDs+kSmoMuCUXZJUPbXZafrPivDHS2Oq7wI37gaTvqw==
   dependencies:
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
@@ -4714,10 +4714,10 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.5, lodash@^4.2.1:
-  version "4.17.20"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
-  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.5, lodash@^4.2.1:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 loglevel@^1.6.8:
   version "1.7.1"
@@ -7352,10 +7352,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swagger-client@^3.12.2:
-  version "3.12.2"
-  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.12.2.tgz#c6d1148d749507d328a1647bd71f33166147387d"
-  integrity sha512-l4aAty0VNmHaOEEvOI7Tc6xtUZLNxtFEOZzansjxHjbV9o2ZsiFPMdomIGj14n/Zb0S2eN83cEJYHJ3SENUYPw==
+swagger-client@^3.13.1:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.13.1.tgz#d2531ede4a498911aa084384e387e5008e7b6a70"
+  integrity sha512-Hmy4+wVVa3kveWzC7PIeUwiAY5qcYbm4XlC4uZ7e5kAePfB2cprXImiqrZHIzL+ndU0YTN7I+9w/ZayTisn3Jg==
   dependencies:
     "@babel/runtime-corejs3" "^7.11.2"
     btoa "^1.2.1"
@@ -7372,12 +7372,12 @@ swagger-client@^3.12.2:
     traverse "~0.6.6"
     url "~0.11.0"
 
-swagger-ui@^3.37.2:
-  version "3.41.1"
-  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.41.1.tgz#c6f386189866f67f20ceabb38e4a24e3e75e51d0"
-  integrity sha512-W8eU/MdKCO+aZSyIEAIYsXYrGSolIiJGK9YuvWqLNzD/vATcgn14qjfYrrV9OUtCVdglDOQO7svJ7XCJUxdpZQ==
+swagger-ui@^3.44.0:
+  version "3.44.0"
+  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.44.0.tgz#6d977eed5c5be951ea7a66e60634c11c37fc5778"
+  integrity sha512-oD1xVl3eibhgNwd+AC6vE477QF/va135c7kD6h/d2lL12Ir0hWO4sEiYdu5XpPNIB9VF2xp+TtgBk9+UC8/6wg==
   dependencies:
-    "@babel/runtime-corejs3" "^7.12.5"
+    "@babel/runtime-corejs3" "^7.13.6"
     "@braintree/sanitize-url" "^5.0.0"
     "@kyleshockey/object-assign-deep" "^0.4.2"
     "@kyleshockey/xml" "^1.0.2"
@@ -7390,7 +7390,7 @@ swagger-ui@^3.37.2:
     immutable "^3.x.x"
     js-file-download "^0.4.12"
     js-yaml "^3.13.1"
-    lodash "^4.17.20"
+    lodash "^4.17.21"
     memoizee "^0.4.15"
     prop-types "^15.7.2"
     randombytes "^2.1.0"
@@ -7410,8 +7410,8 @@ swagger-ui@^3.37.2:
     reselect "^4.0.0"
     serialize-error "^2.1.0"
     sha.js "^2.4.11"
-    swagger-client "^3.12.2"
-    url-parse "^1.4.7"
+    swagger-client "^3.13.1"
+    url-parse "^1.5.1"
     xml-but-prettier "^1.0.1"
     zenscroll "^4.0.2"
 
@@ -7721,10 +7721,10 @@ urix@^0.1.0:
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
 
-url-parse@^1.4.3, url-parse@^1.4.7:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+url-parse@^1.4.3, url-parse@^1.4.7, url-parse@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.1.tgz#d5fa9890af8a5e1f274a2c98376510f6425f6e3b"
+  integrity sha512-HOfCOUJt7iSYzEx/UqgtwKRMC6EU91NFhsCHMv9oM03VJcVo2Qrp8T8kI9D7amFf1cu+/3CEhgb3rF9zL7k85Q==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
