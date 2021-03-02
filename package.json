@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "date-fns": "^2.16.1",
+    "date-fns": "^2.18.0",
     "font-awesome": "^4.7.0",
     "proj4": "^2.6.3",
     "simplify-geojson": "^1.0.4",
