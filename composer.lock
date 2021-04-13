@@ -1290,25 +1290,26 @@
         },
         {
             "name": "efrane/console-additions",
-            "version": "v0.6.1",
+            "version": "v0.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eFrane/ConsoleAdditions.git",
-                "reference": "9338bfc8f1e9dd137eeb9455c1073857795b9241"
+                "reference": "37eed6cba30791c9dbf926ed99aaf0d01b181098"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/9338bfc8f1e9dd137eeb9455c1073857795b9241",
-                "reference": "9338bfc8f1e9dd137eeb9455c1073857795b9241",
+                "url": "https://api.github.com/repos/eFrane/ConsoleAdditions/zipball/37eed6cba30791c9dbf926ed99aaf0d01b181098",
+                "reference": "37eed6cba30791c9dbf926ed99aaf0d01b181098",
                 "shasum": ""
             },
             "require": {
-                "symfony/console": ">=3.4"
+                "symfony/console": ">=3.4||^5.0"
             },
             "require-dev": {
-                "league/flysystem": "^1.0",
-                "phpunit/phpunit": "^6.4 || ^8.0",
-                "symfony/process": ">=2.7"
+                "league/flysystem": "^1.0 || ^2.0",
+                "phpstan/phpstan": "^0.11.16 || ^0.12.0",
+                "phpunit/phpunit": "^6.4 || ^8.0 || ^9.0",
+                "symfony/process": ">=3.4||^5.0"
             },
             "suggest": {
                 "league/flysystem": "To use the FlysystemFileOutput",
@@ -1341,9 +1342,15 @@
             ],
             "support": {
                 "issues": "https://github.com/eFrane/ConsoleAdditions/issues",
-                "source": "https://github.com/eFrane/ConsoleAdditions/tree/master"
+                "source": "https://github.com/eFrane/ConsoleAdditions/tree/v0.6.2"
             },
-            "time": "2019-09-21T16:44:09+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/eFrane",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-04-10T20:57:04+00:00"
         },
         {
             "name": "efrane/letterpress",
