@@ -18,7 +18,7 @@
     "buefy": "^0.9.8",
     "cross-env": "^7.0.3",
     "flag-icon-css": "^3.5.0",
-    "laravel-mix": "^5.0",
+    "laravel-mix": "^6.0",
     "lodash": "^4.17.20",
     "prism-themes": "^1.7.0",
     "prismjs": "^1.22.0",
