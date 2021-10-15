@@ -1472,7 +1472,7 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-base64-js@^1.0.2, base64-js@^1.3.1, base64-js@^1.5.1:
+base64-js@^1.0.2, base64-js@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
@@ -1713,14 +1713,6 @@ buffer@^4.3.0:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
     isarray "^1.0.0"
-
-buffer@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
-  integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
-  dependencies:
-    base64-js "^1.3.1"
-    ieee754 "^1.2.1"
 
 builtin-status-codes@^3.0.0:
   version "3.0.0"
@@ -6172,11 +6164,6 @@ qs@^6.9.4:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
   integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
 
-querystring-browser@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/querystring-browser/-/querystring-browser-1.0.4.tgz#f2e35881840a819bc7b1bf597faf0979e6622dc6"
-  integrity sha1-8uNYgYQKgZvHsb9Zf68JeeZiLcY=
-
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -7276,14 +7263,13 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swagger-client@^3.16.1:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.16.1.tgz#df86c9d407ab52c00cb356e714b0ec732bb3ad40"
-  integrity sha512-BcNRQzXHRGuXfhN0f80ptlr+bSaPvXwo8+gWbpmTnbKdAjcWOKAWwUx7rgGHjTKZh0qROr/GX9xOZIY8LrBuTg==
+swagger-client@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.17.0.tgz#13e35e8ef7b5f05ab05dfaeb48acaa86b0882c64"
+  integrity sha512-d8DOEME49wTXm+uT+lBAjJ5D6IDjEHdbkqa7MbcslR2c+oHIhi13ObwleVWGfr89MPkWgBl6RBq9VUHmrBJRbg==
   dependencies:
     "@babel/runtime-corejs3" "^7.11.2"
     btoa "^1.2.1"
-    buffer "^6.0.3"
     cookie "~0.4.1"
     cross-fetch "^3.1.4"
     deep-extend "~0.6.0"
@@ -7293,14 +7279,13 @@ swagger-client@^3.16.1:
     js-yaml "^4.1.0"
     lodash "^4.17.21"
     qs "^6.9.4"
-    querystring-browser "^1.0.4"
     traverse "~0.6.6"
     url "~0.11.0"
 
-swagger-ui@^3.52.3:
-  version "3.52.3"
-  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.52.3.tgz#d6f70efb81f5a7a544a1f8f5ca0f0b9005a945af"
-  integrity sha512-5U1Da4bsrYjRn3BukRn3Qo2wGS4jhmlUbg07tZWkIkxNyMBgtEW5yPIoRdkrpS1AqHanCpFGgZVsY1GC3MAxUg==
+swagger-ui@^3.52.5:
+  version "3.52.5"
+  resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.52.5.tgz#bffb736e737ad8783d2d8b06d08224ba611d3507"
+  integrity sha512-GvxNYvSaFkU9OoG4BQxjmengl5fA+A5wAuG4rtAbBLWlrLkBiQiHXKQPzyDMUUa3/8nielKpEK1NunnxwpY9Mg==
   dependencies:
     "@babel/runtime-corejs3" "^7.14.7"
     "@braintree/sanitize-url" "^5.0.2"
@@ -7335,7 +7320,7 @@ swagger-ui@^3.52.3:
     reselect "^4.0.0"
     serialize-error "^8.1.0"
     sha.js "^2.4.11"
-    swagger-client "^3.16.1"
+    swagger-client "^3.17.0"
     url-parse "^1.5.2"
     xml-but-prettier "^1.0.1"
     zenscroll "^4.0.2"
