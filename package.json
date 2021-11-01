@@ -15,7 +15,7 @@
   "devDependencies": {
     "axios": "^0.22",
     "bootstrap-sass": "^3.3.7",
-    "buefy": "^0.9.10",
+    "buefy": "^0.9.11",
     "cross-env": "^7.0.3",
     "flag-icon-css": "^4.0.0",
     "laravel-mix": "^5.0",
