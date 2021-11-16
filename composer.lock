@@ -2926,16 +2926,16 @@
         },
         {
             "name": "matomo/matomo-php-tracker",
-            "version": "3.0.1",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/matomo-php-tracker.git",
-                "reference": "320756c1a85ea9092387ab51032da6db2f9ffec2"
+                "reference": "441d377411296e04558f88c27706545c9524ac2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/matomo-php-tracker/zipball/320756c1a85ea9092387ab51032da6db2f9ffec2",
-                "reference": "320756c1a85ea9092387ab51032da6db2f9ffec2",
+                "url": "https://api.github.com/repos/matomo-org/matomo-php-tracker/zipball/441d377411296e04558f88c27706545c9524ac2e",
+                "reference": "441d377411296e04558f88c27706545c9524ac2e",
                 "shasum": ""
             },
             "require": {
@@ -2978,7 +2978,7 @@
                 "issues": "https://github.com/matomo-org/matomo-php-tracker/issues",
                 "source": "https://github.com/matomo-org/matomo-php-tracker"
             },
-            "time": "2021-05-19T11:44:04+00:00"
+            "time": "2021-11-15T18:55:52+00:00"
         },
         {
             "name": "maximebf/debugbar",
