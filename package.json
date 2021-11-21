@@ -13,7 +13,7 @@
     "vuelayers": "^0.11.37"
   },
   "devDependencies": {
-    "axios": "^0.22",
+    "axios": "^0.24",
     "bootstrap-sass": "^3.3.7",
     "buefy": "^0.9.13",
     "cross-env": "^7.0.3",
