@@ -63,7 +63,7 @@
     "sentry/sentry-laravel": "^2.1",
     "symfony/css-selector": "^4.0",
     "symfony/dom-crawler": "^4.0",
-    "zircote/swagger-php": "^3.0"
+    "zircote/swagger-php": "^4.1"
   },
   "require-dev": {
     "laravel/browser-kit-testing": "5.*",
