@@ -23,7 +23,7 @@
     "prism-themes": "^1.9.0",
     "prismjs": "^1.25.0",
     "resolve-url-loader": "4.0.0",
-    "sass": "^1.43.4",
+    "sass": "^1.46.0",
     "sass-loader": "12.*",
     "vue-loader": "^14.2.4",
     "vue-template-compiler": "^2.6.14"
