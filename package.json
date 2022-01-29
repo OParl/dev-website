@@ -22,7 +22,7 @@
     "lodash": "^4.17.20",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.25.0",
-    "resolve-url-loader": "4.0.0",
+    "resolve-url-loader": "5.0.0",
     "sass": "^1.49.0",
     "sass-loader": "12.*",
     "vue-loader": "^14.2.4",
