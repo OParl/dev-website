@@ -2778,16 +2778,16 @@
         },
         {
             "name": "markrogoyski/math-php",
-            "version": "v2.4.0",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markrogoyski/math-php.git",
-                "reference": "cb4a3968f64830ce7f479c8f2ca8fa9eb3980db1"
+                "reference": "ca71ca97dc136e7bb9e9e1fe05782f343a5692d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/cb4a3968f64830ce7f479c8f2ca8fa9eb3980db1",
-                "reference": "cb4a3968f64830ce7f479c8f2ca8fa9eb3980db1",
+                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/ca71ca97dc136e7bb9e9e1fe05782f343a5692d4",
+                "reference": "ca71ca97dc136e7bb9e9e1fe05782f343a5692d4",
                 "shasum": ""
             },
             "require": {
@@ -2847,9 +2847,9 @@
             ],
             "support": {
                 "issues": "https://github.com/markrogoyski/math-php/issues",
-                "source": "https://github.com/markrogoyski/math-php/tree/v2.4.0"
+                "source": "https://github.com/markrogoyski/math-php/tree/v2.5.0"
             },
-            "time": "2021-07-28T01:32:13+00:00"
+            "time": "2021-11-22T05:14:07+00:00"
         },
         {
             "name": "masterminds/html5",
