@@ -69,7 +69,7 @@
     "laravel/browser-kit-testing": "5.*",
     "mikey179/vfsstream": "^1.6",
     "mockery/mockery": "^1.2",
-    "nunomaduro/larastan": "^0.6.1",
+    "nunomaduro/larastan": "^1.0.3",
     "phpunit/phpunit": "~9.5"
   },
   "autoload": {
