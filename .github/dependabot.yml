@@ -7,7 +7,7 @@ updates:
     day: tuesday
     time: "10:00"
     timezone: Europe/Berlin
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 0 
   assignees:
   - eFrane
 - package-ecosystem: npm
@@ -16,6 +16,6 @@ updates:
     interval: daily
     time: "10:00"
     timezone: Europe/Berlin
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 0
   assignees:
   - eFrane
