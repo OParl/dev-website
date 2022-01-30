@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfa66c1612d47364239772f09c2422e7",
+    "content-hash": "71464d3c605f6c9ba02497d1feafd114",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -7493,16 +7493,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v5.3.6",
+            "version": "v5.3.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "4500fe63dc9c6ffc32d3b1cb0448c329f9c814b7"
+                "reference": "c441e9d2e340642ac8b951b753dea962d55b669d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/4500fe63dc9c6ffc32d3b1cb0448c329f9c814b7",
-                "reference": "4500fe63dc9c6ffc32d3b1cb0448c329f9c814b7",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/c441e9d2e340642ac8b951b753dea962d55b669d",
+                "reference": "c441e9d2e340642ac8b951b753dea962d55b669d",
                 "shasum": ""
             },
             "require": {
@@ -7548,7 +7548,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v5.3.6"
+                "source": "https://github.com/symfony/yaml/tree/v5.3.14"
             },
             "funding": [
                 {
@@ -7564,7 +7564,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-29T06:20:01+00:00"
+            "time": "2022-01-26T16:05:39+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -7698,28 +7698,28 @@
         },
         {
             "name": "zircote/swagger-php",
-            "version": "3.3.1",
+            "version": "4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zircote/swagger-php.git",
-                "reference": "e8594d3578fa0e871ef9b435a0c0f3631bfa8292"
+                "reference": "f00ba9db74722f029412705419c67bdd98e707fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/e8594d3578fa0e871ef9b435a0c0f3631bfa8292",
-                "reference": "e8594d3578fa0e871ef9b435a0c0f3631bfa8292",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/f00ba9db74722f029412705419c67bdd98e707fb",
+                "reference": "f00ba9db74722f029412705419c67bdd98e707fb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.7",
                 "ext-json": "*",
                 "php": ">=7.2",
-                "psr/log": "^1.1",
+                "psr/log": "^1.1 || ^2.0 || 3.0",
                 "symfony/finder": ">=2.2",
                 "symfony/yaml": ">=3.3"
             },
             "require-dev": {
-                "composer/package-versions-deprecated": "1.11.99.2",
+                "composer/package-versions-deprecated": "^1.11",
                 "friendsofphp/php-cs-fixer": "^2.17 || ^3.0",
                 "phpunit/phpunit": ">=8"
             },
@@ -7727,13 +7727,15 @@
                 "bin/openapi"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "OpenApi\\": "src"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -7765,9 +7767,9 @@
             ],
             "support": {
                 "issues": "https://github.com/zircote/swagger-php/issues",
-                "source": "https://github.com/zircote/swagger-php/tree/3.3.1"
+                "source": "https://github.com/zircote/swagger-php/tree/4.2.4"
             },
-            "time": "2021-11-13T23:19:29+00:00"
+            "time": "2022-01-20T08:28:48+00:00"
         }
     ],
     "packages-dev": [
