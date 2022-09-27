@@ -44,7 +44,7 @@
     "cocur/slugify": "^4.0",
     "composer/semver": "^1.4",
     "doctrine/dbal": "^3.0",
-    "dompdf/dompdf": "^1.0.2",
+    "dompdf/dompdf": "^2.0.1",
     "efrane/base-x": "^0.2",
     "efrane/console-additions": "^0.6.1",
     "efrane/letterpress": "dev-master",
